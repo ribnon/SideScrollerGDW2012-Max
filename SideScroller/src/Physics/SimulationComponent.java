@@ -1,9 +1,16 @@
 package Physics;
+
+import java.util.HashMap;
+
 class Component {
-	
+
 };
+
 class ComponentTemplate {
-	
+	protected HashMap<String, String> params;
+
+	public ComponentTemplate(HashMap<String, String> params) {
+	}
 };
 
 public class SimulationComponent extends Component {
@@ -11,39 +18,65 @@ public class SimulationComponent extends Component {
 	private float velocityY;
 	private float accelerationX;
 	private float accelerationY;
+
+	// Mass of Entity, if 0 - object is unmoveable (Infinite mass)
 	private float mass;
 	private float friction;
 	private float externalForceX;
 	private float externalForceY;
 	private boolean active;
-	
-	
+
 	public SimulationComponent(ComponentTemplate template) {
-		
-	}
-	
-	protected void destroy() {
-		throw new UnsupportedOperationException();
-	}
-	
-	public void addForce(float x, float y) {
-		
-	}
-	
-	public float getVelocityX() {
-		return velocityX;
+		// copy blueprint values
+		SimulationComponentTemplate tmp = null;
+		try {
+			tmp = (SimulationComponentTemplate) template;
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+		}
+		if (tmp == null) {
+			System.out
+					.println("Creating SimulationComponent from NonSimulationTemplate");
+			return;
+		}
+		velocityX = tmp.getVelocityX();
+		velocityY = tmp.getVelocityY();
+
+		accelerationX = tmp.getAccelerationX();
+		accelerationY = tmp.getAccelerationY();
+
+		mass = tmp.getMass();
+
+		friction = tmp.getFriction();
+
+		externalForceX = tmp.getExternalForceX();
+		externalForceY = tmp.getExternalForceY();
+
+		// default value
+		active = true;
 	}
 
-	public void setVelocityX(float velocityX) {
-		this.velocityX = velocityX;
+	protected void destroy() {
+		// throw new UnsupportedOperationException();
+		// do nothing
+	}
+
+	public void addForce(float x, float y) {
+		this.externalForceX += x;
+		this.externalForceY += y;
+	}
+
+	public float getVelocityX() {
+		return velocityX;
 	}
 
 	public float getVelocityY() {
 		return velocityY;
 	}
 
-	public void setVelocityY(float velocityY) {
-		this.velocityY = velocityY;
+	public void setVelocity(float x, float y) {
+		this.velocityX = x;
+		this.velocityY = y;
 	}
 
 	public float getAccelerationX() {
@@ -82,16 +115,13 @@ public class SimulationComponent extends Component {
 		return externalForceX;
 	}
 
-	public void setExternalForceX(float externalForceX) {
-		this.externalForceX = externalForceX;
+	public void setForce(float x, float y) {
+		this.externalForceX = x;
+		this.externalForceY = y;
 	}
 
 	public float getExternalForceY() {
 		return externalForceY;
-	}
-
-	public void setExternalForceY(float externalForceY) {
-		this.externalForceY = externalForceY;
 	}
 
 	public boolean isActive() {
@@ -106,11 +136,13 @@ public class SimulationComponent extends Component {
 		this.externalForceX = 0.f;
 		this.externalForceY = 0.f;
 	}
-	
+
 	public void simulate(float deltaTime) {
+		if (mass <= 0.0f) // Unmoveable object
+			return;
 		this.accelerationX += this.externalForceX / this.mass;
 		this.accelerationY += this.externalForceY / this.mass;
-		
+
 		this.velocityX += this.accelerationX * deltaTime;
 		this.velocityY += this.accelerationY * deltaTime;
 	}
