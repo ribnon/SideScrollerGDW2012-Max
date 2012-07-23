@@ -1,4 +1,4 @@
-package gdwNet.server;
+package gdw.network.server;
 
 import java.nio.ByteBuffer;
 

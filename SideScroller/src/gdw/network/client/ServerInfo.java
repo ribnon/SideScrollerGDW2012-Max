@@ -1,4 +1,4 @@
-package gdwNet.client;
+package gdw.network.client;
 
 import java.net.InetAddress;
 

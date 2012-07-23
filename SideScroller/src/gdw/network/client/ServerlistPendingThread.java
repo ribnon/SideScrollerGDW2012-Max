@@ -1,6 +1,6 @@
-package gdwNet.client;
+package gdw.network.client;
 
-import gdwNet.NETCONSTANTS;
+import gdw.network.NETCONSTANTS;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

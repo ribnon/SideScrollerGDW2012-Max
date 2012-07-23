@@ -1,7 +1,7 @@
-package gdwNet.server;
+package gdw.network.server;
 
-import gdwNet.NETCONSTANTS;
-import gdwNet.RESPONSECODES;
+import gdw.network.NETCONSTANTS;
+import gdw.network.RESPONSECODES;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

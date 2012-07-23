@@ -1,4 +1,4 @@
-package gdwNet.client;
+package gdw.network.client;
 
 
 public class ConnetionResponceThreadTimeoutHelper extends Thread

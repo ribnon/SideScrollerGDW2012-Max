@@ -1,10 +1,10 @@
 package example;
 
-import gdwNet.RESPONSECODES;
-import gdwNet.client.BasicClient;
-import gdwNet.client.IBasicClientListener;
-import gdwNet.client.ServerInfo;
-import gdwUtils.DefaultCharSet;
+import gdw.network.RESPONSECODES;
+import gdw.network.client.BasicClient;
+import gdw.network.client.IBasicClientListener;
+import gdw.network.client.ServerInfo;
+import gdw.utils.DefaultCharSet;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

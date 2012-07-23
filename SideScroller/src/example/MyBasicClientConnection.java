@@ -2,11 +2,11 @@ package example;
 
 import java.nio.ByteBuffer;
 
-import gdwNet.server.BasicClientConnection;
-import gdwNet.server.BasicServer;
-import gdwNet.server.ConnectionInfo;
-import gdwNet.server.GDWServerLogger;
-import gdwUtils.DefaultCharSet;
+import gdw.network.server.BasicClientConnection;
+import gdw.network.server.BasicServer;
+import gdw.network.server.ConnectionInfo;
+import gdw.network.server.GDWServerLogger;
+import gdw.utils.DefaultCharSet;
 /**
  * Eine Beispielimplementierung für einen Clientverbindungsklasse. 
  * 

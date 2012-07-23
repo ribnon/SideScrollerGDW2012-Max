@@ -1,8 +1,8 @@
-package gdwNet.server;
+package gdw.network.server;
 
-import gdwNet.NETCONSTANTS;
-import gdwNet.RESPONSECODES;
-import gdwUtils.DefaultCharSet;
+import gdw.network.NETCONSTANTS;
+import gdw.network.RESPONSECODES;
+import gdw.utils.DefaultCharSet;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
