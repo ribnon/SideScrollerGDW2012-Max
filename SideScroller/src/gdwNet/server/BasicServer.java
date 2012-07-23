@@ -1,7 +1,7 @@
 package gdwNet.server;
 
 import gdwNet.NETCONSTANTS;
-import gdwNet.RESPONCECODES;
+import gdwNet.RESPONSECODES;
 import gdwUtils.DefaultCharSet;
 
 import java.io.IOException;
@@ -224,12 +224,12 @@ public abstract class BasicServer
 	{
 		if(blockNewconncector)
 		{
-			sendErrorCodeToRequestAndClose(RESPONCECODES.CONNECT_REFUSE, info);
+			sendErrorCodeToRequestAndClose(RESPONSECODES.CONNECT_REFUSE, info);
 		}else
 		{
 			if((!noPlayerLimit)&&(this.currentConnections == maxPlayer))
 			{
-				sendErrorCodeToRequestAndClose(RESPONCECODES.SERVER_FULL, info);
+				sendErrorCodeToRequestAndClose(RESPONSECODES.SERVER_FULL, info);
 			}else
 			{
 				joinRequests.add(new JoinRequestWrapper(info,data));
@@ -242,12 +242,12 @@ public abstract class BasicServer
 	{
 		if(blockReconnector)
 		{
-			sendErrorCodeToRequestAndClose(RESPONCECODES.CONNECT_REFUSE, info);
+			sendErrorCodeToRequestAndClose(RESPONSECODES.CONNECT_REFUSE, info);
 		}else
 		{
 			if((!noPlayerLimit)&&(this.currentConnections == maxPlayer))
 			{
-				sendErrorCodeToRequestAndClose(RESPONCECODES.SERVER_FULL, info);
+				sendErrorCodeToRequestAndClose(RESPONSECODES.SERVER_FULL, info);
 			}else
 			{
 				recoRequests.add(new ReconnectRequestWrapper(info));
@@ -281,7 +281,7 @@ public abstract class BasicServer
 			//you send me shit!
 			if(found == null)
 			{
-				sendErrorCodeToRequestAndClose(RESPONCECODES.DATA_CORRUPTED, rec.info);
+				sendErrorCodeToRequestAndClose(RESPONSECODES.DATA_CORRUPTED, rec.info);
 			}else
 			{
 				found.client.revive(rec.info);
@@ -387,7 +387,7 @@ public abstract class BasicServer
 	private void sendOKAndDataToRequest(ConnectionInfo info, int id)
 	{
 		ByteBuffer buf = ByteBuffer.allocate(Byte.SIZE+Integer.SIZE+Integer.SIZE+Integer.SIZE);
-		buf.put(RESPONCECODES.OK);
+		buf.put(RESPONSECODES.OK);
 		buf.putInt(info.udpConnection.socket().getLocalPort());
 		buf.putInt(id);
 		buf.putInt(info.sharedSecret);
@@ -429,11 +429,11 @@ public abstract class BasicServer
 	{
 		while(!this.joinRequests.isEmpty())
 		{
-			sendErrorCodeToRequestAndClose(RESPONCECODES.CONNECT_REFUSE, this.joinRequests.poll().info);
+			sendErrorCodeToRequestAndClose(RESPONSECODES.CONNECT_REFUSE, this.joinRequests.poll().info);
 		}
 		while(!this.recoRequests.isEmpty())
 		{
-			sendErrorCodeToRequestAndClose(RESPONCECODES.CONNECT_REFUSE, this.recoRequests.poll().info);
+			sendErrorCodeToRequestAndClose(RESPONSECODES.CONNECT_REFUSE, this.recoRequests.poll().info);
 		}
 	}
 	
@@ -441,7 +441,7 @@ public abstract class BasicServer
 	{
 		while(!this.recoRequests.isEmpty())
 		{
-			sendErrorCodeToRequestAndClose(RESPONCECODES.CONNECT_REFUSE, this.recoRequests.poll().info);
+			sendErrorCodeToRequestAndClose(RESPONSECODES.CONNECT_REFUSE, this.recoRequests.poll().info);
 		}
 	}
 	
@@ -449,7 +449,7 @@ public abstract class BasicServer
 	{
 		while(!this.joinRequests.isEmpty())
 		{
-			sendErrorCodeToRequestAndClose(RESPONCECODES.CONNECT_REFUSE, this.joinRequests.poll().info);
+			sendErrorCodeToRequestAndClose(RESPONSECODES.CONNECT_REFUSE, this.joinRequests.poll().info);
 		}
 	}
 	
