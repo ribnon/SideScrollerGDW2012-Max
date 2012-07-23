@@ -1,18 +1,9 @@
 package Physics;
 
+import gdw.entityCore.Component;
+import gdw.entityCore.ComponentTemplate;
+
 import java.util.HashMap;
-
-class Component {
-
-};
-
-class ComponentTemplate {
-	protected HashMap<String, String> params;
-
-	public ComponentTemplate(HashMap<String, String> params) {
-		this.params = params;
-	}
-};
 
 public class SimulationComponent extends Component {
 
@@ -36,6 +27,7 @@ public class SimulationComponent extends Component {
 	private float forceY;
 
 	public SimulationComponent(ComponentTemplate template) {
+		super(template);
 		// copy blueprint values
 		SimulationComponentTemplate tmp = null;
 		try {
@@ -182,5 +174,10 @@ public class SimulationComponent extends Component {
 			velocityY = 0.0f;
 		}
 
+	}
+
+	@Override
+	public int getComponentTypeID() {
+		return SimulationComponent.COMPONENT_TYPE;
 	}
 }
