@@ -1,6 +1,6 @@
 package example;
 
-import gdwNet.client.ServerInfo;
+import gdw.network.client.ServerInfo;
 
 import java.util.ArrayList;
 

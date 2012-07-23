@@ -1,6 +1,7 @@
-package gdwNet.server;
+package gdw.network.server;
 
-import gdwNet.NETCONSTANTS;
+import gdw.network.NETCONSTANTS;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
