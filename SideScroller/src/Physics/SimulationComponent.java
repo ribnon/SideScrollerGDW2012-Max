@@ -14,6 +14,9 @@ class ComponentTemplate {
 };
 
 public class SimulationComponent extends Component {
+	
+	public static int COMPONENT_TYPE = 2;
+	
 	private float velocityX;
 	private float velocityY;
 	private float accelerationX;
