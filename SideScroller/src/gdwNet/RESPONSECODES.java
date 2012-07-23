@@ -2,7 +2,7 @@ package gdwNet;
 
 
 
-public final class RESPONCECODES
+public final class RESPONSECODES
 {
 
 	public static final byte DISCONNECTED = -1;
