@@ -79,8 +79,8 @@ public abstract class BasicServer
 		this.broadcastResponce = ByteBuffer
 				.allocate(NETCONSTANTS.BROADCAST_PACKET_LENGTH);
 		
-		this.recoRequests = new ConcurrentLinkedQueue<>();
-		this.leaverStack = new ConcurrentLinkedQueue<>();
+		this.recoRequests = new ConcurrentLinkedQueue<ReconnectRequestWrapper>();
+		this.leaverStack = new ConcurrentLinkedQueue<LeaverDataWrapper>();
 
 		// set flags
 		this.blockReconnector = blockReconnector;

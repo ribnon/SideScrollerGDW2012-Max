@@ -99,7 +99,12 @@ public class ChatClient extends JFrame implements IBasicClientListener
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				connect();
+				try {
+					connect();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -127,7 +132,12 @@ public class ChatClient extends JFrame implements IBasicClientListener
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				connectDirect();
+				try {
+					connectDirect();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 		});
@@ -169,8 +179,9 @@ public class ChatClient extends JFrame implements IBasicClientListener
 	/**
 	 * Eine Beispielimplementierung, falls das finden der Server im Netzwerk nicht klappt.
 	 * Ich lese einen IP-Addresse ein und einen Port verbinde mich.
+	 * @throws Exception 
 	 */
-	public void connectDirect()
+	public void connectDirect() throws Exception
 	{
 		InetAddress address;
 		try
@@ -310,8 +321,9 @@ public class ChatClient extends JFrame implements IBasicClientListener
 
 	/**
 	 * Ich verbinde zum Server per Listeneintrag
+	 * @throws Exception 
 	 */
-	public void connect()
+	public void connect() throws Exception
 	{
 		if (this.serverList.isSelectionEmpty())
 		{

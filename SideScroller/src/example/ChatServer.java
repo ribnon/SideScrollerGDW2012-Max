@@ -34,7 +34,7 @@ public class ChatServer extends BasicServer
 	{
 		super(maxPlayer, infoText,false,false);
 		
-		this.takenNames = new HashSet<>();
+		this.takenNames = new HashSet<String>();
 		
 		this.coreLoop = new ServerCoreLoop(this);
 		this.coreLoop.start();
