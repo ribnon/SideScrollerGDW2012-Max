@@ -4,15 +4,16 @@ import org.newdawn.slick.Color;
 
 /**
  * 
- * @author thomas
+ * @author eppixx
  *
  */
 public abstract class SpriteComponent
 {
 	/**
 	 * scaling-factor that scales a sprite
+	 * default is 1
 	 */
-	private float scale;
+	private float scale = 1;
 	
 	
 	/**
@@ -23,18 +24,21 @@ public abstract class SpriteComponent
 	
 	/**
 	 * describes the rotation and scale center for the x-axis
+	 * default is 0
 	 */
-	private float pivotX;
+	private float pivotX = 0;
 	
 	
 	/**
 	 * describes the rotation and scale center for the y-axis
+	 * default is 0
 	 */
-	private float pivotY;
+	private float pivotY = 0;
 	
 	
 	/**
 	 * describes the layer the images will be drawn on 
+	 * default is 1 (should be changed)
 	 */
 	private int layer = 1;
 
@@ -43,6 +47,7 @@ public abstract class SpriteComponent
 	 *  Component-ID for SpriteComponent is 1
 	 */
 	public static final int COMPONENT_TYPE = 1;
+	
 	
 	/**
 	 * Constructor for SpriteComponent
