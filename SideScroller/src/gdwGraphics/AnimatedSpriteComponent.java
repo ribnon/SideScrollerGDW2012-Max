@@ -64,22 +64,28 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		step = s;
 	}
 	
-	AnimatedSpriteComponent(ComponentTemplate ct)
+	AnimatedSpriteComponent(ComponentTemplate template)
 	{
-		
+		spriteSheet = new SpriteSheet(template.getStringParam("Path"), template.getIntParam("TileWidth"), template.getIntParam("TileHeight"));
+		cycleLength = new int[spriteSheet.getVerticalCount()];
+		for(int i = 0; i < cycleLength.length; ++i)
+			cycleLength[i] = spriteSheet.getHorizontalCount(); // TODO detect unused slots in spritesheet
+		cycle = template.getIntParam("Cycle");
 	}
 	
 	/**
-	 *  draws the step-th frame of the animation.
+	 *  draws the current frame of the animation
 	 */
 	public void draw()
 	{
-		//TODO: verify this is correct
+		//TODO: verify this is correct, image might have to be drawn with an offset to be centered at the entity
 		Image img = spriteSheet.getSprite(step, 0);
 		img.setCenterOfRotation(getPivotX(), getPivotY());
-		//img.setRotation(owner.getOrientation());
 		img.rotate(getOwner().getOrientation());
-		img.draw(getOwner().getPosx(), getOwner().getPosy());
+		if(getFilter() != null)
+			img.draw(getOwner().getPosx(), getOwner().getPosy(), getScale(), getFilter());
+		else
+			img.draw(getOwner().getPosx(), getOwner().getPosy(), getScale());
 	}
 	
 	/**
@@ -90,7 +96,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	public void tick(float deltaTime)
 	{
 		step++;
-		step %= cycleLength[cycle];
+		step %= cycleLength[cycle]; //loop back to frame 0 
 	}
 	
 	/**
