@@ -10,13 +10,16 @@ class ComponentTemplate {
 	protected HashMap<String, String> params;
 
 	public ComponentTemplate(HashMap<String, String> params) {
+		this.params = params;
 	}
 };
 
 public class SimulationComponent extends Component {
-	
-	public static int COMPONENT_TYPE = 2;
-	
+
+	private static final float TOLERANCE = 0.01f;
+
+	public static final int COMPONENT_TYPE = 2;
+
 	private float velocityX;
 	private float velocityY;
 	private float accelerationX;
@@ -28,6 +31,9 @@ public class SimulationComponent extends Component {
 	private float externalForceX;
 	private float externalForceY;
 	private boolean active;
+
+	private float forceX;
+	private float forceY;
 
 	public SimulationComponent(ComponentTemplate template) {
 		// copy blueprint values
@@ -56,6 +62,8 @@ public class SimulationComponent extends Component {
 		externalForceY = tmp.getExternalForceY();
 
 		// default value
+		this.forceX = 0.0f;
+		this.forceY = 0.0f;
 		active = true;
 	}
 
@@ -67,6 +75,8 @@ public class SimulationComponent extends Component {
 	public void addForce(float x, float y) {
 		this.externalForceX += x;
 		this.externalForceY += y;
+
+		this.active = true;
 	}
 
 	public float getVelocityX() {
@@ -141,12 +151,36 @@ public class SimulationComponent extends Component {
 	}
 
 	public void simulate(float deltaTime) {
-		if (mass <= 0.0f) // Unmoveable object
+		if (!active || mass <= 0.0f) // Unmoveable object
 			return;
-		this.accelerationX += this.externalForceX / this.mass;
-		this.accelerationY += this.externalForceY / this.mass;
+		
+		float forceX = this.externalForceX - (this.friction * this.velocityX);
+		float forceY = this.externalForceY - (this.friction * this.velocityY);
+		
+		this.accelerationX = forceX / this.mass;
+		
+		this.accelerationY = forceY / this.mass;
+
+		if (Math.abs(accelerationX) < TOLERANCE) {
+			accelerationX = 0.0f;
+		}
+		if (Math.abs(accelerationY) < TOLERANCE) {
+			accelerationY = 0.0f;
+		}
+		
+		resetForce();
 
 		this.velocityX += this.accelerationX * deltaTime;
+		this.velocityX -= this.friction * this.velocityX * deltaTime;
 		this.velocityY += this.accelerationY * deltaTime;
+		this.velocityY -= this.friction * this.velocityY * deltaTime;
+
+		if (Math.abs(velocityX) < TOLERANCE) {
+			velocityX = 0.0f;
+		}
+		if (Math.abs(velocityY) < TOLERANCE) {
+			velocityY = 0.0f;
+		}
+
 	}
 }
