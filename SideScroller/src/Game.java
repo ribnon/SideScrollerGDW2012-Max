@@ -7,18 +7,21 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.GameState;
+import org.newdawn.slick.state.StateBasedGame;
 
-public class Game extends org.newdawn.slick.BasicGame {
+public class Game extends StateBasedGame {
 
 	private ServerFinder sf;
 	int waittime = 500;
 	ArrayList<JoinButton> buttons;
+	GameState currentState;
 	
 	public Game(String title) {
 		super("Blubb");
 		// TODO Auto-generated constructor stub
 	}
-
+/*
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		ArrayList<ServerInfo> serverList = sf.getServerList();
@@ -71,11 +74,16 @@ public class Game extends org.newdawn.slick.BasicGame {
 		}
 
 	}
-
+*/
 	public static void main(String[] args) throws SlickException {
-		Game test = new Game("0");
+		Game test = new Game("launcher");
 		AppGameContainer app = new AppGameContainer(test);
 		app.start();
+	}
+
+	@Override
+	public void initStatesList(GameContainer arg0) throws SlickException {
+		addState(new LobbyState(1));
 	}
 
 }

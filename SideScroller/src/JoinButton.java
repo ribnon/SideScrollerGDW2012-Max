@@ -1,5 +1,7 @@
 import java.nio.ByteBuffer;
 
+import javax.naming.ldap.BasicControl;
+
 import gdwNet.client.BasicClient;
 import gdwNet.client.ServerInfo;
 
@@ -9,10 +11,7 @@ import org.newdawn.slick.gui.MouseOverArea;
 
 public class JoinButton extends MouseOverArea {
 	private ServerInfo serverInfo;
-	private boolean wasDown = false;
-	private int count = 0;
-	
-	
+
 	public JoinButton(int posX, int posY, int width, int height, Image img,
 			GUIContext gc, ServerInfo si) {
 		super(gc, img, posX, posY, width, height);
@@ -20,25 +19,14 @@ public class JoinButton extends MouseOverArea {
 	}
 
 	public void mouseReleased(int button, int mx, int my) {
-		if (button == 0  && !wasDown) {
-			count++;
-			ByteBuffer b = ByteBuffer.allocate(1);
-			b.clear();
-			System.out.println("Button "+button+" gedückt," + count);
-			// BasicClient.connectToServer(serverInfo, b);
-			wasDown = true;
+		if(mx < getX() || mx > getX()+getWidth() || my < getY() || my > getY()+getHeight())
 			return;
-		}
-		else
-		{
-			if(button == 0 && wasDown)
-			{
-				count++;
-				wasDown = false;
-				System.out.println("flanke "+ count);
-			}
-		}
-		
+		ByteBuffer b = ByteBuffer.allocate(1);
+		b.clear();
+		System.out.println("Button " + button + " gedückt");
+		BasicClient.connectToServer(serverInfo, b);
+		return;
+
 	}
 
 }
