@@ -1,7 +1,7 @@
 package example;
 
-import gdwNet.server.GDWServerLogger;
-import gdwNet.server.GDWServerLoggerListener;
+import gdw.network.server.GDWServerLogger;
+import gdw.network.server.GDWServerLoggerListener;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,6 @@
 package example;
 
-import gdwUtils.DefaultCharSet;
+import gdw.utils.DefaultCharSet;
 
 import java.nio.ByteBuffer;
 import java.util.LinkedList;

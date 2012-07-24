@@ -1,7 +1,7 @@
 package example;
 
-import gdwNet.client.BasicClient;
-import gdwUtils.DefaultCharSet;
+import gdw.network.client.BasicClient;
+import gdw.utils.DefaultCharSet;
 
 import java.nio.ByteBuffer;
 /**
