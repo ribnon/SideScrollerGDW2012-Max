@@ -20,7 +20,7 @@ public class Ghost
 	
 	public final boolean gotThing;
 	
-	private float oldInterpolateStep;
+	private float remaingSteps;
 	
 	public Ghost(float posX, float posY)
 	{
@@ -38,7 +38,7 @@ public class Ghost
 		this.velocityThingX = 0.0f;
 		this.velocityThingY = 0.0f;
 		
-		this.oldInterpolateStep = 1.2f;
+		this.remaingSteps = 0.0f;
 		
 	}
 	
@@ -47,8 +47,14 @@ public class Ghost
 		this.posX += deltaT * velocityX;
 		this.posY += deltaT * velocityY;
 		
-		if(this.oldInterpolateStep < 1.0f)
+		if(this.remaingSteps > 0.0f)
 		{
+			//simulate thingdata
+			this.posThingX += this.velocityThingX * deltaT;
+			this.posThingY += this.velocityThingY * deltaT;
+			
+			float lerpFactor = this.remaingSteps;
+			
 			//interpolate...
 			
 		}
@@ -84,7 +90,13 @@ public class Ghost
 		this.posThingX += velocityX * roundTip;
 		this.posThingY += velocityY * roundTip;
 		
-		this.oldInterpolateStep = 0.0f;
+		this.remaingSteps = INTERPOLATE_TIME;
+	}
+	
+	public void initialise(float x, float y)
+	{
+		this.posX = x;
+		this.posY = y;
 	}
 	
 	
