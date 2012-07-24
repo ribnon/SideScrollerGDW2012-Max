@@ -157,8 +157,11 @@ public class SimulationComponent extends Component {
 	}
 
 	public void simulate(float deltaTime) {
-		if (!active || mass <= 0.0f) // Unmoveable object
+		if (!active || mass <= 0.0f) {// Unmoveable object
+			if(mass<=0.0f)
+				resetForce();
 			return;
+		}
 		
 		float forceX = this.externalForceX - (this.friction * this.velocityX);
 		float forceY = this.externalForceY - (this.friction * this.velocityY);
