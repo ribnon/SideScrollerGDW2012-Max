@@ -30,7 +30,7 @@ public class BasicClient
 
 	private static ServerlistPendingThread pendingThread = null;
 
-	protected final int id;
+	public final int id;
 	
 	protected final int sharedSecret;
 
