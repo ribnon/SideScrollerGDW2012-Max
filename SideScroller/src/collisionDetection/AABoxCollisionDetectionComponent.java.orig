@@ -1,0 +1,44 @@
+package collisionDetection;
+
+<<<<<<< HEAD
+=======
+import gdw.entityCore.ComponentTemplate;
+
+>>>>>>> 7fce44bf54a92d1a33900378275330829dc7d997
+public class AABoxCollisionDetectionComponent extends CollisionDetectionComponent
+{
+	private float halfExtentX;
+	private float halfExtentY;
+	
+	public AABoxCollisionDetectionComponent(ComponentTemplate template)
+	{
+		super(template);
+	}
+	
+	protected void destroy()
+	{
+		super.destroy();
+	}
+
+	
+	// Getters / Setters
+	public float getHalfExtentX()
+	{
+		return halfExtentX;
+	}
+
+	public void setHalfExtentX(float halfExtentX)
+	{
+		this.halfExtentX = halfExtentX;
+	}
+
+	public float getHalfExtentY()
+	{
+		return halfExtentY;
+	}
+
+	public void setHalfExtentY(float halfExtentY)
+	{
+		this.halfExtentY = halfExtentY;
+	}
+}
