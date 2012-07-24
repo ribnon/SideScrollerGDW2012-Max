@@ -6,6 +6,8 @@ import gdw.entityCore.Message;
 
 import org.newdawn.slick.Input;
 
+import Physics.SimulationComponent;
+
 public class PlayerInputComponent extends Component {
 	private int playerNumber;
 
@@ -62,6 +64,8 @@ public class PlayerInputComponent extends Component {
 
 	@Override
 	public void onMessage(Message msg) {
+		SimulationComponent simcomp = (SimulationComponent) super.getOwner()
+				.getComponent(SimulationComponent.COMPONENT_TYPE);
 
 	}
 
