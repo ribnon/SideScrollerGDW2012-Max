@@ -1,5 +1,7 @@
 package gdw.entityCore;
 
+import gdw.network.NetSubSystem;
+
 import java.util.HashMap;
 
 public class Entity {
@@ -22,10 +24,11 @@ public class Entity {
 			comp.destroy();
 		}
 		components.clear();
-		//TODO: Unregister
+		EntityManager.getInstance().unregisterEntity(this);
 	}
 	
 	public void markForDestroy(){
+		if(NetSubSystem.instance().isServer()) NetSubSystem.instance().sendDeSpawn(id);
 		destroyFlag=true;
 	}
 	public boolean getDestroyFlag(){
