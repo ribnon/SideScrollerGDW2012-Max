@@ -66,6 +66,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	
 	AnimatedSpriteComponent(ComponentTemplate template)
 	{
+		super(template);
 		spriteSheet = new SpriteSheet(template.getStringParam("Path"), template.getIntParam("TileWidth"), template.getIntParam("TileHeight"));
 		cycleLength = new int[spriteSheet.getVerticalCount()];
 		for(int i = 0; i < cycleLength.length; ++i)
@@ -79,7 +80,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	public void draw()
 	{
 		//TODO: verify this is correct, image might have to be drawn with an offset to be centered at the entity
-		Image img = spriteSheet.getSprite(step, 0);
+		Image img = spriteSheet.getSprite(step, cycle);
 		img.setCenterOfRotation(getPivotX(), getPivotY());
 		img.rotate(getOwner().getOrientation());
 		if(getFilter() != null)
