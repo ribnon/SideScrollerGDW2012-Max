@@ -9,13 +9,12 @@ import org.newdawn.slick.Input;
 public class PlayerInputComponent extends Component {
 	private int playerNumber;
 
-	private final int downKey, jumpKey, leftKey, rightKey, attackKey,
-			specattackKey;
+	private int downKey, jumpKey, leftKey, rightKey, attackKey, specattackKey;
 
-	private final float jumpVelocity, runVelocity;
+	private float jumpVelocity, runVelocity;
 
-	private final boolean wasDownKeyDown, wasJumpKeyDown, wasLeftKeyDown, wasRightKeyDown, wasAttackKeyDown,
-			wasSpecAttackKeyDown;
+	private boolean wasDownKeyDown, wasJumpKeyDown, wasLeftKeyDown,
+			wasRightKeyDown, wasAttackKeyDown, wasSpecAttackKeyDown;
 
 	public static int COMPONENT_TYPE = 3;
 
@@ -45,8 +44,20 @@ public class PlayerInputComponent extends Component {
 				this);
 	}
 
-	public processingInput(Input input) {
+	public void processingInput(Input input) {
+		boolean isDownKeyDown = input.isKeyDown(downKey);
+		boolean isJumpKeyDown = input.isKeyDown(jumpKey);
+		boolean isRightKeyDown = input.isKeyDown(rightKey);
+		boolean isLeftKeyDown = input.isKeyDown(leftKey);
+		boolean isAttackKeyDown = input.isKeyDown(attackKey);
+		boolean isSpecAttackKeyDown = input.isKeyDown(specattackKey);
 
+		wasDownKeyDown = isDownKeyDown;
+		wasJumpKeyDown = isJumpKeyDown;
+		wasRightKeyDown = isRightKeyDown;
+		wasLeftKeyDown = isLeftKeyDown;
+		wasAttackKeyDown = isAttackKeyDown;
+		wasSpecAttackKeyDown = isSpecAttackKeyDown;
 	}
 
 	@Override
