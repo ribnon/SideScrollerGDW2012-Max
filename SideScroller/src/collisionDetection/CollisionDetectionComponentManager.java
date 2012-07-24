@@ -129,7 +129,7 @@ public class CollisionDetectionComponentManager
 				
 				float rectX = boxOwner.getPosX();
 				float rectY = boxOwner.getPosY();
-				float angle = Math.toRadians(boxOwner.getOrientation());
+				float angle = (float) Math.toRadians(boxOwner.getOrientation());
 				float rectHalfX = candidate1.getHalfExtentX();
 				float rectHalfY = candidate1.getHalfExtentY();
 				float circleX = circleOwner.getPosX();
