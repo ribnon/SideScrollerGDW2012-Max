@@ -24,7 +24,7 @@ public class CollisionDetectionComponentManager
 	/////////////////////////////////////////////////////////////////
 	// Methods for public use
 	
-	public CollisionDetectionComponentManager getInstance()
+	public static CollisionDetectionComponentManager getInstance()
 	{
 		if (collisionDetectionComponentManager == null) collisionDetectionComponentManager = new CollisionDetectionComponentManager();
 		return collisionDetectionComponentManager;
@@ -301,4 +301,17 @@ public class CollisionDetectionComponentManager
 		candidate1.getOwner().message(new CollisionDetectionMessage(candidate1.getOwner().getID(), candidate2.getOwner().getID()));
 		candidate2.getOwner().message(new CollisionDetectionMessage(candidate1.getOwner().getID(), candidate2.getOwner().getID()));
 	}
+
+	
+	
+	/////////////////////////////////////////////////////////////////
+	// CollisionObject Management Methods
+	public void registerCircleCollisionDetectionComponent(CircleCollisionDetectionComponent c) { circleCollisionDetectionList.add(c); }
+	public void registerAABoxCollisionDetectionComponent(AABoxCollisionDetectionComponent c) { aaBoxCollisionDetectionList.add(c); }
+	public void registerOOBoxCollisionDetectionComponent(OOBoxCollisionDetectionComponent c) { ooBoxCollisionDetectionList.add(c); }
+	
+	public void removeCircleCollisionDetectionComponent(CircleCollisionDetectionComponent c) { circleCollisionDetectionList.remove(c); }
+	public void removeAABoxCollisionDetectionComponent(AABoxCollisionDetectionComponent c) { aaBoxCollisionDetectionList.remove(c); }
+	public void removeOOBoxCollisionDetectionComponent(OOBoxCollisionDetectionComponent c) { ooBoxCollisionDetectionList.remove(c); }
+	
 }

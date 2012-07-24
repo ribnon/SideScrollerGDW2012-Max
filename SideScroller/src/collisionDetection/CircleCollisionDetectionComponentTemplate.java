@@ -12,12 +12,17 @@ public class CircleCollisionDetectionComponentTemplate extends ComponentTemplate
 	protected CircleCollisionDetectionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
-		radius = getFloatParam("radius", 0.0f);
+		radius = getFloatParam("radius", 1.0f);
 	}
 
 	@Override
 	public Component createComponent()
 	{
 		return new CircleCollisionDetectionComponent(this);
+	}
+
+	public float getRadius()
+	{
+		return radius;
 	}
 }
