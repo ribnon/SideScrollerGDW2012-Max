@@ -57,11 +57,15 @@ public class SimulationComponent extends Component {
 		this.forceX = 0.0f;
 		this.forceY = 0.0f;
 		active = true;
+		
+		SimulationComponentManager mng = SimulationComponentManager.get();
 	}
 
 	protected void destroy() {
 		// throw new UnsupportedOperationException();
 		// do nothing
+		SimulationComponentManager manager = SimulationComponentManager.initializeSimulationComponentManager();
+		manager.removeSimulationComponent(this);
 	}
 
 	public void addForce(float x, float y) {

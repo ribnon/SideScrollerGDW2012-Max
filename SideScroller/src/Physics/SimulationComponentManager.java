@@ -15,12 +15,24 @@ public class SimulationComponentManager {
 		manager = this;
 	}
 	
-	public SimulationComponentManager initializeSimulationComponentManager() {
+	public static SimulationComponentManager initializeSimulationComponentManager() {
 		if(manager==null) {
 			manager = new SimulationComponentManager();
 		}
 		return manager;
 	}
+	public static SimulationComponentManager get() {
+		return initializeSimulationComponentManager();
+	}
+	
+	public void addSimulationComponent(SimulationComponent comp) {
+		simulationList.add(comp);
+	}
+	
+	public void removeSimulationComponent(SimulationComponent comp) {
+		simulationList.remove(comp);
+	}
+	
 	
 	
 	
