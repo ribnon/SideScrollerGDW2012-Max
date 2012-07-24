@@ -21,9 +21,6 @@ public class SimulationComponent extends Component {
 	private float externalForceY;
 	private boolean active;
 
-	private float forceX;
-	private float forceY;
-
 	public SimulationComponent(ComponentTemplate template) {
 		super(template);
 		// copy blueprint values
@@ -52,8 +49,6 @@ public class SimulationComponent extends Component {
 		externalForceY = tmp.getExternalForceY();
 
 		// default value
-		this.forceX = 0.0f;
-		this.forceY = 0.0f;
 		active = true;
 		
 		SimulationComponentManager mng = SimulationComponentManager.get();
@@ -137,6 +132,22 @@ public class SimulationComponent extends Component {
 		this.active = active;
 	}
 
+	public void setVelocityX(float velocityX) {
+		this.velocityX = velocityX;
+	}
+
+	public void setVelocityY(float velocityY) {
+		this.velocityY = velocityY;
+	}
+
+	public void setExternalForceX(float externalForceX) {
+		this.externalForceX = externalForceX;
+	}
+
+	public void setExternalForceY(float externalForceY) {
+		this.externalForceY = externalForceY;
+	}
+
 	public void resetForce() {
 		this.externalForceX = 0.f;
 		this.externalForceY = 0.f;
@@ -146,12 +157,16 @@ public class SimulationComponent extends Component {
 		if (!active || mass <= 0.0f) // Unmoveable object
 			return;
 		
-		float forceX = this.externalForceX - (this.friction * this.velocityX);
-		float forceY = this.externalForceY - (this.friction * this.velocityY);
+//		float forceX = this.externalForceX - (this.friction * this.velocityX);
+//		float forceY = this.externalForceY - (this.friction * this.velocityY);
+		float forceX = this.externalForceX;
+		float forceY = this.externalForceY;
 		
-		this.accelerationX = forceX / this.mass;
+		this.accelerationX += forceX / this.mass;
 		
-		this.accelerationY = forceY / this.mass;
+		this.accelerationY += forceY / this.mass;
+		
+		boolean shouldSleep = false;
 
 		if (Math.abs(accelerationX) < TOLERANCE) {
 			accelerationX = 0.0f;
@@ -169,11 +184,15 @@ public class SimulationComponent extends Component {
 
 		if (Math.abs(velocityX) < TOLERANCE) {
 			velocityX = 0.0f;
+			shouldSleep|=true;
 		}
 		if (Math.abs(velocityY) < TOLERANCE) {
 			velocityY = 0.0f;
+			shouldSleep|=true;
 		}
-
+		
+		if(shouldSleep) 
+			active = false;
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public class SimulationTest extends BasicGame {
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("mass", "1.0");
-		params.put("friction","0.3");
+		params.put("friction","0.0");
 		
 		
 		
@@ -35,6 +35,7 @@ public class SimulationTest extends BasicGame {
 	public void render(GameContainer arg0, Graphics g) throws SlickException {
 		// TODO Auto-generated method stub
 		g.drawOval(posX, posY, 10, 10, 32);
+		g.drawString(comp.isActive()+"", 10, 80);
 		g.drawString(comp.getVelocityX()+"", 10, 100);
 		g.drawString(comp.getVelocityY()+"", 10, 140);
 	}
@@ -42,12 +43,13 @@ public class SimulationTest extends BasicGame {
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
+		comp.addForce(10, 0);
 	}
 
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		// TODO Auto-generated method stub
-		final float forcePower = 100.f;
+		final float forcePower = 10.f;
 		Input inp = arg0.getInput();
 		if(inp.isKeyDown(Input.KEY_A)) {
 			comp.addForce(-forcePower, 0);
