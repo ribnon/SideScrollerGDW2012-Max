@@ -51,11 +51,12 @@ public class SimulationComponent extends Component {
 		// default value
 		active = true;
 		
-		SimulationComponentManager mng = SimulationComponentManager.get();
+		SimulationComponentManager mng = SimulationComponentManager.getInstance();
+		mng.addSimulationComponent(this);
 	}
 
 	protected void destroy() {
-		SimulationComponentManager manager = SimulationComponentManager.get();
+		SimulationComponentManager manager = SimulationComponentManager.getInstance();
 		manager.removeSimulationComponent(this);
 	}
 
@@ -157,14 +158,13 @@ public class SimulationComponent extends Component {
 	}
 
 	public void simulate(float deltaTime) {
-		if (!active || mass <= 0.0f) {// Unmoveable object
-			if(mass<=0.0f)
-				resetForce();
+		if (mass <= 0.0f) {// Unmoveable object
+			resetForce();
 			return;
 		}
 		
-		float forceX = this.externalForceX - (this.friction * this.velocityX);
-		float forceY = this.externalForceY - (this.friction * this.velocityY);
+		float forceX = this.externalForceX - (this.friction * this.velocityX)*deltaTime;
+		float forceY = this.externalForceY - (this.friction * this.velocityY)*deltaTime;
 //		float forceX = this.externalForceX;
 //		float forceY = this.externalForceY;
 		
