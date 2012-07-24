@@ -94,7 +94,7 @@ public class ClientCoreLoop extends Thread
 				buf.put(arr);
 
 				// sende Nachricht an Server
-				this.clientRef.sendMSG(buf, false);
+				this.clientRef.sendMessage(buf, false);
 
 			}
 		}

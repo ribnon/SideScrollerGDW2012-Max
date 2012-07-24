@@ -31,7 +31,7 @@ public class MyBasicClientConnection extends BasicClientConnection
 	 * @param msg der ByteBuffer der übergeben wird
 	 * @param wasSafe Wurde die Nachricht über Tcp = true oder UDP = false versendet. Sofern es euch intressiert^^
 	 */
-	protected void incommingMessage(ByteBuffer msg, boolean wasSafe)
+	protected void incomingMessage(ByteBuffer msg, boolean wasSafe)
 	{
 		//lese Nachrichten code aus
 		switch (msg.get())
