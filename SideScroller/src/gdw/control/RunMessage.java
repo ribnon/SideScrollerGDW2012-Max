@@ -9,7 +9,7 @@ public class RunMessage extends Message {
 		this.forward = forward;
 	}
 
-	public boolean isForward() {
+	public boolean isForwardDirection() {
 		return forward;
 	}
 }
