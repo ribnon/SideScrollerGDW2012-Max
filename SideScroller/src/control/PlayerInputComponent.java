@@ -11,14 +11,17 @@ import Physics.SimulationComponent;
 public class PlayerInputComponent extends Component {
 	private int playerNumber;
 
+	// KeyValues
 	private int downKey, jumpKey, leftKey, rightKey, attackKey, specattackKey;
 
+	// VelocityValues
 	private float jumpVelocity, runVelocity;
 
+	// Flag if Key was down
 	private boolean wasDownKeyDown, wasJumpKeyDown, wasLeftKeyDown,
 			wasRightKeyDown, wasAttackKeyDown, wasSpecAttackKeyDown;
 
-	public static int COMPONENT_TYPE = 3;
+	public static final int COMPONENT_TYPE = 3;
 
 	/**
 	 * PlayerInputComponent Constructor
@@ -36,6 +39,7 @@ public class PlayerInputComponent extends Component {
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
 			int specattackKey, float jumpVelocity, float runVelocity) {
+
 		super(template);
 
 		wasDownKeyDown = false;
@@ -79,7 +83,11 @@ public class PlayerInputComponent extends Component {
 	public void onMessage(Message msg) {
 		SimulationComponent simcomp = (SimulationComponent) super.getOwner()
 				.getComponent(SimulationComponent.COMPONENT_TYPE);
+		if (simcomp != null) {
 
+		} else {
+			System.err.println("SimulationComponent ist nicht initialisiert");
+		}
 	}
 
 	@Override
