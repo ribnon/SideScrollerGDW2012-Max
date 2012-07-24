@@ -1,18 +1,30 @@
 /**
-* An Entity with an AttachableComponent can be attached to another Entity
-* that has a AttachmentComponent
-* @author Oliver Waidler
-*/ 
+ * An Entity with an AttachableComponent can be attached to another Entity
+ * that has a AttachmentComponent
+ * @author Oliver Waidler
+ */
 
 package gdwGenericBehavior;
 
-import gdwComponent.Component;
-import gdwComponent.ComponentTemplate;
+import gdw.entityCore.Component;
+import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.Entity;
 
 public class AttachableComponent extends Component
 {
+	/**
+	 * The group ID of this attachable. If the groupID is listed in an
+	 * AttachmentComponent's autoAttachGroups, it will automatically be attached
+	 * on collision.
+	 */
 	private int groupID = -1;
-	private int attachedToEntityID = -1; // TODO: default values?
+
+	/**
+	 * The ID of the entity this attachable is currently attached to. If this
+	 * attachable is currently not attached to anything, it is -1
+	 */
+	private int attachedToEntityID = -1;
+	public static final int COMPONENT_TYPE = 9;
 
 	public AttachableComponent(ComponentTemplate template)
 	{
@@ -21,21 +33,25 @@ public class AttachableComponent extends Component
 
 	/**
 	 * Detach this Entity from the Entity that it is attached to.
+	 * 
 	 * @author Oliver Waidler
 	 */
 	protected void destroy()
 	{
+		if (attachedToEntityID == -1)
+			return;
 		// Remove the Entity of this AttachableComponent from the
 		// AttachmentComponent
 		Entity e = EntityManager.getEntity(attachedToEntityID);
-		AttachmentComponent ac = e.getComponent(AttachmentComponent
-				.getComponentID());
+		AttachmentComponent ac = (AttachmentComponent) e
+				.getComponent(AttachmentComponent.COMPONENT_TYPE);
 		ac.detachEntity(groupID);
 	}
 
-	public static final int getComponentID()
+	@Override
+	public final int getComponentTypeID()
 	{
-		return 10;
+		return COMPONENT_TYPE;
 	}
 
 	public int getGroupID()
