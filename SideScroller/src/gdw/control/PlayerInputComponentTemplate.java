@@ -1,4 +1,4 @@
-package control;
+package gdw.control;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;

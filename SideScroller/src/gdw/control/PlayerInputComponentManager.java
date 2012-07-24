@@ -1,4 +1,4 @@
-package control;
+package gdw.control;
 
 import java.util.ArrayList;
 
