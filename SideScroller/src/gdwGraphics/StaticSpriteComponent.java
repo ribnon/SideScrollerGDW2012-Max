@@ -79,7 +79,7 @@ public class StaticSpriteComponent extends SpriteComponent
 	public void draw()
 	{
 		image.setCenterOfRotation(getPivotX(), getPivotY());
-		image.setRotation(getOwner().getOrientation() * (180 / Math.PI));
+		image.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
 		if (getFilter() != null)
 		{
 			image.draw(getOwner().getPosX() - (image.getWidth() / 2),

@@ -60,10 +60,12 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		return step;
 	}
 	
+	/* not in uml-diagram
 	public void setStep(int s)
 	{
 		step = s;
 	}
+	*/
 	
 	AnimatedSpriteComponent(ComponentTemplate template)
 	{
@@ -90,7 +92,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		//TODO: verify this is correct, image might have to be drawn with an offset to be centered at the entity
 		Image img = spriteSheet.getSprite(step, cycle);
 		img.setCenterOfRotation(getPivotX(), getPivotY());
-		//img.rotate(getOwner().getOrientation());
+		img.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
 		if(getFilter() != null)
 			img.draw(getOwner().getPosX(), getOwner().getPosY(), getScale(), getFilter());
 		else
@@ -109,11 +111,11 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	}
 	
 	/**
-	 * sets cycle back to 0
+	 * sets step back to 0
 	 */
 	public void resetCycle()
 	{
-		cycle = 0;
+		step = 0;
 	}
 	
 	/**
