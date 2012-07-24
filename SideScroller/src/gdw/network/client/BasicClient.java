@@ -34,11 +34,11 @@ public class BasicClient
 	
 	protected final int sharedSecret;
 
-	private static BasicClient ClientSingelton = null;
+	private static BasicClient clientSingelton = null;
 
 	private static IBasicClientListener listener = null;
 
-	private long lastHearthbeat;
+	private long lastHeartbeat;
 
 	private long pongRequest;
 
@@ -60,7 +60,7 @@ public class BasicClient
 		}
 
 		this.id = id;
-		this.lastHearthbeat = System.currentTimeMillis();
+		this.lastHeartbeat = System.currentTimeMillis();
 		this.pongRequest = -1L;
 		this.discoFlag = false;
 		this.sharedSecret = secret;
@@ -189,20 +189,20 @@ public class BasicClient
 			DatagramChannel udp, int id, int sharedSecret, ServerInfo server)
 	{
 		BasicClient client = new BasicClient(udp, tcp, id, sharedSecret , server);
-		BasicClient.ClientSingelton = client;
-		BasicClient.listener.connectionEstablished(ClientSingelton);
+		BasicClient.clientSingelton = client;
+		BasicClient.listener.connectionEstablished(clientSingelton);
 
 	}
 
 	/**
 	 * Ruft die Methode auf um die eingehenden Nachrichten vom Server zu erhalten.
-	 * Sie überpüft ob ihr einen Verbindungsverlust hattet und ruft eure Netzwerkprotokol-
+	 * Sie überpüft ob ihr einen Verbindungsverlust hattet und ruft eure Netzwerkprotokoll-
 	 * implementierung auf.
 	 * @return true wenn kein disconnect, false bei disconnect
 	 */
 	public boolean pollInput()
 	{
-		if ((this.discoFlag) || (checkDisconnect(System.currentTimeMillis())))
+		if ((this.discoFlag) || (checkForDisconnect(System.currentTimeMillis())))
 		{
 			System.out.println("client schließt verbindung");
 			disconnect();
@@ -219,12 +219,12 @@ public class BasicClient
 						.allocate(NETCONSTANTS.PACKAGELENGTH);
 				if (tcpConnection.read(buf) > 0)
 				{
-					this.incommingMessage(buf, true);
+					this.incomingMessage(buf, true);
 					continue;
 				}
 				if (udpConnection.read(buf) > 0)
 				{
-					this.incommingMessage(buf, false);
+					this.incomingMessage(buf, false);
 					continue;
 				}
 				break;
@@ -237,14 +237,14 @@ public class BasicClient
 		}
 		if (counter > 0)
 		{
-			this.lastHearthbeat = System.currentTimeMillis();
+			this.lastHeartbeat = System.currentTimeMillis();
 			this.pongRequest = -1L;
 		}
 		return true;
 
 	}
 
-	private void incommingMessage(ByteBuffer buf, boolean wasReliable)
+	private void incomingMessage(ByteBuffer buf, boolean wasReliable)
 	{
 		buf.position(0);
 		switch (buf.get())
@@ -257,7 +257,7 @@ public class BasicClient
 				break;
 
 			case NETCONSTANTS.MESSAGE:
-				listener.incommingMessage(buf, wasReliable);
+				listener.incomingMessage(buf, wasReliable);
 
 			default:
 				break;
@@ -265,9 +265,9 @@ public class BasicClient
 
 	}
 
-	private boolean checkDisconnect(long currentTimeStamp)
+	private boolean checkForDisconnect(long currentTimeStamp)
 	{
-		if ((this.lastHearthbeat + NETCONSTANTS.HEARTBEAT_REQUESTIME) < currentTimeStamp)
+		if ((this.lastHeartbeat + NETCONSTANTS.HEARTBEAT_REQUESTIME) < currentTimeStamp)
 		{
 			// check if ping request is needed
 			if (pongRequest > -1L)
@@ -301,11 +301,11 @@ public class BasicClient
 	}
 	
 	/**
-	 * Ruft die Methode auf um einen Nachricht an den Server zu senden.
+	 * Ruft die Methode auf, um einen Nachricht an den Server zu senden.
 	 * @param msg Eure Nachricht
 	 * @param wasReliable true wenn gesichert(TCP), false wenn ungesichert (UDP)
 	 */
-	public void sendMSG(ByteBuffer msg, boolean wasReliable)
+	public void sendMessage(ByteBuffer msg, boolean wasReliable)
 	{
 		msg.flip();
 		try
@@ -334,7 +334,7 @@ public class BasicClient
 			this.pongRequest = currentTimeStamp;
 		} catch (IOException e)
 		{
-			// somethings wrong shutdown the connection
+			// something is wrong, kill it with fire
 			e.printStackTrace();
 			discoFlag = true;
 		}
@@ -351,14 +351,14 @@ public class BasicClient
 			this.udpConnection.write(buf);
 		} catch (IOException e)
 		{
-			// somethings wrong shutdown the connection
+			//s.o.
 			e.printStackTrace();
 			discoFlag = true;
 		}
 	}
 
 	/**
-	 * Gibt einen NachrichtenByteBuffer zurück. Benutzt ihn um Nachrichten zu versenden.
+	 * Gibt einen NachrichtenByteBuffer zurück. Benutzt ihn, um Nachrichten zu versenden.
 	 * @return
 	 */
 	public ByteBuffer getMessageBuffer()

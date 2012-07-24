@@ -29,30 +29,32 @@ public class EntityBusNetMessage extends NetMessageType
 		buf.get(arr);
 		ObjectInputStream inStream = null;
 		EntityBusNetMessage result = null;
-		try {
+		try 
+		{
 			inStream = new ObjectInputStream(new ByteArrayInputStream(arr));
 			result = new EntityBusNetMessage(entityID, (Message)inStream.readObject());
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException | ClassNotFoundException e) 
+		{
 			e.printStackTrace();
 		}
 		return result;
 	}
 
-	@Override
-	public void fillInByteBuffer(ByteBuffer buf)
+
+	public static void fillInByteBuffer(EntityBusNetMessage msg,ByteBuffer buf)
 	{
 		byte [] arr;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    ObjectOutputStream os = null;
 		try {
 			os = new ObjectOutputStream(baos);
-		    os.writeObject(this.busMessage);
+		    os.writeObject(msg.busMessage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	    arr = baos.toByteArray();
 	    buf.put(NetMessageType.EntityBusMessageType);
-	    buf.putInt(entityID);
+	    buf.putInt(msg.entityID);
 	    buf.put((byte)arr.length);
 	    buf.put(arr);
 	}

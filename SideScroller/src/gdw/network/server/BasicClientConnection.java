@@ -19,7 +19,7 @@ public abstract class BasicClientConnection
 
 	protected int id;
 
-	private long lastHearthbeat;
+	private long lastHeartbeat;
 
 	private long pongRequest;
 
@@ -31,7 +31,7 @@ public abstract class BasicClientConnection
 	{
 		this.ref = ref;
 		this.id = info.id;
-		this.lastHearthbeat = System.currentTimeMillis();
+		this.lastHeartbeat = System.currentTimeMillis();
 		this.discoFlag = false;
 		this.pongRequest = -1L;
 		this.udpConnection = info.udpConnection;
@@ -51,7 +51,7 @@ public abstract class BasicClientConnection
 	
 	public boolean checkForDisconnect(long current)
 	{
-		if ((this.lastHearthbeat + NETCONSTANTS.HEARTBEAT_REQUESTIME) < current)
+		if ((this.lastHeartbeat + NETCONSTANTS.HEARTBEAT_REQUESTIME) < current)
 		{
 			// check if ping request is needed
 			if (pongRequest > -1L)
@@ -153,12 +153,12 @@ public abstract class BasicClientConnection
 						.allocate(NETCONSTANTS.PACKAGELENGTH);
 				if (tcpConnection.read(buf) > 0)
 				{
-					this.incommingMsg(buf, true);
+					this.incomingMsg(buf, true);
 					continue;
 				}
 				if (udpConnection.read(buf) > 0)
 				{
-					this.incommingMsg(buf, false);
+					this.incomingMsg(buf, false);
 					continue;
 				}
 				break;
@@ -172,14 +172,14 @@ public abstract class BasicClientConnection
 		}
 		if (counter > 0)
 		{
-			this.lastHearthbeat = System.currentTimeMillis();
+			this.lastHeartbeat = System.currentTimeMillis();
 			this.pongRequest = -1L;
 		}
 		return true;
 
 	}
 
-	private void incommingMsg(ByteBuffer buf, boolean wasReliable)
+	private void incomingMsg(ByteBuffer buf, boolean wasReliable)
 	{
 		buf.position(0);
 		switch (buf.get())
@@ -192,7 +192,7 @@ public abstract class BasicClientConnection
 			break;
 
 		case NETCONSTANTS.MESSAGE:
-			this.incommingMessage(buf, wasReliable);
+			this.incomingMessage(buf, wasReliable);
 
 		default:
 			break;
@@ -206,7 +206,7 @@ public abstract class BasicClientConnection
 		this.discoFlag = false;	
 	}
 	
-	protected abstract void incommingMessage(ByteBuffer buf, boolean wasReliable);
+	protected abstract void incomingMessage(ByteBuffer buf, boolean wasReliable);
 
 	public int getId()
 	{

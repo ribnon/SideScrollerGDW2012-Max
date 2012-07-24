@@ -1,37 +1,38 @@
 package gdw.network.messageType;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
+
 import java.nio.ByteBuffer;
+import java.util.LinkedList;
 
 import gdw.network.NetMessageType;
 
 public class EntityDespawnNetMessage extends NetMessageType
 {
-	private final boolean spawn; 
-	private final String entiyName;
+	public int entityID;
 	
-	//templatemanager hole template
-	//von Componenttemplate createEntity(int id(server vergibt, [hochzähö], posXY,Orination))
-	
-	
-	private EntityDespawnNetMessage(ByteBuffer buf)
+	public EntityDespawnNetMessage(int id)
 	{
-		buf.put(NetMessageType.)
+		this.entityID = id;
+	}
+	
+	public static void fillInByteBuffer(LinkedList<EntityDespawnNetMessage> list, ByteBuffer buf)
+	{
+		buf.put(NetMessageType.EntityDespawnMessageType);
+		buf.put((byte)list.size());
+		for(EntityDespawnNetMessage msg : list)
+		{
+			buf.putInt(msg.entityID);
+		}
 	}
 
-	@Override
-	public void fillInByteBuffer(ByteBuffer buf)
-	{
-		
-		
-	}
 	
-	public static EntityNetMessage getFromByteBuffer(ByteBuffer buf)
+	public static EntityDespawnNetMessage[] getFromByteBuffer(ByteBuffer buf)
 	{
-		byte [] arr = new byte[buf.get()];
-		buf.get(arr);
-		ObjectInputStream inStream = new ObjectInputStream(new ByteArrayInputStream(arr));
-		return new EntityBusNetMessage((Message)inStream.readObject());
+		EntityDespawnNetMessage [] result = new EntityDespawnNetMessage[buf.get()];
+		for(int i=0;i<result.length;++i)
+		{
+			result [i] = new EntityDespawnNetMessage(buf.getInt());
+		}
+		return result;
 	}
 }

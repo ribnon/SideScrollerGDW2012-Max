@@ -40,7 +40,7 @@ public class BroadcastresponseThread extends Thread
 			{
 				this.socket.receive(packet);
 				
-				byte [] buf = this.ref.getBroadcastResponce().array();
+				byte [] buf = this.ref.getBroadcastResponse().array();
 				DatagramPacket responceDatagramPacket = new DatagramPacket(
 						buf, buf.length, packet.getAddress(),
 						packet.getPort());

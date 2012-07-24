@@ -17,14 +17,14 @@ public abstract class BasicServer
 {
 	// *threads*
 
-	private MulticastresponceThread mThread;
+	private MulticastresponseThread mThread;
 	private final BroadcastresponseThread bThread;
 	private final IncomingConnectionHandlerThread iThread;
 
 	// *attributes*
 	/** maximum allowed clients on server */
 	protected int maxPlayer;
-	/** current number of connected clienst */
+	/** current number of connected clients */
 	private int currentConnections;
 	/** hashmap from playerId to client */
 	private final HashMap<Integer, BasicClientConnection> clientConnections;
@@ -38,10 +38,10 @@ public abstract class BasicServer
 	private final int tcpPort;
 
 	/** the byte message */
-	private ByteBuffer broadcastResponce;
+	private ByteBuffer broadcastResponse;
 	
-	/** the byte message attached to the broadcastResponce buffer */
-	private ByteBuffer broadcastResponceAttachment;
+	/** the byte message attached to the broadcastResponse buffer */
+	private ByteBuffer broadcastResponseAttachment;
 	
 
 	// *to work with*
@@ -76,7 +76,7 @@ public abstract class BasicServer
 		this.idCounter = 0;
 		this.infoText = infoText;
 		this.serverId = new Random().nextLong();
-		this.broadcastResponce = ByteBuffer
+		this.broadcastResponse = ByteBuffer
 				.allocate(NETCONSTANTS.BROADCAST_PACKET_LENGTH);
 		
 		this.recoRequests = new ConcurrentLinkedQueue<ReconnectRequestWrapper>();
@@ -104,7 +104,7 @@ public abstract class BasicServer
 
 		try
 		{
-			this.mThread = new MulticastresponceThread(this);
+			this.mThread = new MulticastresponseThread(this);
 		} catch (IOException e)
 		{
 			GDWServerLogger
@@ -133,62 +133,62 @@ public abstract class BasicServer
 		{
 		case ALL:
 		{
-			this.broadcastResponce.position(0);
-			this.broadcastResponce.putInt(this.currentConnections);
-			this.broadcastResponce.putInt(this.maxPlayer);
-			this.broadcastResponce.putInt(this.tcpPort);
-			this.broadcastResponce.putLong(this.serverId);
+			this.broadcastResponse.position(0);
+			this.broadcastResponse.putInt(this.currentConnections);
+			this.broadcastResponse.putInt(this.maxPlayer);
+			this.broadcastResponse.putInt(this.tcpPort);
+			this.broadcastResponse.putLong(this.serverId);
 			byte[] arr = this.infoText.getBytes(DefaultCharSet
 					.getDefaultCharset());
-			this.broadcastResponce.put((byte) arr.length);
-			this.broadcastResponce.put(arr);
+			this.broadcastResponse.put((byte) arr.length);
+			this.broadcastResponse.put(arr);
 		}
 		break;
 
 		case CUR_PLAYER:
 		{
-			this.broadcastResponce.position(CUR_PLAYER_POS);
-			this.broadcastResponce.putInt(this.currentConnections);
+			this.broadcastResponse.position(CUR_PLAYER_POS);
+			this.broadcastResponse.putInt(this.currentConnections);
 		}
 		break;
 
 		case MAX_PLAYER:
 		{
-			this.broadcastResponce.position(MAX_PLAYER_POS);
-			this.broadcastResponce.putInt(this.maxPlayer);
+			this.broadcastResponse.position(MAX_PLAYER_POS);
+			this.broadcastResponse.putInt(this.maxPlayer);
 		}
 		break;
 
 		case INFO_TEXT:
 		{
-			this.broadcastResponce.position(INFO_TEXT_POS);
+			this.broadcastResponse.position(INFO_TEXT_POS);
 			byte[] arr = this.infoText.getBytes(DefaultCharSet
 					.getDefaultCharset());
-			this.broadcastResponce.put((byte) arr.length);
-			this.broadcastResponce.put(arr);
+			this.broadcastResponse.put((byte) arr.length);
+			this.broadcastResponse.put(arr);
 			//net to add custom attachment
-			if(this.broadcastResponceAttachment == null)
+			if(this.broadcastResponseAttachment == null)
 			{
-				this.broadcastResponce.limit(this.broadcastResponceAttachment.position());
+				this.broadcastResponse.limit(this.broadcastResponseAttachment.position());
 				return;
 			}
-			this.broadcastResponce.put(this.broadcastResponceAttachment);
-			this.broadcastResponce.limit(this.broadcastResponce.position());
+			this.broadcastResponse.put(this.broadcastResponseAttachment);
+			this.broadcastResponse.limit(this.broadcastResponse.position());
 			
 		}
 		break;
 
 		case TCP_PORT:
 		{
-			this.broadcastResponce.position(TCP_PORT_POS);
-			this.broadcastResponce.putInt(this.tcpPort);
+			this.broadcastResponse.position(TCP_PORT_POS);
+			this.broadcastResponse.putInt(this.tcpPort);
 		}
 		break;
 
 		case SERVER_ID:
 		{
-			this.broadcastResponce.position(SERVER_ID_POS);
-			this.broadcastResponce.putLong(this.serverId);
+			this.broadcastResponse.position(SERVER_ID_POS);
+			this.broadcastResponse.putLong(this.serverId);
 		}
 		break;
 		
@@ -198,26 +198,26 @@ public abstract class BasicServer
 			int pos = INFO_TEXT_POS + 1 + this.infoText.getBytes(DefaultCharSet.getDefaultCharset()).length;
 			// postion from infotext + size info of followed bytes + byte for text
 			
-			if(this.broadcastResponceAttachment == null)
+			if(this.broadcastResponseAttachment == null)
 			{
-				this.broadcastResponce.limit(pos);
+				this.broadcastResponse.limit(pos);
 				return;
 			}	
 			
-			if((pos - this.broadcastResponce.capacity()) < this.broadcastResponceAttachment.limit())
+			if((pos - this.broadcastResponse.capacity()) < this.broadcastResponseAttachment.limit())
 			{
 				throw new IndexOutOfBoundsException("Your attachment is to big to fit in message length of broadcastresponceMessage");
 			}
 			
-			this.broadcastResponce.position(pos);
-			this.broadcastResponce.put(this.broadcastResponceAttachment);
+			this.broadcastResponse.position(pos);
+			this.broadcastResponse.put(this.broadcastResponseAttachment);
 			
 		}break;
 
 		default:
 		break;
 		}
-		this.broadcastResponce.position(0);
+		this.broadcastResponse.position(0);
 	}
 
 	protected void addJoinRequest(ConnectionInfo info, ByteBuffer data)
@@ -261,7 +261,7 @@ public abstract class BasicServer
 		return currentConnections;
 	}
 	
-	private void proccedReconnecor()
+	private void processReconnectors()
 	{
 		//handle 
 		while(!this.recoRequests.isEmpty())
@@ -297,7 +297,7 @@ public abstract class BasicServer
 		this.updateBroadcastMessage(updatePart.CUR_PLAYER);
 	}
 
-	private void proccedJoinerRequests()
+	private void processJoinRequests()
 	{
 		{
 			//send to all that is full
@@ -335,14 +335,14 @@ public abstract class BasicServer
 		}
 	}
 	
-	private void proccedIncoming()
+	private void processIncoming()
 	{
 		//handle reconnector and leaver cleanup
 		if(!blockReconnector)
 		{
 			if(!this.recoRequests.isEmpty())
 			{
-				proccedReconnecor();
+				processReconnectors();
 			}
 			if(!this.leaverStack.isEmpty())
 			{
@@ -356,7 +356,7 @@ public abstract class BasicServer
 		//handle joinrequests
 		if((!blockNewconncector)&&(!this.joinRequests.isEmpty()))
 		{
-			proccedJoinerRequests();
+			processJoinRequests();
 		}else
 		{
 			this.joinRequests.clear();
@@ -460,9 +460,9 @@ public abstract class BasicServer
 		return buf;
 	}
 
-	public void proccedInputData()
+	public void processInputData()
 	{
-		this.proccedIncoming();
+		this.processIncoming();
 		Iterator<Integer> iter = this.clientConnections.keySet().iterator();
 		LinkedList<Integer> toLeave = new LinkedList<Integer>();
 		while (iter.hasNext())
@@ -582,31 +582,31 @@ public abstract class BasicServer
 		this.updateBroadcastMessage(updatePart.INFO_TEXT);
 	}
 	
-	public ByteBuffer getBroadcastResponceAttachment()
+	public ByteBuffer getBroadcastResponseAttachment()
 	{
-		return broadcastResponceAttachment;
+		return broadcastResponseAttachment;
 	}
 	
 	/**
 	 * Adds the given ByteBuffer on broadcast Messages. Note the ByteBuffer will rewinded in this 
 	 * methode. Null will be delete the attachment.
 	 * 
-	 * @param broadcastResponceAttachment the ByteBuffer to attache on brodcast messages
+	 * @param broadcastResponseAttachment the ByteBuffer to attache on brodcast messages
 	 * 
 	 * @throws IndexOutOfBoundsException When given Buffer ist too big to fit in.
 	 */
 
-	public void setBroadcastResponceAttachment(
-			ByteBuffer broadcastResponceAttachment)
+	public void setBroadcastResponseAttachment(
+			ByteBuffer broadcastResponseAttachment)
 	{
-		broadcastResponceAttachment.flip();
-		this.broadcastResponceAttachment = broadcastResponceAttachment;
+		broadcastResponseAttachment.flip();
+		this.broadcastResponseAttachment = broadcastResponseAttachment;
 		try
 		{
 			this.updateBroadcastMessage(updatePart.CUSTOM_ATTACHMENT);
 		}catch (IndexOutOfBoundsException e)
 		{
-			this.broadcastResponceAttachment = null;
+			this.broadcastResponseAttachment = null;
 			this.updateBroadcastMessage(updatePart.CUSTOM_ATTACHMENT);
 			throw e;
 		}
@@ -618,7 +618,7 @@ public abstract class BasicServer
 	}
 
 	/**
-	 * Finger weg von der Methode und fasst den broadcastResponce nicht direkt
+	 * Finger weg von der Methode und fasst den broadcastResponse nicht direkt
 	 * an. Siehst du das ist druchgestrichen!!!
 	 * 
 	 * Dont use this methode or broadcastResponce.
@@ -626,8 +626,8 @@ public abstract class BasicServer
 	 * @return
 	 */
 	@Deprecated
-	protected ByteBuffer getBroadcastResponce()
+	protected ByteBuffer getBroadcastResponse()
 	{
-		return broadcastResponce;
+		return broadcastResponse;
 	}
 }

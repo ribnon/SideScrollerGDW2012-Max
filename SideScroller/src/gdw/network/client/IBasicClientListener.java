@@ -10,6 +10,6 @@ public interface IBasicClientListener
 
 	public void connectionEstablished(BasicClient clientRef);
 
-	public void incommingMessage(ByteBuffer msg, boolean wasReliable);
+	public void incomingMessage(ByteBuffer msg, boolean wasReliable);
 
 }

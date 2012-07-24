@@ -7,7 +7,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-public class MulticastresponceThread extends Thread
+public class MulticastresponseThread extends Thread
 {
 	private final MulticastSocket socket;
 	private final BasicServer ref;
@@ -15,7 +15,7 @@ public class MulticastresponceThread extends Thread
 	private final int boundedPort;
 
 
-	public MulticastresponceThread(BasicServer ref) throws IOException
+	public MulticastresponseThread(BasicServer ref) throws IOException
 	{
 		this.socket = new MulticastSocket(NETCONSTANTS.BROADCAST_PORT);
 		InetAddress group = InetAddress.getByName(NETCONSTANTS.MULITCASTGROUP);
@@ -41,7 +41,7 @@ public class MulticastresponceThread extends Thread
 			try
 			{
 				this.socket.receive(packet);
-				byte [] buf = this.ref.getBroadcastResponce().array();
+				byte [] buf = this.ref.getBroadcastResponse().array();
 				DatagramPacket responceDatagramPacket = new DatagramPacket(
 						buf, buf.length, packet.getAddress(),
 						packet.getPort());
