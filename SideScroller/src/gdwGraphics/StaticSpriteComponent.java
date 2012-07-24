@@ -1,5 +1,6 @@
 package gdwGraphics;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import gdw.entityCore.Component;
@@ -18,6 +19,7 @@ public class StaticSpriteComponent extends SpriteComponent
 	 */
 	private Image image;
 
+
 	/**
 	 * 
 	 * @param template
@@ -25,12 +27,13 @@ public class StaticSpriteComponent extends SpriteComponent
 	public StaticSpriteComponent(ComponentTemplate template)
 	{
 		super(template);
+
 		try
 		{
 			image = new Image(template.getStringParam("Path"));
 		} catch (SlickException e)
 		{
-			e.getMessage();
+			e.printStackTrace();
 			System.out.println("Image konnte nicht erzeugt werden!");
 		}
 	}
@@ -42,7 +45,7 @@ public class StaticSpriteComponent extends SpriteComponent
 			image.destroy();
 		} catch (SlickException e)
 		{
-			e.getMessage();
+			e.printStackTrace();
 			System.out.println("Image konnte nicht zerstört werden!");
 		}
 	}
@@ -68,6 +71,7 @@ public class StaticSpriteComponent extends SpriteComponent
 		image = i;
 	}
 
+	
 	/**
 	 * Method to draw the sprite
 	 * 
