@@ -7,17 +7,30 @@ import gdw.entityCore.ComponentTemplate;
 
 public class AABoxCollisionDetectionComponentTemplate extends ComponentTemplate
 {
+	private float halfExtentX;
+	private float halfExtentY;
 	
 	protected AABoxCollisionDetectionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
-		// TODO Auto-generated constructor stub
+		
+		halfExtentX = getFloatParam("halfExtentX", 1.0f);
+		halfExtentY = getFloatParam("halfExtentY", 1.0f);
 	}
 
 	@Override
 	public Component createComponent()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new AABoxCollisionDetectionComponent(this);
+	}
+
+	public float getHalfExtentX()
+	{
+		return halfExtentX;
+	}
+
+	public float getHalfExtentY()
+	{
+		return halfExtentY;
 	}
 }
