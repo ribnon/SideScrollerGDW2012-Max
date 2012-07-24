@@ -1,5 +1,7 @@
 package collisionDetection;
 
+import gdw.entityCore.Entity;
+
 import java.util.ArrayList;
 
 public class CollisionDetectionComponentManager

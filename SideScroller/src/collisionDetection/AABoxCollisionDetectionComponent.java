@@ -1,5 +1,7 @@
 package collisionDetection;
 
+import gdw.entityCore.ComponentTemplate;
+
 public class AABoxCollisionDetectionComponent extends CollisionDetectionComponent
 {
 	private float halfExtentX;
