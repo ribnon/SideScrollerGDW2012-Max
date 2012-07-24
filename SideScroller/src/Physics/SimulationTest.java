@@ -1,6 +1,7 @@
 package Physics;
 
 import gdw.entityCore.Entity;
+import gdw.entityCore.EntityTemplate;
 
 import java.util.HashMap;
 
@@ -38,9 +39,6 @@ public class SimulationTest extends BasicGame {
 		comp.setFriction(0.2f);
 		
 		CollisionDetectionComponentManager colMng = CollisionDetectionComponentManager.getInstance();
-		
-		Entity ent;
-		ent.addComponent(comp);
 		
 		AABoxCollisionDetectionComponent box1 = new AABoxCollisionDetectionComponent(null);
 		box1.setHalfExtentX(size);
