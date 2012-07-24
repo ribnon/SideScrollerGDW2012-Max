@@ -1,5 +1,8 @@
 package Physics;
 
+import gdw.entityCore.Component;
+import gdw.entityCore.ComponentTemplate;
+
 import java.util.HashMap;
 
 public class SimulationComponentTemplate extends ComponentTemplate {
@@ -64,41 +67,6 @@ public class SimulationComponentTemplate extends ComponentTemplate {
 
 	public Component createComponent() {
 		return new SimulationComponent(this);
-	}
-
-	public String getStringParam(String name, String dflt) {
-		if (params.containsKey(name)) {
-			return params.get(name);
-		} else {
-			return dflt;
-		}
-	}
-
-	public float getFloatParam(String name) {
-		return getFloatParam(name, 0.0f);
-	}
-
-	public String getStringParam(String name) {
-		return getStringParam(name, "");
-	}
-
-	public int getIntParam(String name) {
-		return getIntParam(name, 0);
-	}
-
-	public float getFloatParam(String name, float dflt) {
-		if (params.containsKey(name))
-			return Float.valueOf(params.get(name));
-		else
-			return dflt;
-	}
-
-	public int getIntParam(String name, int dflt) {
-		if (params.containsKey(name)) {
-			return Integer.valueOf(params.get(name));
-		} else {
-			return dflt;
-		}
 	}
 
 	public boolean isThingOnly() {
