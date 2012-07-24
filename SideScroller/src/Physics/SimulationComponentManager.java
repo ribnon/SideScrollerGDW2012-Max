@@ -15,14 +15,16 @@ public class SimulationComponentManager {
 		manager = this;
 	}
 	
-	public static SimulationComponentManager initializeSimulationComponentManager() {
+	public static SimulationComponentManager get() {
 		if(manager==null) {
 			manager = new SimulationComponentManager();
 		}
 		return manager;
 	}
-	public static SimulationComponentManager get() {
-		return initializeSimulationComponentManager();
+	
+	public static void destroy() {
+		manager.simulationList.clear();
+		manager = null;
 	}
 	
 	public void addSimulationComponent(SimulationComponent comp) {
@@ -33,7 +35,8 @@ public class SimulationComponentManager {
 		simulationList.remove(comp);
 	}
 	
-	
-	
+	public void simulate(float deltaTime) {
+		
+	}
 	
 }

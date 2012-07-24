@@ -62,9 +62,7 @@ public class SimulationComponent extends Component {
 	}
 
 	protected void destroy() {
-		// throw new UnsupportedOperationException();
-		// do nothing
-		SimulationComponentManager manager = SimulationComponentManager.initializeSimulationComponentManager();
+		SimulationComponentManager manager = SimulationComponentManager.get();
 		manager.removeSimulationComponent(this);
 	}
 
