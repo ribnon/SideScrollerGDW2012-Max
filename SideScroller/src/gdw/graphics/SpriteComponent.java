@@ -1,4 +1,4 @@
-package gdwGraphics;
+package gdw.graphics;
 
 import org.newdawn.slick.Color;
 import gdw.entityCore.Component;

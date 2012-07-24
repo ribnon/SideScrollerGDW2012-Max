@@ -1,11 +1,11 @@
-package gdwGraphics;
+package gdw.graphics;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import gdw.entityCore.ComponentTemplate;
-import gdwGraphics.SpriteComponent;
+import gdw.graphics.SpriteComponent;
 /**
  * Animated Sprite Component
  * for animated sprites

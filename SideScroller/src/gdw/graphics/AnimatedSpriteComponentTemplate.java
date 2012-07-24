@@ -1,4 +1,4 @@
-package gdwGraphics;
+package gdw.graphics;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;

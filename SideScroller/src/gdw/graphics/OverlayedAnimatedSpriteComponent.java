@@ -1,13 +1,13 @@
-package gdwGraphics;
+package gdw.graphics;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import gdwGraphics.SpriteComponent;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Component;
+import gdw.graphics.SpriteComponent;
 
 /**
  * 

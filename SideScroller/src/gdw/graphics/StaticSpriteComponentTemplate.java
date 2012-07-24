@@ -1,4 +1,4 @@
-package gdwGraphics;
+package gdw.graphics;
 
 import java.util.HashMap;
 
