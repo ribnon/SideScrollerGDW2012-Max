@@ -1,5 +1,8 @@
 package Physics;
 
+import gdw.entityCore.Entity;
+import gdw.entityCore.EntityTemplate;
+
 import java.util.HashMap;
 
 import org.newdawn.slick.AppGameContainer;
@@ -9,12 +12,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import collisionDetection.AABoxCollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponentManager;
+
 public class SimulationTest extends BasicGame {
 
 	SimulationComponentTemplate temp;
 	SimulationComponent comp;
 	
-	float posX, posY;
+	float posX, posY, size;
 	
 	public SimulationTest() {
 		super("SimTest");
@@ -24,19 +30,28 @@ public class SimulationTest extends BasicGame {
 		params.put("mass", "1.0");
 		params.put("friction","0.0");
 		
-		
+		size = 10.0f;
 		
 		temp = new SimulationComponentTemplate(params);
 		
 		comp = new SimulationComponent(temp);
 		comp.setMass(1.0f);
 		comp.setFriction(0.2f);
+		
+		CollisionDetectionComponentManager colMng = CollisionDetectionComponentManager.getInstance();
+		
+		AABoxCollisionDetectionComponent box1 = new AABoxCollisionDetectionComponent(null);
+		box1.setHalfExtentX(size);
+		box1.setHalfExtentY(size);
+		colMng.registerAABoxCollisionDetectionComponent(box1);
+		
+		
 	}
 
 	@Override
 	public void render(GameContainer arg0, Graphics g) throws SlickException {
 		// TODO Auto-generated method stub
-		g.drawOval(posX, posY, 10, 10, 32);
+		g.drawRect(posX, posY, size, size);
 		g.drawString(comp.isActive()+"", 10, 80);
 		g.drawString(comp.getVelocityX()+"", 10, 100);
 		g.drawString(comp.getVelocityY()+"", 10, 140);
@@ -66,7 +81,9 @@ public class SimulationTest extends BasicGame {
 			comp.addForce(0, forcePower);
 		}
 		
-		comp.simulate(16/1000.f);
+		comp.addForce(0.0f, -9.81f);
+		
+		SimulationComponentManager.getInstance().simulate(16/1000.f);
 		posX += comp.getVelocityX() * 16/1000.f;
 		posY += comp.getVelocityY() * 16/1000.f;
 		
