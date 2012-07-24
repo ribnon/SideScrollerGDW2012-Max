@@ -119,9 +119,9 @@ public class PlayerInputComponent extends Component {
 				}
 			}
 
-			if (isAttackKeyDown && wasAttackKeyDown) {
+			if (!isAttackKeyDown && wasAttackKeyDown) {
 				if (deltaTime < waitingTime) {
-
+					netcomp.sendNetworkMessage(new AttackMessage());
 				}
 			}
 
