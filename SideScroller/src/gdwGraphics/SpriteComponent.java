@@ -7,90 +7,79 @@ import gdw.entityCore.ComponentTemplate;
 /**
  * 
  * @author eppixx
- *
+ * 
  */
 public abstract class SpriteComponent extends Component
 {
 	/**
-	 * scaling-factor that scales a sprite
-	 * default is 1
+	 * describes the scaling-factor that scales a sprite; default is 1
 	 */
 	private float scale = 1.0f;
-	
-	
+
 	/**
-	 * filter that modifies color
-	 * default is no filter
+	 * filter that modifies color; default is no filter change this if default filter is black
 	 */
 	private Color filter = new Color(0, 0, 0, 0);
-	
-	
+
 	/**
-	 * describes the rotation and scale center for the x-axis
-	 * default is 0
+	 * describes the rotation and scale center for the x-axis; default is 0
 	 */
 	private float pivotX = 0.0f;
-	
-	
+
 	/**
-	 * describes the rotation and scale center for the y-axis
-	 * default is 0
+	 * describes the rotation and scale center for the y-axis; default is 0
 	 */
 	private float pivotY = 0.0f;
-	
-	
+
 	/**
-	 * describes the layer the images will be drawn on 
-	 * default is 1 (should be changed)
+	 * describes the layer the images will be drawn on; default is 1 (should be
+	 * changed)
 	 */
 	private int layer = 1;
 
-	
 	/**
-	 *  Component-ID for SpriteComponent is 1
+	 * Component-ID for SpriteComponent is 1
 	 */
 	public static final int COMPONENT_TYPE = 1;
-	
-	
+
 	/**
-	 * Constructor for SpriteComponent
-	 * initializes scale, filter, pivotX, pivotY and layer
+	 * Constructor for SpriteComponent initializes scale, filter, pivotX, pivotY
+	 * and layer
 	 * 
-	 * @param template	the used ComponentTemplate that is used for parsing
+	 * @param template
+	 *            the used ComponentTemplate that is used for parsing
 	 */
 	public SpriteComponent(ComponentTemplate template)
 	{
 		super(template);
 		this.scale = template.getFloatParam("scale");
-		this.filter = new Color(template.getIntegerParam("filterRed"), 
-				template.getIntegerParam("filterGreen"), template.getIntegerParam("filterBlue"), template.getIntegerParam("filterAlpha"));
+		this.filter = new Color(template.getIntegerParam("filterRed"),
+				template.getIntegerParam("filterGreen"),
+				template.getIntegerParam("filterBlue"),
+				template.getIntegerParam("filterAlpha"));
 		this.pivotX = template.getFloatParam("pivotX");
 		this.pivotY = template.getFloatParam("pivotY");
 		this.layer = template.getIntegerParam("layer");
 	}
 
-	
 	/**
 	 * marks the object as destroyed
 	 */
 	protected abstract void destroy();
 
-	
 	/**
 	 * method to draw the Sprite to a desired location
 	 */
 	public abstract void draw();
-	
 
 	/*
-	 * generated getter/setter 
+	 * generated getter/setter
 	 */
 	public int getComponentTypeID()
 	{
 		return COMPONENT_TYPE;
 	}
-	
-	
+
 	public float getScale()
 	{
 		return scale;
