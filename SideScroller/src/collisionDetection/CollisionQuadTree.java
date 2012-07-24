@@ -74,7 +74,6 @@ public class CollisionQuadTree
 		rect.updateFromComponent();
 		CollisionQuadTree rectTree = rect.getTreeReference();
 		CollisionQuadTree rectChildTree = null;
-		boolean childFound = false;
 		
 		if(rectTree.child[0] != null)
 		{
@@ -85,7 +84,6 @@ public class CollisionQuadTree
 			
 			if (rectChildTree != null)
 			{
-				childFound = true;
 				rectTree.rectList.remove(rect);
 				rectChildTree.insert(rect);
 				return;
