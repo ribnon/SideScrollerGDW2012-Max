@@ -303,14 +303,14 @@ public class BasicClient
 	/**
 	 * Ruft die Methode auf, um einen Nachricht an den Server zu senden.
 	 * @param msg Eure Nachricht
-	 * @param wasReliable true wenn gesichert(TCP), false wenn ungesichert (UDP)
+	 * @param reliable true wenn gesichert(TCP), false wenn ungesichert (UDP)
 	 */
-	public void sendMessage(ByteBuffer msg, boolean wasReliable)
+	public void sendMessage(ByteBuffer msg, boolean reliable)
 	{
 		msg.flip();
 		try
 		{
-			if (wasReliable)
+			if (reliable)
 			{
 				this.tcpConnection.write(msg);
 			} else

@@ -6,10 +6,11 @@ import java.util.LinkedList;
 
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityTemplate;
+import gdw.entityCore.Message;
 import gdw.network.client.BasicClient;
 import gdw.network.messageType.DeadReckoningNetMessage;
 import gdw.network.messageType.EntityBusNetMessage;
-import gdw.network.messageType.EntityDespawnNetMessage;
+import gdw.network.messageType.EntityDeSpawnNetMessage;
 import gdw.network.messageType.EntitySpawnNetMessage;
 import gdw.network.server.BasicServer;
 
@@ -44,8 +45,8 @@ public class NetSubSystem
 	
 	private final LinkedList<EntitySpawnNetMessage> listOfSpawnMessages;
 	private final LinkedList<EntityBusNetMessage> listOfBusMessages;
-	private final LinkedList<EntityDespawnNetMessage> listOfDespawnMessages;
-
+	private final LinkedList<EntityDeSpawnNetMessage> listOfDeSpawnMessages;
+	private final LinkedList<DeadReckoningNetMessage> listOfDeadReckonigMessages;
 	
 	
 	private NetSubSystem(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
@@ -57,14 +58,15 @@ public class NetSubSystem
 		this.listOfNetComponents = new LinkedList<NetComponent>();
 		this.listOfSpawnMessages = new LinkedList<EntitySpawnNetMessage>();
 		this.listOfBusMessages = new LinkedList<EntityBusNetMessage>();
-		this.listOfDespawnMessages = new LinkedList<EntityDespawnNetMessage>();
+		this.listOfDeSpawnMessages = new LinkedList<EntityDeSpawnNetMessage>();
+		this.listOfDeadReckonigMessages = new LinkedList<DeadReckoningNetMessage>();
 	}
 	
 	public static void initalise(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
 	{
 		if(NetSubSystem.singelton == null)
 		{
-			System.out.println("Alter ich wurde schon initiziert, ich ignorie das mal");
+			System.out.println("Alter ich wurde schon gebaut, ich ignorie das mal");
 			return;
 		}
 		NetSubSystem.singelton = new NetSubSystem(playerID, serverFlag, cRef, sRef);
@@ -124,7 +126,7 @@ public class NetSubSystem
 		break;
 		
 		case NetMessageType.EntityDespawnMessageType:
-			EntityDespawnNetMessage[] arrDNM = EntityDespawnNetMessage.getFromByteBuffer(buf);
+			EntityDeSpawnNetMessage[] arrDNM = EntityDeSpawnNetMessage.getFromByteBuffer(buf);
 			for(int i=0;i<arrDNM.length;++i)
 			{
 				ref.getEntity(arrDNM.entityID).markForDestroy();
@@ -142,12 +144,17 @@ public class NetSubSystem
 	
 	public void sendSpawn(String template, int id, float posX, float posY, float orientation)
 	{
-		//TODO
+		this.listOfSpawnMessages.add(new EntitySpawnNetMessage(template, id, posX, posY, orientation));
 	}
 	
 	public void sendDeSpawn(int id)
 	{
-		//TODO
+		this.listOfDeSpawnMessages.add(new EntityDeSpawnNetMessage(id));
+	}
+	
+	public void sendBusMessage(int entityID, Message msg)
+	{
+		this.listOfBusMessages.add(new EntityBusNetMessage(entityID, msg));
 	}
 	
 	public void addNetComponentToList(NetComponent item)
@@ -160,16 +167,6 @@ public class NetSubSystem
 		this.listOfNetComponents.remove(item);
 	}
 	
-	private void sentToAll(NetMessageType msg)
-	{
-		
-	}
-	
-	private void sendToServer(NetMessageType msg)
-	{
-		
-	}
-	
 	public void simulateGhosts(float deltaT)
 	{
 		for(NetComponent comp : this.listOfNetComponents)
@@ -177,19 +174,51 @@ public class NetSubSystem
 			comp.simulateGhost(deltaT);
 		}
 	}
+	//constant - (messagecode,highlevelcode,size)/SideOFDeadReckMessage
+	static int MAXAMOUNT_PERPACKET_DEADRECK = (NETCONSTANTS.PACKAGELENGTH - (Byte.SIZE*3))/(Integer.SIZE*2+4*Float.SIZE);
+	static int MAXAMOUNT_PERPACKET_DESPAWN = (NETCONSTANTS.PACKAGELENGTH - (Byte.SIZE*3))/Integer.SIZE;
 	
 	public void sendBufferedMessages()
 	{
-		//spawn
-		//tunnel
-		//despawn
+		ByteBuffer buf = null;
 		if(this.serverFlag)
 		{
-			ByteBuffer buf = this.serverRef.getMessageBuffer();
-			
+			//spawn
+			while(!this.listOfSpawnMessages.isEmpty())
+			{
+				buf = this.serverRef.getMessageBuffer();
+				EntitySpawnNetMessage.fillInByteBuffer(this.listOfSpawnMessages.poll(), buf);
+				this.serverRef.sendToAll(buf, true);
+			}
+			//deadReck
+			while(!this.listOfDeadReckonigMessages.isEmpty())
+			{
+				buf = this.serverRef.getMessageBuffer();
+				DeadReckoningNetMessage.fillInByteBuffer(listOfDeadReckonigMessages, buf, MAXAMOUNT_PERPACKET_DEADRECK);
+				this.serverRef.sendToAll(buf, false);
+			}
+			//tunnel
+			while(!this.listOfBusMessages.isEmpty())
+			{
+				buf = this.serverRef.getMessageBuffer();
+				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages.poll(), buf);
+				this.serverRef.sendToAll(buf, true);
+			}
+			//deSpawn
+			while(!this.listOfDeSpawnMessages.isEmpty())
+			{
+				buf = this.serverRef.getMessageBuffer();
+				EntityDeSpawnNetMessage.fillInByteBuffer(this.listOfDeSpawnMessages, buf,MAXAMOUNT_PERPACKET_DESPAWN);
+			}
 		}else
 		{
-			
+			//nur tunnel
+			while(!this.listOfBusMessages.isEmpty())
+			{
+				buf = this.clientRef.getMessageBuffer();
+				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages.poll(), buf);
+				this.clientRef.sendMessage(buf, true);
+			}
 		}
 	}
 	

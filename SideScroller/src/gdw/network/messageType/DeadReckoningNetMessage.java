@@ -45,12 +45,21 @@ public class DeadReckoningNetMessage extends NetMessageType
 		return arr;
 	}
 	
-	public static void fillInByteBuffer(LinkedList<DeadReckoningNetMessage> list,ByteBuffer buf)
+	public static void fillInByteBuffer(LinkedList<DeadReckoningNetMessage> list,ByteBuffer buf , int maxAmount)
 	{
 		buf.put(NetMessageType.DeadReckoningMessageType);
-		buf.put((byte)list.size());
-		for(DeadReckoningNetMessage msg : list)
+		if(list.size() > maxAmount)
 		{
+			buf.put((byte)maxAmount);
+		}else
+		{
+			buf.put((byte)list.size());
+		}
+		for(int i=0;i<maxAmount;++i)
+		{
+			DeadReckoningNetMessage msg = list.poll();
+			if(msg == null)
+				return;
 			buf.putInt(msg.entityID);
 			buf.putInt(msg.sequenceID);
 			buf.putFloat(msg.posX);

@@ -75,17 +75,11 @@ public class Ghost
 	{
 		if(!this.gotThing)
 			return false;
-		/*Entity thing = EntityManager.instance().getEntity(myEntityID);
-		float offsetX = Math.abs(thing.getX()-this.posX);
-		float offsetY = Math.abs(thing.getY()-this.posY);
+		float offsetX = Math.abs(ent.getPosX()-this.posX);
+		float offsetY = Math.abs(ent.getPosY()-this.posY);
 		
 		float offset = offsetX * offsetX + offsetY * offsetY;
 		
-		*/
-		
-		//debug
-			float offset = 0;
-		//debug
 		return offset > MAX_THRESHOLD_INQUAD;
 		
 	}

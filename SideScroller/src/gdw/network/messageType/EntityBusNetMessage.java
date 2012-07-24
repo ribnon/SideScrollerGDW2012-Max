@@ -15,7 +15,7 @@ public class EntityBusNetMessage extends NetMessageType
 	public final int entityID;
 	public final Message busMessage;
 	
-	private EntityBusNetMessage(int entityID, Message msg)
+	public EntityBusNetMessage(int entityID, Message msg)
 	{
 		this.entityID = entityID;
 		this.busMessage = msg;

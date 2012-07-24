@@ -43,25 +43,32 @@ public class NetComponent extends Component
 	
 	public void deadReckoningMessageReceive(DeadReckoningNetMessage msg)
 	{
-		//TODO auffüllen
+		if(msg.sequenceID < this.sequenceID)
+		{
+			return;
+		}else
+		{
+			this.sequenceID = msg.sequenceID;
+			//update ghost
+			this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY, 0.0f);
+		}
 	}
 	
 	@Override
 	public void onMessage(Message msg)
 	{
-		//TODO warten auf implementierung
-		//if(msg instanceof EntityConstructedMessage)
+		if(msg instanceof EntityConstructedMessage)
 		{
 			Entity owner = this.getOwner();
 			this.ghost.initialise(owner.getPosX(), owner.getPosY());
 		}	
+		//TODO erweitern auf andere typen
 	}
-	
-	//TODO überprüfung der id sonst dropen
 
 	public void sendNetworkMessage(Message msg)
 	{
-		// TODO SubSystem senden
+		//tunnel
+		NetSubSystem.getInstance().sendBusMessage(this.getOwner().getID(),msg);
 	}
 
 	
@@ -71,6 +78,7 @@ public class NetComponent extends Component
 		//prüfe ob thing und ghost zu sehr abweicht
 		if(this.ghost.checkAgainstThing(ent))
 		{
+			this.sequenceID++;
 			//korrigier ghost und sende nachricht
 			SimulationComponent simComp = (SimulationComponent) ent.getComponent(SimulationComponent.COMPONENT_TYPE);
 			this.ghost.correct(ent.getPosX(), ent.getPosY(), simComp.getVelocityX(), simComp.getVelocityY(), 0.0f);
