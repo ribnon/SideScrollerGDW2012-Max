@@ -1,8 +1,10 @@
 package gdwGraphics;
 
+import gdw.entityCore.Component;
+import gdw.entityCore.ComponentTemplate;
+
 import java.util.HashMap;
 
-import ComponentTemplate;
 
 public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 {

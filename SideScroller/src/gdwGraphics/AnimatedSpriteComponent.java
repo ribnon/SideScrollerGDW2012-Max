@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import gdw.entityCore.ComponentTemplate;
 import gdwGraphics.SpriteComponent;
 /**
  * Animated Sprite Component
@@ -67,11 +68,18 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	AnimatedSpriteComponent(ComponentTemplate template)
 	{
 		super(template);
-		spriteSheet = new SpriteSheet(template.getStringParam("Path"), template.getIntParam("TileWidth"), template.getIntParam("TileHeight"));
+		try
+		{
+			spriteSheet = new SpriteSheet(template.getStringParam("Path"), template.getIntegerParam("TileWidth"), template.getIntegerParam("TileHeight"));
+		} catch (SlickException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		cycleLength = new int[spriteSheet.getVerticalCount()];
 		for(int i = 0; i < cycleLength.length; ++i)
 			cycleLength[i] = spriteSheet.getHorizontalCount(); // TODO detect unused slots in spritesheet
-		cycle = template.getIntParam("Cycle");
+		cycle = template.getIntegerParam("Cycle");
 	}
 	
 	/**
@@ -82,11 +90,11 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		//TODO: verify this is correct, image might have to be drawn with an offset to be centered at the entity
 		Image img = spriteSheet.getSprite(step, cycle);
 		img.setCenterOfRotation(getPivotX(), getPivotY());
-		img.rotate(getOwner().getOrientation());
+		//img.rotate(getOwner().getOrientation());
 		if(getFilter() != null)
-			img.draw(getOwner().getPosx(), getOwner().getPosy(), getScale(), getFilter());
+			img.draw(getOwner().getPosX(), getOwner().getPosY(), getScale(), getFilter());
 		else
-			img.draw(getOwner().getPosx(), getOwner().getPosy(), getScale());
+			img.draw(getOwner().getPosX(), getOwner().getPosY(), getScale());
 	}
 	
 	/**
