@@ -3,8 +3,6 @@ package Physics;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 
-import java.util.HashMap;
-
 public class SimulationComponent extends Component {
 
 	private static final float TOLERANCE = 0.01f;
