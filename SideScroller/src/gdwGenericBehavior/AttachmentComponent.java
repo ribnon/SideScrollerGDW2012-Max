@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
+import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityReference;
 import gdw.entityCore.Message;
 import gdw.entityCore.StaticEntityReference;
@@ -60,7 +61,7 @@ public class AttachmentComponent extends Component
 		for (Entry<Integer, EntityReference> entry : attachedEntityID
 				.entrySet())
 		{
-			Entity currentEntity = EntityManager.getEntity(entry.getValue()
+			Entity currentEntity = EntityManager.getInstance().getEntity(entry.getValue()
 					.getID());
 			AttachableComponent ac = e
 					.getComponent(AttachableComponent.COMPONENT_TYPE);

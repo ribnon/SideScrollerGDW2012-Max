@@ -384,7 +384,7 @@ public class ChatClient extends JFrame implements IBasicClientListener
 	 * Haltet euch am besten daran und baut drauf auf.
 	 */
 	@Override
-	public void incommingMessage(ByteBuffer msg, boolean wasSafe)
+	public void incomingMessage(ByteBuffer msg, boolean wasSafe)
 	{
 		switch (msg.get())
 		{
