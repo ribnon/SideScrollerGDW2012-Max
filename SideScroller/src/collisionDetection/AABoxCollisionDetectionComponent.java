@@ -10,6 +10,9 @@ public class AABoxCollisionDetectionComponent extends CollisionDetectionComponen
 	public AABoxCollisionDetectionComponent(ComponentTemplate template)
 	{
 		super(template);
+		
+		halfExtentX = template.getFloatParam("halfExtentX", 1.0f);
+		halfExtentY = template.getFloatParam("halfExtentY", 1.0f);
 	}
 	
 	protected void destroy()
