@@ -6,9 +6,10 @@ import gdw.entityCore.Message;
 
 public class NetComponent extends Component
 {
-	
 	public static final int COMPONENT_TYPE = 8;
 	private int sequenceID;
+	
+//	private final G
 
 	protected NetComponent(ComponentTemplate template)
 	{

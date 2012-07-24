@@ -35,14 +35,27 @@ public class NetSubSystem
 	private final LinkedList<NetComponent> listOfNetComponents;
 	
 	
-	private NetSubSystem()
+	private NetSubSystem(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
 	{
-		this.
+		this.playerID = playerID;
+		this.serverFlag = serverFlag;
+		this.clientRef = cRef;
+		this.serverRef = sRef;
 	}
 	
-	public void initalise()
+	public static void initalise(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
 	{
-		
+		if(NetSubSystem.singelton == null)
+		{
+			System.out.println("Alter ich wurde schon initiziert, ich ignorie das mal");
+			return;
+		}
+		NetSubSystem.singelton = new NetSubSystem(playerID, serverFlag, cRef, sRef);
+	}
+	
+	public static NetSubSystem instance()
+	{
+		return NetSubSystem.singelton;
 	}
 	
 	
@@ -50,11 +63,13 @@ public class NetSubSystem
 	//singelton
 	public int getPlayerID()
 	{
-		
+		return this.playerID;
 	}
-	public boolean isServer;
+	public boolean isServer()
+	{
+		return this.serverFlag;
+	}
 	
-	public registerClinetObject;
 	
 	
 	sendToAll(busMessag)//von server
@@ -66,7 +81,13 @@ public class NetSubSystem
 	pollMessages()
 	verarbeiteNachrichten()
 	
-	simGhosts(delta t)
-	cheackDR()//wenn server dann boom
+	public void simulateGhosts(float delta)
+	{
+		for(NetComponent comp : this.listOfNetComponents)
+		{
+			comp.s
+		}
+	}
+	checkDR()//wenn server dann boom
 	
 }
