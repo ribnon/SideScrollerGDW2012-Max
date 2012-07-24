@@ -9,6 +9,7 @@ package gdwGenericBehavior;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
+import gdw.entityCore.EntityManager;
 
 public class AttachableComponent extends Component
 {
@@ -42,7 +43,7 @@ public class AttachableComponent extends Component
 			return;
 		// Remove the Entity of this AttachableComponent from the
 		// AttachmentComponent
-		Entity e = EntityManager.getEntity(attachedToEntityID);
+		Entity e = EntityManager.getInstance().getEntity(attachedToEntityID);
 		AttachmentComponent ac = (AttachmentComponent) e
 				.getComponent(AttachmentComponent.COMPONENT_TYPE);
 		ac.detachEntity(groupID);

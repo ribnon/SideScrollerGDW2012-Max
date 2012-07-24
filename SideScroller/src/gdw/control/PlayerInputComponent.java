@@ -120,11 +120,19 @@ public class PlayerInputComponent extends Component {
 			}
 
 			if (isAttackKeyDown && wasAttackKeyDown) {
-				if (deltaTime < waitingTime) {
-
+				if ((pastTime != 0l) && (deltaTime >= waitingTime)) {
+					netcomp.sendNetworkMessage(new BeginPullMessage());
 				}
 			}
 
+			if (!isAttackKeyDown && wasAttackKeyDown) {
+				if (deltaTime < waitingTime) {
+					netcomp.sendNetworkMessage(new AttackMessage());
+				} else {
+					netcomp.sendNetworkMessage(new EndPullMessage());
+				}
+				pastTime = 0l;
+			}
 		} else {
 			System.err.println("NetComponent nicht initialisiert");
 		}

@@ -1,5 +1,7 @@
 package gdw.network;
 
+import gdw.entityCore.Entity;
+
 public class Ghost
 {
 	private static final float MAX_THRESHOLD_INQUAD = 1.0f;
@@ -20,17 +22,17 @@ public class Ghost
 	
 	public final boolean gotThing;
 	
-	private float oldInterpolateStep;
+	private float remaingSteps;
 	
-	public Ghost(float posX, float posY)
+	public Ghost()
 	{
-		this.posX = posX;
-		this.posY = posY;
+		this.posX = 0.0f;
+		this.posY = 0.0f;
 		
 		this.velocityX = 0.0f;
 		this.velocityY = 0.0f;
 		
-		this.gotThing = NetSubSystem.instance().isServer();
+		this.gotThing = NetSubSystem.getInstance().isServer();
 		
 		this.posThingX = 0.0f;
 		this.posThingY = 0.0f;
@@ -38,7 +40,7 @@ public class Ghost
 		this.velocityThingX = 0.0f;
 		this.velocityThingY = 0.0f;
 		
-		this.oldInterpolateStep = 1.2f;
+		this.remaingSteps = 0.0f;
 		
 	}
 	
@@ -47,29 +49,38 @@ public class Ghost
 		this.posX += deltaT * velocityX;
 		this.posY += deltaT * velocityY;
 		
-		if(this.oldInterpolateStep < 1.0f)
+		if(this.remaingSteps > 0.0f)
 		{
-			//interpolate...
+			//simulate thingdata
+			this.posThingX += this.velocityThingX * deltaT;
+			this.posThingY += this.velocityThingY * deltaT;
 			
+			this.remaingSteps -= deltaT;
+			if(this.remaingSteps < 0.0f)
+			{
+				this.remaingSteps = 0.0f;
+			}
+			float lerpFactor = (INTERPOLATE_TIME - this.remaingSteps)/ INTERPOLATE_TIME;
+			
+			//interpolate...
+			this.posX = this.posX * (1.0f -lerpFactor) + this.posThingX * lerpFactor;
+			this.posY = this.posY * (1.0f -lerpFactor) + this.posThingY * lerpFactor;
+			
+			this.velocityX = this.velocityX *(1.0f-lerpFactor) + this.velocityX * lerpFactor;
+			this.velocityY = this.velocityY *(1.0f-lerpFactor) + this.velocityY * lerpFactor;
 		}
 	}
 	
-	public boolean compareWithThing(int myEntityID)
+	public boolean checkAgainstThing(Entity ent)
 	{
 		if(!this.gotThing)
-			return true;
-		/*Entity thing = EntityManager.instance().getEntity(myEntityID);
-		float offsetX = Math.abs(thing.getX()-this.posX);
-		float offsetY = Math.abs(thing.getY()-this.posY);
+			return false;
+		float offsetX = Math.abs(ent.getPosX()-this.posX);
+		float offsetY = Math.abs(ent.getPosY()-this.posY);
 		
 		float offset = offsetX * offsetX + offsetY * offsetY;
 		
-		*/
-		
-		//debug
-			float offset = 0;
-		//debug
-		return offset <= MAX_THRESHOLD_INQUAD;
+		return offset > MAX_THRESHOLD_INQUAD;
 		
 	}
 	
@@ -84,7 +95,13 @@ public class Ghost
 		this.posThingX += velocityX * roundTip;
 		this.posThingY += velocityY * roundTip;
 		
-		this.oldInterpolateStep = 0.0f;
+		this.remaingSteps = INTERPOLATE_TIME;
+	}
+	
+	public void initialise(float x, float y)
+	{
+		this.posX = x;
+		this.posY = y;
 	}
 	
 	
