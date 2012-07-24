@@ -1,5 +1,7 @@
 package collisionDetection;
 
+import gdw.entityCore.Message;
+
 public class CollisionDetectionMessage extends Message
 {
 	private int idCandidate1;
