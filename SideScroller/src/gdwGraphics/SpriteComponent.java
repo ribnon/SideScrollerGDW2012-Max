@@ -36,8 +36,13 @@ public abstract class SpriteComponent
 	/**
 	 * describes the layer the images will be drawn on 
 	 */
-	private int layer;
+	private int layer = 1;
 
+	
+	/**
+	 *  Component-ID for SpriteComponent is 1
+	 */
+	public static final int COMPONENT_TYPE = 1;
 	
 	/**
 	 * Constructor for SpriteComponent
