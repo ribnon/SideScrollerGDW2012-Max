@@ -1,26 +1,27 @@
 package control;
 
-import java.awt.Component;
+import gdw.entityCore.Component;
+import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.Message;
 
 import org.newdawn.slick.Input;
 
-public class PlayerInputComponent extends Component
-{
+public class PlayerInputComponent extends Component {
 	private int playerNumber;
 
-	private int downKey, jumpKey, leftKey, rightKey, attackKey, specattackKey;
+	private final int downKey, jumpKey, leftKey, rightKey, attackKey,
+			specattackKey;
 
-	private float jumpVelocity, runVelocity;
+	private final float jumpVelocity, runVelocity;
 
-	private boolean wasDown, wasJump, wasLeft, wasRight, wasAttack,
+	private final boolean wasDown, wasJump, wasLeft, wasRight, wasAttack,
 			wasSpecAttack;
 
 	public static int COMPONENT_TYPE = 3;
 
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
-			int specattackKey, int jumpVelocity, int runVelocity)
-	{
+			int specattackKey, int jumpVelocity, int runVelocity) {
 		super.template = template;
 
 		wasDown = false;
@@ -44,23 +45,22 @@ public class PlayerInputComponent extends Component
 				this);
 	}
 
-	public processingInput(Input input)
-	{
+	public processingInput(Input input) {
 
 	}
 
-	public void onMessage(Message msg)
-	{
+	@Override
+	public void onMessage(Message msg) {
 
 	}
 
-	public int getComponentTypeID()
-	{
+	@Override
+	public int getComponentTypeID() {
 		return COMPONENT_TYPE;
 	}
 
-	public void destroy()
-	{
+	@Override
+	public void destroy() {
 		PlayerInputComponentManager.getInstance()
 				.deregisterPlayerInputComponent(this);
 	}
