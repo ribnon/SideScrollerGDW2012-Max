@@ -1,5 +1,7 @@
 package Physics;
 
+import gdw.entityCore.Entity;
+
 import java.util.HashMap;
 
 import org.newdawn.slick.AppGameContainer;
@@ -9,6 +11,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import collisionDetection.AABoxCollisionDetectionComponent;
 import collisionDetection.CollisionDetectionComponentManager;
 
 public class SimulationTest extends BasicGame {
@@ -35,6 +38,14 @@ public class SimulationTest extends BasicGame {
 		comp.setFriction(0.2f);
 		
 		CollisionDetectionComponentManager colMng = CollisionDetectionComponentManager.getInstance();
+		
+		Entity ent;
+		ent.addComponent(comp);
+		
+		AABoxCollisionDetectionComponent box1 = new AABoxCollisionDetectionComponent(null);
+		box1.setHalfExtentX(size);
+		box1.setHalfExtentY(size);
+		colMng.registerAABoxCollisionDetectionComponent(box1);
 		
 		
 	}
@@ -71,6 +82,8 @@ public class SimulationTest extends BasicGame {
 		if(inp.isKeyDown(Input.KEY_S)) {
 			comp.addForce(0, forcePower);
 		}
+		
+		comp.addForce(0.0f, -9.81f);
 		
 		SimulationComponentManager.getInstance().simulate(16/1000.f);
 		posX += comp.getVelocityX() * 16/1000.f;
