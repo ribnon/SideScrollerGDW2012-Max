@@ -20,24 +20,29 @@ public class NetComponent extends Component
 	{
 		return 8;
 	}
-	
+
 	@Override
 	protected void destroy()
 	{
 		super.destroy();
+		// TODO unsicher
 	}
-	
-	public int getSequenceID() {
+
+	public int getSequenceID()
+	{
 		return sequenceID;
 	}
 	
-	public void setSequenceID(int sequenceID) {
+	//TODO überprüfung der id sonst dropen
+
+	public void setSequenceID(int sequenceID)
+	{
 		this.sequenceID = sequenceID;
 	}
-	
+
 	public void sendNetworkMessage(Message msg)
 	{
-		//TODO SubSystem senden
+		// TODO SubSystem senden
 	}
 
 }
