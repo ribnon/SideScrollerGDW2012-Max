@@ -1,24 +1,22 @@
 package gdw.control;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.newdawn.slick.Input;
 
 public class PlayerInputComponentManager {
 	private static PlayerInputComponentManager instance = null;
-
-	private static ArrayList<PlayerInputComponent> playerInpComponents;
+	private static LinkedList<PlayerInputComponent> playerInpComponents;
 
 	public static PlayerInputComponentManager getInstance() {
 		if (instance == null) {
 			instance = new PlayerInputComponentManager();
 		}
-
 		return instance;
 	}
 
 	private PlayerInputComponentManager() {
-		playerInpComponents = new ArrayList<PlayerInputComponent>();
+		playerInpComponents = new LinkedList<PlayerInputComponent>();
 	}
 
 	public void registerPlayerInputComponent(PlayerInputComponent comp) {
