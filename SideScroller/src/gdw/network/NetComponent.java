@@ -8,10 +8,12 @@ public class NetComponent extends Component
 {
 	
 	public static final int COMPONENT_TYPE = 8;
+	private int sequenceID;
 
 	protected NetComponent(ComponentTemplate template)
 	{
 		super(template);
+		sequenceID = 0;
 	}
 
 	@Override
@@ -24,6 +26,14 @@ public class NetComponent extends Component
 	protected void destroy()
 	{
 		super.destroy();
+	}
+	
+	public int getSequenceID() {
+		return sequenceID;
+	}
+	
+	public void setSequenceID(int sequenceID) {
+		this.sequenceID = sequenceID;
 	}
 	
 	public void sendNetworkMessage(Message msg)
