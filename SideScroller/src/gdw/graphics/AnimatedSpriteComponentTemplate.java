@@ -9,9 +9,9 @@ import java.util.HashMap;
 public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 {
 	
-	protected AnimatedSpriteComponentTemplate(HashMap<String, String> p)
+	protected AnimatedSpriteComponentTemplate(HashMap<String, String> params)
 	{
-		super(p);
+		super(params);
 	}
 	
 	public Component createComponent()

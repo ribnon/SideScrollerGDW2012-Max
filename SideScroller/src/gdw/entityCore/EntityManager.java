@@ -38,4 +38,7 @@ public class EntityManager {
 	public void loadEntities(String fileName){
 		//TODO: Implement
 	}
+	void unregisterEntity(Entity entity){
+		entities.remove(entity.getID());
+	}
 }

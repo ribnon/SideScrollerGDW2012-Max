@@ -8,9 +8,9 @@ import gdw.entityCore.Component;
 public class StaticSpriteComponentTemplate extends ComponentTemplate
 {
 	
-	protected StaticSpriteComponentTemplate(HashMap<String, String> p)
+	protected StaticSpriteComponentTemplate(HashMap<String, String> params)
 	{
-		super(p);
+		super(params);
 	}
 	
 	public Component createComponent()
