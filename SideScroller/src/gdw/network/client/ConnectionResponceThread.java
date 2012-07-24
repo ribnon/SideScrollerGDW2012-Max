@@ -1,7 +1,7 @@
-package gdwNet.client;
+package gdw.network.client;
 
-import gdwNet.NETCONSTANTS;
-import gdwNet.RESPONCECODES;
+import gdw.network.NETCONSTANTS;
+import gdw.network.RESPONSECODES;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -59,7 +59,7 @@ public class ConnectionResponceThread extends Thread
 			// tcp blocking
 			tcpSocket.configureBlocking(true);
 			tcpSocket.connect(new InetSocketAddress(info.address, info.port));
-			lis.connectionUpdate(RESPONCECODES.HANDSHAKE);
+			lis.connectionUpdate(RESPONSECODES.HANDSHAKE);
 
 			// send buf
 			tcpSocket.write(this.buf);
@@ -73,7 +73,7 @@ public class ConnectionResponceThread extends Thread
 				tcpSocket.read(responce);
 			} catch (IOException e)
 			{
-				lis.connectionUpdate(RESPONCECODES.TIMEOUT);
+				lis.connectionUpdate(RESPONSECODES.TIMEOUT);
 				return;
 			}
 
@@ -81,7 +81,7 @@ public class ConnectionResponceThread extends Thread
 			responce.position(0);
 			byte resCode = responce.get();
 			lis.connectionUpdate(resCode);
-			if (resCode != RESPONCECODES.OK)
+			if (resCode != RESPONSECODES.OK)
 			{
 				// clean up
 				lis.connectionUpdate(resCode);
@@ -109,7 +109,7 @@ public class ConnectionResponceThread extends Thread
 			BasicClient.registerClient(tcpSocket, udpSocket, id, secret, server );
 		} catch (IOException e)
 		{
-			lis.connectionUpdate(RESPONCECODES.UNREACHABLE);
+			lis.connectionUpdate(RESPONSECODES.UNREACHABLE);
 			// clean up
 
 			try

@@ -1,4 +1,4 @@
-package gdwUtils;
+package gdw.utils;
 
 import java.nio.charset.Charset;
 

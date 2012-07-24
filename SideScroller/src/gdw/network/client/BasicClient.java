@@ -1,7 +1,7 @@
-package gdwNet.client;
+package gdw.network.client;
 
-import gdwNet.NETCONSTANTS;
-import gdwNet.RESPONCECODES;
+import gdw.network.NETCONSTANTS;
+import gdw.network.RESPONSECODES;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -30,7 +30,7 @@ public class BasicClient
 
 	private static ServerlistPendingThread pendingThread = null;
 
-	protected final int id;
+	public final int id;
 	
 	protected final int sharedSecret;
 
@@ -150,13 +150,13 @@ public class BasicClient
 
 			// connect
 			IBasicClientListener lis = BasicClient.getListener();
-			lis.connectionUpdate(RESPONCECODES.CONNECTING);
+			lis.connectionUpdate(RESPONSECODES.CONNECTING);
 
 			new ConnectionResponceThread(tcpSocket, udpSocket, buf, info);
 		} catch (IOException e)
 		{
 			BasicClient.getListener().connectionUpdate(
-					RESPONCECODES.UNREACHABLE);
+					RESPONSECODES.UNREACHABLE);
 		}
 	}
 	
@@ -181,7 +181,7 @@ public class BasicClient
 		} catch (IOException e)
 		{
 			BasicClient.getListener().connectionUpdate(
-					RESPONCECODES.UNREACHABLE);
+					RESPONSECODES.UNREACHABLE);
 		}
 	}
 	
@@ -289,7 +289,7 @@ public class BasicClient
 	
 	private void disconnect()
 	{
-		listener.connectionUpdate(RESPONCECODES.DISCONNECTED);
+		listener.connectionUpdate(RESPONSECODES.DISCONNECTED);
 		try
 		{
 			this.tcpConnection.close();

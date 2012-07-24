@@ -1,4 +1,4 @@
-package gdwNet;
+package gdw.network;
 
 public final class NETCONSTANTS
 {

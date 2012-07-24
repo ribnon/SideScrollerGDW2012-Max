@@ -1,7 +1,7 @@
-package gdwNet.server;
+package gdw.network.server;
 
-import gdwNet.NETCONSTANTS;
-import gdwNet.RESPONCECODES;
+import gdw.network.NETCONSTANTS;
+import gdw.network.RESPONSECODES;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -53,7 +53,7 @@ public class IncomingConnectionHandlerThread extends Thread
 				ByteBuffer buf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 				if(socket.read(buf)<0)
 				{
-					sendError(RESPONCECODES.TIMEOUT, socket);
+					sendError(RESPONSECODES.TIMEOUT, socket);
 					continue;
 				}
 				// message validate
@@ -84,13 +84,13 @@ public class IncomingConnectionHandlerThread extends Thread
 					break;
 
 					default:
-						sendError(RESPONCECODES.DATA_CORRUPTED, socket);
+						sendError(RESPONSECODES.DATA_CORRUPTED, socket);
 						continue;
 					}
 
 				} else
 				{
-					sendError(RESPONCECODES.DATA_CORRUPTED, socket);
+					sendError(RESPONSECODES.DATA_CORRUPTED, socket);
 				}// magiccode
 				
 				//tcp, udp socket create
@@ -109,7 +109,7 @@ public class IncomingConnectionHandlerThread extends Thread
 				continue;
 			} catch (Exception e)
 			{
-				sendError(RESPONCECODES.DATA_CORRUPTED, socket);
+				sendError(RESPONSECODES.DATA_CORRUPTED, socket);
 			}
 	
 		}

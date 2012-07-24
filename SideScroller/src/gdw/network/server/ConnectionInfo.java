@@ -1,4 +1,4 @@
-package gdwNet.server;
+package gdw.network.server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
