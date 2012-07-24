@@ -1,39 +1,42 @@
 package gdwGraphics;
 
 import org.newdawn.slick.Color;
+import gdw.entityCore.Component;
+import gdw.entityCore.ComponentTemplate;
 
 /**
  * 
  * @author eppixx
  *
  */
-public abstract class SpriteComponent
+public abstract class SpriteComponent extends Component
 {
 	/**
 	 * scaling-factor that scales a sprite
 	 * default is 1
 	 */
-	private float scale = 1;
+	private float scale = 1.0f;
 	
 	
 	/**
 	 * filter that modifies color
+	 * default is no filter
 	 */
-	private Color filter;
+	private Color filter = new Color(0, 0, 0, 0);
 	
 	
 	/**
 	 * describes the rotation and scale center for the x-axis
 	 * default is 0
 	 */
-	private float pivotX = 0;
+	private float pivotX = 0.0f;
 	
 	
 	/**
 	 * describes the rotation and scale center for the y-axis
 	 * default is 0
 	 */
-	private float pivotY = 0;
+	private float pivotY = 0.0f;
 	
 	
 	/**
@@ -51,12 +54,18 @@ public abstract class SpriteComponent
 	
 	/**
 	 * Constructor for SpriteComponent
+	 * initializes scale, filter, pivotX, pivotY and layer
 	 * 
 	 * @param template	the used ComponentTemplate that is used for parsing
 	 */
 	public SpriteComponent(ComponentTemplate template)
 	{
-		
+		this.scale = template.getFloatParam("scale");
+		this.filter = new Color(template.getIntParam(), 
+				template.getIntParam, template.getIntParam(), template.getntParam());
+		this.pivotX = template.getFloatParam("pivotX");
+		this.pivotY = template.getFloatParam("pivotY");
+		this.layer = template.getIntParam("layer");
 	}
 
 	
