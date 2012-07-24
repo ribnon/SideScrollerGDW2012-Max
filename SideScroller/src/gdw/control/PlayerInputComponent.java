@@ -64,11 +64,18 @@ public class PlayerInputComponent extends Component {
 		this.jumpVelocity = jumpVelocity;
 		this.runVelocity = runVelocity;
 
-		this.waitingTime = 32l;
+		this.waitingTime = waitingTime;
 		this.pastTime = 0l;
 
 		PlayerInputComponentManager.getInstance().registerPlayerInputComponent(
 				this);
+	}
+
+	public PlayerInputComponent(ComponentTemplate template, int downKey,
+			int jumpKey, int leftKey, int rightKey, int attackKey,
+			int specattackKey, float jumpVelocity, float runVelocity) {
+		this(template, downKey, jumpKey, leftKey, rightKey, attackKey,
+				specattackKey, jumpVelocity, runVelocity, 32l);
 	}
 
 	public void processingInput(Input input) {
