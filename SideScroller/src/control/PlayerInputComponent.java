@@ -20,6 +20,19 @@ public class PlayerInputComponent extends Component {
 
 	public static int COMPONENT_TYPE = 3;
 
+	/**
+	 * PlayerInputComponent Constructor
+	 * 
+	 * @param template
+	 * @param downKey
+	 * @param jumpKey
+	 * @param leftKey
+	 * @param rightKey
+	 * @param attackKey
+	 * @param specattackKey
+	 * @param jumpVelocity
+	 * @param runVelocity
+	 */
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
 			int specattackKey, int jumpVelocity, int runVelocity) {
