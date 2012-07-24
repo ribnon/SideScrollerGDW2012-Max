@@ -163,8 +163,8 @@ public class SimulationComponent extends Component {
 			return;
 		}
 		
-		float forceX = this.externalForceX - (this.friction * this.velocityX);
-		float forceY = this.externalForceY - (this.friction * this.velocityY);
+		float forceX = this.externalForceX - (this.friction * this.velocityX)*deltaTime;
+		float forceY = this.externalForceY - (this.friction * this.velocityY)*deltaTime;
 //		float forceX = this.externalForceX;
 //		float forceY = this.externalForceY;
 		
