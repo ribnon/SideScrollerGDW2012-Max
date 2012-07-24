@@ -81,15 +81,16 @@ public abstract class SpriteComponent extends Component
 	 */
 	public abstract void draw();
 	
-	public int ComponentTypeID()
+
+	/*
+	 * generated getter/setter 
+	 */
+	public int getComponentTypeID()
 	{
 		return COMPONENT_TYPE;
 	}
 	
 	
-	/*
-	 * generated getter/setter 
-	 */
 	public float getScale()
 	{
 		return scale;
