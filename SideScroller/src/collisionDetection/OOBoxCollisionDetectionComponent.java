@@ -9,7 +9,7 @@ public class OOBoxCollisionDetectionComponent extends CollisionDetectionComponen
 	
 	public OOBoxCollisionDetectionComponent(ComponentTemplate template)
 	{
-		super(template);
+		super(template, CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_OOBOX);
 		
 		halfExtentX = template.getFloatParam("halfExtentX", 1.0f);
 		halfExtentY = template.getFloatParam("halfExtentY", 1.0f);
