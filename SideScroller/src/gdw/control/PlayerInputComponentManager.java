@@ -6,14 +6,12 @@ import org.newdawn.slick.Input;
 
 public class PlayerInputComponentManager {
 	private static PlayerInputComponentManager instance = null;
-
 	private static ArrayList<PlayerInputComponent> playerInpComponents;
 
 	public static PlayerInputComponentManager getInstance() {
 		if (instance == null) {
 			instance = new PlayerInputComponentManager();
 		}
-
 		return instance;
 	}
 
