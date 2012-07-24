@@ -3,6 +3,7 @@ package gdw.control;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
+import gdw.network.NetComponent;
 
 import org.newdawn.slick.Input;
 
@@ -16,6 +17,9 @@ public class PlayerInputComponent extends Component {
 
 	// VelocityValues
 	private float jumpVelocity, runVelocity;
+
+	// PullingTime in ms
+	private long waitingTime, pastTime;
 
 	// Flag if Key was down
 	private boolean wasDownKeyDown, wasJumpKeyDown, wasLeftKeyDown,
@@ -38,7 +42,8 @@ public class PlayerInputComponent extends Component {
 	 */
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
-			int specattackKey, float jumpVelocity, float runVelocity) {
+			int specattackKey, float jumpVelocity, float runVelocity,
+			long waitingTime) {
 
 		super(template);
 
@@ -59,6 +64,9 @@ public class PlayerInputComponent extends Component {
 		this.jumpVelocity = jumpVelocity;
 		this.runVelocity = runVelocity;
 
+		this.waitingTime = 32l;
+		this.pastTime = 0l;
+
 		PlayerInputComponentManager.getInstance().registerPlayerInputComponent(
 				this);
 	}
@@ -71,6 +79,49 @@ public class PlayerInputComponent extends Component {
 		boolean isAttackKeyDown = input.isKeyDown(attackKey);
 		boolean isSpecAttackKeyDown = input.isKeyDown(specattackKey);
 
+		long currentTime = System.currentTimeMillis();
+		long deltaTime = pastTime - currentTime;
+
+		NetComponent netcomp = (NetComponent) getOwner().getComponent(
+				NetComponent.COMPONENT_TYPE);
+
+		if (netcomp != null) {
+			// Run
+			if (isRightKeyDown && !wasRightKeyDown) {
+				netcomp.sendNetworkMessage(new RunMessage(true));
+			}
+
+			if (isLeftKeyDown && !wasLeftKeyDown) {
+				netcomp.sendNetworkMessage(new RunMessage(false));
+			}
+
+			if ((!isRightKeyDown && wasRightKeyDown)
+					|| (!isLeftKeyDown && wasLeftKeyDown)) {
+				netcomp.sendNetworkMessage(new StopMessage());
+			}
+
+			// Jump
+			if (isJumpKeyDown && !wasJumpKeyDown) {
+				netcomp.sendNetworkMessage(new JumpMessage());
+			}
+
+			// Attack
+			if (isAttackKeyDown && !wasAttackKeyDown) {
+				if (pastTime == 0l) {
+					pastTime = currentTime;
+				}
+			}
+
+			if (isAttackKeyDown && wasAttackKeyDown) {
+				if (deltaTime < waitingTime) {
+
+				}
+			}
+
+		} else {
+			System.err.println("NetComponent nicht initialisiert");
+		}
+
 		wasDownKeyDown = isDownKeyDown;
 		wasJumpKeyDown = isJumpKeyDown;
 		wasRightKeyDown = isRightKeyDown;
@@ -79,6 +130,9 @@ public class PlayerInputComponent extends Component {
 		wasSpecAttackKeyDown = isSpecAttackKeyDown;
 	}
 
+	/**
+	 * Reacts on MovementMessages with Behaviour
+	 */
 	@Override
 	public void onMessage(Message msg) {
 		SimulationComponent simcomp = (SimulationComponent) super.getOwner()
