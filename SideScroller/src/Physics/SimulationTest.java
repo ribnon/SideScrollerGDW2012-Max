@@ -29,6 +29,8 @@ public class SimulationTest extends BasicGame {
 		temp = new SimulationComponentTemplate(params);
 		
 		comp = new SimulationComponent(temp);
+		comp.setMass(1.0f);
+		comp.setFriction(0.2f);
 	}
 
 	@Override

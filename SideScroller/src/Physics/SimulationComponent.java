@@ -5,7 +5,7 @@ import gdw.entityCore.ComponentTemplate;
 
 public class SimulationComponent extends Component {
 
-	private static final float TOLERANCE = 0.01f;
+	private static final float TOLERANCE = 0.001f;
 
 	public static final int COMPONENT_TYPE = 2;
 
@@ -77,6 +77,7 @@ public class SimulationComponent extends Component {
 	public void setVelocity(float x, float y) {
 		this.velocityX = x;
 		this.velocityY = y;
+		this.active = true;
 	}
 
 	public float getAccelerationX() {
@@ -85,6 +86,7 @@ public class SimulationComponent extends Component {
 
 	public void setAccelerationX(float accelerationX) {
 		this.accelerationX = accelerationX;
+		this.active = true;
 	}
 
 	public float getAccelerationY() {
@@ -93,6 +95,7 @@ public class SimulationComponent extends Component {
 
 	public void setAccelerationY(float accelerationY) {
 		this.accelerationY = accelerationY;
+		this.active = true;
 	}
 
 	public float getMass() {
@@ -157,14 +160,14 @@ public class SimulationComponent extends Component {
 		if (!active || mass <= 0.0f) // Unmoveable object
 			return;
 		
-//		float forceX = this.externalForceX - (this.friction * this.velocityX);
-//		float forceY = this.externalForceY - (this.friction * this.velocityY);
-		float forceX = this.externalForceX;
-		float forceY = this.externalForceY;
+		float forceX = this.externalForceX - (this.friction * this.velocityX);
+		float forceY = this.externalForceY - (this.friction * this.velocityY);
+//		float forceX = this.externalForceX;
+//		float forceY = this.externalForceY;
 		
-		this.accelerationX += forceX / this.mass;
+		this.accelerationX = forceX / this.mass;
 		
-		this.accelerationY += forceY / this.mass;
+		this.accelerationY = forceY / this.mass;
 		
 		boolean shouldSleep = false;
 
@@ -184,12 +187,13 @@ public class SimulationComponent extends Component {
 
 		if (Math.abs(velocityX) < TOLERANCE) {
 			velocityX = 0.0f;
-			shouldSleep|=true;
+			shouldSleep=true;
 		}
 		if (Math.abs(velocityY) < TOLERANCE) {
 			velocityY = 0.0f;
-			shouldSleep|=true;
 		}
+		else 
+			shouldSleep = false;
 		
 		if(shouldSleep) 
 			active = false;
