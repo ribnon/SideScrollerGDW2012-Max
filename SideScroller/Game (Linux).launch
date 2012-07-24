@@ -2,7 +2,7 @@
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <stringAttribute key="bad_container_name" value="\SideScroller\r"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/SideScroller/src/Game.java"/>
+<listEntry value="/SideScroller/src/gdw/Game.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -12,7 +12,7 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Game"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="gdw.Game"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="SideScroller"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.library.path=&quot;ext/lwjgl/native/linux&quot;"/>
 </launchConfiguration>

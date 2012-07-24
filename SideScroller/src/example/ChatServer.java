@@ -1,9 +1,9 @@
 package example;
 
-import gdwNet.server.BasicClientConnection;
-import gdwNet.server.BasicServer;
-import gdwNet.server.ConnectionInfo;
-import gdwUtils.DefaultCharSet;
+import gdw.network.server.BasicClientConnection;
+import gdw.network.server.BasicServer;
+import gdw.network.server.ConnectionInfo;
+import gdw.utils.DefaultCharSet;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

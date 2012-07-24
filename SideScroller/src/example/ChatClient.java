@@ -1,10 +1,10 @@
 package example;
 
-import gdwNet.RESPONCECODES;
-import gdwNet.client.BasicClient;
-import gdwNet.client.IBasicClientListener;
-import gdwNet.client.ServerInfo;
-import gdwUtils.DefaultCharSet;
+import gdw.network.RESPONSECODES;
+import gdw.network.client.BasicClient;
+import gdw.network.client.IBasicClientListener;
+import gdw.network.client.ServerInfo;
+import gdw.utils.DefaultCharSet;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -258,15 +258,15 @@ public class ChatClient extends JFrame implements IBasicClientListener
 		switch (msg)
 		{
 		// Ok bin verbunden
-		case RESPONCECODES.OK:
+		case RESPONSECODES.OK:
 			text = "Verbunden";
 			break;
 		// er kommuniziert gerade mit dem Server über deinen Login
-		case RESPONCECODES.HANDSHAKE:
+		case RESPONSECODES.HANDSHAKE:
 			text = "Handshake läuft";
 			break;
 		// Verbindungsaufbau zum Server
-		case RESPONCECODES.CONNECTING:
+		case RESPONSECODES.CONNECTING:
 			text = "Verbinde...";
 			break;
 
@@ -277,36 +277,36 @@ public class ChatClient extends JFrame implements IBasicClientListener
 			{
 			// wenn das auf tritt habe ich Mist gebaut nicht ihr 
 			// oder die Netzwerkverbindung ist schrott
-			case RESPONCECODES.DATA_CORRUPTED:
+			case RESPONSECODES.DATA_CORRUPTED:
 				text = "Wir senden Scheiße";
 				break;
 			// Der Nick den ihr gesendet wird nicht akzeptiert
-			case RESPONCECODES.NICK_CORRUPTED:
+			case RESPONSECODES.NICK_CORRUPTED:
 				text = "Nickname ist Mist";
 				break;
 			// Nick bereits vergeben
-			case RESPONCECODES.NICK_TAKEN:
+			case RESPONSECODES.NICK_TAKEN:
 				text = "Dein Nick ist unkreativ";
 				break;
 			// Er mag einen nicht haben, erblockt alle Verbindungsversuche
-			case RESPONCECODES.CONNECT_REFUSE:
+			case RESPONSECODES.CONNECT_REFUSE:
 				text = "Er mag uns nicht";
 				break;
 			// Er ist voll
-			case RESPONCECODES.SERVER_FULL:
+			case RESPONSECODES.SERVER_FULL:
 				text = "Schon alles voll";
 				break;
 			// Die Antwort dauert zu lange, vielleicht Netzwerk nicht in Ordnung?
 			// Oder Kick?
-			case RESPONCECODES.TIMEOUT:
+			case RESPONSECODES.TIMEOUT:
 				text = "Zu lange Leitung";
 				break;
 			// Kann nicht zum Server verbinden 
-			case RESPONCECODES.UNREACHABLE:
+			case RESPONSECODES.UNREACHABLE:
 				text = "Kaputte Leitung";
 				break;
 			// Und weg
-			case RESPONCECODES.DISCONNECTED:
+			case RESPONSECODES.DISCONNECTED:
 				text = "Disconnect";
 				break;
 
