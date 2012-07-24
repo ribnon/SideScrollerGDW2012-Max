@@ -13,7 +13,13 @@ public class EntityTemplate {
 		
 	}
 
-	public Entity createEntity(float whereX,float whereY){
-		return null;
+	//Wird von server-seitigem Code aufgerufen um Entities zu spawnen:
+	public Entity createEntity(float whereX,float whereY, float orientation){
+		return null;//TODO: Implement
+	}
+	
+	//Wird vom Netzwerkcode auf dem Client aufgerufen, um Entities zu replizieren:
+	public Entity createEntity(int id, float whereX,float whereY, float orientation){
+		return null;//TODO: Implement
 	}
 }
