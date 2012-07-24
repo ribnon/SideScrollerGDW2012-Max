@@ -1,11 +1,12 @@
 package gdw.network;
 
-import java.awt.TrayIcon.MessageType;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
 import gdw.entityCore.Entity;
+import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
+import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Message;
 import gdw.network.client.BasicClient;
 import gdw.network.messageType.DeadReckoningNetMessage;
@@ -110,13 +111,13 @@ public class NetSubSystem
 			for(int i=0;i< dmsg.length;++i)
 			{
 				Entity ente = ref.getEntity(dmsg[i].entityID);
-				((NetComponent) ente.getComponent(NetComponent.COMPONENT_TYPE)).deadReckoningMessageReceive(dmsg);
+				((NetComponent)ente.getComponent(NetComponent.COMPONENT_TYPE)).deadReckoningMessageReceive(dmsg[i]);
 			}			
 		break;
 		
 		case NetMessageType.EntityBusMessageType:
 			EntityBusNetMessage ebnm = EntityBusNetMessage.getFromByteBuffer(buf);
-			ref.getEntitiy(ebnm.entityID).message(ebnm.busMessage);			
+			ref.getEntity(ebnm.entityID).message(ebnm.busMessage);			
 		break;
 		
 		case NetMessageType.EntitySpawnMessageType:
@@ -129,7 +130,7 @@ public class NetSubSystem
 			EntityDeSpawnNetMessage[] arrDNM = EntityDeSpawnNetMessage.getFromByteBuffer(buf);
 			for(int i=0;i<arrDNM.length;++i)
 			{
-				ref.getEntity(arrDNM.entityID).markForDestroy();
+				ref.getEntity(arrDNM[i].entityID).markForDestroy();
 			}
 			
 		break;
