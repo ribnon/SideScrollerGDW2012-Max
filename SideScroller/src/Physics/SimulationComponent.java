@@ -51,11 +51,12 @@ public class SimulationComponent extends Component {
 		// default value
 		active = true;
 		
-		SimulationComponentManager mng = SimulationComponentManager.get();
+		SimulationComponentManager mng = SimulationComponentManager.getInstance();
+		mng.addSimulationComponent(this);
 	}
 
 	protected void destroy() {
-		SimulationComponentManager manager = SimulationComponentManager.get();
+		SimulationComponentManager manager = SimulationComponentManager.getInstance();
 		manager.removeSimulationComponent(this);
 	}
 

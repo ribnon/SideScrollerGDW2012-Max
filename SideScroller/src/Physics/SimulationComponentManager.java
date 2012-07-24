@@ -17,7 +17,7 @@ public class SimulationComponentManager {
 		manager = this;
 	}
 	
-	public static SimulationComponentManager get() {
+	public static SimulationComponentManager getInstance() {
 		if(manager==null) {
 			manager = new SimulationComponentManager();
 		}
@@ -37,12 +37,16 @@ public class SimulationComponentManager {
 		simulationList.remove(comp);
 	}
 	
+	public float getDeltaTime() {
+		return lastDeltaTime;
+	}
+	
 	public void simulate(float deltaTime) {
 		lastDeltaTime = deltaTime;
 		
 		for(SimulationComponent sim : simulationList) {
 			if(sim.isActive())
-				sim.simulate(deltaTime);
+				sim.simulate(lastDeltaTime);
 		}
 		
 	}
