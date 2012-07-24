@@ -35,7 +35,7 @@ public class PlayerInputComponent extends Component {
 	 */
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
-			int specattackKey, int jumpVelocity, int runVelocity) {
+			int specattackKey, float jumpVelocity, float runVelocity) {
 		super(template);
 
 		wasDownKeyDown = false;
