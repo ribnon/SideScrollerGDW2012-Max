@@ -6,6 +6,7 @@ public class Entity {
 	private int id;
 	private float posX;
 	private float posY;
+	private float orientation;
 	private HashMap<Integer, Component> components;
 	private EntityTemplate template;
 	private boolean destroyFlag=false;
@@ -54,6 +55,12 @@ public class Entity {
 		posY=y;
 	}
 	
+	public float getOrientation() {
+		return orientation;
+	}
+	public void setOrientation(float orientation) {
+		this.orientation = orientation;
+	}
 	public void addComponent(Component comp){
 		components.put(comp.getComponentTypeID(), comp);
 		comp.setOwner(this);
