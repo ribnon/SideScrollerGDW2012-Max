@@ -1,5 +1,8 @@
+import gdwNet.client.BasicClient;
+import gdwNet.client.IBasicClientListener;
 import gdwNet.client.ServerInfo;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
@@ -9,27 +12,29 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class LobbyState extends BasicGameState {
+public class LobbyState extends BasicGameState implements IBasicClientListener {
 
-	private ServerFinder sf;
+	// private ServerFinder sf;
 	int waittime = 500;
 	ArrayList<JoinButton> buttons;
 	int id;
+	private ArrayList<ServerInfo> servers;
+	private boolean registered = false;
 	
-	public LobbyState(int id)
-	{
+	GameContainer gc;
+
+	public LobbyState(int id) {
 		this.id = id;
 	}
-	
+
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		g.drawString("Lobby", 250, 0);
-		ArrayList<ServerInfo> serverList = sf.getServerList();
 		ServerInfo c;
 		g.drawString("Servers:", 0, 85);
-		for (int i = 0; i < serverList.size(); ++i) {
-			c = serverList.get(i);
+		for (int i = 0; i < servers.size(); ++i) {
+			c = servers.get(i);
 			g.drawString(c.address + ":" + c.port + "|" + c.infoMsg + "("
 					+ c.currentPlayer + "/" + c.maxPlayer + ")" + c.ping, 20,
 					i * 15 + 100);
@@ -42,24 +47,10 @@ public class LobbyState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
+		this.gc = gc;
 		buttons = new ArrayList<JoinButton>();
-		sf = new ServerFinder();
-		sf.register();
-		sf.findServers();
-
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		ArrayList<ServerInfo> sl = sf.getServerList();
-		for (int i = 0; i < sl.size(); ++i) {
-			buttons.add(new JoinButton(0, i * 15 + 100, 15, 15, new Image(
-					"button.png"), gc, sl.get(i)));
-		}
-
+		register();
+		findServers();
 	}
 
 	@Override
@@ -67,7 +58,7 @@ public class LobbyState extends BasicGameState {
 			throws SlickException {
 		// TODO Auto-generated method stub
 		if (waittime <= 0) {
-			sf.findServers();
+			findServers();
 			waittime = 500;
 		} else {
 			waittime -= deltaTime;
@@ -79,7 +70,7 @@ public class LobbyState extends BasicGameState {
 	public void leave(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -87,4 +78,50 @@ public class LobbyState extends BasicGameState {
 		return id;
 	}
 
+	public void register() {
+		if (!registered)
+			BasicClient.setListener(this);
+	}
+
+	public void findServers() {
+		if (!registered)
+			register();
+
+		servers = new ArrayList<ServerInfo>();
+		BasicClient.refreshServerList();
+	}
+
+	@Override
+	public void serverResponce(ServerInfo info) {
+		for (int i = 0; i < servers.size(); ++i) {
+			if (servers.get(i).id == info.id)
+				return;
+		}
+		servers.add(info);
+		try {
+			buttons.add(new JoinButton(20, servers.size() * 15 + 100, 15, 15, new Image("button.png"), gc, info));
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void connectionUpdate(int msg) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void connectionEstablished(BasicClient clientRef) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void incommingMessage(ByteBuffer msg, boolean wasReliable) {
+		// TODO Auto-generated method stub
+
+	}
 }
