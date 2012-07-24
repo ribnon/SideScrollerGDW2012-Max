@@ -14,22 +14,22 @@ public class PlayerInputComponent extends Component {
 
 	private final float jumpVelocity, runVelocity;
 
-	private final boolean wasDown, wasJump, wasLeft, wasRight, wasAttack,
-			wasSpecAttack;
+	private final boolean wasDownKeyDown, wasJumpKeyDown, wasLeftKeyDown, wasRightKeyDown, wasAttackKeyDown,
+			wasSpecAttackKeyDown;
 
 	public static int COMPONENT_TYPE = 3;
 
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
 			int specattackKey, int jumpVelocity, int runVelocity) {
-		super.template = template;
+		super(template);
 
-		wasDown = false;
-		wasJump = false;
-		wasLeft = false;
-		wasRight = false;
-		wasAttack = false;
-		wasSpecAttack = false;
+		wasDownKeyDown = false;
+		wasJumpKeyDown = false;
+		wasLeftKeyDown = false;
+		wasRightKeyDown = false;
+		wasAttackKeyDown = false;
+		wasSpecAttackKeyDown = false;
 
 		this.attackKey = attackKey;
 		this.specattackKey = specattackKey;
