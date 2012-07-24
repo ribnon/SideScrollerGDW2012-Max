@@ -9,6 +9,8 @@ public class CircleCollisionDetectionComponent extends CollisionDetectionCompone
 	public CircleCollisionDetectionComponent(ComponentTemplate template)
 	{
 		super(template);
+		
+		radius = template.getFloatParam("radius", 1.0f);
 	}
 	
 	protected void destroy()
