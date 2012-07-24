@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 
 import gdw.network.NetMessageType;
 
-public class EntityNetMessage extends NetMessageType
+public class EntityDespawnNetMessage extends NetMessageType
 {
 	private final boolean spawn; 
 	private final String entiyName;
@@ -15,7 +15,7 @@ public class EntityNetMessage extends NetMessageType
 	//von Componenttemplate createEntity(int id(server vergibt, [hochzähö], posXY,Orination))
 	
 	
-	private EntityNetMessage(ByteBuffer buf)
+	private EntityDespawnNetMessage(ByteBuffer buf)
 	{
 		buf.put(NetMessageType.)
 	}
