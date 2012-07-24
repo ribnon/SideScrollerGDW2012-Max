@@ -13,21 +13,20 @@ public class PlayerInputComponentTemplate extends ComponentTemplate {
 	public PlayerInputComponentTemplate(HashMap<String, String> params) {
 		super(params);
 
-		downKey = super.getIntParam("DownKey");
-		jumpKey = super.getIntParam("JumpKey");
-		leftKey = super.getIntParam("LeftKey");
-		rightKey = super.getIntParam("RightKey");
-		attackKey = super.getIntParam("AttackKey");
-		specattackKey = super.getIntParam("SpecialAttackKey");
+		downKey = super.getIntegerParam("DownKey");
+		jumpKey = super.getIntegerParam("JumpKey");
+		leftKey = super.getIntegerParam("LeftKey");
+		rightKey = super.getIntegerParam("RightKey");
+		attackKey = super.getIntegerParam("AttackKey");
+		specattackKey = super.getIntegerParam("SpecialAttackKey");
 
-		jumpVelocity = super.getIntParam("JumpVelocity");
-		runVelocity = super.getIntParam("RunVelocity");
+		jumpVelocity = super.getIntegerParam("JumpVelocity");
+		runVelocity = super.getIntegerParam("RunVelocity");
 	}
 
 	@Override
 	public Component createComponent() {
 		return new PlayerInputComponent(this, downKey, jumpKey, leftKey,
-				rightKey, attackKey, specattackKey);
-		// TODO: Add/Register to PlayerInputComponentManager
+				rightKey, attackKey, specattackKey, jumpVelocity, runVelocity);
 	}
 }
