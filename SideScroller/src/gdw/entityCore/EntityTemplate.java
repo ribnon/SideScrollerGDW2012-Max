@@ -16,7 +16,12 @@ public class EntityTemplate {
 		this.baseTemplates = baseTemplates;
 		this.componentParamsMap = componentParamsMap;
 		
-		//TODO: Merge base template parameters
+		for(String baseTemplateName: baseTemplates){
+			EntityTemplate baseTemplate = EntityTemplateManager.getInstance().getEntityTemplate(baseTemplateName);
+			if(baseTemplate!=null){
+				mergeInBaseParams(baseTemplate.componentParamsMap);
+			}
+		}
 		
 		for(String compName: componentParamsMap.keySet()){
 			ComponentTemplate compTemplate = ComponentTemplateFactory.getInstance().createComponentTemplate(compName, componentParamsMap.get(compName));
@@ -25,14 +30,27 @@ public class EntityTemplate {
 		}
 	}
 
+	private void mergeInBaseParams(HashMap<String,HashMap<String,String>> baseCompParamsMap){
+		for(String baseCompName: baseCompParamsMap.keySet()){
+			if(!componentParamsMap.containsKey(baseCompName)){
+				componentParamsMap.put(baseCompName, new HashMap<String,String>());
+			}
+			HashMap<String,String> myParamMap = componentParamsMap.get(baseCompName);
+			HashMap<String,String> baseParamMap = baseCompParamsMap.get(baseCompName);
+			for(String baseParamName: baseParamMap.keySet()){
+				if(!myParamMap.containsKey(baseParamName)){
+					myParamMap.put(baseParamName, baseParamMap.get(baseParamName));
+				}
+			}
+		}
+	}
+	
 	//Wird von server-seitigem Code aufgerufen um Entities zu spawnen:
 	public Entity createEntity(float whereX,float whereY, float orientation){
 		if(EntityManager.getInstance()==null)
 			System.out.println("EntityManager null");
 		int id = EntityManager.getInstance().getNextID();
-		
-		
-//		NetSubSystem.getInstance().sendSpawn(name,id,whereX,whereY,orientation);
+		NetSubSystem.getInstance().sendSpawn(name,id,whereX,whereY,orientation);
 		return createEntity(id, whereX, whereY, orientation);
 	}
 	
@@ -40,7 +58,7 @@ public class EntityTemplate {
 	public Entity createEntity(int id, float whereX,float whereY, float orientation){
 		Entity ent = EntityManager.getInstance().createEntity(id, whereX, whereY, orientation, this);
 		for(ComponentTemplate compTemplate: componentTemplateMap.values()){
-//			if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
+			if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
 			if(compTemplate == null)
 				System.out.println("compTemplate null");
 			ent.addComponent(compTemplate.createComponent());

@@ -6,7 +6,8 @@ import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.gameplay.GameColor;
 
-public class ColorableComponentTemplate extends ComponentTemplate {
+public class ColorableComponentTemplate extends ComponentTemplate
+{
 
 	private GameColor targetColor;
 	private GameColor currentColor;
@@ -14,26 +15,36 @@ public class ColorableComponentTemplate extends ComponentTemplate {
 	private float fadeTime;
 	private float friendlyDuration;
 	private float friendlyTimer;
-	private int   finishedCount;
-	private int   segmentCount;
-	
+	private int finishedCount;
+	private int segmentCount;
+
 	protected ColorableComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
-		
-		
-		
-		
-		String bit = getStringParam("targetColor", "000");
-		
-		targetColor = new GameColor(bit.charAt(0) == '1', bit.charAt(1) == '1', bit.charAt(2) == '1');
-		
-		bit = getStringParam("currentColor", "000");
-		
-		currentColor = new GameColor(bit.charAt(0) == '1', bit.charAt(1) == '1', bit.charAt(2) == '1');
-		
-		
-		
+		String bit = getStringParam("targetColor", "0;0;0");
+		String[] bitArr = bit.split(";");
+
+		if (bitArr.length == 3)
+		{
+			targetColor = new GameColor(bitArr[0].equals("1"),
+					bitArr[1].equals("1"), bitArr[2].equals("1"));
+		} else
+		{
+			targetColor = new GameColor();
+		}
+
+		bit = getStringParam("currentColor", "0;0;0");
+		bitArr = bit.split(";");
+
+		if (bitArr.length == 3)
+		{
+			currentColor = new GameColor(bitArr[0].equals("1"),
+					bitArr[1].equals("1"), bitArr[2].equals("1"));
+		} else
+		{
+			currentColor = new GameColor();
+		}
+
 		remainingTimeToFade = getFloatParam("remainingTimeToFade", 0.0f);
 		fadeTime = getFloatParam("fadeTime", 1.0f);
 		friendlyDuration = getFloatParam("friendlyDuration", 1.0f);
@@ -41,74 +52,90 @@ public class ColorableComponentTemplate extends ComponentTemplate {
 		finishedCount = getIntegerParam("finishedCount", 0);
 		segmentCount = getIntegerParam("segmentCount", 0);
 	}
-	
+
 	@Override
-	public Component createComponent() {
-		// TODO Auto-generated method stub
+	public Component createComponent()
+	{
 		return new ColorableComponent(this);
 	}
 
-	public GameColor getTargetColor() {
+	public GameColor getTargetColor()
+	{
 		return targetColor;
 	}
 
-	public void setTargetColor(GameColor targetColor) {
+	public void setTargetColor(GameColor targetColor)
+	{
 		this.targetColor = targetColor;
 	}
 
-	public GameColor getCurrentColor() {
+	public GameColor getCurrentColor()
+	{
 		return currentColor;
 	}
 
-	public void setCurrentColor(GameColor currentColor) {
+	public void setCurrentColor(GameColor currentColor)
+	{
 		this.currentColor = currentColor;
 	}
 
-	public float getRemainingTimeToFade() {
+	public float getRemainingTimeToFade()
+	{
 		return remainingTimeToFade;
 	}
 
-	public void setRemainingTimeToFade(float remainingTimeToFade) {
+	public void setRemainingTimeToFade(float remainingTimeToFade)
+	{
 		this.remainingTimeToFade = remainingTimeToFade;
 	}
 
-	public float getFadeTime() {
+	public float getFadeTime()
+	{
 		return fadeTime;
 	}
 
-	public void setFadeTime(float fadeTime) {
+	public void setFadeTime(float fadeTime)
+	{
 		this.fadeTime = fadeTime;
 	}
 
-	public float getFriendlyDuration() {
+	public float getFriendlyDuration()
+	{
 		return friendlyDuration;
 	}
 
-	public void setFriendlyDuration(float friendlyDuration) {
+	public void setFriendlyDuration(float friendlyDuration)
+	{
 		this.friendlyDuration = friendlyDuration;
 	}
 
-	public float getFriendlyTimer() {
+	public float getFriendlyTimer()
+	{
 		return friendlyTimer;
 	}
 
-	public void setFriendlyTimer(float friendlyTimer) {
+	public void setFriendlyTimer(float friendlyTimer)
+	{
 		this.friendlyTimer = friendlyTimer;
 	}
 
-	public int getFinishedCount() {
+	public int getFinishedCount()
+	{
 		return finishedCount;
 	}
 
-	public void setFinishedCount(int finishedCount) {
+	public void setFinishedCount(int finishedCount)
+	{
 		this.finishedCount = finishedCount;
 	}
 
-	public int getSegmentCount() {
+	public int getSegmentCount()
+	{
 		return segmentCount;
 	}
 
-	public void setSegmentCount(int segmentCount) {
+	public void setSegmentCount(int segmentCount)
+	{
 		this.segmentCount = segmentCount;
 	}
 }

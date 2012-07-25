@@ -13,6 +13,9 @@ import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
 import gdw.gameplay.Player.DuckableComponent;
+import gdw.gameplay.Player.PlayerBehaviorComponent;
+import gdw.gameplay.Player.Type;
+import gdw.gameplay.levelObjects.SwitchUserComponent;
 import gdw.graphics.SpriteComponent;
 import gdw.network.NetComponent;
 import gdw.network.NetSubSystem;
@@ -244,6 +247,7 @@ public class PlayerInputComponent extends Component {
 					spritecomp.setFlipped(false);
 				}
 			}
+			return;
 		}
 
 		if (msg instanceof StopMessage) {
@@ -252,6 +256,7 @@ public class PlayerInputComponent extends Component {
 			if (simcomp != null) {
 				simcomp.setVelocityX(0.0f);
 			}
+			return;
 		}
 
 		// Jump behavior
@@ -261,6 +266,7 @@ public class PlayerInputComponent extends Component {
 			if (simcomp != null) {
 				simcomp.setVelocityY(jumpVelocity);
 			}
+			return;
 		}
 
 		// Duck behavior
@@ -270,6 +276,7 @@ public class PlayerInputComponent extends Component {
 			if (duckcomp != null) {
 				duckcomp.setDucked(true);
 			}
+			return;
 		}
 
 		if (msg instanceof EndDuckMessage) {
@@ -278,6 +285,7 @@ public class PlayerInputComponent extends Component {
 			if (duckcomp != null) {
 				duckcomp.setDucked(false);
 			}
+			return;
 		}
 
 		// Attack behavior
@@ -285,9 +293,9 @@ public class PlayerInputComponent extends Component {
 			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
 					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
 			if (plbehcomp != null) {
-				plbehcomp
-						.startAttack(PlayerBehaviorComponent.AttackType.Normal);
+				plbehcomp.startAttack(Type.Normal);
 			}
+			return;
 		}
 
 		// Special attack behavior
@@ -295,26 +303,28 @@ public class PlayerInputComponent extends Component {
 			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
 					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
 			if (plbehcomp != null) {
-				plbehcomp
-						.startAttack(PlayerBehaviorComponent.AttackType.Special);
+				plbehcomp.startAttack(Type.Special);
 			}
+			return;
 		}
 
 		// Pull behavior
 		if (msg instanceof BeginPullMessage) {
 			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
 					SwitchUserComponent.COMPONENT_TYPE);
-			if (swusrcomp) {
+			if (swusrcomp != null) {
 				swusrcomp.setpullActive(true);
 			}
+			return;
 		}
 
 		if (msg instanceof EndPullMessage) {
 			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
 					SwitchUserComponent.COMPONENT_TYPE);
-			if (swusrcomp) {
+			if (swusrcomp != null) {
 				swusrcomp.setpullActive(true);
 			}
+			return;
 		}
 	}
 
