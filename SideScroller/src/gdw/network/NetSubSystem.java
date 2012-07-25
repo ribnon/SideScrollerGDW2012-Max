@@ -80,7 +80,7 @@ public class NetSubSystem
 	
 	public static void initalise(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
 	{
-		if(NetSubSystem.singelton == null)
+		if(NetSubSystem.singelton != null)
 		{
 			System.out.println("Alter ich wurde schon gebaut, ich ignorie das mal");
 			return;

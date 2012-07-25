@@ -10,7 +10,7 @@ public class AABoxCollisionDetectionComponentTemplate extends ComponentTemplate
 	private float halfExtentX;
 	private float halfExtentY;
 	
-	protected AABoxCollisionDetectionComponentTemplate(HashMap<String, String> params)
+	public AABoxCollisionDetectionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		
