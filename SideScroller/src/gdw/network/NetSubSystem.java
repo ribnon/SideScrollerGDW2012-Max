@@ -90,6 +90,11 @@ public class NetSubSystem
 	
 	public static NetSubSystem getInstance()
 	{
+		if(singelton == null) {
+			
+//			singelton = new NetSubSystem(0, false, ,(BasicServer)new SideScrollerServer(""));
+
+		}
 		return NetSubSystem.singelton;
 	}
 	

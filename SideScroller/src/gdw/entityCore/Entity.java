@@ -9,7 +9,7 @@ public class Entity {
 	private float posX;
 	private float posY;
 	private float orientation;
-	private HashMap<Integer, Component> components;
+	private HashMap<Integer, Component> components = new HashMap<>();
 	private EntityTemplate template;
 	private boolean destroyFlag=false;
 	

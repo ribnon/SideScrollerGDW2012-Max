@@ -4,7 +4,7 @@
  * @author Oliver Waidler
  */
 
-package gdwGenericBehavior;
+package gdw.genericBehavior;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
@@ -30,12 +30,12 @@ public class AttachableComponent extends Component
 	public AttachableComponent(ComponentTemplate template)
 	{
 		super(template);
+		groupID = template.getIntegerParam("groupID", -1);
 	}
 
 	/**
 	 * Detach this Entity from the Entity that it is attached to.
 	 * 
-	 * @author Oliver Waidler
 	 */
 	protected void destroy()
 	{

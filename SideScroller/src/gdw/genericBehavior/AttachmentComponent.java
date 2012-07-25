@@ -5,11 +5,13 @@
  * @author Oliver Waidler
  */
 
-package gdwGenericBehavior;
+package gdw.genericBehavior;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import collisionDetection.CollisionDetectionMessage;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
@@ -18,7 +20,6 @@ import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityReference;
 import gdw.entityCore.Message;
 import gdw.entityCore.StaticEntityReference;
-import gdwGenericBehavior.AttachableComponent;
 
 public class AttachmentComponent extends Component
 {
@@ -31,39 +32,50 @@ public class AttachmentComponent extends Component
 	 */
 	private float attachPointY = 0;
 	/**
+	 * The orientation offset at which each Entity is attached
+	 */
+	private float attachOrientation = 0;
+	/**
 	 * The list of all attached Entities. Key is the group ID, Value is an
 	 * Entity Reference
 	 */
-	private HashMap<Integer, EntityReference> attachedEntityID = new HashMap<>();
+	private HashMap<Integer, EntityReference> attachedEntityID = new HashMap<Integer, EntityReference>();
 	/**
 	 * A list with the group IDs that should be auto attached on collision.
 	 */
-	private ArrayList<Integer> autoAttachGroups = new ArrayList<>();
+	private ArrayList<Integer> autoAttachGroups = new ArrayList<Integer>();
 	public static final int COMPONENT_TYPE = 9;
 
 	public AttachmentComponent(ComponentTemplate template)
 	{
 		super(template);
+		attachPointX = template.getFloatParam("attachPointX", 0);
+		attachPointY = template.getFloatParam("attachPointY", 0);
+		attachOrientation = template.getFloatParam("attachOrientation", 0);
+
+		String[] autoAttachGroupsValues = template.getStringParam(
+				"autoAttachGroups", "").split(",");
+		for (String i : autoAttachGroupsValues)
+		{
+			autoAttachGroups.add(Integer.parseInt(i));
+		}
 	}
 
 	/**
 	 * Detaches all AttachableComponents
 	 * 
 	 * Each associated AttachableComponent gets its attachedToEntityID reseted
-	 * 
-	 * @author Oliver Waidler
 	 */
 	protected void destroy()
 	{
 		// Tell all AttachableComponents that they have been detached.
-		Entity thisEntity = getOwner();
 		// Iterate through all elements in the map with attached entity
 		for (Entry<Integer, EntityReference> entry : attachedEntityID
 				.entrySet())
 		{
-			Entity currentEntity = EntityManager.getInstance().getEntity(entry.getValue()
-					.getID());
-			AttachableComponent ac = e
+			Entity currentEntity = EntityManager.getInstance().getEntity(
+					entry.getValue().getID());
+			AttachableComponent ac = (AttachableComponent) currentEntity
 					.getComponent(AttachableComponent.COMPONENT_TYPE);
 			ac.setAttachedToEntityID(-1);
 		}
@@ -88,13 +100,12 @@ public class AttachmentComponent extends Component
 	 * AttachableComponent of the Entity to attach, the old Entity will be
 	 * detached.
 	 * 
-	 * @author Oliver Waidler
 	 * @param entityID
 	 *            The entityID to attach.
 	 */
 	public void attachEntity(EntityReference entityID)
 	{
-		Entity e = EntityManager.getEntity(entityID.getID());
+		Entity e = EntityManager.getInstance().getEntity(entityID.getID());
 		if (e == null)
 			return;
 
@@ -115,7 +126,6 @@ public class AttachmentComponent extends Component
 	 * 
 	 * Also sets the attachedToEntityID of the associated AttachableComponent.
 	 * 
-	 * @author Oliver Waidler
 	 * @param groupID
 	 *            The group to detach.
 	 */
@@ -125,8 +135,9 @@ public class AttachmentComponent extends Component
 		if (e == null)
 			return;
 
-		AttachableComponent ac = (AttachableComponent) EntityManager.getEntity(
-				e.getID()).getComponent(AttachableComponent.COMPONENT_TYPE);
+		AttachableComponent ac = (AttachableComponent) EntityManager
+				.getInstance().getEntity(e.getID())
+				.getComponent(AttachableComponent.COMPONENT_TYPE);
 		ac.setAttachedToEntityID(-1);
 		attachedEntityID.remove(groupID);
 	}
@@ -137,18 +148,21 @@ public class AttachmentComponent extends Component
 	 * Only attaches the Entity if it has an AttachableComponent whose groupID
 	 * is listed in the AttachmentComponent's autoAttachGroups
 	 * 
-	 * @author Oliver Waidler
 	 * @param msg
 	 */
 	public void onMessage(Message msg)
 	{
-		if (msg instanceof CollisionMessage)
+		if (msg instanceof CollisionDetectionMessage)
 		{
-			CollisionMessage collisionMessage = (CollisionMessage) msg;
-			// TODO: Adjust once the CollisionMessage exists
+			CollisionDetectionMessage collisionMessage = (CollisionDetectionMessage) msg;
 			// Get the AttachableComponent from the CollisionMessage
-			Entity e = collisionMessage.getEntity();
-			AttachableComponent ac = (AttachableComponent) e
+			Entity entityWithAttachable = EntityManager.getInstance()
+					.getEntity(collisionMessage.getIDCandidate1());
+			if (entityWithAttachable == getOwner())
+				entityWithAttachable = EntityManager.getInstance().getEntity(
+						collisionMessage.getIDCandidate2());
+
+			AttachableComponent ac = (AttachableComponent) entityWithAttachable
 					.getComponent(AttachableComponent.COMPONENT_TYPE);
 			if (ac == null)
 				return;
@@ -159,8 +173,9 @@ public class AttachmentComponent extends Component
 			if (autoAttachGroups.contains(ac.getGroupID()))
 			{
 				detachEntity(ac.getGroupID());
-				attachedEntityID.put(ac.getGroupID(),
-						new StaticEntityReference(e.getID()));
+				attachedEntityID
+						.put(ac.getGroupID(), new StaticEntityReference(
+								entityWithAttachable.getID()));
 				ac.setAttachedToEntityID(getOwner().getID());
 			}
 		}
@@ -171,7 +186,6 @@ public class AttachmentComponent extends Component
 	 * 
 	 * The position is this entity's position + attachPoint
 	 * 
-	 * @author Oliver Waidler
 	 * @param deltaTime
 	 *            is not used
 	 */
@@ -182,13 +196,13 @@ public class AttachmentComponent extends Component
 		for (Entry<Integer, EntityReference> entry : attachedEntityID
 				.entrySet())
 		{
-			Entity currentEntity = EntityManager.getEntity(entry.getValue()
-					.getID());
+			Entity currentEntity = EntityManager.getInstance().getEntity(
+					entry.getValue().getID());
 			// Set the position and orientation of the attached entity
-			e.setPosX(thisEntity.getPosX() + attachPointX);
-			e.setPosY(thisEntity.getPosY() + attachPointY);
-			// e.setOrientation(thisEntity.getOrientation() +
-			// attachOrientation);
+			currentEntity.setPosX(thisEntity.getPosX() + attachPointX);
+			currentEntity.setPosY(thisEntity.getPosY() + attachPointY);
+			currentEntity.setOrientation(thisEntity.getOrientation()
+					+ attachOrientation);
 		}
 	}
 }

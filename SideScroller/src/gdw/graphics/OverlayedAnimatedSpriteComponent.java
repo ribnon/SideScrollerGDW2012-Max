@@ -20,27 +20,32 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 	 * zwei Spritesheets die später übereinander gezeichnet werden
 	 */
 	private SpriteSheet baseSpritesheet;
-	private SpriteSheet overlaySpritesheet;
+	private SpriteSheet overlaySpritesheet1;
+	private SpriteSheet overlaySpritesheet2;
 
 	/**
 	 * Color-Filter für den Overlay-Spritesheet
 	 */
-	private Color overlayColor;
+	private Color overlayColor1;
+	private Color overlayColor2;
 	/**
 	 * number of Frames in per column of sprites in the spritesheets.
 	 */
 	private int[] baseCycleLength;
-	private int[] overlayCycleLength;
+	private int[] overlayCycleLength1;
+	private int[] overlayCycleLength2;
 	/**
 	 * current column (animation)
 	 */
 	private int baseCycle;
-	private int overlayCycle;
+	private int overlayCycle1;
+	private int overlayCycle2;
 	/**
 	 * current frame
 	 */
 	private int baseStep = 0;
-	private int overlayStep = 0;
+	private int overlayStep1 = 0;
+	private int overlayStep2 = 0;
 
 	public SpriteSheet getBaseSpritesheet()
 	{
@@ -52,24 +57,44 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 		this.baseSpritesheet = baseSpritesheet;
 	}
 
-	public SpriteSheet getOverlaySpritesheet()
+	public SpriteSheet getOverlaySpritesheet1()
 	{
-		return overlaySpritesheet;
+		return overlaySpritesheet1;
+	}
+	
+	public SpriteSheet getOverlaySpritesheet2()
+	{
+		return overlaySpritesheet2;
 	}
 
-	public void setOverlaySpritesheet(SpriteSheet overlaySpritesheet)
+	public void setOverlaySpritesheet1(SpriteSheet overlaySpritesheet)
 	{
-		this.overlaySpritesheet = overlaySpritesheet;
+		this.overlaySpritesheet1 = overlaySpritesheet;
 	}
 
-	public Color getOverlayColor()
+	public void setOverlaySpritesheet2(SpriteSheet overlaySpritesheet)
 	{
-		return overlayColor;
+		this.overlaySpritesheet2 = overlaySpritesheet;
+	}
+	
+	public Color getOverlayColor1()
+	{
+		return overlayColor1;
+	}
+	
+	public Color getOverlayColor2()
+	{
+		return overlayColor2;
 	}
 
-	public void setOverlayColor(Color overlayColor)
+	public void setOverlayColor1(Color overlayColor)
 	{
-		this.overlayColor = overlayColor;
+		this.overlayColor1 = overlayColor;
+	}
+	
+	public void setOverlayColor2(Color overlayColor)
+	{
+		this.overlayColor2 = overlayColor;
 	}
 
 	public int[] getBaseCycleLength()
@@ -82,14 +107,24 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 		this.baseCycleLength = baseCycleLength;
 	}
 
-	public int[] getOverlayCycleLength()
+	public int[] getOverlayCycle1Length()
 	{
-		return overlayCycleLength;
+		return overlayCycleLength1;
+	}
+	
+	public int[] getOverlayCycle2Length()
+	{
+		return overlayCycleLength2;
 	}
 
-	public void setOverlayCycleLength(int[] overlayCycleLength)
+	public void setOverlayCycle1Length(int[] overlayCycleLength)
 	{
-		this.overlayCycleLength = overlayCycleLength;
+		this.overlayCycleLength1 = overlayCycleLength;
+	}
+	
+	public void setOverlayCycle2Length(int[] overlayCycleLength)
+	{
+		this.overlayCycleLength2 = overlayCycleLength;
 	}
 
 	public int getBaseCycle()
@@ -102,14 +137,24 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 		this.baseCycle = baseCycle;
 	}
 
-	public int getOverlayCycle()
+	public int getOverlayCycle1()
 	{
-		return overlayCycle;
+		return overlayCycle1;
+	}
+	
+	public int getOverlayCycle2()
+	{
+		return overlayCycle2;
 	}
 
-	public void setOverlayCycle(int overlayCycle)
+	public void setOverlayCycle1(int overlayCycle)
 	{
-		this.overlayCycle = overlayCycle;
+		this.overlayCycle1 = overlayCycle;
+	}
+	
+	public void setOverlayCycle2(int overlayCycle)
+	{
+		this.overlayCycle2 = overlayCycle;
 	}
 
 	public int getBaseStep()
@@ -117,9 +162,14 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 		return baseStep;
 	}
 
-	public int getOverlayStep()
+	public int getOverlayStep1()
 	{
-		return overlayStep;
+		return overlayStep1;
+	}
+	
+	public int getOverlayStep2()
+	{
+		return overlayStep2;
 	}
 
 	public OverlayedAnimatedSpriteComponent(ComponentTemplate template)
@@ -133,23 +183,34 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 					template.getIntegerParam("BaseTileHeight"));
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("BaseSpriteSheet konnte nicht erstellt werden!");
 		}
 
 		try
 		{
-			overlaySpritesheet = new SpriteSheet(
+			overlaySpritesheet1 = new SpriteSheet(
 					template.getStringParam("OverlayPath"),
 					template.getIntegerParam("OverlayTileWidth"),
 					template.getIntegerParam("OverlayTileHeight"));
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out
-					.println("OverlaySpriteSheet konnte nicht erstellt werden!");
+					.println("OverlaySpriteSheet1 konnte nicht erstellt werden!");
+		}
+		
+		try
+		{
+			overlaySpritesheet2 = new SpriteSheet(
+					template.getStringParam("OverlayPath"),
+					template.getIntegerParam("OverlayTileWidth"),
+					template.getIntegerParam("OverlayTileHeight"));
+		} catch (SlickException e)
+		{
+			e.printStackTrace();
+			System.out
+					.println("OverlaySpriteSheet2 konnte nicht erstellt werden!");
 		}
 
 		baseCycleLength = new int[baseSpritesheet.getVerticalCount()];
@@ -162,15 +223,25 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 																		// spritesheet
 		baseCycle = template.getIntegerParam("BaseCycle");
 
-		overlayCycleLength = new int[overlaySpritesheet.getVerticalCount()];
-		for (int i = 0; i < overlayCycleLength.length; ++i)
-			overlayCycleLength[i] = overlaySpritesheet.getHorizontalCount(); // TODO
+		overlayCycleLength1 = new int[overlaySpritesheet1.getVerticalCount()];
+		for (int i = 0; i < overlayCycleLength1.length; ++i)
+			overlayCycleLength1[i] = overlaySpritesheet1.getHorizontalCount(); // TODO
 																				// detect
 																				// unused
 																				// slots
 																				// in
 																				// spritesheet
-		overlayCycle = template.getIntegerParam("OverlayCycle");
+		overlayCycle2 = template.getIntegerParam("OverlayCycle");
+		
+		overlayCycleLength2 = new int[overlaySpritesheet2.getVerticalCount()];
+		for (int i = 0; i < overlayCycleLength2.length; ++i)
+			overlayCycleLength2[i] = overlaySpritesheet2.getHorizontalCount(); // TODO
+																				// detect
+																				// unused
+																				// slots
+																				// in
+																				// spritesheet
+		overlayCycle2 = template.getIntegerParam("OverlayCycle");
 	}
 
 	
@@ -180,13 +251,25 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 	public void draw()
 	{
 		Image baseimg = baseSpritesheet.getSprite(baseStep, baseCycle);
+		if(getFlipped())
+			baseimg = baseimg.getFlippedCopy(false, true);
 		baseimg.setCenterOfRotation(getPivotX(), getPivotY());
 		baseimg.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
 
-		Image overlayimg = overlaySpritesheet.getSprite(overlayStep,
-				overlayCycle);
-		overlayimg.setCenterOfRotation(getPivotX(), getPivotY());
-		overlayimg.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
+		Image overlayimg1 = overlaySpritesheet1.getSprite(overlayStep1,
+				overlayCycle1);
+		if(getFlipped())
+			overlayimg1 = overlayimg1.getFlippedCopy(false, true);
+		overlayimg1.setCenterOfRotation(getPivotX(), getPivotY());
+		overlayimg1.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
+		
+		Image overlayimg2 = overlaySpritesheet2.getSprite(overlayStep2,
+				overlayCycle2);
+		if(getFlipped())
+			overlayimg2 = overlayimg2.getFlippedCopy(false, true);
+		overlayimg2.setCenterOfRotation(getPivotX(), getPivotY());
+		overlayimg2.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
+
 
 		if (getFilter() != null)
 		{
@@ -200,15 +283,27 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 					getScale());
 		}
 
-		if (overlayColor != null)
+		if (overlayColor1 != null)
 		{
-			overlayimg.draw(getOwner().getPosX() - (overlayimg.getWidth() / 2),
-					getOwner().getPosY() - (overlayimg.getHeight() / 2),
-					getScale(), overlayColor);
+			overlayimg1.draw(getOwner().getPosX() - (overlayimg1.getWidth() / 2),
+					getOwner().getPosY() - (overlayimg1.getHeight() / 2),
+					getScale(), overlayColor1);
 		} else
 		{
-			overlayimg.draw(getOwner().getPosX() - (overlayimg.getWidth() / 2),
-					getOwner().getPosY() - (overlayimg.getHeight() / 2),
+			overlayimg1.draw(getOwner().getPosX() - (overlayimg1.getWidth() / 2),
+					getOwner().getPosY() - (overlayimg1.getHeight() / 2),
+					getScale());
+		}
+		
+		if (overlayColor2 != null)
+		{
+			overlayimg2.draw(getOwner().getPosX() - (overlayimg2.getWidth() / 2),
+					getOwner().getPosY() - (overlayimg2.getHeight() / 2),
+					getScale(), overlayColor2);
+		} else
+		{
+			overlayimg2.draw(getOwner().getPosX() - (overlayimg2.getWidth() / 2),
+					getOwner().getPosY() - (overlayimg2.getHeight() / 2),
 					getScale());
 		}
 
@@ -221,20 +316,28 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 			baseSpritesheet.destroy();
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("BaseSpriteSheet konnte nicht zerstört werden!");
 		}
 
 		try
 		{
-			overlaySpritesheet.destroy();
+			overlaySpritesheet1.destroy();
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out
-					.println("OverlaySpriteSheet konnte nicht zerstört werden!");
+					.println("OverlaySpriteSheet1 konnte nicht zerstört werden!");
+		}
+		
+		try
+		{
+			overlaySpritesheet2.destroy();
+		} catch (SlickException e)
+		{
+			e.printStackTrace();
+			System.out
+					.println("OverlaySpriteSheet2 konnte nicht zerstört werden!");
 		}
 
 	}
@@ -244,30 +347,67 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 		baseCycle = 0;
 	}
 
-	public void resetOverlayCycle()
+	public void resetOverlayCycle1()
 	{
-		overlayCycle = 0;
+		overlayCycle1 = 0;
+	}
+	
+	public void resetOverlayCycle2()
+	{
+		overlayCycle2 = 0;
+	}
+	
+	/**
+	 * Advances the animations by one frame, loops around if end of animation is reached
+	 * 
+	 * @param time passed since last tick
+	 */
+	public void tick(float deltaTime)
+	{
+		baseStep++;
+		baseStep %= baseCycleLength[baseCycle]; // loop back to frame 0
+		
+		overlayStep1++;
+		overlayStep1 %= overlayCycleLength1[overlayCycle1]; // loop back to frame 0
+		
+		overlayStep2++;
+		overlayStep2 %= overlayCycleLength2[overlayCycle2]; // loop back to frame 0
 	}
 	
 	/**
 	 * Advances the base-animation by one frame, loops around if end of animation is reached
 	 * 
 	 * @param time passed since last tick
+	 * @deprecated use tick() instead
 	 */
 	public void baseTick(float deltaTime)
 	{
 		baseStep++;
 		baseStep %= baseCycleLength[baseCycle]; // loop back to frame 0
 	}
+	
 	/**
-	 * Advances the overlay-animation by one frame, loops around if end of animation is reached
+	 * Advances the overlay1-animation1 by one frame, loops around if end of animation is reached
 	 * 
 	 * @param time passed since last tick
+	 * @deprecated use tick() instead
 	 */
-	public void overlayTick(float deltaTime)
+	public void overlayTick1(float deltaTime)
 	{
-		overlayStep++;
-		overlayStep %= overlayCycleLength[overlayCycle]; // loop back to frame 0
+		overlayStep1++;
+		overlayStep1 %= overlayCycleLength1[overlayCycle1]; // loop back to frame 0
+	}
+	
+	/**
+	 * Advances the overlay2-animation2 by one frame, loops around if end of animation is reached
+	 * 
+	 * @param time passed since last tick
+	 * @deprecated use tick() instead
+	 */
+	public void overlayTick2(float deltaTime)
+	{
+		overlayStep2++;
+		overlayStep2 %= overlayCycleLength2[overlayCycle2]; // loop back to frame 0
 	}
 
 }
