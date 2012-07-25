@@ -24,6 +24,12 @@ public class PlayerWeaponComponent extends Component
 
 	public void onMessage(Message msg)
 	{
-		
+		if (msg bla bla)
+		{
+			currentColor.mix(
+		}
+		else if(msg bla bla)
+		{
+		}
 	}
 }
