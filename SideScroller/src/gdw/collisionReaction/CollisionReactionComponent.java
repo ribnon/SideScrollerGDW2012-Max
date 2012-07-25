@@ -1,5 +1,8 @@
 package gdw.collisionReaction;
 
+import collisionDetection.AABoxCollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponentManager;
 import collisionDetection.CollisionDetectionMessage;
 
 import Physics.SimulationComponent;
@@ -14,17 +17,17 @@ import gdw.entityCore.Message;
 public class CollisionReactionComponent extends Component
 {
 	public static final int COMPONENT_TYPE = 5;
-	private boolean impassableFromTop = true;
-	private boolean impassableFromSide = true;
+	private boolean impassableFromTop;
+	private boolean impassableFromSide;
 	private static float VERTICAL_ANGLE_LIMIT = 0.2F;
 	private final float TOLERANCE = 0.001F;
 
 	protected CollisionReactionComponent(ComponentTemplate template)
 	{
 		super(template);
-
-		impassableFromTop = (template.getIntegerParam("impassableFromTop") == 1);
-		impassableFromSide = (template.getIntegerParam("impassableFromSide") == 1);
+		CollisionReactionComponentTemplate tmp = (CollisionReactionComponentTemplate) template;
+		impassableFromSide = tmp.isImpassableFromSide();
+		impassableFromTop = tmp.isImpassableFromTop();
 	}
 
 	@Override
@@ -83,7 +86,7 @@ public class CollisionReactionComponent extends Component
 	}
 	
 	private void reactToCollisionTwoSim(SimulationComponent self, SimulationComponent other) {
-		
+		System.out.println("Dynamic-Dynamic Collision NYI");
 	}
 	
 	/**
@@ -112,12 +115,23 @@ public class CollisionReactionComponent extends Component
 		}
 		// If the entity is penetrable from the top (but not the sides) and the
 		// simulated object is moving downwards and is above the static object
-		if (impassableFromTop
+		boolean selfImpassibleCheck = impassableFromTop
 				&& !impassableFromSide
 				&& (simulatedObject.getVelocityY() < 0 || ratio > VERTICAL_ANGLE_LIMIT
-						|| simulatedObject.getOwner().getPosY() > staticObject.getPosY())) {
+						|| simulatedObject.getOwner().getPosY() > staticObject.getPosY());
+		CollisionReactionComponent otherReact = (CollisionReactionComponent) staticObject.getComponent(CollisionReactionComponent.COMPONENT_TYPE);
+		boolean otherImpassibleCheck = false;
+		if(otherReact!=null) {
+			otherImpassibleCheck = otherReact.impassableFromTop
+					&& !otherReact.impassableFromSide
+					&& (simulatedObject.getVelocityY() < 0 || ratio < VERTICAL_ANGLE_LIMIT
+							|| staticObject.getPosY() < simulatedObject.getOwner().getPosY());
+		}
+		
+		if (selfImpassibleCheck || otherImpassibleCheck) {
 			return;
 		}
+		
 
 		float deltaTime = SimulationComponentManager.getInstance()
 				.getDeltaTime();
@@ -138,9 +152,39 @@ public class CollisionReactionComponent extends Component
 		// This vector is subracted from the velocity of the simulated object
 		// to get a velocity that will not move the simulated object into the
 		// static object
+//		simulatedObject.setVelocityX(veloX- projectedX);
+		simulatedObject.setVelocityX(simulatedObject.getVelocityX()*0.01f);
+		if(simulatedObject.isOnB(staticObject)) {
+			
+			simulatedObject.setVelocityY(0);
+			simulatedObject.addForce(0, -SimulationComponentManager.getInstance().getGravity()*simulatedObject.getMass());
 		
-		simulatedObject.setVelocity(veloX - projectedX , veloY - projectedY);
+			simulatedObject.setGrounded(true);
+		}
+		else if(isAOnB(staticObject,simulatedObject.getOwner())) {
+			System.out.println("Platform on sim");
+			simulatedObject.setVelocityY(0);
+		}
 		
+	}
+	
+	public static boolean isAOnB(Entity A, Entity B) {
+		if(B == null || B == null)
+			return false;
+		CollisionDetectionComponent colCompA =(CollisionDetectionComponent) A.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		CollisionDetectionComponent colCompB =(CollisionDetectionComponent) B.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		if(colCompA!=null && colCompB!=null) {
+			if(colCompB instanceof AABoxCollisionDetectionComponent
+			&& colCompA instanceof AABoxCollisionDetectionComponent) {
+				AABoxCollisionDetectionComponent AAcolCompB = (AABoxCollisionDetectionComponent) colCompB;
+				AABoxCollisionDetectionComponent AAcolCompA = (AABoxCollisionDetectionComponent) colCompA;
+				if(Math.abs(B.getPosX() - A.getPosX()) < AAcolCompA.getHalfExtentX()
+				&&	Math.abs(B.getPosY() - AAcolCompB.getHalfExtentY() - A.getPosY() + AAcolCompA.getHalfExtentY()) < 0.1f) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private float getLength(float x, float y)
