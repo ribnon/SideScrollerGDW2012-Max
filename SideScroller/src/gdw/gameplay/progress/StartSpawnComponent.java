@@ -10,6 +10,7 @@ public class StartSpawnComponent extends Component
 	protected StartSpawnComponent(ComponentTemplate template)
 	{
 		super(template);
+		GameplayProgressManager.getInstance().setStartSpawnComponent(this); //add as fallback spawnpoint, in case no rainbows have been activated
 	}
 
 	@Override
