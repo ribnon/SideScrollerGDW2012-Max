@@ -20,7 +20,14 @@ public class EntityManager {
 	
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
 	private int nextID = 1;
+	private boolean offlineMode=false;
 	
+	public boolean isOfflineMode() {
+		return offlineMode;
+	}
+	public void setOfflineMode(boolean offlineMode) {
+		this.offlineMode = offlineMode;
+	}
 	public int getNextID(){
 		return nextID++;
 	}
@@ -43,9 +50,14 @@ public class EntityManager {
 		BufferedReader rdr = new BufferedReader(new FileReader(fileName));
 		String line=null;
 		while((line=rdr.readLine())!=null){
-			line = line.trim();
-			if(line.charAt(0)=='#') continue;
 			if(line.length()==0) continue;
+			//ByteOrderMark entfernen:
+			if(line.charAt(0)==65279){
+				line = line.substring(1);
+			}
+			line = line.trim();
+			if(line.length()==0) continue;
+			if(line.charAt(0)=='#') continue;
 			if(line.startsWith("Entity")){
 				String[] tokens = line.split(" ");
 				String templateName=null;

@@ -29,9 +29,14 @@ public class EntityTemplateManager {
 		ArrayList<String> baseTemplates = null;
 		HashMap<String,HashMap<String, String>> componentParamsMap=null;
 		while((line=rdr.readLine())!=null){
-			line = line.trim();
-			if(line.charAt(0)=='#') continue;
 			if(line.length()==0) continue;
+			//ByteOrderMark entfernen:
+			if(line.charAt(0)==65279){
+				line = line.substring(1);
+			}
+			line = line.trim();
+			if(line.length()==0) continue;
+			if(line.charAt(0)=='#') continue;
 			int equalsPos = line.indexOf('=');
 			if(line.startsWith("Template")){
 				if(line.charAt(8)!=' ') continue;

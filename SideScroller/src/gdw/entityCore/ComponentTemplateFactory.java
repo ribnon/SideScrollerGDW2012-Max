@@ -55,7 +55,7 @@ public class ComponentTemplateFactory {
 //		componentTemplateClasses.put("Duckable", DuckableComponentTemplate.class);
 //		componentTemplateClasses.put("PlayerBehavior", PlayerBehaviorComponentTemplate.class);
 //		componentTemplateClasses.put("EnemyBehavior", EnemyBehaviorComponentTemplate.class);
-//		componentTemplateClasses.put("EnemyProjectile", EnemyProjectileComponentTemplate.class);
+//		componentTemplateClasses.put("EnemyDamageDealer", EnemyDamageDealerComponentTemplate.class);
 //		componentTemplateClasses.put("SwitchUser", SwitchUserComponentTemplate.class);
 //		componentTemplateClasses.put("Switch", SwitchComponentTemplate.class);
 //		componentTemplateClasses.put("Door", DoorComponentTemplate.class);
