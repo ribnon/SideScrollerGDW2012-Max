@@ -8,10 +8,11 @@ public class SwitchComponent extends Component {
 
 	private boolean pullActive;
 
+	public static final int COMPONENT_TYPE = 16;
+
 	@Override
 	public int getComponentTypeID() {
-		// TODO Auto-generated method stub
-		return 0;
+		return COMPONENT_TYPE;
 	}
 
 }
