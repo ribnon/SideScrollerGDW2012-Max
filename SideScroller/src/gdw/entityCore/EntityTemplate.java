@@ -27,7 +27,7 @@ public class EntityTemplate {
 	//Wird von server-seitigem Code aufgerufen um Entities zu spawnen:
 	public Entity createEntity(float whereX,float whereY, float orientation){
 		int id = EntityManager.getInstance().getNextID();
-		NetSubSystem.instance().sendSpawn(name,id,whereX,whereY,orientation);
+		NetSubSystem.getInstance().sendSpawn(name,id,whereX,whereY,orientation);
 		return createEntity(id, whereX, whereY, orientation);
 	}
 	
@@ -35,7 +35,7 @@ public class EntityTemplate {
 	public Entity createEntity(int id, float whereX,float whereY, float orientation){
 		Entity ent = EntityManager.getInstance().createEntity(id, whereX, whereY, orientation, this);
 		for(ComponentTemplate compTemplate: componentTemplateMap.values()){
-			if(compTemplate.isThingOnly() && !NetSubSystem.instance().isServer()) continue;
+			if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
 			ent.addComponent(compTemplate.createComponent());
 		}
 		return ent;

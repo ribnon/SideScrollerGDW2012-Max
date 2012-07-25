@@ -52,6 +52,24 @@ public abstract class ComponentTemplate {
 			return defaultValue;
 		}
 	}
+	public EntityReference getEntityReferenceParam(String name){
+		if(params.containsKey(name)){
+			String val = params.get(name).trim();
+			if(val.charAt(0)=='@'){
+				return new NamedEntityReference(val.substring(1));
+			}
+			else{
+				try {
+					return new StaticEntityReference(Integer.parseInt(val));
+				} catch (NumberFormatException e) {
+					return new StaticEntityReference(-1);
+				}
+			}
+		}
+		else{
+			return new StaticEntityReference(-1);
+		}
+	}
 	public boolean isThingOnly(){
 		return false;
 	}
