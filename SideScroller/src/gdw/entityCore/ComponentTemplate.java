@@ -12,12 +12,18 @@ public abstract class ComponentTemplate {
 	public abstract Component createComponent();
 	
 	public String getStringParam(String name){
+		System.err.println("Warnung " + name + " verwendet alten Param-Getter ohne Default-Wert. " +
+			"Bitte neue Version mit Default-Werten benutzen.");
 		return getStringParam(name, "");
 	}
 	public int getIntegerParam(String name){
+		System.err.println("Warnung " + name + " verwendet alten Param-Getter ohne Default-Wert. " +
+				"Bitte neue Version mit Default-Werten benutzen.");
 		return getIntegerParam(name, 0);
 	}
 	public float getFloatParam(String name){
+		System.err.println("Warnung " + name + " verwendet alten Param-Getter ohne Default-Wert. " +
+				"Bitte neue Version mit Default-Werten benutzen.");
 		return getFloatParam(name, 0.0f);
 	}
 	public String getStringParam(String name,String defaultValue){
