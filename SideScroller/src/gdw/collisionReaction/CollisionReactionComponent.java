@@ -71,11 +71,21 @@ public class CollisionReactionComponent extends Component
 						collisionMessage.getIDCandidate2());
 			else
 				other = EntityManager.getInstance().getEntity(collided1);
-
-			reactToCollision(ownerSimulation, other);
+			
+			SimulationComponent otherSimComp = (SimulationComponent) other.getComponent(SimulationComponent.COMPONENT_TYPE);
+			if(otherSimComp != null) {
+				reactToCollisionTwoSim(ownerSimulation,otherSimComp);
+			}
+			else {
+				reactToCollision(ownerSimulation, other);
+			}
 		}
 	}
-
+	
+	private void reactToCollisionTwoSim(SimulationComponent self, SimulationComponent other) {
+		
+	}
+	
 	/**
 	 * Adjusts the simulatedObject's velocity so the collision will not happen
 	 * again. The simulatedObject will also be pushed out of the staticObject
@@ -106,7 +116,6 @@ public class CollisionReactionComponent extends Component
 				&& !impassableFromSide
 				&& (simulatedObject.getVelocityY() < 0 || ratio > VERTICAL_ANGLE_LIMIT
 						|| simulatedObject.getOwner().getPosY() > staticObject.getPosY())) {
-			System.out.println(""+ratio);
 			return;
 		}
 
@@ -130,7 +139,7 @@ public class CollisionReactionComponent extends Component
 		// to get a velocity that will not move the simulated object into the
 		// static object
 		
-		simulatedObject.setVelocity(projectedX - veloX , veloY - projectedY);
+		simulatedObject.setVelocity(veloX - projectedX , veloY - projectedY);
 		
 	}
 

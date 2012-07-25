@@ -81,7 +81,7 @@ public class SimulationTest extends BasicGame {
 		simParams.put("friction","0.11");
 		
 		HashMap<String, HashMap<String, String> > groundCompParamMap = new HashMap<String, HashMap<String,String>>();
-		compParamMap.put("Simulation", groundSimParams);
+//		groundCompParamMap.put("Simulation", groundSimParams);
 		
 		
 		HashMap<String, String> groundColParams = new HashMap<String, String>();

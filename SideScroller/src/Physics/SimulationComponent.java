@@ -23,7 +23,7 @@ public class SimulationComponent extends Component {
 	private float externalForceY;
 	private boolean active;
 	
-	private boolean isGrounded;
+	public boolean isGrounded;
 	
 	public SimulationComponent(ComponentTemplate template) {
 		super(template);
@@ -67,7 +67,6 @@ public class SimulationComponent extends Component {
 	public void addForce(float x, float y) {
 		this.externalForceX += x;
 		this.externalForceY += y;
-
 		this.active = true;
 	}
 
@@ -172,13 +171,13 @@ public class SimulationComponent extends Component {
 			return;
 		}
 		
+		
 		float forceX = this.externalForceX - (this.friction * this.velocityX)*deltaTime;
 		float forceY = this.externalForceY - (this.friction * this.velocityY)*deltaTime;
 //		float forceX = this.externalForceX;
 //		float forceY = this.externalForceY;
 		
 		this.accelerationX = forceX / this.mass;
-		
 		this.accelerationY = forceY / this.mass;
 		
 		boolean shouldSleep = false;
@@ -218,14 +217,5 @@ public class SimulationComponent extends Component {
 	@Override
 	public int getComponentTypeID() {
 		return SimulationComponent.COMPONENT_TYPE;
-	}
-	
-	@Override
-	public void onMessage(Message msg) {
-		super.onMessage(msg);
-		if(msg instanceof CollisionDetectionMessage) {
-			CollisionDetectionMessage cmsg = (CollisionDetectionMessage) msg;
-			//if colObject below 
-		}
 	}
 }
