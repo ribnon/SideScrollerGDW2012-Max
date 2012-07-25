@@ -84,9 +84,9 @@ public class NetComponent extends Component
 			//korrigier ghost und sende nachricht
 			SimulationComponent simComp = (SimulationComponent) ent.getComponent(SimulationComponent.COMPONENT_TYPE);
 			this.ghost.correct(ent.getPosX(), ent.getPosY(), simComp.getVelocityX(), simComp.getVelocityY(), 0.0f);
-			DeadReckoningNetMessage msg = new DeadReckoningNetMessage(ent.getID(), ++this.sequenceID, 
-					ent.getPosX(), ent.getPosY(), simComp.getVelocityX(), simComp.getVelocityY());
-			list.add(msg);
+			//DeadReckoningNetMessage msg = new DeadReckoningNetMessage(ent.getID(), ++this.sequenceID, 
+				//	ent.getPosX(), ent.getPosY(), simComp.getVelocityX(), simComp.getVelocityY());
+			//list.add(msg);
 		}
 	}
 }
