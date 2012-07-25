@@ -63,11 +63,11 @@ public class Ghost
 			float lerpFactor = (INTERPOLATE_TIME - this.remaingSteps)/ INTERPOLATE_TIME;
 			
 			//interpolate...
-			this.posX = this.posX * (1.0f -lerpFactor) - this.posThingX * lerpFactor;
-			this.posY = this.posY * (1.0f -lerpFactor) - this.posThingY * lerpFactor;
+			this.posX = this.posX * (1.0f -lerpFactor) + this.posThingX * lerpFactor;
+			this.posY = this.posY * (1.0f -lerpFactor) + this.posThingY * lerpFactor;
 			
-			this.velocityX = this.velocityX *(1.0f-lerpFactor) - this.velocityX * lerpFactor;
-			this.velocityY = this.velocityY *(1.0f-lerpFactor) - this.velocityY * lerpFactor;
+			this.velocityX = this.velocityX *(1.0f-lerpFactor) + this.velocityX * lerpFactor;
+			this.velocityY = this.velocityY *(1.0f-lerpFactor) + this.velocityY * lerpFactor;
 		}
 	}
 	

@@ -19,6 +19,8 @@ import gdw.network.server.BasicServer;
 
 public class NetSubSystem
 {
+	private static final long TIMESYNC_INTERVAL = 1000L;
+	
 	private static NetSubSystem singelton;
 	
 	/**
@@ -42,6 +44,8 @@ public class NetSubSystem
 	 * Server zu feueren. NUll wenn client
 	 */
 	private final BasicServer serverRef;
+	
+	private long lastTimeSync;
 	
 	private final HashMap<Integer, Float> roundTripMap;
 	
@@ -69,6 +73,7 @@ public class NetSubSystem
 		this.listOfTimeSyncMessages = new LinkedList<TimeSyncMessage>();
 		
 		this.roundTripMap = new HashMap<Integer,Float>();
+		this.lastTimeSync = 0L;
 		
 	}
 	
@@ -124,8 +129,11 @@ public class NetSubSystem
 		break;
 		
 		case NetMessageType.EntityBusMessageType:
-			EntityBusNetMessage ebnm = EntityBusNetMessage.getFromByteBuffer(buf);
-			ref.getEntity(ebnm.entityID).message(ebnm.busMessage);			
+			EntityBusNetMessage[] ebnm = EntityBusNetMessage.getFromByteBuffer(buf);
+			for(int i=0;i<ebnm.length;++i)
+			{
+				ref.getEntity(ebnm[i].entityID).message(ebnm[i].busMessage);	
+			}		
 		break;
 		
 		case NetMessageType.EntitySpawnMessageType:
@@ -150,6 +158,8 @@ public class NetSubSystem
 			if(this.serverFlag)
 			{
 				TimeSyncMessage msg = TimeSyncMessage.getFromByteBuffer(buf);
+				float calcedRoundtip = (System.currentTimeMillis() - msg.timeStamp)/2.0f;
+				this.roundTripMap.put(msg.clientID, calcedRoundtip);
 			}else
 			{
 				this.listOfTimeSyncMessages.add(TimeSyncMessage.getFromByteBuffer(buf));
@@ -197,12 +207,7 @@ public class NetSubSystem
 		{
 			comp.simulateGhost(deltaT);
 		}
-	}
-	//constant - (messagecode,highlevelcode,size)/SideOFDeadReckMessage
-	static int MAXAMOUNT_PERPACKET_DEADRECK = (NETCONSTANTS.PACKAGELENGTH - (Byte.SIZE*3))/(Integer.SIZE*2+4*Float.SIZE);
-	static int MAXAMOUNT_PERPACKET_DESPAWN = (NETCONSTANTS.PACKAGELENGTH - (Byte.SIZE*3))/Integer.SIZE;
-	
-	
+	}	
 	//TODO umschreiben auf ohne konstanten
 	
 	//TODO roundtip fertig implementieren
@@ -222,21 +227,21 @@ public class NetSubSystem
 			while(!this.listOfDeadReckonigMessages.isEmpty())
 			{
 				buf = this.serverRef.getMessageBuffer();
-				DeadReckoningNetMessage.fillInByteBuffer(listOfDeadReckonigMessages, buf, MAXAMOUNT_PERPACKET_DEADRECK);
+				DeadReckoningNetMessage.fillInByteBuffer(listOfDeadReckonigMessages, buf);
 				this.serverRef.sendToAll(buf, false);
 			}
 			//tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
 				buf = this.serverRef.getMessageBuffer();
-				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages.poll(), buf);
+				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
 				this.serverRef.sendToAll(buf, true);
 			}
 			//deSpawn
 			while(!this.listOfDeSpawnMessages.isEmpty())
 			{
 				buf = this.serverRef.getMessageBuffer();
-				EntityDeSpawnNetMessage.fillInByteBuffer(this.listOfDeSpawnMessages, buf,MAXAMOUNT_PERPACKET_DESPAWN);
+				EntityDeSpawnNetMessage.fillInByteBuffer(this.listOfDeSpawnMessages, buf);
 			}
 		}else
 		{
@@ -251,15 +256,17 @@ public class NetSubSystem
 			while(!this.listOfBusMessages.isEmpty())
 			{
 				buf = this.clientRef.getMessageBuffer();
-				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages.poll(), buf);
+				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
 				this.clientRef.sendMessage(buf, true);
 			}
 		}
+		long currTimeStamp = System.currentTimeMillis();
+		if(currTimeStamp > this.lastTimeSync +TIMESYNC_INTERVAL);
 	}
 	
 	public float getRoundTipTime(int PlayerID)
 	{
-		
+		return this.roundTripMap.get(playerID);
 	}
 	
 	public void checkDeadReck()

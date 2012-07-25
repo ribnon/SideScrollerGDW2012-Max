@@ -51,7 +51,7 @@ public class NetComponent extends Component
 			//update ghost
 			//TODO irgendwie die playerID Rausfinden und dann in die Roundtrip rein hämmern
 			
-			this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY, ;
+			//this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY, ;
 		}
 	}
 	

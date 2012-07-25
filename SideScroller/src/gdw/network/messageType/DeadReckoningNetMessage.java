@@ -48,29 +48,32 @@ public class DeadReckoningNetMessage extends NetMessageType
 		return arr;
 	}
 	
-	public static void fillInByteBuffer(LinkedList<DeadReckoningNetMessage> list,ByteBuffer buf , int maxAmount)
+	public static void fillInByteBuffer(LinkedList<DeadReckoningNetMessage> list,ByteBuffer buf)
 	{
 		buf.put(NetMessageType.DeadReckoningMessageType);
-		if(list.size() > maxAmount)
+		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE);
+		byte counter = 0;
+		while(!list.isEmpty())
 		{
-			buf.put((byte)maxAmount);
-		}else
-		{
-			buf.put((byte)list.size());
+			DeadReckoningNetMessage msg = list.peek();
+			try
+			{
+				buf.putInt(msg.entityID);
+				buf.putInt(msg.sequenceID);
+				buf.putFloat(msg.posX);
+				buf.putFloat(msg.posY);
+				buf.putFloat(msg.velocityX);
+				buf.putFloat(msg.velocityY);
+				buf.putFloat(msg.roundTipTime);
+			}catch(IndexOutOfBoundsException e)
+			{
+				break;
+			}
+			counter++;
+			list.remove();
 		}
-		for(int i=0;i<maxAmount;++i)
-		{
-			DeadReckoningNetMessage msg = list.poll();
-			if(msg == null)
-				return;
-			buf.putInt(msg.entityID);
-			buf.putInt(msg.sequenceID);
-			buf.putFloat(msg.posX);
-			buf.putFloat(msg.posY);
-			buf.putFloat(msg.velocityX);
-			buf.putFloat(msg.velocityY);
-			buf.putFloat(msg.roundTipTime);
-		}
-		
+		buf.put(counter);
+		helper.flip();
+		buf.put(helper);
 	}
 }
