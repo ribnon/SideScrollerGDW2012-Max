@@ -4,23 +4,25 @@ import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.gameplay.GameColor;
 
-public class ColorableComponent extends Component {
+public class ColorableComponent extends Component
+{
 
 	public static final int COMPONENT_TYPE = 22;
-	
+
 	private GameColor targetColor;
 	private GameColor currentColor;
 	private float remainingTimeToFade;
 	private float fadeTime;
 	private float friendlyDuration;
 	private float friendlyTimer;
-	private int   finishedCount;
-	private int   segmentCount;
-	
-	protected ColorableComponent(ComponentTemplate template) {
+	private int finishedCount;
+	private int segmentCount;
+
+	protected ColorableComponent(ComponentTemplate template)
+	{
 		super(template);
-		
-		if(template != null && template instanceof ColorableComponentTemplate)
+
+		if (template != null && template instanceof ColorableComponentTemplate)
 		{
 			ColorableComponentTemplate temp = (ColorableComponentTemplate) template;
 			targetColor = temp.getTargetColor();
@@ -37,12 +39,17 @@ public class ColorableComponent extends Component {
 	public void tick(float deltaTime)
 	{
 		
-	}
-	
-	@Override
-	public int getComponentTypeID() {
-		// TODO Auto-generated method stub
-		return COMPONENT_TYPE;
+		//wenn finischedCounter = segmentCounter  := setzte enemy auf hostile false
 	}
 
+	@Override
+	public int getComponentTypeID()
+	{
+		return COMPONENT_TYPE;
+	}
+	
+	public void mix(GameColor color)
+	{
+		
+	}
 }

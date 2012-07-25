@@ -69,6 +69,19 @@ public class EntityManager {
 					}
 				}
 				else continue;
+				EntityTemplate template = EntityTemplateManager.getInstance().getEntityTemplate(templateName);
+				if(template==null) continue;
+				try {
+					float posX = Float.parseFloat(posXStr);
+					float posY = Float.parseFloat(posYStr);
+					float orientation = Float.parseFloat(orientationStr);
+					Entity ent = template.createEntity(posX, posY, orientation);
+					if(entityName!=null){
+						NamedEntityReference.setEntityID(entityName, ent.getID());
+					}
+				} catch (NumberFormatException e) {
+					continue;
+				}	
 			}
 			else continue;
 		}
