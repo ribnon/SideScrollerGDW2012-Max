@@ -41,9 +41,9 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("Camera", CameraComponentTemplate.class);
 		componentTemplateClasses.put("Simulation", SimulationComponentTemplate.class);
 		componentTemplateClasses.put("PlayerInput", PlayerInputComponentTemplate.class);
-		componentTemplateClasses.put("AABoxCollisonDetection", AABoxCollisionDetectionComponentTemplate.class);
-		componentTemplateClasses.put("OOBoxCollisonDetection", OOBoxCollisionDetectionComponentTemplate.class);
-		componentTemplateClasses.put("CircleCollisonDetection", CircleCollisionDetectionComponentTemplate.class);
+		componentTemplateClasses.put("AABoxCollisionDetection", AABoxCollisionDetectionComponentTemplate.class);
+		componentTemplateClasses.put("OOBoxCollisionDetection", OOBoxCollisionDetectionComponentTemplate.class);
+		componentTemplateClasses.put("CircleCollisionDetection", CircleCollisionDetectionComponentTemplate.class);
 		componentTemplateClasses.put("CollisionReaction", CollisionReactionComponentTemplate.class);
 		componentTemplateClasses.put("Follow", FollowComponentTemplate.class);
 		componentTemplateClasses.put("Attachment", AttachmentComponentTemplate.class);
