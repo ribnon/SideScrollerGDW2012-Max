@@ -158,10 +158,20 @@ public class SimulationTest extends BasicGame {
 //		
 		try {
 			entityTemplateManager = EntityTemplateManager.getInstance();
-			entityTemplateManager.loadEntityTemplates("SimulationTestBed.ent");
+			entityTemplateManager.loadEntityTemplates("src/Physics/testbed/SimulationTestBed.ent");
 			
 			EntityTemplate entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate("TestBedControllable");
 			entity1 = entityTemplate.createEntity(100, 100, 0);
+			entity2 = entityTemplate.createEntity(200, 260, 0);
+			
+			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedGround");
+			ground = entityTemplate.createEntity(300, 300, 0);
+			
+			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedWall");
+			wall = entityTemplate.createEntity(300, 300, 0);
+			
+			platform = entityTemplateManager.getEntityTemplate("TestBedPlatform").createEntity(200, 200, 0);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -174,10 +184,10 @@ public class SimulationTest extends BasicGame {
 		// TODO Auto-generated method stub
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		drawEntity(g, entity1);
-//		drawEntity(g, entity2);
-//		drawEntity(g, ground);
-//		drawEntity(g, wall);
-//		drawEntity(g, platform);
+		drawEntity(g, entity2);
+		drawEntity(g, ground);
+		drawEntity(g, wall);
+		drawEntity(g, platform);
 		g.drawString("is active: "+simComp.isActive(), 10, 80);
 		g.drawString("is grounded: "+simComp.isGrounded(), 10, 175);
 		g.drawString("vx: "+simComp.getVelocityX(), 10, 100);

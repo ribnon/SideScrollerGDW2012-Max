@@ -1,0 +1,35 @@
+Template TestBedControllable
+Component Simulation
+mass=1
+friction=0.11
+Component AABoxCollisionDetection
+halfExtentX=10.0
+halfExtentY=10.0
+Component CollisionReaction
+impassableFromTop=1
+impassableFromSide=1
+
+Template TestBedGround
+Component AABoxCollisionDetection
+halfExtentX=300.0
+halfExtentY=10.0
+Component CollisionReaction
+impassableFromTop=1
+impassableFromSide=1
+
+Template TestBedWall
+Component AABoxCollisionDetection
+halfExtentX=10.0
+halfExtentY=300.0
+Component CollisionReaction
+impassableFromTop=1
+impassableFromSide=1
+
+Template TestBedPlatform
+Component AABoxCollisionDetection
+halfExtentX=50.0
+halfExtentY=10.0
+Component CollisionReaction
+impassableFromTop=1
+impassableFromSide=0
+
