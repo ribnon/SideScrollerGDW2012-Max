@@ -14,6 +14,10 @@ public class DeadReckoningNetMessage extends NetMessageType
 	public final float velocityX;
 	public final float velocityY;
 	public final float roundTipTime;
+	
+	//messagecode, highlevelcode
+	public final static int ROUNDTIP_WRITE_POSITION = Byte.SIZE+Byte.SIZE;
+	
 
 	public DeadReckoningNetMessage(int id, int seqID, float posX, float posY, float veloX, float veloY, float roundTip)
 	{
@@ -26,7 +30,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 		this.roundTipTime = roundTip;
 	}
 	
-	private DeadReckoningNetMessage(ByteBuffer buf)
+	private DeadReckoningNetMessage(ByteBuffer buf,float roundTip)
 	{
 		this.entityID = buf.getInt();
 		this.sequenceID = buf.getInt();
@@ -34,16 +38,17 @@ public class DeadReckoningNetMessage extends NetMessageType
 		this.posY = buf.getFloat();
 		this.velocityX = buf.getFloat();
 		this.velocityY = buf.getFloat();
-		this.roundTipTime = buf.getFloat();
+		this.roundTipTime = roundTip;
 	}
 	
 	public static DeadReckoningNetMessage[] getFromByteBuffer(ByteBuffer buf)
 	{
 		int length = buf.get();
 		DeadReckoningNetMessage [] arr = new DeadReckoningNetMessage[length];
+		float roundTip = buf.getFloat();
 		for(int i=0;i<length;++i)
 		{
-			arr[i] = new DeadReckoningNetMessage(buf);
+			arr[i] = new DeadReckoningNetMessage(buf,roundTip);
 		}
 		return arr;
 	}
@@ -51,7 +56,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 	public static void fillInByteBuffer(LinkedList<DeadReckoningNetMessage> list,ByteBuffer buf)
 	{
 		buf.put(NetMessageType.DeadReckoningMessageType);
-		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE);
+		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-(Byte.SIZE+Float.SIZE));
 		byte counter = 0;
 		while(!list.isEmpty())
 		{
@@ -64,7 +69,6 @@ public class DeadReckoningNetMessage extends NetMessageType
 				buf.putFloat(msg.posY);
 				buf.putFloat(msg.velocityX);
 				buf.putFloat(msg.velocityY);
-				buf.putFloat(msg.roundTipTime);
 			}catch(IndexOutOfBoundsException e)
 			{
 				break;
@@ -73,6 +77,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 			list.remove();
 		}
 		buf.put(counter);
+		buf.putFloat(0.0f);//placeHolder
 		helper.flip();
 		buf.put(helper);
 	}
