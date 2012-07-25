@@ -8,6 +8,11 @@ halfExtentY=10.0
 Component CollisionReaction
 impassableFromTop=1
 impassableFromSide=1
+Component StaticSpriteComponent
+Path=assets/Teddy.png
+Scale=1
+pivotX=32
+pivotY=32
 
 Template TestBedGround
 Component AABoxCollisionDetection
