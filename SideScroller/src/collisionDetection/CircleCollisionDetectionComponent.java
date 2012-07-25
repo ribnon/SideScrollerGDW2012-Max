@@ -11,10 +11,12 @@ public class CircleCollisionDetectionComponent extends CollisionDetectionCompone
 		super(template, CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_CIRCLE);
 		
 		radius = template.getFloatParam("radius", 1.0f);
+		CollisionDetectionComponentManager.getInstance().registerCircleCollisionDetectionComponent(this);
 	}
 	
 	protected void destroy()
 	{
+		CollisionDetectionComponentManager.getInstance().removeCircleCollisionDetectionComponent(this);
 		super.destroy();
 	}
 	

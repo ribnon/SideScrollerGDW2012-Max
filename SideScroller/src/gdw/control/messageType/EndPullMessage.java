@@ -1,4 +1,4 @@
-package gdw.control;
+package gdw.control.messageType;
 
 import gdw.entityCore.Message;
 

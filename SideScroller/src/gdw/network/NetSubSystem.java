@@ -15,6 +15,7 @@ import gdw.network.messageType.EntityBusNetMessage;
 import gdw.network.messageType.EntityDeSpawnNetMessage;
 import gdw.network.messageType.EntitySpawnNetMessage;
 import gdw.network.messageType.TimeSyncMessage;
+import gdw.network.server.BasicClientConnection;
 import gdw.network.server.BasicServer;
 
 public class NetSubSystem
@@ -89,6 +90,11 @@ public class NetSubSystem
 	
 	public static NetSubSystem getInstance()
 	{
+		if(singelton == null) {
+			
+//			singelton = new NetSubSystem(0, false, ,(BasicServer)new SideScrollerServer(""));
+
+		}
 		return NetSubSystem.singelton;
 	}
 	
@@ -208,9 +214,22 @@ public class NetSubSystem
 			comp.simulateGhost(deltaT);
 		}
 	}	
-	//TODO umschreiben auf ohne konstanten
 	
-	//TODO roundtip fertig implementieren
+	private void sendDeadReckAndAddRoundtip(ByteBuffer buf, int writePositon)
+	{
+		LinkedList<BasicClientConnection> clients = this.serverRef.getAllConnected();
+		int oldPostion = buf.position();
+		while(!clients.isEmpty())
+		{
+			BasicClientConnection client = clients.poll();
+			ByteBuffer sendBuf = buf.duplicate();
+			sendBuf.position(writePositon);
+			sendBuf.putFloat(this.roundTripMap.get(client.getId()));
+			sendBuf.position(oldPostion);
+			client.sendMSG(sendBuf, false);
+		}
+	}
+	
 	public void sendBufferedMessages()
 	{
 		ByteBuffer buf = null;
@@ -228,7 +247,7 @@ public class NetSubSystem
 			{
 				buf = this.serverRef.getMessageBuffer();
 				DeadReckoningNetMessage.fillInByteBuffer(listOfDeadReckonigMessages, buf);
-				this.serverRef.sendToAll(buf, false);
+				sendDeadReckAndAddRoundtip(buf, DeadReckoningNetMessage.ROUNDTIP_WRITE_POSITION);
 			}
 			//tunnel
 			while(!this.listOfBusMessages.isEmpty())

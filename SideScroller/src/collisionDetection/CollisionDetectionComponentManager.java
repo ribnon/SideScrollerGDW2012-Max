@@ -12,11 +12,19 @@ public class CollisionDetectionComponentManager
 	private ArrayList<OOBoxCollisionDetectionComponent> ooBoxCollisionDetectionList;
 	private ArrayList<CircleCollisionDetectionComponent> circleCollisionDetectionList;
 	
-	private CollisionDetectionComponentManager()
+	private CollisionQuadTree quadTree;
+	
+	private CollisionDetectionComponentManager(boolean useQuadTree)
 	{
 		aaBoxCollisionDetectionList = new ArrayList<AABoxCollisionDetectionComponent>();
 		ooBoxCollisionDetectionList = new ArrayList<OOBoxCollisionDetectionComponent>();
 		circleCollisionDetectionList = new ArrayList<CircleCollisionDetectionComponent>();
+		
+		if (useQuadTree) 
+		{
+			
+		}
+		else quadTree = null;
 	}
 	
 	
@@ -26,12 +34,18 @@ public class CollisionDetectionComponentManager
 	
 	public static CollisionDetectionComponentManager getInstance()
 	{
-		if (collisionDetectionComponentManager == null) collisionDetectionComponentManager = new CollisionDetectionComponentManager();
+		if (collisionDetectionComponentManager == null) collisionDetectionComponentManager = new CollisionDetectionComponentManager(false);
 		return collisionDetectionComponentManager;
 	}
 	
+	
+	
+	/////////////////////////////////////////////////////////////////
+	// Check all objects for collision (WITHOUT quadtree)
+	
 	public void detectCollisionsAndNotifyEntities()
 	{
+		if (quadTree != null) return;
 		detectAAAACollisionsAndNotifyCandidates();
 		detectAACircleCollisionsAndNotifyCandidates();
 		detectAAOOCollisionsAndNotifyCandidates();
@@ -43,7 +57,125 @@ public class CollisionDetectionComponentManager
 	
 	
 	/////////////////////////////////////////////////////////////////
-	// Methods for Iterating the Collision candidates
+	// Methods for collision detection using a quadtree
+	
+	public void detectCollision(CollisionDetectionComponent comp)
+	{
+		if (quadTree == null) return;
+		quadTree.updateRect(comp.getTreeRect());
+		ArrayList<CollisionQuadTreeRect> candidates = quadTree.getColliders(comp.getTreeRect());
+		
+		boolean result = false;
+		
+		for (CollisionQuadTreeRect rect : candidates)
+		{
+			CollisionDetectionComponent current = rect.getComponentReference();
+			switch (comp.getSubClassType())
+			{
+				case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_CIRCLE:
+					result = detectCollisionCircle((CircleCollisionDetectionComponent)comp, current);
+					break;
+				case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX:
+					result = detectCollisionAABox((AABoxCollisionDetectionComponent)comp, current);
+					break;
+				case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_OOBOX:
+					result = detectCollisionOOBox((OOBoxCollisionDetectionComponent)comp, current);
+					break;
+				default:
+			}
+			
+			if (result) notifyCollisionHasOccured(comp, current);
+			result = false;
+		}
+	}
+	
+	public boolean detectCollisionCircle(CircleCollisionDetectionComponent comp1, CollisionDetectionComponent comp2)
+	{
+		Entity e1 = comp1.getOwner();
+		Entity e2 = comp2.getOwner();
+		
+		switch (comp2.getSubClassType())
+		{
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_CIRCLE:
+				return testCircleCircle(e1.getPosX(), e1.getPosY(), e2.getPosX(), e2.getPosY(), 
+						comp1.getRadius(), ((CircleCollisionDetectionComponent)comp2).getRadius());
+				
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX:
+				AABoxCollisionDetectionComponent aabox = (AABoxCollisionDetectionComponent) comp2;
+				return testAACircle(e2.getPosX(), e2.getPosY(), aabox.getHalfExtentX(), aabox.getHalfExtentY(),
+						e1.getPosX(), e1.getPosY(), comp1.getRadius());
+				
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_OOBOX:
+				OOBoxCollisionDetectionComponent oobox = (OOBoxCollisionDetectionComponent) comp2;
+				return testOOCircle(e2.getPosX(), e2.getPosY(), oobox.getHalfExtentX(), oobox.getHalfExtentY(), (float) Math.toRadians(e2.getOrientation()),
+						e1.getPosX(), e1.getPosY(), comp1.getRadius());
+				
+			default:
+				break;
+		}
+		return false;
+	}
+	
+	public boolean detectCollisionAABox(AABoxCollisionDetectionComponent comp1, CollisionDetectionComponent comp2)
+	{
+		Entity e1 = comp1.getOwner();
+		Entity e2 = comp2.getOwner();
+		
+		switch (comp2.getSubClassType())
+		{
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_CIRCLE:
+				CircleCollisionDetectionComponent circle = (CircleCollisionDetectionComponent) comp2;
+				return testAACircle(e1.getPosX(), e1.getPosY(), comp1.getHalfExtentX(), comp1.getHalfExtentY(),
+						e2.getPosX(), e2.getPosY(), circle.getRadius());
+				
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX:
+				AABoxCollisionDetectionComponent aabox = (AABoxCollisionDetectionComponent) comp2;
+				return testAAAA(e1.getPosX(), e1.getPosY(), comp1.getHalfExtentX(), comp1.getHalfExtentY(), 
+						e2.getPosX(), e2.getPosY(), aabox.getHalfExtentX(), aabox.getHalfExtentY());
+				
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_OOBOX:
+				OOBoxCollisionDetectionComponent oobox = (OOBoxCollisionDetectionComponent) comp2;
+				return testOOOO(e1.getPosX(), e1.getPosY(), e2.getPosX(), e2.getPosY(), comp1.getHalfExtentX(),
+						comp1.getHalfExtentY(), oobox.getHalfExtentX(), oobox.getHalfExtentY(), 0.0f, (float) Math.toRadians(e2.getOrientation()));
+				
+			default:
+				break;
+		}
+		return false;
+	}
+	
+	public boolean detectCollisionOOBox(OOBoxCollisionDetectionComponent comp1, CollisionDetectionComponent comp2)
+	{
+		Entity e1 = comp1.getOwner();
+		Entity e2 = comp2.getOwner();
+		
+		switch (comp2.getSubClassType())
+		{
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_CIRCLE:
+				CircleCollisionDetectionComponent circle = (CircleCollisionDetectionComponent) comp2;
+				return testOOCircle(e1.getPosX(), e1.getPosY(), comp1.getHalfExtentX(), comp1.getHalfExtentY(), (float) Math.toRadians(e1.getOrientation()),
+						e2.getPosX(), e2.getPosY(), circle.getRadius());
+				
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX:
+				AABoxCollisionDetectionComponent aabox = (AABoxCollisionDetectionComponent) comp2;
+				return testOOOO(e1.getPosX(), e1.getPosY(), e2.getPosX(), e2.getPosY(), comp1.getHalfExtentX(),
+						comp1.getHalfExtentY(), aabox.getHalfExtentX(), aabox.getHalfExtentY(), (float) Math.toRadians(e1.getOrientation()), 0.0f);
+				
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_OOBOX:
+				OOBoxCollisionDetectionComponent oobox = (OOBoxCollisionDetectionComponent) comp2;
+				return testOOOO(e1.getPosX(), e1.getPosY(), e2.getPosX(), e2.getPosY(), comp1.getHalfExtentX(),
+						comp1.getHalfExtentY(), oobox.getHalfExtentX(), oobox.getHalfExtentY(), (float) Math.toRadians(e1.getOrientation()), (float) Math.toRadians(e2.getOrientation()));
+				
+			default:
+				break;
+		}
+		return false;
+	}
+	
+	
+	
+	/////////////////////////////////////////////////////////////////
+	// Methods for Iterating the Collision candidates NOT using a quadtree
 	
 	private void detectAAAACollisionsAndNotifyCandidates()
 	{
@@ -52,7 +184,7 @@ public class CollisionDetectionComponentManager
 		
 		for (int i = 0; i < aaBoxCollisionDetectionList.size(); i++)
 		{
-			for (int j = 1; j <= i; j++)
+			for (int j = i+1; j < aaBoxCollisionDetectionList.size(); j++)
 			{
 				candidate1 = aaBoxCollisionDetectionList.get(i);
 				candidate2 = aaBoxCollisionDetectionList.get(j);
@@ -65,7 +197,7 @@ public class CollisionDetectionComponentManager
 				float posX2 = ownerCandidate2.getPosX();
 				float posY2 = ownerCandidate2.getPosY();
 				
-				if (testAAAA(posX1, posY1, posX2, posY2, candidate1.getHalfExtentX(), candidate1.getHalfExtentY(), candidate2.getHalfExtentX(), candidate2.getHalfExtentY()))
+				if (testAAAA(posX1, posY1, candidate1.getHalfExtentX(), candidate1.getHalfExtentY(), posX2, posY2,  candidate2.getHalfExtentX(), candidate2.getHalfExtentY()))
 					notifyCollisionHasOccured(candidate1, candidate2);
 			}
 		}
@@ -154,7 +286,7 @@ public class CollisionDetectionComponentManager
 		
 		for (int i = 0; i < ooBoxCollisionDetectionList.size(); i++)
 		{
-			for (int j = 1; j <= i; j++)
+			for (int j = i+1; j < ooBoxCollisionDetectionList.size(); j++)
 			{
 				candidate1 = ooBoxCollisionDetectionList.get(i);
 				candidate2 = ooBoxCollisionDetectionList.get(j);
@@ -188,7 +320,7 @@ public class CollisionDetectionComponentManager
 		
 		for (int i = 0; i < circleCollisionDetectionList.size(); i++)
 		{
-			for (int j = 1; j <= i; j++)
+			for (int j = i+1; j < circleCollisionDetectionList.size(); j++)
 			{
 				candidate1 = circleCollisionDetectionList.get(i);
 				candidate2 = circleCollisionDetectionList.get(j);
@@ -211,6 +343,16 @@ public class CollisionDetectionComponentManager
 	
 	/////////////////////////////////////////////////////////////////
 	// Methods for testing the collision candidates
+	
+	private boolean testOOCircle(float c1PosX, float c1PosY, float c1HalfExtentX, float c1HalfExtentY, float c1Orientation, float c2PosX, float c2PosY, float c2Radius)
+	{
+		c1PosX = (float)(c1PosX * Math.cos(-c1Orientation) - c1PosY * Math.sin(-c1Orientation));
+		c1PosY = (float)(c1PosX * Math.sin(-c1Orientation) + c1PosY * Math.cos(-c1Orientation));
+		c2PosX = (float)(c2PosX * Math.cos(-c1Orientation) - c2PosY * Math.sin(-c1Orientation));
+		c2PosY = (float)(c2PosX * Math.sin(-c1Orientation) + c2PosY * Math.cos(-c1Orientation));
+		
+		return testAACircle(c1PosX, c1PosY, c1HalfExtentX, c1HalfExtentY, c2PosX, c2PosY, c2Radius);
+	}
 	
 	private boolean testAAAA(float c1PosX, float c1PosY, float c1HalfExtentX, float c1HalfExtentY, float c2PosX, float c2PosY, float c2HalfExtentX, float c2HalfExtentY)
 	{
@@ -267,11 +409,10 @@ public class CollisionDetectionComponentManager
 		return !(testOOAxis(posX1Local1, posX2Local1, halfX1, half1X2Local1 + half2X2Local1, half1X2Local1 - half2X2Local1) ||
 				 testOOAxis(posY1Local1, posY2Local1, halfY1, half1Y2Local1 + half2Y2Local1, half1Y2Local1 - half2Y2Local1) ||
 				 testOOAxis(posX2Local2, posX1Local2, halfX2, half1X1Local2 + half2X1Local2, half1X1Local2 - half2X1Local2) ||
-				 testOOAxis(posY2Local2, posY1Local2, halfY2, half1Y1Local2 + half2Y1Local2, half1Y1Local2 - half2Y1Local2)
-				);
+				 testOOAxis(posY2Local2, posY1Local2, halfY2, half1Y1Local2 + half2Y1Local2, half1Y1Local2 - half2Y1Local2));
 	}
 	
-	// Tests if NO projected collision occurs
+// Tests if NO projected collision occurs
 	private boolean testOOAxis(float point1, float point2, float half1, float diagPoint1, float diagPoint2)
 	{
 		float objectDistance = Math.abs(point1 - point2);
@@ -306,12 +447,70 @@ public class CollisionDetectionComponentManager
 	
 	/////////////////////////////////////////////////////////////////
 	// CollisionObject Management Methods
-	public void registerCircleCollisionDetectionComponent(CircleCollisionDetectionComponent c) { circleCollisionDetectionList.add(c); }
-	public void registerAABoxCollisionDetectionComponent(AABoxCollisionDetectionComponent c) { aaBoxCollisionDetectionList.add(c); }
-	public void registerOOBoxCollisionDetectionComponent(OOBoxCollisionDetectionComponent c) { ooBoxCollisionDetectionList.add(c); }
 	
-	public void removeCircleCollisionDetectionComponent(CircleCollisionDetectionComponent c) { circleCollisionDetectionList.remove(c); }
-	public void removeAABoxCollisionDetectionComponent(AABoxCollisionDetectionComponent c) { aaBoxCollisionDetectionList.remove(c); }
-	public void removeOOBoxCollisionDetectionComponent(OOBoxCollisionDetectionComponent c) { ooBoxCollisionDetectionList.remove(c); }
+	protected void registerCircleCollisionDetectionComponent(CircleCollisionDetectionComponent c)
+	{
+		circleCollisionDetectionList.add(c);
+		registerTreeRect(c);
+	}
 	
+	protected void registerAABoxCollisionDetectionComponent(AABoxCollisionDetectionComponent c)
+	{
+		aaBoxCollisionDetectionList.add(c);
+		registerTreeRect(c);
+	}
+	
+	protected void registerOOBoxCollisionDetectionComponent(OOBoxCollisionDetectionComponent c)
+	{
+		ooBoxCollisionDetectionList.add(c);
+		registerTreeRect(c);
+	}
+	
+	protected void registerTreeRect(CircleCollisionDetectionComponent comp)
+	{
+		if (quadTree == null) return;
+		CollisionQuadTreeRect rect = new CollisionQuadTreeRect(comp);
+		comp.attachTreeRect(rect);
+		quadTree.insert(rect);
+	}
+	
+	protected void registerTreeRect(AABoxCollisionDetectionComponent comp)
+	{
+		if (quadTree == null) return;
+		CollisionQuadTreeRect rect = new CollisionQuadTreeRect(comp);
+		comp.attachTreeRect(rect);
+		quadTree.insert(rect);
+	}
+	
+	protected void registerTreeRect(OOBoxCollisionDetectionComponent comp)
+	{
+		if (quadTree == null) return;
+		CollisionQuadTreeRect rect = new CollisionQuadTreeRect(comp);
+		comp.attachTreeRect(rect);
+		quadTree.insert(rect);
+	}
+	
+	protected void removeCircleCollisionDetectionComponent(CircleCollisionDetectionComponent c)
+	{
+		circleCollisionDetectionList.remove(c);
+		removeTreeRect(c);
+	}
+	
+	protected void removeAABoxCollisionDetectionComponent(AABoxCollisionDetectionComponent c)
+	{
+		aaBoxCollisionDetectionList.remove(c);
+		removeTreeRect(c);
+	}
+	
+	protected void removeOOBoxCollisionDetectionComponent(OOBoxCollisionDetectionComponent c)
+	{
+		ooBoxCollisionDetectionList.remove(c);
+		removeTreeRect(c);
+	}
+	
+	protected void removeTreeRect(CollisionDetectionComponent comp)
+	{
+		if (quadTree == null) return;
+		quadTree.delete(comp.getTreeRect());
+	}
 }
