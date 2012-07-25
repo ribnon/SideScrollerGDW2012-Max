@@ -12,6 +12,7 @@ import gdw.control.messageType.StopMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
+import gdw.gameplay.Player.DuckableComponent;
 import gdw.graphics.SpriteComponent;
 import gdw.network.NetComponent;
 import gdw.network.NetSubSystem;
