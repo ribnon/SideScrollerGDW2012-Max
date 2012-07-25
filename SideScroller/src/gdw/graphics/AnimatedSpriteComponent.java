@@ -91,6 +91,8 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	{
 		//TODO: verify this is correct, image might have to be drawn with an offset to be centered at the entity
 		Image img = spriteSheet.getSprite(step, cycle);
+		if(getFlipped())
+			img = img.getFlippedCopy(false, true); //TODO: 
 		img.setCenterOfRotation(getPivotX(), getPivotY());
 		img.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
 		if(getFilter() != null)
