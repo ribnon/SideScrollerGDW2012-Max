@@ -21,13 +21,14 @@ public class PlayerBehaviorComponent extends Component {
 	public PlayerBehaviorComponent(ComponentTemplate template)
 	{
 		super(template);
-		healthPercent = template.getFloatParam("HealthPercent");
-		healthIncrement = template.getFloatParam("HealthIncrement");
-		healthDecrement = template.getFloatParam("HealthDecrement");
-		deathTimer = template.getFloatParam("DeathTimer");
-		deathTimerDuration = template.getFloatParam("DeathTimerDuration");
-		hitDuration = template.getFloatParam("HitDuration");
-		hitActive = template.getFloatParam("HitActive");
+		PlayerBehaviorComponentTemplate t = (PlayerBehaviorComponentTemplate) template;
+		healthPercent = t.getHealthPercent();
+		healthIncrement = t.getHealthIncrement();
+		healthDecrement = t.getHealthDecrement();
+		deathTimer = t.getDeathTimer();
+		deathTimerDuration = t.getDeathTimerDuration();
+		hitDuration = t.getHitDuration();
+		hitActive = t.getHitActive();
 	}
 	
 	protected void destroy()
