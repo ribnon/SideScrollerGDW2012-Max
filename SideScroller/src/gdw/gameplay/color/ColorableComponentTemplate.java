@@ -22,8 +22,17 @@ public class ColorableComponentTemplate extends ComponentTemplate {
 		super(params);
 		
 		
-		targetColor = getGameColorParam("targetColor", new GameColor());
-		currentColor = getGameColorParam("currentColor", new GameColor());
+		
+		
+		String bit = getStringParam("targetColor", "000");
+		
+		targetColor = new GameColor(bit.charAt(0) == '1', bit.charAt(1) == '1', bit.charAt(2) == '1');
+		
+		bit = getStringParam("currentColor", "000");
+		
+		currentColor = new GameColor(bit.charAt(0) == '1', bit.charAt(1) == '1', bit.charAt(2) == '1');
+		
+		
 		
 		remainingTimeToFade = getFloatParam("remainingTimeToFade", 0.0f);
 		fadeTime = getFloatParam("fadeTime", 1.0f);

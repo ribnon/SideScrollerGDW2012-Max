@@ -17,10 +17,10 @@ public class GameColor {
 	private static final Color WHITE = new Color(255, 255, 255);
 	private static final Color BLACK = new Color(0, 0, 0);
 
-	public GameColor(boolean r, boolean g, boolean b) 
+	public GameColor(boolean r, boolean y, boolean b) 
 	{
 		red = r;
-		yellow = g;
+		yellow = y;
 		blue = b;
 	}
 
