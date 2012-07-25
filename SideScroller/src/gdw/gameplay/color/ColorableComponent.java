@@ -3,6 +3,7 @@ package gdw.gameplay.color;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.gameplay.GameColor;
+import gdw.gameplay.enemy.EnemyBehaviorComponent;
 
 public class ColorableComponent extends Component
 {
@@ -46,9 +47,7 @@ public class ColorableComponent extends Component
 			{
 				//verlier ein segment
 				segmentCount--;
-				//((EnemyBehaviorCompoent)this.getOwner().getComponent(EnemyBehaviorComponent.COMPONENT_TYPE)).
-				//TODO set enemy hostile true
-				
+				((EnemyBehaviorComponent)this.getOwner().getComponent(EnemyBehaviorComponent.COMPONENT_TYPE)).setHostile(true);				
 			}
 		}else if(!currentColor.isTransparent())
 		{
@@ -86,7 +85,7 @@ public class ColorableComponent extends Component
 			this.segmentCount++;
 			if(this.segmentCount == this.finishedCount)
 			{
-				//TODO set enemy auf no hostile
+				((EnemyBehaviorComponent)this.getOwner().getComponent(EnemyBehaviorComponent.COMPONENT_TYPE)).setHostile(false);	
 				this.friendlyTimer = this.friendlyDuration;
 			}else
 			{
@@ -97,4 +96,61 @@ public class ColorableComponent extends Component
 			this.remainingTimeToFade = this.fadeTime;
 		}
 	}
+
+	public float getFadeTime()
+	{
+		return fadeTime;
+	}
+
+	public void setFadeTime(float fadeTime)
+	{
+		this.fadeTime = fadeTime;
+	}
+
+	public float getFriendlyDuration()
+	{
+		return friendlyDuration;
+	}
+
+	public void setFriendlyDuration(float friendlyDuration)
+	{
+		this.friendlyDuration = friendlyDuration;
+	}
+
+	public int getSegmentCount()
+	{
+		return segmentCount;
+	}
+
+	public void setSegmentCount(int segmentCount)
+	{
+		this.segmentCount = segmentCount;
+	}
+
+	public GameColor getTargetColor()
+	{
+		return targetColor;
+	}
+
+	public GameColor getCurrentColor()
+	{
+		return currentColor;
+	}
+
+	public float getRemainingTimeToFade()
+	{
+		return remainingTimeToFade;
+	}
+
+	public float getFriendlyTimer()
+	{
+		return friendlyTimer;
+	}
+
+	public int getFinishedCount()
+	{
+		return finishedCount;
+	}
+	
+	
 }

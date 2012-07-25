@@ -24,6 +24,12 @@ public class ColorSourceComponentTemplate extends ComponentTemplate
 			this.color = new GameColor();
 		}	
 	}
+	
+
+	public GameColor getColor()
+	{
+		return color;
+	}
 
 	@Override
 	public Component createComponent()

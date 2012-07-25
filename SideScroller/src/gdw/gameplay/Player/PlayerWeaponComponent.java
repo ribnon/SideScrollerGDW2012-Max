@@ -49,8 +49,7 @@ public class PlayerWeaponComponent extends Component
 				((ColorSourceComponent)other.getComponent(ColorSourceComponent.COMPONENT_TYPE)).getColor();
 			}else if(other.getComponent(ColorableComponent.COMPONENT_TYPE)!= null)
 			{
-				//((ColorableComponent)other.addComponent(ColorableComponent.COMPONENT_TYPE)).
-				//TODO wartena auf implementierung von ColorableComponent
+				((ColorableComponent)other.getComponent(ColorableComponent.COMPONENT_TYPE)).mix(currentColor);
 			}
 		}
 	}

@@ -102,7 +102,6 @@ public class ChatClient extends JFrame implements IBasicClientListener
 				try {
 					connect();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -135,7 +134,6 @@ public class ChatClient extends JFrame implements IBasicClientListener
 				try {
 					connectDirect();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
