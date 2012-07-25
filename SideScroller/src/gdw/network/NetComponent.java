@@ -32,7 +32,6 @@ public class NetComponent extends Component
 	@Override
 	protected void destroy()
 	{
-		super.destroy();
 		NetSubSystem.getInstance().removeNetComponentToList(this);
 	}
 	
@@ -50,7 +49,9 @@ public class NetComponent extends Component
 		{
 			this.sequenceID = msg.sequenceID;
 			//update ghost
-			this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY, 0.0f);
+			//TODO irgendwie die playerID Rausfinden und dann in die Roundtrip rein hämmern
+			
+			this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY, ;
 		}
 	}
 	

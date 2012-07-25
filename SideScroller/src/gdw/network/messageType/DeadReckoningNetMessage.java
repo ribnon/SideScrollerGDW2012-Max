@@ -13,8 +13,9 @@ public class DeadReckoningNetMessage extends NetMessageType
 	public final float posY;
 	public final float velocityX;
 	public final float velocityY;
+	public final float roundTipTime;
 
-	public DeadReckoningNetMessage(int id, int seqID, float posX, float posY, float veloX, float veloY)
+	public DeadReckoningNetMessage(int id, int seqID, float posX, float posY, float veloX, float veloY, float roundTip)
 	{
 		this.entityID = id;
 		this.sequenceID = seqID;
@@ -22,6 +23,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 		this.posY = posY;
 		this.velocityX = veloX;
 		this.velocityY = veloY;
+		this.roundTipTime = roundTip;
 	}
 	
 	private DeadReckoningNetMessage(ByteBuffer buf)
@@ -32,6 +34,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 		this.posY = buf.getFloat();
 		this.velocityX = buf.getFloat();
 		this.velocityY = buf.getFloat();
+		this.roundTipTime = buf.getFloat();
 	}
 	
 	public static DeadReckoningNetMessage[] getFromByteBuffer(ByteBuffer buf)
@@ -66,6 +69,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 			buf.putFloat(msg.posY);
 			buf.putFloat(msg.velocityX);
 			buf.putFloat(msg.velocityY);
+			buf.putFloat(msg.roundTipTime);
 		}
 		
 	}
