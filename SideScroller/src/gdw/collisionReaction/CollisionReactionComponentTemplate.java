@@ -8,9 +8,21 @@ import gdw.entityCore.ComponentTemplate;
 public class CollisionReactionComponentTemplate extends ComponentTemplate
 {
 
+	private boolean impassableFromTop = true;
+	private boolean impassableFromSide = true;
+	public boolean isImpassableFromTop() {
+		return impassableFromTop;
+	}
+
+	public boolean isImpassableFromSide() {
+		return impassableFromSide;
+	}
+	
 	public CollisionReactionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
+		impassableFromTop = (getIntegerParam("impassableFromTop") == 1);
+		impassableFromSide = (getIntegerParam("impassableFromSide") == 1);
 	}
 
 	@Override

@@ -57,7 +57,8 @@ public class SimulationComponentManager {
 		
 		for(SimulationComponent sim : simulationList) {
 			if(sim.isActive()) {
-				sim.addForce(0, gravity/sim.getMass());
+//				if(!sim.isGrounded())
+				sim.addForce(0, gravity*sim.getMass());
 				sim.simulate(lastDeltaTime);
 			}
 		}
