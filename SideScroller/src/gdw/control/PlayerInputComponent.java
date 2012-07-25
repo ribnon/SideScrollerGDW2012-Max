@@ -217,6 +217,8 @@ public class PlayerInputComponent extends Component {
 		SimulationComponent simcomp = null;
 		SpriteComponent spritecomp = null;
 		DuckableComponent duckcomp = null;
+		PlayerBehaviorComponent plbehcomp = null;
+		SwitchUserComponent swusrcomp = null;
 
 		// Run behavior
 		if (msg instanceof RunMessage) {
@@ -280,21 +282,39 @@ public class PlayerInputComponent extends Component {
 
 		// Attack behavior
 		if (msg instanceof AttackMessage) {
-
+			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
+					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
+			if (plbehcomp != null) {
+				plbehcomp
+						.startAttack(PlayerBehaviorComponent.AttackType.Normal);
+			}
 		}
 
 		// Special attack behavior
 		if (msg instanceof SpecialAttackMessage) {
-
+			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
+					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
+			if (plbehcomp != null) {
+				plbehcomp
+						.startAttack(PlayerBehaviorComponent.AttackType.Special);
+			}
 		}
 
 		// Pull behavior
 		if (msg instanceof BeginPullMessage) {
-
+			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
+					SwitchUserComponent.COMPONENT_TYPE);
+			if (swusrcomp) {
+				swusrcomp.setpullActive(true);
+			}
 		}
 
 		if (msg instanceof EndPullMessage) {
-
+			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
+					SwitchUserComponent.COMPONENT_TYPE);
+			if (swusrcomp) {
+				swusrcomp.setpullActive(true);
+			}
 		}
 	}
 
