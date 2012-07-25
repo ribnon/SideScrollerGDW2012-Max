@@ -54,7 +54,7 @@ public class PlayerInputComponent extends Component {
 
 		super(template);
 
-		this.playerID = NetSubSystem.instance().getPlayerID();
+		this.playerID = NetSubSystem.getInstance().getPlayerID();
 
 		wasDownKeyDown = false;
 		wasJumpKeyDown = false;
