@@ -78,6 +78,7 @@ public class NetSubSystem
 		
 	}
 	
+	//wenn man was ändert ohne es zu raffen ist es schieße -.-
 	public static void initalise(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
 	{
 		if(NetSubSystem.singelton != null)
@@ -90,11 +91,6 @@ public class NetSubSystem
 	
 	public static NetSubSystem getInstance()
 	{
-		if(singelton == null) {
-			
-//			singelton = new NetSubSystem(0, false, ,(BasicServer)new SideScrollerServer(""));
-
-		}
 		return NetSubSystem.singelton;
 	}
 	
