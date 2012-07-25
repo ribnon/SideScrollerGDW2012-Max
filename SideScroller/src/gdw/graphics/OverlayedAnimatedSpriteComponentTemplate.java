@@ -5,9 +5,9 @@ import java.util.HashMap;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 
-public class OverlayAnimatedSpriteComponentTemplate extends ComponentTemplate{
+public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 
-	public OverlayAnimatedSpriteComponentTemplate(HashMap<String, String> params) {
+	public OverlayedAnimatedSpriteComponentTemplate(HashMap<String, String> params) {
 		super(params);
 	}
 
