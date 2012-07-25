@@ -17,6 +17,7 @@ public class CollisionReactionComponent extends Component
 	private boolean impassableFromTop = true;
 	private boolean impassableFromSide = true;
 	private static float VERTICAL_ANGLE_LIMIT = 0.2F;
+	private final float TOLERANCE = 0.001F;
 
 	protected CollisionReactionComponent(ComponentTemplate template)
 	{
@@ -94,21 +95,27 @@ public class CollisionReactionComponent extends Component
 		{
 			// Normalize the vector between the two objects
 			float length = getLength(diffX, diffY);
-			ratio = (diffX / length) / (diffY / length);
+			ratio = Math.abs((diffX / length) / (diffY / length));
+			if(ratio-VERTICAL_ANGLE_LIMIT < TOLERANCE)
+				ratio = 0;
+				
 		}
 		// If the entity is penetrable from the top (but not the sides) and the
 		// simulated object is moving downwards and is above the static object
 		if (impassableFromTop
 				&& !impassableFromSide
-				&& (simulatedObject.getVelocityY() < 0 || ratio > VERTICAL_ANGLE_LIMIT))
+				&& (simulatedObject.getVelocityY() < 0 || ratio > VERTICAL_ANGLE_LIMIT
+						|| simulatedObject.getOwner().getPosY() > staticObject.getPosY())) {
+			System.out.println(""+ratio);
 			return;
+		}
 
 		float deltaTime = SimulationComponentManager.getInstance()
 				.getDeltaTime();
 		// Push the simulated Entity out of the static Entity
 		simulatedObject.getOwner().setPos(
-				-simulatedObject.getVelocityX() * deltaTime,
-				-simulatedObject.getVelocityY() * deltaTime);
+				simulatedObject.getOwner().getPosX()-simulatedObject.getVelocityX() * deltaTime,
+				simulatedObject.getOwner().getPosY()-simulatedObject.getVelocityY() * deltaTime);
 		float veloX = simulatedObject.getVelocityX();
 		float veloY = simulatedObject.getVelocityY();
 

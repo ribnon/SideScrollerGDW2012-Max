@@ -46,8 +46,8 @@ public class SimulationTest extends BasicGame {
 
 		
 		HashMap<String, String> simParams = new HashMap<String, String>();
-		simParams.put("mass", "1.0");
-		simParams.put("friction","0.2");
+		simParams.put("mass", "0.7");
+		simParams.put("friction","0.11");
 		
 		entityManager = EntityManager.getInstance();
 		
@@ -63,7 +63,11 @@ public class SimulationTest extends BasicGame {
 //		compParamMap.put("AABoxCollisionDetectionComponent",colParams);
 		compParamMap.put("CircleCollisionDetectionComponent", colParams);
 		
+		HashMap<String, String> colReactParams = new HashMap<String, String>();
+		colReactParams.put("impassableFromTop", "1");
+		colReactParams.put("impassableFromSide", "0");
 		
+		compParamMap.put("CollisionReactionComponent", colReactParams);
 		
 		EntityTemplate entity = new EntityTemplate("Ball", null, compParamMap);
 		entity1 = entity.createEntity(50, 50, 0);
@@ -110,7 +114,7 @@ public class SimulationTest extends BasicGame {
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		// TODO Auto-generated method stub
-		float forcePower = 10.f; 
+		float forcePower = 100.f; 
 		Input inp = arg0.getInput();
 		if(inp.isKeyDown(Input.KEY_LSHIFT))
 			forcePower *= 0.1f;
@@ -127,9 +131,8 @@ public class SimulationTest extends BasicGame {
 			simComp.addForce(0, forcePower);
 		}
 		
-		
 		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
-		SimulationComponentManager.getInstance().simulate(16/1000.f);
+		SimulationComponentManager.getInstance().simulate(arg1/1000.f);
 	}
 	
 	public static void main(String[] args) throws SlickException {

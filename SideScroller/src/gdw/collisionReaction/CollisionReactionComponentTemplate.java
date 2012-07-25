@@ -8,7 +8,7 @@ import gdw.entityCore.ComponentTemplate;
 public class CollisionReactionComponentTemplate extends ComponentTemplate
 {
 
-	protected CollisionReactionComponentTemplate(HashMap<String, String> params)
+	public CollisionReactionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 	}
