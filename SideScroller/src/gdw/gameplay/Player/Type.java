@@ -1,4 +1,4 @@
-package gdw.Gameplay.Player;
+package gdw.gameplay.Player;
 
 public enum Type {
 	Normal,

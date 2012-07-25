@@ -1,9 +1,9 @@
-package gdw.Gameplay.Player;
+package gdw.gameplay.Player;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
-import gdw.Gameplay.Progress.GameplayProgressManager;
+import gdw.gameplay.progress.GameplayProgressManager;
 
 public class PlayerBehaviorComponent extends Component {
 	private float healthPercent;
@@ -61,6 +61,11 @@ public class PlayerBehaviorComponent extends Component {
 	public void startAttack(Type type)
 	{
 		
+	}
+
+	@Override
+	public int getComponentTypeID() {
+		return COMPONENT_TYPE;
 	}
 
 }

@@ -1,4 +1,4 @@
-package gdw.Gameplay.Progress;
+package gdw.gameplay.progress;
 
 import gdw.entityCore.*;
 

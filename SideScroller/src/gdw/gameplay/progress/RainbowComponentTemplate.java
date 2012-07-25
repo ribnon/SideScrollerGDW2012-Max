@@ -1,4 +1,4 @@
-package gdw.Gameplay.Player;
+package gdw.gameplay.progress;
 
 import java.util.HashMap;
 
@@ -6,16 +6,16 @@ import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 
 
-public class PlayerBehaviorComponentTemplate extends ComponentTemplate {
+public class RainbowComponentTemplate extends ComponentTemplate {
 
-	protected PlayerBehaviorComponentTemplate(HashMap<String, String> params) {
+	protected RainbowComponentTemplate(HashMap<String, String> params) {
 		super(params);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Component createComponent() {
-		return new PlayerBehaviorComponent(this);
+		return new RainbowComponent(this);
 	}
 
 }

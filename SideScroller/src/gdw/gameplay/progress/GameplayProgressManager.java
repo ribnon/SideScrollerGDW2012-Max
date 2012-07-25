@@ -1,4 +1,4 @@
-package gdw.Gameplay.Progress;
+package gdw.gameplay.progress;
 
 import gdw.entityCore.Component;
 
@@ -38,7 +38,7 @@ public class GameplayProgressManager {
 	}
 	
 	public Component getCurrentSpawnComponent() {
-		RainbowComponent currentSpawn;
+		RainbowComponent currentSpawn = null;
 		for (RainbowComponent i : rainbows) {
 			if (!i.getActive()) {
 				continue;
@@ -52,5 +52,8 @@ public class GameplayProgressManager {
 				currentSpawn = i;
 			}
 		}
+		if(currentSpawn == null)
+			return spawn;
+		return currentSpawn;
 	}
 }
