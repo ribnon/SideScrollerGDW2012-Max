@@ -67,7 +67,7 @@ public class ComponentTemplateFactory {
 //		componentTemplateClasses.put("Colorable", ColorableComponentTemplate.class);
 	}
 
-	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<>();
+	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<String, Class<? extends ComponentTemplate>>();
 	
 	public ComponentTemplate createComponentTemplate(String name, HashMap<String, String> params){
 		if(componentTemplateClasses.containsKey(name)){

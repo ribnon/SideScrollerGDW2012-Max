@@ -52,7 +52,7 @@ public class SimulationTest extends BasicGame {
 		entityManager = EntityManager.getInstance();
 		
 		HashMap<String, HashMap<String, String> > compParamMap = new HashMap<String, HashMap<String,String>>();
-		compParamMap.put("SimulationComponent", simParams);
+		compParamMap.put("Simulation ", simParams);
 		
 		
 		HashMap<String, String> colParams = new HashMap<String, String>();
@@ -60,14 +60,14 @@ public class SimulationTest extends BasicGame {
 		colParams.put("halfExtentY", "10.0");
 		colParams.put("radius", "25.0");
 		
-//		compParamMap.put("AABoxCollisionDetectionComponent",colParams);
-		compParamMap.put("CircleCollisionDetectionComponent", colParams);
+		compParamMap.put("AABoxCollisionDetection",colParams);
+//		compParamMap.put("CircleCollisionDetection", colParams);
 		
 		HashMap<String, String> colReactParams = new HashMap<String, String>();
 		colReactParams.put("impassableFromTop", "1");
 		colReactParams.put("impassableFromSide", "0");
 		
-		compParamMap.put("CollisionReactionComponent", colReactParams);
+		compParamMap.put("CollisionReaction", colReactParams);
 		
 		EntityTemplate entity = new EntityTemplate("Ball", null, compParamMap);
 		entity1 = entity.createEntity(50, 50, 0);
