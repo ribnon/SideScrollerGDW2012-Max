@@ -10,7 +10,8 @@ public class CameraComponent extends Component {
 	public final static int COMPONENT_TYPE = 6;
 	protected CameraComponent(ComponentTemplate template) {
 		super(template);
-		playerNumber = template.getIntegerParam("PlayerNumber");
+		CameraComponentTemplate t = (CameraComponentTemplate) template;
+		playerNumber = t.getPlayerNumber();
 	}
 
 	@Override

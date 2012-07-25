@@ -7,8 +7,15 @@ import gdw.entityCore.ComponentTemplate;
 
 public class CameraComponentTemplate extends ComponentTemplate {
 
-	protected CameraComponentTemplate(HashMap<String, String> params) {
+	private int playerNumber;
+	
+	public int getPlayerNumber(){
+		return playerNumber;
+	}
+	
+	public CameraComponentTemplate(HashMap<String, String> params) {
 		super(params);
+		playerNumber = getIntegerParam("PlayerNumber");
 	}
 
 	@Override
