@@ -13,6 +13,7 @@ import gdw.graphics.OverlayedAnimatedSpriteComponent;
 import gdw.graphics.OverlayedAnimatedSpriteComponentTemplate;
 import gdw.graphics.StaticSpriteComponent;
 import gdw.graphics.StaticSpriteComponentTemplate;
+import gdw.network.NetComponentTemplate;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -47,7 +48,7 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("Follow", FollowComponentTemplate.class);
 		componentTemplateClasses.put("Attachment", AttachmentComponentTemplate.class);
 		componentTemplateClasses.put("Attachable", AttachableComponentTemplate.class);
-		componentTemplateClasses.put("Network", NetworkComponentTemplate.class);
+		componentTemplateClasses.put("Network", NetComponentTemplate.class);
 		//TODO: Auskommentierung entfernen, wenn Komponenten geschrieben sind.
 //		componentTemplateClasses.put("PlayerWeapon", PlayerWeaponComponentTemplate.class);
 //		componentTemplateClasses.put("Duckable", DuckableComponentTemplate.class);
