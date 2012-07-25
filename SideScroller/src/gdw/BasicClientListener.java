@@ -3,6 +3,7 @@ package gdw;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
+import gdw.network.RESPONSECODES;
 import gdw.network.client.BasicClient;
 import gdw.network.client.IBasicClientListener;
 import gdw.network.client.ServerInfo;
@@ -47,6 +48,20 @@ public class BasicClientListener implements gdw.network.client.IBasicClientListe
 
 	@Override
 	public void connectionUpdate(int msg) {
+		switch (msg)
+		{
+		case RESPONSECODES.HANDSHAKE:
+			System.out.println("Handshake");
+		break;
+		case RESPONSECODES.UNREACHABLE:
+			System.out.println("host unreachable");
+		break;
+		case RESPONSECODES.SERVER_FULL:
+			System.out.println("server voll");
+		break;
+		default:
+		break;
+		}
 		System.out.println("Message code recieved: " + msg);
 		
 	}
