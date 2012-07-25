@@ -39,7 +39,7 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("AnimatedSprite", AnimatedSpriteComponentTemplate.class);
 		componentTemplateClasses.put("OverlayedAnimatedSprite", OverlayedAnimatedSpriteComponentTemplate.class);
 		componentTemplateClasses.put("Camera", CameraComponentTemplate.class);
-		componentTemplateClasses.put("Simulation ", SimulationComponentTemplate.class);
+		componentTemplateClasses.put("Simulation", SimulationComponentTemplate.class);
 		componentTemplateClasses.put("PlayerInput", PlayerInputComponentTemplate.class);
 		componentTemplateClasses.put("AABoxCollisonDetection", AABoxCollisionDetectionComponentTemplate.class);
 		componentTemplateClasses.put("OOBoxCollisonDetection", OOBoxCollisionDetectionComponentTemplate.class);
