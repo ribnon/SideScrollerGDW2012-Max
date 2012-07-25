@@ -13,6 +13,7 @@ import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
 import gdw.gameplay.Player.DuckableComponent;
+import gdw.gameplay.levelObjects.SwitchUserComponent;
 import gdw.graphics.SpriteComponent;
 import gdw.network.NetComponent;
 import gdw.network.NetSubSystem;

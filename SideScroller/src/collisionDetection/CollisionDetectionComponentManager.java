@@ -513,4 +513,35 @@ public class CollisionDetectionComponentManager
 		if (quadTree == null) return;
 		quadTree.delete(comp.getTreeRect());
 	}
+	
+	
+	
+	/////////////////////////////////////////////////////////////////
+	// Additional test Interfaces
+	
+	public boolean checkEntitiesForCollision(Entity e1, Entity e2)
+	{
+		CollisionDetectionComponent comp1 = (CollisionDetectionComponent) e1.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		CollisionDetectionComponent comp2 = (CollisionDetectionComponent) e2.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		
+		if (comp1 == null || comp2 == null) return false;
+		
+		boolean result = false;
+		
+		switch (comp1.getSubClassType())
+		{
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_CIRCLE:
+				result = detectCollisionCircle((CircleCollisionDetectionComponent)comp1, comp2);
+				break;
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX:
+				result = detectCollisionAABox((AABoxCollisionDetectionComponent)comp1, comp2);
+				break;
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_OOBOX:
+				result = detectCollisionOOBox((OOBoxCollisionDetectionComponent)comp1, comp2);
+				break;
+			default:
+		}
+		
+		return result;
+	}
 }
