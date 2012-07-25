@@ -10,10 +10,13 @@ public class SimulationComponentManager {
 	
 	private float lastDeltaTime;
 	
+	private float gravity;
+	
 	private SimulationComponentManager() {
 		
 		simulationList = new ArrayList<SimulationComponent>();
 		lastDeltaTime = 0.0f;
+		gravity = 0.0f;
 		manager = this;
 	}
 	
@@ -41,12 +44,22 @@ public class SimulationComponentManager {
 		return lastDeltaTime;
 	}
 	
+	public void setGravity(float g) {
+		gravity = g;
+	}
+	
+	public float getGravity() {
+		return gravity;
+	}
+	
 	public void simulate(float deltaTime) {
 		lastDeltaTime = deltaTime;
 		
 		for(SimulationComponent sim : simulationList) {
-			if(sim.isActive())
+			if(sim.isActive()) {
+				sim.addForce(0, gravity/sim.getMass());
 				sim.simulate(lastDeltaTime);
+			}
 		}
 		
 	}

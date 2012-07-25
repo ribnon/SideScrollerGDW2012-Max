@@ -1,22 +1,43 @@
 package gdw.genericBehavior;
 
+import Physics.SimulationComponent;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.Entity;
+import gdw.entityCore.EntityManager;
+import gdw.entityCore.EntityReference;
 
 public class FollowComponent extends Component
 {
 
+	public static final int COMPONENT_TYPE = 7;
+	
+	private EntityReference targetEntityID;
+	
 	protected FollowComponent(ComponentTemplate template)
 	{
 		super(template);
-		// TODO Auto-generated constructor stub
+		FollowComponentTemplate tmp = (FollowComponentTemplate) template;
+		targetEntityID = tmp.getTargetEntityID();
+		
 	}
 
 	@Override
 	public int getComponentTypeID()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return COMPONENT_TYPE;
+	}
+	
+	public void tick(float deltaTime)
+	{
+		SimulationComponent sim = (SimulationComponent) this.getOwner().getComponent(SimulationComponent.COMPONENT_TYPE);
+		
+		if(sim != null && sim instanceof SimulationComponent)
+		{
+			Entity start = this.getOwner();
+			Entity target = EntityManager.getInstance().getEntity(targetEntityID.getID());
+			sim.addForce((target.getPosX() - start.getPosX())*deltaTime, (target.getPosY() - start.getPosY())*deltaTime);
+		}
 	}
 
 }
