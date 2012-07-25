@@ -30,11 +30,4 @@ public class CircleCollisionDetectionComponent extends CollisionDetectionCompone
 	{
 		this.radius = radius;
 	}
-
-	@Override
-	public int getComponentTypeID()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
