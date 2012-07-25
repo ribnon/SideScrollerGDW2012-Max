@@ -59,7 +59,7 @@ public class NetSubSystem
 	private final LinkedList<DeadReckoningNetMessage> listOfDeadReckonigMessages;
 	private final LinkedList<TimeSyncMessage> listOfTimeSyncMessages;
 	
-	
+	//meine fresse wenn ihr was testet lass die änderungen bei euch, ohne rücksprach einfach pushe ist scheiße
 	private NetSubSystem(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
 	{
 		this.playerID = playerID;
@@ -90,11 +90,6 @@ public class NetSubSystem
 	
 	public static NetSubSystem getInstance()
 	{
-		if(singelton == null) {
-			
-//			singelton = new NetSubSystem(0, false, ,(BasicServer)new SideScrollerServer(""));
-
-		}
 		return NetSubSystem.singelton;
 	}
 	
