@@ -28,6 +28,7 @@ public class PlayerInputComponentManager {
 	}
 
 	public void sendInputToPlayerInputComponents(Input input) {
+		// TODO: PlayerID auswerten
 		for (PlayerInputComponent currentcomponent : playerInpComponents) {
 			currentcomponent.processingInput(input);
 		}
