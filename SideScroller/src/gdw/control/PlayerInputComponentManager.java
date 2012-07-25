@@ -31,7 +31,7 @@ public class PlayerInputComponentManager {
 
 	public void sendInputToPlayerInputComponents(Input input) {
 		for (PlayerInputComponent currentcomponent : playerInpComponents) {
-			if (currentcomponent.getPlayerID() == NetSubSystem.instance()
+			if (currentcomponent.getPlayerID() == NetSubSystem.getInstance()
 					.getPlayerID())
 				currentcomponent.processingInput(input);
 		}
