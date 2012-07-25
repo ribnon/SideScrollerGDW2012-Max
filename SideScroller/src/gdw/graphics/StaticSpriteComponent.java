@@ -19,7 +19,6 @@ public class StaticSpriteComponent extends SpriteComponent
 	 */
 	private Image image;
 
-
 	/**
 	 * 
 	 * @param template
@@ -71,13 +70,21 @@ public class StaticSpriteComponent extends SpriteComponent
 		image = i;
 	}
 
-	
+	public void setFlipped(boolean b)
+	{
+		if (!(getFlipped() == b))
+		{
+			image = image.getFlippedCopy(false, true);
+		}
+	}
+
 	/**
 	 * Method to draw the sprite
 	 * 
 	 */
 	public void draw()
 	{
+
 		image.setCenterOfRotation(getPivotX(), getPivotY());
 		image.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
 		if (getFilter() != null)

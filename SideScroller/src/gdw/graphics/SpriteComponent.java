@@ -38,6 +38,11 @@ public abstract class SpriteComponent extends Component
 	private int layer = 1;
 
 	/**
+	 * if true the image will be mirrored horizontally before drawing
+	 */
+	private boolean flipped = false;
+	
+	/**
 	 * Component-ID for SpriteComponent is 1
 	 */
 	public static final int COMPONENT_TYPE = 1;
@@ -128,5 +133,15 @@ public abstract class SpriteComponent extends Component
 	public void setLayer(int layer)
 	{
 		this.layer = layer;
+	}
+	
+	public boolean getFlipped()
+	{
+		return this.flipped;
+	}
+	
+	public void setFlipped(boolean f)
+	{
+		this.flipped = f;
 	}
 }
