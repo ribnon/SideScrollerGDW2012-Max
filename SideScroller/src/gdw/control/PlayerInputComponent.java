@@ -10,13 +10,14 @@ import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
 import gdw.network.NetComponent;
+import gdw.network.NetSubSystem;
 
 import org.newdawn.slick.Input;
 
 import Physics.SimulationComponent;
 
 public class PlayerInputComponent extends Component {
-	private int playerNumber;
+	private int playerID;
 
 	// KeyValues
 	private int downKey, jumpKey, leftKey, rightKey, attackKey, specattackKey;
@@ -52,6 +53,8 @@ public class PlayerInputComponent extends Component {
 			long waitingTime) {
 
 		super(template);
+
+		this.playerID = NetSubSystem.instance().getPlayerID();
 
 		wasDownKeyDown = false;
 		wasJumpKeyDown = false;
@@ -149,6 +152,10 @@ public class PlayerInputComponent extends Component {
 		wasLeftKeyDown = isLeftKeyDown;
 		wasAttackKeyDown = isAttackKeyDown;
 		wasSpecAttackKeyDown = isSpecAttackKeyDown;
+	}
+
+	public int getPlayerID() {
+		return playerID;
 	}
 
 	/**
