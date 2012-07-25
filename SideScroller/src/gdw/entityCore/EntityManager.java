@@ -20,7 +20,7 @@ public class EntityManager {
 	
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
 	private int nextID = 1;
-	private boolean offlineMode=false;
+	private boolean offlineMode=true;
 	
 	public boolean isOfflineMode() {
 		return offlineMode;

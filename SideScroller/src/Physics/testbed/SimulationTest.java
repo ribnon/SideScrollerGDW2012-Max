@@ -4,6 +4,7 @@ import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
 import gdw.entityCore.EntityTemplateManager;
+import gdw.graphics.StaticSpriteComponent;
 import gdw.network.NetSubSystem;
 
 import java.io.IOException;
@@ -156,27 +157,6 @@ public class SimulationTest extends BasicGame {
 //		platform = entity.createEntity(200, 200, 0);
 //		
 //		
-		try {
-			entityTemplateManager = EntityTemplateManager.getInstance();
-			entityTemplateManager.loadEntityTemplates("src/Physics/testbed/SimulationTestBed.ent");
-			
-			EntityTemplate entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate("TestBedControllable");
-			entity1 = entityTemplate.createEntity(100, 100, 0);
-			entity2 = entityTemplate.createEntity(200, 260, 0);
-			
-			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedGround");
-			ground = entityTemplate.createEntity(300, 300, 0);
-			
-			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedWall");
-			wall = entityTemplate.createEntity(300, 300, 0);
-			
-			platform = entityTemplateManager.getEntityTemplate("TestBedPlatform").createEntity(200, 200, 0);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 
 	@Override
@@ -199,6 +179,28 @@ public class SimulationTest extends BasicGame {
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
+		
+		try {
+			entityTemplateManager = EntityTemplateManager.getInstance();
+			entityTemplateManager.loadEntityTemplates("src/Physics/testbed/SimulationTestBed.ent");
+			
+			EntityTemplate entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate("TestBedControllable");
+			entity1 = entityTemplate.createEntity(100, 100, 0);
+			entity2 = entityTemplate.createEntity(200, 260, 0);
+			
+			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedGround");
+			ground = entityTemplate.createEntity(300, 300, 0);
+			
+			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedWall");
+			wall = entityTemplate.createEntity(300, 300, 0);
+			
+			platform = entityTemplateManager.getEntityTemplate("TestBedPlatform").createEntity(200, 200, 0);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		SimulationComponentManager.getInstance().setGravity(9.81f);
 	}
 
@@ -222,6 +224,11 @@ public class SimulationTest extends BasicGame {
 		if(simComp!=null) {
 			simComp.draw(g);
 		}
+		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
+		if(sprComp!=null) {
+			sprComp.draw();
+		}
+		
 		
 	}
 	
