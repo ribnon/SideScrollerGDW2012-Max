@@ -1,4 +1,4 @@
-package Physics;
+package Physics.testbed;
 
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
@@ -14,11 +14,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import Physics.SimulationComponent;
+import Physics.SimulationComponentManager;
+
 import collisionDetection.AABoxCollisionDetectionComponent;
 import collisionDetection.CircleCollisionDetectionComponent;
 import collisionDetection.CollisionDetectionComponent;
 import collisionDetection.CollisionDetectionComponentManager;
-
 
 public class SimulationTest extends BasicGame {
 	EntityManager entityManager;
@@ -27,6 +29,8 @@ public class SimulationTest extends BasicGame {
 	Entity entity2;
 	Entity ground;
 	Entity wall;
+	Entity platform;
+	
 	
 	public SimulationTest() {
 		super("SimTest");
@@ -48,7 +52,7 @@ public class SimulationTest extends BasicGame {
 
 		
 		HashMap<String, String> simParams = new HashMap<String, String>();
-		simParams.put("mass", "0.5");
+		simParams.put("mass", "1");
 		simParams.put("friction","0.11");
 		
 		entityManager = EntityManager.getInstance();
@@ -123,6 +127,28 @@ public class SimulationTest extends BasicGame {
 		entity = new EntityTemplate("Wall", null, wallCompParamMap);
 		wall = entity.createEntity(300, 400, 0);
 		
+		
+		// platform
+		
+		HashMap<String, HashMap<String, String> > platCompParamMap = new HashMap<String, HashMap<String,String>>();
+//		groundCompParamMap.put("Simulation", groundSimParams);
+		
+		
+		HashMap<String, String> platColParams = new HashMap<String, String>();
+		platColParams.put("halfExtentX", "80.0");
+		platColParams.put("halfExtentY", "10.0");
+		platColParams.put("radius", "25.0");
+		
+		platCompParamMap.put("AABoxCollisionDetection", platColParams);
+//		compParamMap.put("CircleCollisionDetection", colParams);
+		
+		HashMap<String, String> platColReactParams = new HashMap<String, String>();
+		platColReactParams.put("impassableFromTop", "1");
+		platColReactParams.put("impassableFromSide", "0");
+		
+		platCompParamMap.put("CollisionReaction", platColReactParams);
+		entity = new EntityTemplate("Platform", null, platCompParamMap);
+		platform = entity.createEntity(200, 200, 0);
 	}
 
 	@Override
@@ -133,6 +159,7 @@ public class SimulationTest extends BasicGame {
 //		drawEntity(g, entity2);
 		drawEntity(g, ground);
 		drawEntity(g, wall);
+		drawEntity(g, platform);
 		g.drawString("is active: "+simComp.isActive(), 10, 80);
 		g.drawString("is grounded: "+simComp.isGrounded(), 10, 175);
 		g.drawString("vx: "+simComp.getVelocityX(), 10, 100);

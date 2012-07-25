@@ -28,7 +28,8 @@ public class SimulationComponent extends Component {
 	private float externalForceY;
 	private boolean active;
 	
-	public boolean grounded;
+	// TODO: test code
+	private boolean grounded;
 	private Entity ground;
 
 	public boolean isGrounded() {
@@ -40,8 +41,7 @@ public class SimulationComponent extends Component {
 		this.grounded = grounded;
 	}
 
-
-	// TODO : test code
+	// Debug draw method
 	public void draw(Graphics g) {
 		Entity owner = this.getOwner();
 		
@@ -196,6 +196,8 @@ public class SimulationComponent extends Component {
 	public void simulate(float deltaTime) {
 		if (mass <= 0.0f) {// Unmoveable object
 			resetForce();
+			
+			
 			return;
 		}
 		
@@ -232,16 +234,19 @@ public class SimulationComponent extends Component {
 		newVelocityY -= this.friction * newVelocityY * deltaTime;
 
 		boolean veloXNulled = false;
-		if (veloXNulled=(Math.abs(velocityX-newVelocityX) < TOLERANCE)) {
+		
+		
+		if (veloXNulled=(Math.abs(velocityX) < TOLERANCE)) {
 			velocityX = 0.0f;
 		}
-		if (Math.abs(velocityY-newVelocityY) < TOLERANCE) {
+		if (Math.abs(velocityY) < TOLERANCE) {
 			velocityY = 0.0f;
+			
 			shouldSleep = veloXNulled&&accelerationNulled;
 		}
-		
 		this.velocityX = newVelocityX;
 		this.velocityY = newVelocityY;
+		
 		
 		float posX = this.getOwner().getPosX() + velocityX*deltaTime;
 		float posY = this.getOwner().getPosY() + velocityY*deltaTime;
@@ -265,7 +270,7 @@ public class SimulationComponent extends Component {
 				float x = B.getPosY() - AAcolCompB.getHalfExtentY() - this.getOwner().getPosY() - AAcolCompA.getHalfExtentY();
 //				System.out.println(x+"");
 				if(Math.abs(this.getOwner().getPosX() - B.getPosX()) < AAcolCompB.getHalfExtentX()
-				&&	x < 0.1f) {
+				&&	Math.abs(x) < 0.1f) {
 					ground = B;
 					return true;
 				}
@@ -274,6 +279,7 @@ public class SimulationComponent extends Component {
 		ground=null;
 		return false;
 	}
+	
 	
 	@Override
 	public int getComponentTypeID() {
