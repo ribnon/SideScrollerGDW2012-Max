@@ -7,10 +7,13 @@ import gdw.entityCore.ComponentTemplate;
 
 
 public class RainbowComponentTemplate extends ComponentTemplate {
-
-	protected RainbowComponentTemplate(HashMap<String, String> params) {
+	private boolean active = false;
+	private int checkPointNumber;
+	
+	public RainbowComponentTemplate(HashMap<String, String> params) {
 		super(params);
-		// TODO Auto-generated constructor stub
+		if(getIntegerParam("Active", 0) != 0) active = true;
+		checkPointNumber = getIntegerParam("CheckPointNumber", 0);
 	}
 
 	@Override
