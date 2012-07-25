@@ -387,6 +387,11 @@ public class CollisionDetectionComponentManager
 		if (angle2 > Math.PI / 2) angle2 -= Math.PI;
 		if (angle2 < -Math.PI / 2) angle2 += Math.PI;
 		
+		if (angle1 > Math.PI / 2) angle1 -= Math.PI;
+		if (angle1 < -Math.PI / 2) angle1 += Math.PI;
+		if (angle2 > Math.PI / 2) angle2 -= Math.PI;
+		if (angle2 < -Math.PI / 2) angle2 += Math.PI;
+		
 		float angleDiff = angle1 - angle2;
 		if (angleDiff < 0) angleDiff *= -1;
 		float posX1Local1 = (float)(posX1 * Math.cos(-angle1) - posY1 * Math.sin(-angle1));
