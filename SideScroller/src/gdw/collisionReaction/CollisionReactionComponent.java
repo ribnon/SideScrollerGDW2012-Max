@@ -17,6 +17,7 @@ public class CollisionReactionComponent extends Component
 	private boolean impassableFromTop = true;
 	private boolean impassableFromSide = true;
 	private static float VERTICAL_ANGLE_LIMIT = 0.2F;
+	private final float TOLERANCE = 0.001F;
 
 	protected CollisionReactionComponent(ComponentTemplate template)
 	{
@@ -70,11 +71,21 @@ public class CollisionReactionComponent extends Component
 						collisionMessage.getIDCandidate2());
 			else
 				other = EntityManager.getInstance().getEntity(collided1);
-
-			reactToCollision(ownerSimulation, other);
+			
+			SimulationComponent otherSimComp = (SimulationComponent) other.getComponent(SimulationComponent.COMPONENT_TYPE);
+			if(otherSimComp != null) {
+				reactToCollisionTwoSim(ownerSimulation,otherSimComp);
+			}
+			else {
+				reactToCollision(ownerSimulation, other);
+			}
 		}
 	}
-
+	
+	private void reactToCollisionTwoSim(SimulationComponent self, SimulationComponent other) {
+		
+	}
+	
 	/**
 	 * Adjusts the simulatedObject's velocity so the collision will not happen
 	 * again. The simulatedObject will also be pushed out of the staticObject
@@ -94,21 +105,26 @@ public class CollisionReactionComponent extends Component
 		{
 			// Normalize the vector between the two objects
 			float length = getLength(diffX, diffY);
-			ratio = (diffX / length) / (diffY / length);
+			ratio = Math.abs((diffX / length) / (diffY / length));
+			if(ratio-VERTICAL_ANGLE_LIMIT < TOLERANCE)
+				ratio = 0;
+				
 		}
 		// If the entity is penetrable from the top (but not the sides) and the
 		// simulated object is moving downwards and is above the static object
 		if (impassableFromTop
 				&& !impassableFromSide
-				&& (simulatedObject.getVelocityY() < 0 || ratio > VERTICAL_ANGLE_LIMIT))
+				&& (simulatedObject.getVelocityY() < 0 || ratio > VERTICAL_ANGLE_LIMIT
+						|| simulatedObject.getOwner().getPosY() > staticObject.getPosY())) {
 			return;
+		}
 
 		float deltaTime = SimulationComponentManager.getInstance()
 				.getDeltaTime();
 		// Push the simulated Entity out of the static Entity
 		simulatedObject.getOwner().setPos(
-				-simulatedObject.getVelocityX() * deltaTime,
-				-simulatedObject.getVelocityY() * deltaTime);
+				simulatedObject.getOwner().getPosX()-simulatedObject.getVelocityX() * deltaTime,
+				simulatedObject.getOwner().getPosY()-simulatedObject.getVelocityY() * deltaTime);
 		float veloX = simulatedObject.getVelocityX();
 		float veloY = simulatedObject.getVelocityY();
 
@@ -122,7 +138,9 @@ public class CollisionReactionComponent extends Component
 		// This vector is subracted from the velocity of the simulated object
 		// to get a velocity that will not move the simulated object into the
 		// static object
-		simulatedObject.setVelocity(veloX - projectedX, veloY - projectedY);
+		
+		simulatedObject.setVelocity(veloX - projectedX , veloY - projectedY);
+		
 	}
 
 	private float getLength(float x, float y)
