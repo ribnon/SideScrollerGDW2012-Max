@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.util.pathfinding.Path.Step;
 
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Component;
@@ -175,74 +176,27 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 	public OverlayedAnimatedSpriteComponent(ComponentTemplate template)
 	{
 		super(template);
-		try
-		{
-			baseSpritesheet = new SpriteSheet(
-					template.getStringParam("BasePath"),
-					template.getIntegerParam("BaseTileWidth"),
-					template.getIntegerParam("BaseTileHeight"));
-		} catch (SlickException e)
-		{
-			e.printStackTrace();
-			System.out.println("BaseSpriteSheet konnte nicht erstellt werden!");
-		}
-
-		try
-		{
-			overlaySpritesheet1 = new SpriteSheet(
-					template.getStringParam("OverlayPath"),
-					template.getIntegerParam("OverlayTileWidth"),
-					template.getIntegerParam("OverlayTileHeight"));
-		} catch (SlickException e)
-		{
-			e.printStackTrace();
-			System.out
-					.println("OverlaySpriteSheet1 konnte nicht erstellt werden!");
-		}
+		OverlayedAnimatedSpriteComponentTemplate t = (OverlayedAnimatedSpriteComponentTemplate) template;
 		
-		try
-		{
-			overlaySpritesheet2 = new SpriteSheet(
-					template.getStringParam("OverlayPath"),
-					template.getIntegerParam("OverlayTileWidth"),
-					template.getIntegerParam("OverlayTileHeight"));
-		} catch (SlickException e)
-		{
-			e.printStackTrace();
-			System.out
-					.println("OverlaySpriteSheet2 konnte nicht erstellt werden!");
-		}
-
-		baseCycleLength = new int[baseSpritesheet.getVerticalCount()];
-		for (int i = 0; i < baseCycleLength.length; ++i)
-			baseCycleLength[i] = baseSpritesheet.getHorizontalCount(); // TODO
-																		// detect
-																		// unused
-																		// slots
-																		// in
-																		// spritesheet
-		baseCycle = template.getIntegerParam("BaseCycle");
-
-		overlayCycleLength1 = new int[overlaySpritesheet1.getVerticalCount()];
-		for (int i = 0; i < overlayCycleLength1.length; ++i)
-			overlayCycleLength1[i] = overlaySpritesheet1.getHorizontalCount(); // TODO
-																				// detect
-																				// unused
-																				// slots
-																				// in
-																				// spritesheet
-		overlayCycle2 = template.getIntegerParam("OverlayCycle");
+		baseSpritesheet = t.getBaseSpritesheet();
+		overlaySpritesheet1 = t.getOverlaySpritesheet1();
+		overlaySpritesheet2 = t.getOverlaySpritesheet2();
 		
-		overlayCycleLength2 = new int[overlaySpritesheet2.getVerticalCount()];
-		for (int i = 0; i < overlayCycleLength2.length; ++i)
-			overlayCycleLength2[i] = overlaySpritesheet2.getHorizontalCount(); // TODO
-																				// detect
-																				// unused
-																				// slots
-																				// in
-																				// spritesheet
-		overlayCycle2 = template.getIntegerParam("OverlayCycle");
-	}
+		baseCycleLength = t.getBaseCycleLength();
+		overlayCycleLength1 = t.getOverlayCycleLength1();
+		overlayCycleLength2 = t.getOverlayCycleLength2();
+		
+		baseCycle = t.getBaseCycle();
+		overlayCycle1 = t.getOverlayCycle1();
+		overlayCycle2 = t.getOverlayCycle2();
+		
+		overlayColor1 = t.getOverlayColor1();
+		overlayColor2 = t.getOverlayColor2();
+		
+		baseStep = t.getBaseStep();
+		overlayStep1 = t.getOverlayStep1();
+		overlayStep2 = t.getOverlayStep2();
+ 	}
 
 	
 	/**

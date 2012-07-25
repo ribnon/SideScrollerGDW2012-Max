@@ -19,15 +19,23 @@ public class NetComponent extends Component
 	protected NetComponent(ComponentTemplate template)
 	{
 		super(template);
-		this.ghost = new Ghost();
-		sequenceID = 0;
-		NetSubSystem.getInstance().addNetComponentToList(this);
+		
+		if((template != null)&&(template instanceof NetComponentTemplate))
+		{
+			NetComponentTemplate temp = (NetComponentTemplate) template;
+			this.ghost = temp.getGhost().clone();
+			sequenceID = 0;
+			NetSubSystem.getInstance().addNetComponentToList(this);
+		}else
+		{
+			this.ghost = null;
+		}
 	}
 
 	@Override
 	public int getComponentTypeID()
 	{
-		return 8;
+		return NetComponent.COMPONENT_TYPE;
 	}
 
 	@Override
@@ -63,7 +71,6 @@ public class NetComponent extends Component
 			Entity owner = this.getOwner();
 			this.ghost.initialise(owner.getPosX(), owner.getPosY());
 		}	
-		//TODO erweitern auf andere typen
 	}
 
 	public void sendNetworkMessage(Message msg)

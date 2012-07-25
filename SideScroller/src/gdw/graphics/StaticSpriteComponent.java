@@ -26,15 +26,8 @@ public class StaticSpriteComponent extends SpriteComponent
 	public StaticSpriteComponent(ComponentTemplate template)
 	{
 		super(template);
-
-		try
-		{
-			image = new Image(template.getStringParam("Path"));
-		} catch (SlickException e)
-		{
-			e.printStackTrace();
-			System.out.println("Image konnte nicht erzeugt werden!");
-		}
+		StaticSpriteComponentTemplate t = (StaticSpriteComponentTemplate) template;
+		image = t.getImage();
 	}
 
 	protected void destroy()

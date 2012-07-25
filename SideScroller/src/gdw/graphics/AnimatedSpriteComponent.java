@@ -70,18 +70,12 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	AnimatedSpriteComponent(ComponentTemplate template)
 	{
 		super(template);
-		try
-		{
-			spriteSheet = new SpriteSheet(template.getStringParam("Path"), template.getIntegerParam("TileWidth"), template.getIntegerParam("TileHeight"));
-		} catch (SlickException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		cycleLength = new int[spriteSheet.getVerticalCount()];
-		for(int i = 0; i < cycleLength.length; ++i)
-			cycleLength[i] = spriteSheet.getHorizontalCount(); // TODO detect unused slots in spritesheet
-		cycle = template.getIntegerParam("Cycle");
+		AnimatedSpriteComponentTemplate t = (AnimatedSpriteComponentTemplate) template;
+		
+		spriteSheet = t.getSpriteSheet();
+		cycleLength = t.getCycleLength();
+		cycle = t.getCycle();
+		step = t.getStep();
 	}
 	
 	/**

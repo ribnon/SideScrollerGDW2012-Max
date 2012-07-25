@@ -64,19 +64,9 @@ public class ColorableComponentTemplate extends ComponentTemplate
 		return targetColor;
 	}
 
-	public void setTargetColor(GameColor targetColor)
-	{
-		this.targetColor = targetColor;
-	}
-
 	public GameColor getCurrentColor()
 	{
 		return currentColor;
-	}
-
-	public void setCurrentColor(GameColor currentColor)
-	{
-		this.currentColor = currentColor;
 	}
 
 	public float getRemainingTimeToFade()
@@ -84,19 +74,9 @@ public class ColorableComponentTemplate extends ComponentTemplate
 		return remainingTimeToFade;
 	}
 
-	public void setRemainingTimeToFade(float remainingTimeToFade)
-	{
-		this.remainingTimeToFade = remainingTimeToFade;
-	}
-
 	public float getFadeTime()
 	{
 		return fadeTime;
-	}
-
-	public void setFadeTime(float fadeTime)
-	{
-		this.fadeTime = fadeTime;
 	}
 
 	public float getFriendlyDuration()
@@ -104,19 +84,10 @@ public class ColorableComponentTemplate extends ComponentTemplate
 		return friendlyDuration;
 	}
 
-	public void setFriendlyDuration(float friendlyDuration)
-	{
-		this.friendlyDuration = friendlyDuration;
-	}
 
 	public float getFriendlyTimer()
 	{
 		return friendlyTimer;
-	}
-
-	public void setFriendlyTimer(float friendlyTimer)
-	{
-		this.friendlyTimer = friendlyTimer;
 	}
 
 	public int getFinishedCount()
@@ -124,18 +95,8 @@ public class ColorableComponentTemplate extends ComponentTemplate
 		return finishedCount;
 	}
 
-	public void setFinishedCount(int finishedCount)
-	{
-		this.finishedCount = finishedCount;
-	}
-
 	public int getSegmentCount()
 	{
 		return segmentCount;
-	}
-
-	public void setSegmentCount(int segmentCount)
-	{
-		this.segmentCount = segmentCount;
 	}
 }
