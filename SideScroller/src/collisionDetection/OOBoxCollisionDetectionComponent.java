@@ -13,13 +13,14 @@ public class OOBoxCollisionDetectionComponent extends CollisionDetectionComponen
 		
 		halfExtentX = template.getFloatParam("halfExtentX", 1.0f);
 		halfExtentY = template.getFloatParam("halfExtentY", 1.0f);
+		CollisionDetectionComponentManager.getInstance().registerOOBoxCollisionDetectionComponent(this);
 	}
 	
 	protected void destroy()
 	{
+		CollisionDetectionComponentManager.getInstance().removeOOBoxCollisionDetectionComponent(this);
 		super.destroy();
 	}
-
 	
 	// Getters / Setters
 	public float getHalfExtentX()
