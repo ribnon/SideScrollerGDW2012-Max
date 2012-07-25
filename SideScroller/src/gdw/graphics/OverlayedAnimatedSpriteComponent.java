@@ -183,7 +183,6 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 					template.getIntegerParam("BaseTileHeight"));
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("BaseSpriteSheet konnte nicht erstellt werden!");
 		}
@@ -196,7 +195,6 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 					template.getIntegerParam("OverlayTileHeight"));
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out
 					.println("OverlaySpriteSheet1 konnte nicht erstellt werden!");
@@ -210,7 +208,6 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 					template.getIntegerParam("OverlayTileHeight"));
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out
 					.println("OverlaySpriteSheet2 konnte nicht erstellt werden!");
@@ -313,7 +310,6 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 			baseSpritesheet.destroy();
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("BaseSpriteSheet konnte nicht zerstört werden!");
 		}
@@ -323,7 +319,6 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 			overlaySpritesheet1.destroy();
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out
 					.println("OverlaySpriteSheet1 konnte nicht zerstört werden!");
@@ -334,7 +329,6 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 			overlaySpritesheet2.destroy();
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out
 					.println("OverlaySpriteSheet2 konnte nicht zerstört werden!");
@@ -356,8 +350,9 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 	{
 		overlayCycle2 = 0;
 	}
+	
 	/**
-	 * Advances the base-animation by one frame, loops around if end of animation is reached
+	 * Advances the animations by one frame, loops around if end of animation is reached
 	 * 
 	 * @param time passed since last tick
 	 */
@@ -384,8 +379,9 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 		baseStep++;
 		baseStep %= baseCycleLength[baseCycle]; // loop back to frame 0
 	}
+	
 	/**
-	 * Advances the overlay-animation1 by one frame, loops around if end of animation is reached
+	 * Advances the overlay1-animation1 by one frame, loops around if end of animation is reached
 	 * 
 	 * @param time passed since last tick
 	 * @deprecated use tick() instead
@@ -397,7 +393,7 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 	}
 	
 	/**
-	 * Advances the overlay-animation2 by one frame, loops around if end of animation is reached
+	 * Advances the overlay2-animation2 by one frame, loops around if end of animation is reached
 	 * 
 	 * @param time passed since last tick
 	 * @deprecated use tick() instead
