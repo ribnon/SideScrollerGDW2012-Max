@@ -15,25 +15,28 @@ public class EntityDeSpawnNetMessage extends NetMessageType
 		this.entityID = id;
 	}
 	
-	public static void fillInByteBuffer(LinkedList<EntityDeSpawnNetMessage> list, ByteBuffer buf, int maxAmount)
+	public static void fillInByteBuffer(LinkedList<EntityDeSpawnNetMessage> list, ByteBuffer buf)
 	{
 		buf.put(NetMessageType.EntityDespawnMessageType);
-		if(list.size() > maxAmount)
+		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE);
+		byte counter = 0;
+		while(!list.isEmpty())
 		{
-			buf.put((byte)maxAmount);
-		}else
-		{
-			buf.put((byte)list.size());
-		}
-		for(int i=0;i<maxAmount;++i)
-		{
-			EntityDeSpawnNetMessage msg = list.poll();
-			if(msg == null)
+			try
 			{
-				return;
+				EntityDeSpawnNetMessage msg = list.peek();
+				buf.putInt(msg.entityID);
+			}catch (IndexOutOfBoundsException e)
+			{
+				break;
 			}
-			buf.putInt(msg.entityID);
+			list.remove();
+			counter++;
+			
 		}
+		buf.put(counter);
+		helper.flip();
+		buf.put(helper);
 	}
 
 	
