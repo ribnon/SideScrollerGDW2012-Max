@@ -12,24 +12,26 @@ public class PlayerWeaponComponent extends Component
 	protected PlayerWeaponComponent(ComponentTemplate template)
 	{
 		super(template);
-		// TODO Auto-generated constructor stub
+		currentColor = new GameColor();
 	}
 
 	@Override
 	public int getComponentTypeID()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return COMPONENT_TYPE;
 	}
 
 	public void onMessage(Message msg)
 	{
-		if (msg bla bla)
+		if (msg instanceof ColorableComponentMessage)
 		{
-			currentColor.mix(
+			ColorableComponentMessage cMsg = (ColorableComponentMessage) msg;
+			currentColor.mix(cMsg.getGameColor());
 		}
-		else if(msg bla bla)
+		else if(msg instanceof ColorSourceComponent)
 		{
+			ColorSourceComponentMessage cMsg = (ColorableComponentMessage) msg;
+			currentColor = cMsg.getGameColor();
 		}
 	}
 }
