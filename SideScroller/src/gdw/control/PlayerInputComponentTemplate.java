@@ -13,12 +13,18 @@ public class PlayerInputComponentTemplate extends ComponentTemplate {
 	public PlayerInputComponentTemplate(HashMap<String, String> params) {
 		super(params);
 
-		downKey = super.getIntegerParam("DownKey");
-		jumpKey = super.getIntegerParam("JumpKey");
-		leftKey = super.getIntegerParam("LeftKey");
-		rightKey = super.getIntegerParam("RightKey");
-		attackKey = super.getIntegerParam("AttackKey");
-		specattackKey = super.getIntegerParam("SpecialAttackKey");
+		downKey = PlayerInputComponentManager.getKeyValue(super
+				.getStringParam("DownKey"));
+		jumpKey = PlayerInputComponentManager.getKeyValue(super
+				.getStringParam("JumpKey"));
+		leftKey = PlayerInputComponentManager.getKeyValue(super
+				.getStringParam("LeftKey"));
+		rightKey = PlayerInputComponentManager.getKeyValue(super
+				.getStringParam("RightKey"));
+		attackKey = PlayerInputComponentManager.getKeyValue(super
+				.getStringParam("AttackKey"));
+		specattackKey = PlayerInputComponentManager.getKeyValue(super
+				.getStringParam("SpecialAttackKey"));
 
 		jumpVelocity = super.getIntegerParam("JumpVelocity");
 		runVelocity = super.getIntegerParam("RunVelocity");
