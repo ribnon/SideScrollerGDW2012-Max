@@ -11,8 +11,9 @@ public class RainbowComponent extends Component {
 	
 	protected RainbowComponent(ComponentTemplate template) {
 		super(template);
-		checkPointNumber = template.getIntegerParam("CheckPointNumber");
-		GameplayProgressManager.getInstance().addRainbow(this);
+		RainbowComponentTemplate t = (RainbowComponentTemplate) template;
+		active = t.isActive();
+		checkPointNumber = t.getCheckPointNumber();
 	}
 	
 	public int getCheckPointNumber()

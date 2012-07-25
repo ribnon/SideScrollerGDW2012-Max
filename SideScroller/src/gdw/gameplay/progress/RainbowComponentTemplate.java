@@ -10,6 +10,14 @@ public class RainbowComponentTemplate extends ComponentTemplate {
 	private boolean active = false;
 	private int checkPointNumber;
 	
+	public boolean isActive() {
+		return active;
+	}
+
+	public int getCheckPointNumber() {
+		return checkPointNumber;
+	}
+
 	public RainbowComponentTemplate(HashMap<String, String> params) {
 		super(params);
 		if(getIntegerParam("Active", 0) != 0) active = true;
