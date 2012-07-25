@@ -10,7 +10,6 @@ public class PlayerBehaviorComponentTemplate extends ComponentTemplate {
 
 	private float healthPercent;
 	private float healthIncrement;
-	private float healthDecrement;
 	
 	private float deathTimer;
 	private float deathTimerDuration;
@@ -24,10 +23,6 @@ public class PlayerBehaviorComponentTemplate extends ComponentTemplate {
 
 	public float getHealthIncrement() {
 		return healthIncrement;
-	}
-
-	public float getHealthDecrement() {
-		return healthDecrement;
 	}
 
 	public float getDeathTimer() {
@@ -50,7 +45,6 @@ public class PlayerBehaviorComponentTemplate extends ComponentTemplate {
 		super(params);
 		healthPercent = getFloatParam("HealthPercent");
 		healthIncrement = getFloatParam("HealthIncrement");
-		healthDecrement = getFloatParam("HealthDecrement");
 		deathTimer = getFloatParam("DeathTimer");
 		deathTimerDuration = getFloatParam("DeathTimerDuration");
 		hitDuration = getFloatParam("HitDuration");

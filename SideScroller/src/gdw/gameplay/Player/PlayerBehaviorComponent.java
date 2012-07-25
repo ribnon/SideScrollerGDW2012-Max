@@ -8,7 +8,6 @@ import gdw.gameplay.progress.GameplayProgressManager;
 public class PlayerBehaviorComponent extends Component {
 	private float healthPercent;
 	private float healthIncrement;
-	private float healthDecrement;
 	
 	private float deathTimer;
 	private float deathTimerDuration;
@@ -24,7 +23,6 @@ public class PlayerBehaviorComponent extends Component {
 		PlayerBehaviorComponentTemplate t = (PlayerBehaviorComponentTemplate) template;
 		healthPercent = t.getHealthPercent();
 		healthIncrement = t.getHealthIncrement();
-		healthDecrement = t.getHealthDecrement();
 		deathTimer = t.getDeathTimer();
 		deathTimerDuration = t.getDeathTimerDuration();
 		hitDuration = t.getHitDuration();
@@ -33,7 +31,7 @@ public class PlayerBehaviorComponent extends Component {
 	
 	protected void destroy()
 	{
-		
+		//TODO alter digger, ich hätte gern ne PlayerSubsystem, schwör
 	}
 	
 	public void tick(float deltaTime)
