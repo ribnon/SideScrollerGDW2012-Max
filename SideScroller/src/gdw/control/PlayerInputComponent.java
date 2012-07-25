@@ -1,5 +1,11 @@
 package gdw.control;
 
+import gdw.control.messageType.AttackMessage;
+import gdw.control.messageType.BeginPullMessage;
+import gdw.control.messageType.EndPullMessage;
+import gdw.control.messageType.JumpMessage;
+import gdw.control.messageType.RunMessage;
+import gdw.control.messageType.StopMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
