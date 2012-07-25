@@ -1,7 +1,9 @@
 package gdw.control;
 
 import gdw.control.messageType.AttackMessage;
+import gdw.control.messageType.BeginDuckMessage;
 import gdw.control.messageType.BeginPullMessage;
+import gdw.control.messageType.EndDuckMessage;
 import gdw.control.messageType.EndPullMessage;
 import gdw.control.messageType.JumpMessage;
 import gdw.control.messageType.RunMessage;
@@ -54,7 +56,7 @@ public class PlayerInputComponent extends Component {
 
 		super(template);
 
-		this.playerID = NetSubSystem.getInstance().getPlayerID();
+		this.setPlayerID(NetSubSystem.getInstance().getPlayerID());
 
 		wasDownKeyDown = false;
 		wasJumpKeyDown = false;
@@ -80,11 +82,24 @@ public class PlayerInputComponent extends Component {
 				this);
 	}
 
+	/**
+	 * PlayerInputComponent without waitingTime parameter (default: 1000ms)
+	 * 
+	 * @param template
+	 * @param downKey
+	 * @param jumpKey
+	 * @param leftKey
+	 * @param rightKey
+	 * @param attackKey
+	 * @param specattackKey
+	 * @param jumpVelocity
+	 * @param runVelocity
+	 */
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
 			int specattackKey, float jumpVelocity, float runVelocity) {
 		this(template, downKey, jumpKey, leftKey, rightKey, attackKey,
-				specattackKey, jumpVelocity, runVelocity, 32l);
+				specattackKey, jumpVelocity, runVelocity, 1000l);
 	}
 
 	public void processingInput(Input input) {
@@ -96,7 +111,12 @@ public class PlayerInputComponent extends Component {
 		boolean isSpecAttackKeyDown = input.isKeyDown(specattackKey);
 
 		long currentTime = System.currentTimeMillis();
-		long deltaTime = pastTime - currentTime;
+
+		long deltaTime = 0l;
+
+		if (pastTime != 0l) {
+			deltaTime = pastTime - currentTime;
+		}
 
 		NetComponent netcomp = (NetComponent) getOwner().getComponent(
 				NetComponent.COMPONENT_TYPE);
@@ -141,6 +161,15 @@ public class PlayerInputComponent extends Component {
 					netcomp.sendNetworkMessage(new EndPullMessage());
 				}
 				pastTime = 0l;
+			}
+
+			// Duck
+			if (isDownKeyDown && !wasDownKeyDown) {
+				netcomp.sendNetworkMessage(new BeginDuckMessage());
+			}
+
+			if (!isDownKeyDown && wasDownKeyDown) {
+				netcomp.sendNetworkMessage(new EndDuckMessage());
 			}
 		} else {
 			System.err.println("NetComponent nicht initialisiert");
