@@ -1,5 +1,8 @@
 package gdw.collisionReaction;
 
+import collisionDetection.AABoxCollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponentManager;
 import collisionDetection.CollisionDetectionMessage;
 
 import Physics.SimulationComponent;
@@ -138,8 +141,14 @@ public class CollisionReactionComponent extends Component
 		// This vector is subracted from the velocity of the simulated object
 		// to get a velocity that will not move the simulated object into the
 		// static object
+		simulatedObject.setVelocityX(0 );
+		if(simulatedObject.isOnB(staticObject)) {
+			
+			simulatedObject.setVelocityY(0);
+			simulatedObject.addForce(0, -SimulationComponentManager.getInstance().getGravity()*simulatedObject.getMass());
 		
-		simulatedObject.setVelocity(veloX - projectedX , veloY - projectedY);
+			simulatedObject.setGrounded(true);
+		}
 		
 	}
 

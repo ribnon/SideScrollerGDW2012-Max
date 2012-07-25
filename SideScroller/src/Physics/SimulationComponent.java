@@ -1,13 +1,18 @@
 package Physics;
 
-import collisionDetection.CollisionDetectionMessage;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+
+import collisionDetection.AABoxCollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponent;
+
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
-import gdw.entityCore.Message;
+import gdw.entityCore.Entity;
 
 public class SimulationComponent extends Component {
 
-	private static final float TOLERANCE = 0.001f;
+	private static final float TOLERANCE = 0.01f;
 
 	public static final int COMPONENT_TYPE = 2;
 
@@ -23,7 +28,30 @@ public class SimulationComponent extends Component {
 	private float externalForceY;
 	private boolean active;
 	
-	public boolean isGrounded;
+	public boolean grounded;
+	private Entity ground;
+
+	public boolean isGrounded() {
+		return grounded;
+	}
+
+
+	public void setGrounded(boolean grounded) {
+		this.grounded = grounded;
+	}
+
+
+	// TODO : test code
+	public void draw(Graphics g) {
+		Entity owner = this.getOwner();
+		
+		g.setColor(Color.green);
+		g.drawLine(owner.getPosX(), owner.getPosY(), owner.getPosX()+velocityX, owner.getPosY()+velocityY);
+		g.setColor(Color.red);
+		g.drawLine(owner.getPosX(), owner.getPosY(), owner.getPosX()+accelerationX, owner.getPosY()+accelerationY);
+		g.setColor(Color.white);
+	}
+	
 	
 	public SimulationComponent(ComponentTemplate template) {
 		super(template);
@@ -171,39 +199,49 @@ public class SimulationComponent extends Component {
 			return;
 		}
 		
+		if(grounded = isOnB(ground)) {
+			addForce(0, -SimulationComponentManager.getInstance().getGravity()*mass);
+		}
 		
 		float forceX = this.externalForceX - (this.friction * this.velocityX)*deltaTime;
 		float forceY = this.externalForceY - (this.friction * this.velocityY)*deltaTime;
+		
 //		float forceX = this.externalForceX;
 //		float forceY = this.externalForceY;
+		
+		
 		
 		this.accelerationX = forceX / this.mass;
 		this.accelerationY = forceY / this.mass;
 		
 		boolean shouldSleep = false;
-
-		if (Math.abs(accelerationX) < TOLERANCE) {
+		
+		boolean accelerationNulled = false;
+		if (accelerationNulled=(Math.abs(accelerationX) < TOLERANCE)) {
 			accelerationX = 0.0f;
 		}
-		if (Math.abs(accelerationY) < TOLERANCE) {
+		if (accelerationNulled&=(Math.abs(accelerationY) < TOLERANCE)) {
 			accelerationY = 0.0f;
 		}
 		
 		resetForce();
 
-		this.velocityX += this.accelerationX * deltaTime;
-		this.velocityX -= this.friction * this.velocityX * deltaTime;
-		this.velocityY += this.accelerationY * deltaTime;
-		this.velocityY -= this.friction * this.velocityY * deltaTime;
+		float newVelocityX = this.velocityX + this.accelerationX * deltaTime;
+		newVelocityX -= this.friction * newVelocityX * deltaTime;
+		float newVelocityY = this.velocityY + this.accelerationY * deltaTime;
+		newVelocityY -= this.friction * newVelocityY * deltaTime;
 
 		boolean veloXNulled = false;
-		if (veloXNulled=(Math.abs(velocityX) < TOLERANCE)) {
+		if (veloXNulled=(Math.abs(velocityX-newVelocityX) < TOLERANCE)) {
 			velocityX = 0.0f;
 		}
-		if (Math.abs(velocityY) < TOLERANCE) {
+		if (Math.abs(velocityY-newVelocityY) < TOLERANCE) {
 			velocityY = 0.0f;
-			shouldSleep = veloXNulled;
+			shouldSleep = veloXNulled&&accelerationNulled;
 		}
+		
+		this.velocityX = newVelocityX;
+		this.velocityY = newVelocityY;
 		
 		float posX = this.getOwner().getPosX() + velocityX*deltaTime;
 		float posY = this.getOwner().getPosY() + velocityY*deltaTime;
@@ -214,6 +252,29 @@ public class SimulationComponent extends Component {
 			active = false;
 	}
 
+	public boolean isOnB(Entity B) {
+		if(B == null)
+			return false;
+		CollisionDetectionComponent colCompA =(CollisionDetectionComponent) this.getOwner().getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		CollisionDetectionComponent colCompB =(CollisionDetectionComponent) B.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		if(colCompA!=null && colCompB!=null) {
+			if(colCompB instanceof AABoxCollisionDetectionComponent
+			&& colCompA instanceof AABoxCollisionDetectionComponent) {
+				AABoxCollisionDetectionComponent AAcolCompB = (AABoxCollisionDetectionComponent) colCompB;
+				AABoxCollisionDetectionComponent AAcolCompA = (AABoxCollisionDetectionComponent) colCompA;
+				float x = B.getPosY() - AAcolCompB.getHalfExtentY() - this.getOwner().getPosY() - AAcolCompA.getHalfExtentY();
+//				System.out.println(x+"");
+				if(Math.abs(this.getOwner().getPosX() - B.getPosX()) < AAcolCompB.getHalfExtentX()
+				&&	x < 0.1f) {
+					ground = B;
+					return true;
+				}
+			}
+		}
+		ground=null;
+		return false;
+	}
+	
 	@Override
 	public int getComponentTypeID() {
 		return SimulationComponent.COMPONENT_TYPE;
