@@ -71,4 +71,9 @@ public class GameColor {
 			return BLACK;
 
 	}
+	
+	public boolean isTransparent()
+	{
+		return ((!this.blue)&&(!this.red)&&(!this.yellow));
+	}
 }
