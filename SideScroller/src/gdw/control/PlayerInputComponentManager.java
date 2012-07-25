@@ -29,9 +29,14 @@ public class PlayerInputComponentManager {
 		return playerInpComponents.remove(comp);
 	}
 
+	/**
+	 * Sends the input to the PlayerInputComponent with the right ID
+	 * 
+	 * @param input
+	 */
 	public void sendInputToPlayerInputComponents(Input input) {
 		for (PlayerInputComponent currentcomponent : playerInpComponents) {
-			if (currentcomponent.getPlayerID() == NetSubSystem.instance()
+			if (currentcomponent.getPlayerID() == NetSubSystem.getInstance()
 					.getPlayerID())
 				currentcomponent.processingInput(input);
 		}
