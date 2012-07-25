@@ -11,12 +11,12 @@ public class ColorableComponent extends Component
 
 	private GameColor targetColor;
 	private GameColor currentColor;
-	private float remainingTimeToFade;
-	private float fadeTime;
-	private float friendlyDuration;
-	private float friendlyTimer;
-	private int finishedCount;
-	private int segmentCount;
+	private float remainingTimeToFade;//counter
+	private float fadeTime;//fest
+	private float friendlyDuration;//fest
+	private float friendlyTimer;//counter
+	private int finishedCount;//fest
+	private int segmentCount;//counter
 
 	protected ColorableComponent(ComponentTemplate template)
 	{
@@ -38,18 +38,63 @@ public class ColorableComponent extends Component
 
 	public void tick(float deltaTime)
 	{
-		
-		//wenn finischedCounter = segmentCounter  := setzte enemy auf hostile false
+		if(finishedCount == segmentCount)
+		{
+			//wenn komplett
+			friendlyTimer -= deltaTime;
+			if(friendlyTimer <= 0.0f)
+			{
+				//verlier ein segment
+				segmentCount--;
+				//((EnemyBehaviorCompoent)this.getOwner().getComponent(EnemyBehaviorComponent.COMPONENT_TYPE)).
+				//TODO set enemy hostile true
+				
+			}
+		}else if(!currentColor.isTransparent())
+		{
+			//auf fade testen
+			this.remainingTimeToFade -= deltaTime;
+			if(remainingTimeToFade <= 0.0f)
+			{
+				this.currentColor.setToTransparent();
+			}
+		}
 	}
 
 	@Override
 	public int getComponentTypeID()
 	{
-		return COMPONENT_TYPE;
+		return ColorableComponent.COMPONENT_TYPE;
 	}
 	
 	public void mix(GameColor color)
 	{
+		if(this.segmentCount == this.finishedCount)
+			return;
 		
+		if(!this.currentColor.isTransparent())
+		{
+			color.mix(color);
+		}else
+		{
+			this.currentColor = color.clone();
+		}
+		
+		//test auf target farbe
+		if(this.targetColor.equals(this.currentColor))
+		{
+			this.segmentCount++;
+			if(this.segmentCount == this.finishedCount)
+			{
+				//TODO set enemy auf no hostile
+				this.friendlyTimer = this.friendlyDuration;
+			}else
+			{
+				this.remainingTimeToFade = this.fadeTime;
+			}
+		}else
+		{
+			this.remainingTimeToFade = this.fadeTime;
+		}
 	}
 }

@@ -2,7 +2,8 @@ package gdw.gameplay;
 
 import org.newdawn.slick.Color;
 
-public class GameColor {
+public class GameColor
+{
 
 	private boolean red;
 	private boolean yellow;
@@ -17,24 +18,24 @@ public class GameColor {
 	private static final Color WHITE = new Color(255, 255, 255);
 	private static final Color BLACK = new Color(91, 57, 38);
 
-	public GameColor(boolean r, boolean y, boolean b) 
+	public GameColor(boolean r, boolean y, boolean b)
 	{
 		red = r;
 		yellow = y;
 		blue = b;
 	}
 
-	public GameColor() 
+	public GameColor()
 	{
 		this(false, false, false);
 	}
 
-	public boolean getRed() 
+	public boolean getRed()
 	{
 		return red;
 	}
 
-	public boolean getBlue() 
+	public boolean getBlue()
 	{
 		return blue;
 	}
@@ -44,14 +45,14 @@ public class GameColor {
 		return yellow;
 	}
 
-	public void mix(GameColor gc) 
+	public void mix(GameColor gc)
 	{
 		this.red = this.red || gc.getRed();
 		this.yellow = this.yellow || gc.getYellow();
 		this.blue = this.blue || gc.getBlue();
 	}
 
-	public Color convertToGraphicsColor() 
+	public Color convertToGraphicsColor()
 	{
 		if (!red && !yellow && !blue)
 			return WHITE;
@@ -70,5 +71,26 @@ public class GameColor {
 		else
 			return BLACK;
 
+	}
+
+	public boolean isTransparent()
+	{
+		return ((!this.blue) && (!this.red) && (!this.yellow));
+	}
+
+	public void setToTransparent()
+	{
+		this.blue = false;
+		this.red = false;
+	}
+
+	public GameColor clone()
+	{
+		return new GameColor(this.red, this.yellow, this.blue);
+	}
+
+	public boolean equals(GameColor obj)
+	{
+		return ((this.blue == obj.blue) && (this.red == obj.blue) && (this.yellow == obj.yellow));
 	}
 }
