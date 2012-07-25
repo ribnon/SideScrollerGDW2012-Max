@@ -158,6 +158,10 @@ public class PlayerInputComponent extends Component {
 		return playerID;
 	}
 
+	public void setPlayerID(int id) {
+		playerID = id;
+	}
+
 	/**
 	 * Reacts on MovementMessages with Behaviour
 	 */
