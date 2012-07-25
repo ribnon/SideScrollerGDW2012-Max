@@ -120,6 +120,21 @@ public abstract class BasicServer
 	{
 		ALL, CUR_PLAYER, MAX_PLAYER, INFO_TEXT, TCP_PORT, SERVER_ID, CUSTOM_ATTACHMENT
 	}
+	
+	public LinkedList<BasicClientConnection> getAllConnected()
+	{
+		LinkedList<BasicClientConnection> result = new LinkedList<BasicClientConnection>();
+		Iterator<Integer> iter = this.clientConnections.keySet().iterator();
+		while(iter.hasNext())
+		{
+			BasicClientConnection client = this.clientConnections.get(iter.next());
+			if(!client.isDisconnectFlaged())
+			{
+				result.add(client);
+			}
+		}
+		return result;
+	}
 
 	final int CUR_PLAYER_POS = 0;
 	final int MAX_PLAYER_POS = CUR_PLAYER_POS + Integer.SIZE;
