@@ -28,7 +28,7 @@ public class Entity {
 	}
 	
 	public void markForDestroy(){
-		if(NetSubSystem.instance().isServer()) NetSubSystem.instance().sendDeSpawn(id);
+		if(NetSubSystem.getInstance().isServer()) NetSubSystem.getInstance().sendDeSpawn(id);
 		destroyFlag=true;
 	}
 	public boolean getDestroyFlag(){
