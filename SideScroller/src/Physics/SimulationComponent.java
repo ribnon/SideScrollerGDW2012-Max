@@ -1,7 +1,9 @@
 package Physics;
 
+import collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.Message;
 
 public class SimulationComponent extends Component {
 
@@ -13,14 +15,16 @@ public class SimulationComponent extends Component {
 	private float velocityY;
 	private float accelerationX;
 	private float accelerationY;
-
+	
 	// Mass of Entity, if 0 - object is unmoveable (Infinite mass)
 	private float mass;
 	private float friction;
 	private float externalForceX;
 	private float externalForceY;
 	private boolean active;
-
+	
+	public boolean isGrounded;
+	
 	public SimulationComponent(ComponentTemplate template) {
 		super(template);
 		// copy blueprint values
@@ -63,7 +67,6 @@ public class SimulationComponent extends Component {
 	public void addForce(float x, float y) {
 		this.externalForceX += x;
 		this.externalForceY += y;
-
 		this.active = true;
 	}
 
@@ -122,6 +125,7 @@ public class SimulationComponent extends Component {
 	public void setForce(float x, float y) {
 		this.externalForceX = x;
 		this.externalForceY = y;
+		this.active = true;
 	}
 
 	public float getExternalForceY() {
@@ -138,18 +142,22 @@ public class SimulationComponent extends Component {
 
 	public void setVelocityX(float velocityX) {
 		this.velocityX = velocityX;
+		this.active = true;
 	}
 
 	public void setVelocityY(float velocityY) {
 		this.velocityY = velocityY;
+		this.active = true;
 	}
 
 	public void setExternalForceX(float externalForceX) {
 		this.externalForceX = externalForceX;
+		this.active = true;
 	}
 
 	public void setExternalForceY(float externalForceY) {
 		this.externalForceY = externalForceY;
+		this.active = true;
 	}
 
 	public void resetForce() {
@@ -163,13 +171,13 @@ public class SimulationComponent extends Component {
 			return;
 		}
 		
+		
 		float forceX = this.externalForceX - (this.friction * this.velocityX)*deltaTime;
 		float forceY = this.externalForceY - (this.friction * this.velocityY)*deltaTime;
 //		float forceX = this.externalForceX;
 //		float forceY = this.externalForceY;
 		
 		this.accelerationX = forceX / this.mass;
-		
 		this.accelerationY = forceY / this.mass;
 		
 		boolean shouldSleep = false;
@@ -188,15 +196,19 @@ public class SimulationComponent extends Component {
 		this.velocityY += this.accelerationY * deltaTime;
 		this.velocityY -= this.friction * this.velocityY * deltaTime;
 
-		if (Math.abs(velocityX) < TOLERANCE) {
+		boolean veloXNulled = false;
+		if (veloXNulled=(Math.abs(velocityX) < TOLERANCE)) {
 			velocityX = 0.0f;
-			shouldSleep=true;
 		}
 		if (Math.abs(velocityY) < TOLERANCE) {
 			velocityY = 0.0f;
+			shouldSleep = veloXNulled;
 		}
-		else 
-			shouldSleep = false;
+		
+		float posX = this.getOwner().getPosX() + velocityX*deltaTime;
+		float posY = this.getOwner().getPosY() + velocityY*deltaTime;
+		
+		this.getOwner().setPos(posX, posY);
 		
 		if(shouldSleep) 
 			active = false;
