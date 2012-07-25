@@ -382,7 +382,18 @@ public class CollisionDetectionComponentManager
 	private boolean testOOOO(float posX1, float posY1, float posX2, float posY2, float halfX1, float halfY1, float halfX2, float halfY2, float angle1, float angle2)
 	{
 		// Local Candidate 1
-		float angleDiff = angle2 - angle1;
+		if (angle1 > Math.PI / 2) angle1 -= Math.PI;
+		if (angle1 < -Math.PI / 2) angle1 += Math.PI;
+		if (angle2 > Math.PI / 2) angle2 -= Math.PI;
+		if (angle2 < -Math.PI / 2) angle2 += Math.PI;
+		
+		if (angle1 > Math.PI / 2) angle1 -= Math.PI;
+		if (angle1 < -Math.PI / 2) angle1 += Math.PI;
+		if (angle2 > Math.PI / 2) angle2 -= Math.PI;
+		if (angle2 < -Math.PI / 2) angle2 += Math.PI;
+		
+		float angleDiff = angle1 - angle2;
+		if (angleDiff < 0) angleDiff *= -1;
 		float posX1Local1 = (float)(posX1 * Math.cos(-angle1) - posY1 * Math.sin(-angle1));
 		float posY1Local1 = (float)(posX1 * Math.sin(-angle1) + posY1 * Math.cos(-angle1));
 		float posX2Local1 = (float)(posX2 * Math.cos(-angle1) - posY2 * Math.sin(-angle1));
@@ -394,7 +405,6 @@ public class CollisionDetectionComponentManager
 		float half2Y2Local1 = (float)(halfY2 * Math.cos(angleDiff));
 		
 		// Local Candidate 2
-		angleDiff *= -1;
 		float posX1Local2 = (float)(posX1 * Math.cos(-angle2) - posY1 * Math.sin(-angle2));
 		float posY1Local2 = (float)(posX1 * Math.sin(-angle2) + posY1 * Math.cos(-angle2));
 		float posX2Local2 = (float)(posX2 * Math.cos(-angle2) - posY2 * Math.sin(-angle2));
