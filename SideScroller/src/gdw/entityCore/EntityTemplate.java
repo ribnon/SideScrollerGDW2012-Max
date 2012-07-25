@@ -20,6 +20,7 @@ public class EntityTemplate {
 		
 		for(String compName: componentParamsMap.keySet()){
 			ComponentTemplate compTemplate = ComponentTemplateFactory.getInstance().createComponentTemplate(compName, componentParamsMap.get(compName));
+			if(compTemplate==null) continue;
 			this.componentTemplateMap.put(compName, compTemplate);
 		}
 	}
