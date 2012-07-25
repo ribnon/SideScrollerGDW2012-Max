@@ -22,7 +22,7 @@ public class LobbyState extends BasicGameState implements IBasicClientListener {
 	int id;
 	private ArrayList<ServerInfo> servers;
 	private boolean registered = false;
-	
+
 	GameContainer gc;
 
 	public LobbyState(int id) {
@@ -100,12 +100,8 @@ public class LobbyState extends BasicGameState implements IBasicClientListener {
 				return;
 		}
 		servers.add(info);
-		try {
-			buttons.add(new JoinButton(20, servers.size() * 15 + 100, 15, 15, new Image("button.png"), gc, info));
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		buttons.add(new JoinButton(20, servers.size() * 15 + 100, 15, 15, gc,
+				info));
 
 	}
 

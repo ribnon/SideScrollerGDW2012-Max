@@ -8,13 +8,24 @@ import gdw.network.client.BasicClient;
 import gdw.network.client.ServerInfo;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 
 public class JoinButton extends MouseOverArea {
 	private ServerInfo serverInfo;
+	private static Image img;
+	
+	static {
+		try {
+			img = new Image("button.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	public JoinButton(int posX, int posY, int width, int height, Image img,
+	public JoinButton(int posX, int posY, int width, int height,
 			GUIContext gc, ServerInfo si) {
 		super(gc, img, posX, posY, width, height);
 		serverInfo = si;
