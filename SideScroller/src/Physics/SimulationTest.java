@@ -20,14 +20,10 @@ public class SimulationTest extends BasicGame {
 	EntityManager entityManager;
 	
 	Entity entity1;
+	Entity wall;
 	
 	public SimulationTest() {
 		super("SimTest");
-		// TODO Auto-generated constructor stub
-		
-		HashMap<String, String> simParams = new HashMap<String, String>();
-		simParams.put("mass", "1.0");
-		simParams.put("friction","0.0");
 //		
 //		size = 10.0f;
 //		
@@ -44,6 +40,11 @@ public class SimulationTest extends BasicGame {
 //		box1.setHalfExtentY(size);
 //		colMng.registerAABoxCollisionDetectionComponent(box1);
 
+		
+		HashMap<String, String> simParams = new HashMap<String, String>();
+		simParams.put("mass", "1.0");
+		simParams.put("friction","0.2");
+		
 		entityManager = EntityManager.getInstance();
 		
 		HashMap<String, HashMap<String, String> > compParamMap = new HashMap<String, HashMap<String,String>>();
@@ -59,7 +60,7 @@ public class SimulationTest extends BasicGame {
 		
 		
 		EntityTemplate entity = new EntityTemplate("Ball", null, compParamMap);
-		entity.createEntity(50, 50, 0);
+		entity1 = entity.createEntity(50, 50, 0);
 		
 	}
 
@@ -81,6 +82,10 @@ public class SimulationTest extends BasicGame {
 		simComp.addForce(10, 0);
 	}
 
+	public void drawEntity(Graphics g, Entity e) {
+		
+	}
+	
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
@@ -100,9 +105,9 @@ public class SimulationTest extends BasicGame {
 			simComp.addForce(0, forcePower);
 		}
 		
-		simComp.addForce(0.0f, -9.81f);
 		
-//		SimulationComponentManager.getInstance().simulate(16/1000.f);
+		
+		SimulationComponentManager.getInstance().simulate(16/1000.f);
 		float newPosX = entity1.getPosX() + simComp.getVelocityX() * 16/1000.f;
 		float newPosY = entity1.getPosY() + simComp.getVelocityY() * 16/1000.f;
 		

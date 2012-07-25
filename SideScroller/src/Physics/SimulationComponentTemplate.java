@@ -48,7 +48,7 @@ public class SimulationComponentTemplate extends ComponentTemplate {
 		return externalForceY;
 	}
 
-	protected SimulationComponentTemplate(HashMap<String, String> params) {
+	public SimulationComponentTemplate(HashMap<String, String> params) {
 		super(params);
 
 		friction = getFloatParam("friction", 0.0f);

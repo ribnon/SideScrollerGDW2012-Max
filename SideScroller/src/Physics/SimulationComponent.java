@@ -122,6 +122,7 @@ public class SimulationComponent extends Component {
 	public void setForce(float x, float y) {
 		this.externalForceX = x;
 		this.externalForceY = y;
+		this.active = true;
 	}
 
 	public float getExternalForceY() {
@@ -138,18 +139,22 @@ public class SimulationComponent extends Component {
 
 	public void setVelocityX(float velocityX) {
 		this.velocityX = velocityX;
+		this.active = true;
 	}
 
 	public void setVelocityY(float velocityY) {
 		this.velocityY = velocityY;
+		this.active = true;
 	}
 
 	public void setExternalForceX(float externalForceX) {
 		this.externalForceX = externalForceX;
+		this.active = true;
 	}
 
 	public void setExternalForceY(float externalForceY) {
 		this.externalForceY = externalForceY;
+		this.active = true;
 	}
 
 	public void resetForce() {
