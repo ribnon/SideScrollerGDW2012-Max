@@ -1,0 +1,6 @@
+Template Mein_Testtemplate
+Component Network
+Component CircleCollisionDetection
+radius=5
+Component Follow
+targetEntityID=Spieler1
