@@ -50,9 +50,8 @@ public class NetComponent extends Component
 		{
 			this.sequenceID = msg.sequenceID;
 			//update ghost
-			//TODO irgendwie die playerID Rausfinden und dann in die Roundtrip rein hämmern
-			
-			//this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY, ;
+		
+			this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY,msg.roundTipTime);
 		}
 	}
 	
@@ -84,9 +83,10 @@ public class NetComponent extends Component
 			//korrigier ghost und sende nachricht
 			SimulationComponent simComp = (SimulationComponent) ent.getComponent(SimulationComponent.COMPONENT_TYPE);
 			this.ghost.correct(ent.getPosX(), ent.getPosY(), simComp.getVelocityX(), simComp.getVelocityY(), 0.0f);
-			//DeadReckoningNetMessage msg = new DeadReckoningNetMessage(ent.getID(), ++this.sequenceID, 
-				//	ent.getPosX(), ent.getPosY(), simComp.getVelocityX(), simComp.getVelocityY());
-			//list.add(msg);
+			
+			DeadReckoningNetMessage msg = new DeadReckoningNetMessage(ent.getID(), ++this.sequenceID, 
+				ent.getPosX(), ent.getPosY(), simComp.getVelocityX(), simComp.getVelocityY(),0.0f);
+			list.add(msg);
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package gdw.control;
 
+import gdw.network.NetSubSystem;
+
 import java.util.LinkedList;
 
 import org.newdawn.slick.Input;
@@ -28,9 +30,10 @@ public class PlayerInputComponentManager {
 	}
 
 	public void sendInputToPlayerInputComponents(Input input) {
-		// TODO: PlayerID auswerten
 		for (PlayerInputComponent currentcomponent : playerInpComponents) {
-			currentcomponent.processingInput(input);
+			if (currentcomponent.getPlayerID() == NetSubSystem.instance()
+					.getPlayerID())
+				currentcomponent.processingInput(input);
 		}
 	}
 }
