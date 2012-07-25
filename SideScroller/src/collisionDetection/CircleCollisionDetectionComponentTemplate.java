@@ -9,7 +9,7 @@ public class CircleCollisionDetectionComponentTemplate extends ComponentTemplate
 {
 	private float radius;
 	
-	protected CircleCollisionDetectionComponentTemplate(HashMap<String, String> params)
+	public CircleCollisionDetectionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		radius = getFloatParam("radius", 1.0f);

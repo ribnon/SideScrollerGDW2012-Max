@@ -10,7 +10,7 @@ public class OOBoxCollisionDetectionComponentTemplate extends ComponentTemplate
 	private float halfExtentX;
 	private float halfExtentY;
 	
-	protected OOBoxCollisionDetectionComponentTemplate(HashMap<String, String> params)
+	public OOBoxCollisionDetectionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		
