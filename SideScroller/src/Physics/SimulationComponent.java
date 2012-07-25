@@ -1,7 +1,9 @@
 package Physics;
 
+import collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.Message;
 
 public class SimulationComponent extends Component {
 
@@ -193,15 +195,19 @@ public class SimulationComponent extends Component {
 		this.velocityY += this.accelerationY * deltaTime;
 		this.velocityY -= this.friction * this.velocityY * deltaTime;
 
-		if (Math.abs(velocityX) < TOLERANCE) {
+		boolean veloXNulled = false;
+		if (veloXNulled=(Math.abs(velocityX) < TOLERANCE)) {
 			velocityX = 0.0f;
-			shouldSleep=true;
 		}
 		if (Math.abs(velocityY) < TOLERANCE) {
 			velocityY = 0.0f;
+			shouldSleep = veloXNulled;
 		}
-		else 
-			shouldSleep = false;
+		
+		float posX = this.getOwner().getPosX() + velocityX*deltaTime;
+		float posY = this.getOwner().getPosY() + velocityY*deltaTime;
+		
+		this.getOwner().setPos(posX, posY);
 		
 		if(shouldSleep) 
 			active = false;
@@ -210,5 +216,14 @@ public class SimulationComponent extends Component {
 	@Override
 	public int getComponentTypeID() {
 		return SimulationComponent.COMPONENT_TYPE;
+	}
+	
+	@Override
+	public void onMessage(Message msg) {
+		super.onMessage(msg);
+		if(msg instanceof CollisionDetectionMessage) {
+			CollisionDetectionMessage cmsg = (CollisionDetectionMessage) msg;
+			System.out.println("Collision occured between: "+cmsg.getIDCandidate1()+ " and "+ cmsg.getIDCandidate2());
+		}
 	}
 }

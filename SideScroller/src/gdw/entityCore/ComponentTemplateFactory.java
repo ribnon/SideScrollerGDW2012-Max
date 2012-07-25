@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import collisionDetection.AABoxCollisionDetectionComponent;
 import collisionDetection.AABoxCollisionDetectionComponentTemplate;
+import collisionDetection.CircleCollisionDetectionComponent;
+import collisionDetection.CircleCollisionDetectionComponentTemplate;
 
 import Physics.SimulationComponentTemplate;
 
@@ -26,6 +28,10 @@ public class ComponentTemplateFactory {
 		if(name.equals("AABoxCollisionDetectionComponent")) {
 			return new AABoxCollisionDetectionComponentTemplate(params);
 		}
+		if(name.equals("CircleCollisionDetectionComponent")) {
+			return new CircleCollisionDetectionComponentTemplate(params);
+		}
+		
 		return null;
 	}
 }

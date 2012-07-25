@@ -8,12 +8,16 @@ import java.util.HashMap;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import collisionDetection.AABoxCollisionDetectionComponent;
+import collisionDetection.CircleCollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponentManager;
 
 
 public class SimulationTest extends BasicGame {
@@ -54,22 +58,24 @@ public class SimulationTest extends BasicGame {
 		HashMap<String, String> colParams = new HashMap<String, String>();
 		colParams.put("halfExtentX", "10.0");
 		colParams.put("halfExtentY", "10.0");
+		colParams.put("radius", "25.0");
 		
+//		compParamMap.put("AABoxCollisionDetectionComponent",colParams);
+		compParamMap.put("CircleCollisionDetectionComponent", colParams);
 		
-		compParamMap.put("AABoxCollisionDetectionComponent",colParams);
 		
 		
 		EntityTemplate entity = new EntityTemplate("Ball", null, compParamMap);
 		entity1 = entity.createEntity(50, 50, 0);
-		
+		wall = entity.createEntity(400, 300, 0);
 	}
 
 	@Override
 	public void render(GameContainer arg0, Graphics g) throws SlickException {
 		// TODO Auto-generated method stub
-		AABoxCollisionDetectionComponent colComp = (AABoxCollisionDetectionComponent) entity1.getComponent(AABoxCollisionDetectionComponent.COMPONENT_TYPE);
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
-		g.drawRect(entity1.getPosX(), entity1.getPosY(), colComp.getHalfExtentX(), colComp.getHalfExtentY());
+		drawEntity(g, entity1);
+		drawEntity(g, wall);
 		g.drawString(simComp.isActive()+"", 10, 80);
 		g.drawString(simComp.getVelocityX()+"", 10, 100);
 		g.drawString(simComp.getVelocityY()+"", 10, 140);
@@ -82,16 +88,32 @@ public class SimulationTest extends BasicGame {
 		simComp.addForce(10, 0);
 	}
 
+	//debug draw for entities
 	public void drawEntity(Graphics g, Entity e) {
-		
+		g.drawString(""+e.getID(), e.getPosX()-4, e.getPosY()-8);
+		CollisionDetectionComponent colComp = (CollisionDetectionComponent) e.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		if(colComp!=null) {
+			g.setColor(Color.pink);
+			if(colComp instanceof AABoxCollisionDetectionComponent) {
+				AABoxCollisionDetectionComponent box = (AABoxCollisionDetectionComponent) colComp;
+				g.drawRect(e.getPosX() - box.getHalfExtentX(), e.getPosY() - box.getHalfExtentY(), 2*box.getHalfExtentX(), 2*box.getHalfExtentY());
+			}
+			if(colComp instanceof CircleCollisionDetectionComponent) {
+				CircleCollisionDetectionComponent circle = (CircleCollisionDetectionComponent) colComp;
+				g.drawOval(e.getPosX()-circle.getRadius(), e.getPosY() - circle.getRadius(), 2*circle.getRadius(), 2*circle.getRadius(),32);
+			}
+			g.setColor(Color.white);
+		}
 	}
 	
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		// TODO Auto-generated method stub
-		final float forcePower = 10.f;
+		float forcePower = 10.f; 
 		Input inp = arg0.getInput();
+		if(inp.isKeyDown(Input.KEY_LSHIFT))
+			forcePower *= 0.1f;
 		if(inp.isKeyDown(Input.KEY_A)) {
 			simComp.addForce(-forcePower, 0);
 		}
@@ -106,13 +128,8 @@ public class SimulationTest extends BasicGame {
 		}
 		
 		
-		
+		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 		SimulationComponentManager.getInstance().simulate(16/1000.f);
-		float newPosX = entity1.getPosX() + simComp.getVelocityX() * 16/1000.f;
-		float newPosY = entity1.getPosY() + simComp.getVelocityY() * 16/1000.f;
-		
-		
-		entity1.setPos(newPosX, newPosY);
 	}
 	
 	public static void main(String[] args) throws SlickException {
