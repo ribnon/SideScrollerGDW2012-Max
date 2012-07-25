@@ -184,7 +184,7 @@ public class CollisionDetectionComponentManager
 		
 		for (int i = 0; i < aaBoxCollisionDetectionList.size(); i++)
 		{
-			for (int j = 1; j <= i; j++)
+			for (int j = i+1; j < aaBoxCollisionDetectionList.size(); j++)
 			{
 				candidate1 = aaBoxCollisionDetectionList.get(i);
 				candidate2 = aaBoxCollisionDetectionList.get(j);
@@ -197,7 +197,7 @@ public class CollisionDetectionComponentManager
 				float posX2 = ownerCandidate2.getPosX();
 				float posY2 = ownerCandidate2.getPosY();
 				
-				if (testAAAA(posX1, posY1, posX2, posY2, candidate1.getHalfExtentX(), candidate1.getHalfExtentY(), candidate2.getHalfExtentX(), candidate2.getHalfExtentY()))
+				if (testAAAA(posX1, posY1, candidate1.getHalfExtentX(), candidate1.getHalfExtentY(), posX2, posY2,  candidate2.getHalfExtentX(), candidate2.getHalfExtentY()))
 					notifyCollisionHasOccured(candidate1, candidate2);
 			}
 		}
@@ -286,7 +286,7 @@ public class CollisionDetectionComponentManager
 		
 		for (int i = 0; i < ooBoxCollisionDetectionList.size(); i++)
 		{
-			for (int j = 1; j <= i; j++)
+			for (int j = i+1; j < ooBoxCollisionDetectionList.size(); j++)
 			{
 				candidate1 = ooBoxCollisionDetectionList.get(i);
 				candidate2 = ooBoxCollisionDetectionList.get(j);
@@ -320,7 +320,7 @@ public class CollisionDetectionComponentManager
 		
 		for (int i = 0; i < circleCollisionDetectionList.size(); i++)
 		{
-			for (int j = 1; j <= i; j++)
+			for (int j = i+1; j < circleCollisionDetectionList.size(); j++)
 			{
 				candidate1 = circleCollisionDetectionList.get(i);
 				candidate2 = circleCollisionDetectionList.get(j);
