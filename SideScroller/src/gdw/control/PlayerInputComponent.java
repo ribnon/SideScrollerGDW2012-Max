@@ -7,10 +7,13 @@ import gdw.control.messageType.EndDuckMessage;
 import gdw.control.messageType.EndPullMessage;
 import gdw.control.messageType.JumpMessage;
 import gdw.control.messageType.RunMessage;
+import gdw.control.messageType.SpecialAttackMessage;
 import gdw.control.messageType.StopMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
+import gdw.gameplay.Player.DuckableComponent;
+import gdw.graphics.SpriteComponent;
 import gdw.network.NetComponent;
 import gdw.network.NetSubSystem;
 
@@ -163,6 +166,11 @@ public class PlayerInputComponent extends Component {
 				pastTime = 0l;
 			}
 
+			// Special Attack
+			if (isSpecAttackKeyDown && !wasSpecAttackKeyDown) {
+				netcomp.sendNetworkMessage(new SpecialAttackMessage());
+			}
+
 			// Duck
 			if (isDownKeyDown && !wasDownKeyDown) {
 				netcomp.sendNetworkMessage(new BeginDuckMessage());
@@ -196,12 +204,117 @@ public class PlayerInputComponent extends Component {
 	 */
 	@Override
 	public void onMessage(Message msg) {
-		SimulationComponent simcomp = (SimulationComponent) super.getOwner()
-				.getComponent(SimulationComponent.COMPONENT_TYPE);
-		if (simcomp != null) {
+		// If on Server
+		if (NetSubSystem.getInstance().isServer()) {
+			NetComponent netcomp = (NetComponent) super.getOwner()
+					.getComponent(NetComponent.COMPONENT_TYPE);
+			if (netcomp != null) {
+				netcomp.sendNetworkMessage(msg);
+			}
+		}
 
-		} else {
-			System.err.println("SimulationComponent ist nicht initialisiert");
+		// Components which will be modified
+		SimulationComponent simcomp = null;
+		SpriteComponent spritecomp = null;
+		DuckableComponent duckcomp = null;
+		PlayerBehaviorComponent plbehcomp = null;
+		SwitchUserComponent swusrcomp = null;
+
+		// Run behavior
+		if (msg instanceof RunMessage) {
+			RunMessage tmpmsg = (RunMessage) msg;
+			// Manipulates the SimulationComponent
+			simcomp = (SimulationComponent) super.getOwner().getComponent(
+					SimulationComponent.COMPONENT_TYPE);
+			if (simcomp != null) {
+				if (!tmpmsg.isForwardDirection()) {
+					simcomp.setVelocityX(-runVelocity);
+				} else {
+					simcomp.setVelocityX(runVelocity);
+				}
+			}
+
+			// Manipulates the SpriteComponent
+			spritecomp = (SpriteComponent) super.getOwner().getComponent(
+					SpriteComponent.COMPONENT_TYPE);
+			if (spritecomp != null) {
+				if (!tmpmsg.isForwardDirection()) {
+					spritecomp.setFlipped(true);
+				} else {
+					spritecomp.setFlipped(false);
+				}
+			}
+		}
+
+		if (msg instanceof StopMessage) {
+			simcomp = (SimulationComponent) super.getOwner().getComponent(
+					SimulationComponent.COMPONENT_TYPE);
+			if (simcomp != null) {
+				simcomp.setVelocityX(0.0f);
+			}
+		}
+
+		// Jump behavior
+		if (msg instanceof JumpMessage) {
+			simcomp = (SimulationComponent) super.getOwner().getComponent(
+					SimulationComponent.COMPONENT_TYPE);
+			if (simcomp != null) {
+				simcomp.setVelocityY(jumpVelocity);
+			}
+		}
+
+		// Duck behavior
+		if (msg instanceof BeginDuckMessage) {
+			duckcomp = (DuckableComponent) super.getOwner().getComponent(
+					DuckableComponent.COMPONENT_TYPE);
+			if (duckcomp != null) {
+				duckcomp.setDucked(true);
+			}
+		}
+
+		if (msg instanceof EndDuckMessage) {
+			duckcomp = (DuckableComponent) super.getOwner().getComponent(
+					DuckableComponent.COMPONENT_TYPE);
+			if (duckcomp != null) {
+				duckcomp.setDucked(false);
+			}
+		}
+
+		// Attack behavior
+		if (msg instanceof AttackMessage) {
+			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
+					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
+			if (plbehcomp != null) {
+				plbehcomp
+						.startAttack(PlayerBehaviorComponent.AttackType.Normal);
+			}
+		}
+
+		// Special attack behavior
+		if (msg instanceof SpecialAttackMessage) {
+			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
+					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
+			if (plbehcomp != null) {
+				plbehcomp
+						.startAttack(PlayerBehaviorComponent.AttackType.Special);
+			}
+		}
+
+		// Pull behavior
+		if (msg instanceof BeginPullMessage) {
+			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
+					SwitchUserComponent.COMPONENT_TYPE);
+			if (swusrcomp) {
+				swusrcomp.setpullActive(true);
+			}
+		}
+
+		if (msg instanceof EndPullMessage) {
+			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
+					SwitchUserComponent.COMPONENT_TYPE);
+			if (swusrcomp) {
+				swusrcomp.setpullActive(true);
+			}
 		}
 	}
 

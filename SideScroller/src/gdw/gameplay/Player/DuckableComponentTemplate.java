@@ -1,25 +1,19 @@
-package gdw.Gameplay.Player;
-
-import java.util.HashMap;
+package gdw.gameplay.Player;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
-import gdw.graphics.AnimatedSpriteComponent;
 
-public class DuckableComponentTemplate extends ComponentTemplate
-{
-	
+import java.util.HashMap;
 
-	protected DuckableComponentTemplate(HashMap<String, String> params)
-	{
+public class DuckableComponentTemplate extends ComponentTemplate {
+
+	protected DuckableComponentTemplate(HashMap<String, String> params) {
 		super(params);
 	}
 
 	@Override
-	public Component createComponent()
-	{
+	public Component createComponent() {
 		return new DuckableComponent(this);
 	}
-
 
 }
