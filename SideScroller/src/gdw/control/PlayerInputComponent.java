@@ -304,7 +304,7 @@ public class PlayerInputComponent extends Component {
 		if (msg instanceof BeginPullMessage) {
 			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
 					SwitchUserComponent.COMPONENT_TYPE);
-			if (swusrcomp) {
+			if (swusrcomp != null) {
 				swusrcomp.setpullActive(true);
 			}
 		}
@@ -312,7 +312,7 @@ public class PlayerInputComponent extends Component {
 		if (msg instanceof EndPullMessage) {
 			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
 					SwitchUserComponent.COMPONENT_TYPE);
-			if (swusrcomp) {
+			if (swusrcomp != null) {
 				swusrcomp.setpullActive(true);
 			}
 		}
