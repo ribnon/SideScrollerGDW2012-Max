@@ -41,8 +41,8 @@ public class EntityTemplateManager {
 					entityTemplates.put(templateName, new EntityTemplate(templateName, baseTemplates, componentParamsMap));
 				}
 				templateName=templateNameStr;
-				baseTemplates=new ArrayList<>();
-				componentParamsMap=new HashMap<>();
+				baseTemplates=new ArrayList<String>();
+				componentParamsMap=new HashMap<String, HashMap<String,String>>();
 			}
 			else if(line.startsWith("Component")){
 				if(templateName==null) continue;
