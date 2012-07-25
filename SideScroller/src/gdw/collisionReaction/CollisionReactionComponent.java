@@ -129,7 +129,9 @@ public class CollisionReactionComponent extends Component
 		// This vector is subracted from the velocity of the simulated object
 		// to get a velocity that will not move the simulated object into the
 		// static object
-		simulatedObject.setVelocity(veloX - projectedX, veloY - projectedY);
+		
+		simulatedObject.setVelocity(projectedX - veloX , veloY - projectedY);
+		
 	}
 
 	private float getLength(float x, float y)

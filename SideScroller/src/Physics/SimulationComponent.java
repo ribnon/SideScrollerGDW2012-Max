@@ -15,14 +15,16 @@ public class SimulationComponent extends Component {
 	private float velocityY;
 	private float accelerationX;
 	private float accelerationY;
-
+	
 	// Mass of Entity, if 0 - object is unmoveable (Infinite mass)
 	private float mass;
 	private float friction;
 	private float externalForceX;
 	private float externalForceY;
 	private boolean active;
-
+	
+	private boolean isGrounded;
+	
 	public SimulationComponent(ComponentTemplate template) {
 		super(template);
 		// copy blueprint values
@@ -223,7 +225,7 @@ public class SimulationComponent extends Component {
 		super.onMessage(msg);
 		if(msg instanceof CollisionDetectionMessage) {
 			CollisionDetectionMessage cmsg = (CollisionDetectionMessage) msg;
-			System.out.println("Collision occured between: "+cmsg.getIDCandidate1()+ " and "+ cmsg.getIDCandidate2());
+			//if colObject below 
 		}
 	}
 }

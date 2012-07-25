@@ -24,7 +24,8 @@ public class SimulationTest extends BasicGame {
 	EntityManager entityManager;
 	
 	Entity entity1;
-	Entity wall;
+	Entity entity2;
+	Entity ground;
 	
 	public SimulationTest() {
 		super("SimTest");
@@ -52,7 +53,7 @@ public class SimulationTest extends BasicGame {
 		entityManager = EntityManager.getInstance();
 		
 		HashMap<String, HashMap<String, String> > compParamMap = new HashMap<String, HashMap<String,String>>();
-		compParamMap.put("Simulation ", simParams);
+		compParamMap.put("Simulation", simParams);
 		
 		
 		HashMap<String, String> colParams = new HashMap<String, String>();
@@ -65,13 +66,39 @@ public class SimulationTest extends BasicGame {
 		
 		HashMap<String, String> colReactParams = new HashMap<String, String>();
 		colReactParams.put("impassableFromTop", "1");
-		colReactParams.put("impassableFromSide", "0");
+		colReactParams.put("impassableFromSide", "1");
 		
 		compParamMap.put("CollisionReaction", colReactParams);
 		
 		EntityTemplate entity = new EntityTemplate("Ball", null, compParamMap);
 		entity1 = entity.createEntity(50, 50, 0);
-		wall = entity.createEntity(400, 300, 0);
+		entity2 = entity.createEntity(400, 300, 0);
+		
+		
+		//generate ground
+		HashMap<String, String> groundSimParams = new HashMap<String, String>();
+		simParams.put("mass", "0.0");
+		simParams.put("friction","0.11");
+		
+		HashMap<String, HashMap<String, String> > groundCompParamMap = new HashMap<String, HashMap<String,String>>();
+		compParamMap.put("Simulation", groundSimParams);
+		
+		
+		HashMap<String, String> groundColParams = new HashMap<String, String>();
+		colParams.put("halfExtentX", "300.0");
+		colParams.put("halfExtentY", "10.0");
+		colParams.put("radius", "25.0");
+		
+		groundCompParamMap.put("AABoxCollisionDetection",colParams);
+//		compParamMap.put("CircleCollisionDetection", colParams);
+		
+		HashMap<String, String> groundColReactParams = new HashMap<String, String>();
+		groundColReactParams.put("impassableFromTop", "1");
+		groundColReactParams.put("impassableFromSide", "1");
+		
+		groundCompParamMap.put("CollisionReaction", groundColParams);
+		entity = new EntityTemplate("Ground", null, groundCompParamMap);
+		ground = entity.createEntity(300, 400, 0);
 	}
 
 	@Override
@@ -79,17 +106,19 @@ public class SimulationTest extends BasicGame {
 		// TODO Auto-generated method stub
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		drawEntity(g, entity1);
-		drawEntity(g, wall);
-		g.drawString(simComp.isActive()+"", 10, 80);
-		g.drawString(simComp.getVelocityX()+"", 10, 100);
-		g.drawString(simComp.getVelocityY()+"", 10, 140);
+		drawEntity(g, entity2);
+		drawEntity(g, ground);
+		g.drawString("is active: "+simComp.isActive(), 10, 80);
+		g.drawString("vx: "+simComp.getVelocityX(), 10, 100);
+		g.drawString("ax: "+simComp.getAccelerationX(), 10, 120);
+		g.drawString("vy: "+simComp.getVelocityY(), 10, 140);
+		g.drawString("ay: "+simComp.getAccelerationY(), 10, 160);
 	}
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
-		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
-		simComp.addForce(10, 0);
+		SimulationComponentManager.getInstance().setGravity(9.81f);
 	}
 
 	//debug draw for entities
@@ -131,12 +160,14 @@ public class SimulationTest extends BasicGame {
 			simComp.addForce(0, forcePower);
 		}
 		
+		
 		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 		SimulationComponentManager.getInstance().simulate(arg1/1000.f);
 	}
 	
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer app = new AppGameContainer(new SimulationTest());
+		app.setDisplayMode(800, 600, false);
 		app.start();
 	}
 }
