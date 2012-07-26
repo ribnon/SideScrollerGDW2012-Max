@@ -21,7 +21,7 @@ public class SideScrollerServer extends BasicServer
 	
 	public SideScrollerServer(String infoText) throws IOException
 	{
-		super(2, infoText, true, false);
+		super(1, infoText, true, false);
 		this.curState = ServerGameStates.WAITING;
 		this.coreLoop = new ServerCoreLoop(this);
 	}

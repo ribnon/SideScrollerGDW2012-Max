@@ -48,7 +48,6 @@ public class NetSubSystem
 	private final LinkedList<DeadReckoningNetMessage> listOfDeadReckonigMessages;
 	private final LinkedList<TimeSyncMessage> listOfTimeSyncMessages;
 	
-	
 	private NetSubSystem(int playerID, boolean serverFlag, INetworkBridge ref)
 	{
 		this.playerID = playerID;
@@ -66,7 +65,7 @@ public class NetSubSystem
 		
 	}
 	
-	//wenn man was ändert ohne es zu raffen ist es scheiße -.-
+	
 	public static void initalise(int playerID, boolean serverFlag, INetworkBridge ref)
 	{
 		if(NetSubSystem.singelton != null)
