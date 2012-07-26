@@ -1,1 +1,1 @@
-map/map01.tmx
+map/Karte_proto.tmx
