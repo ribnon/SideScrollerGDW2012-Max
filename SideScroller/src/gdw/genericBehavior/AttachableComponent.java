@@ -25,7 +25,7 @@ public class AttachableComponent extends Component
 	 * attachable is currently not attached to anything, it is -1
 	 */
 	private int attachedToEntityID = -1;
-	public static final int COMPONENT_TYPE = 9;
+	public static final int COMPONENT_TYPE = 10;
 
 	public AttachableComponent(ComponentTemplate template)
 	{
