@@ -10,6 +10,13 @@ public class PlayerInputComponentTemplate extends ComponentTemplate {
 
 	private float jumpVelocity, runVelocity;
 
+	/**
+	 * PlayerInputComponentTemplate constructor which initializes:
+	 * DownKey(:String), JumpKey(:String), LeftKey(:String), RightKey(:String),
+	 * AttackKey(:String)
+	 * 
+	 * @param params
+	 */
 	public PlayerInputComponentTemplate(HashMap<String, String> params) {
 		super(params);
 
