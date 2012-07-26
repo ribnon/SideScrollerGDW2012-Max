@@ -160,4 +160,10 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 	public Component createComponent() {
 		return new OverlayedAnimatedSpriteComponent(this);
 	}
+	
+	@Override
+	public boolean isGhostOnly()
+	{
+		return true;
+	}
 }

@@ -94,4 +94,10 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 	{
 		return new AnimatedSpriteComponent(this);
 	}
+	
+	@Override
+	public boolean isGhostOnly()
+	{
+		return true;
+	}
 }
