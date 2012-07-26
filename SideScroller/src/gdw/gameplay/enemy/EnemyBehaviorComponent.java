@@ -29,7 +29,17 @@ public class EnemyBehaviorComponent extends Component
 	
 	public void tick(float deltaTime)
 	{
-		//TODO offen
+		//wenn hostile false dann followcomponenten leeren
+		
+		//sonst
+		
+		//wenn in aggroRange
+		//hole alle Spielerkomponenten
+		//vergleiche wer näher ist
+		//weis der followComponenten zu folgen
+		
+		
+		//TODO offen		
 	}
 
 	@Override

@@ -73,14 +73,15 @@ public class ComponentTemplateFactory {
 		if(componentTemplateClasses.containsKey(name)){
 			try {
 				return componentTemplateClasses.get(name).getConstructor(HashMap.class).newInstance(params);
-			
 			}
 			catch (InvocationTargetException e) {
+				System.err.println("Warnung: " + e.getTargetException().getMessage());
 				e.getTargetException().printStackTrace();
 				return null;
 			}
 			catch (Exception e) {
 				System.err.println("Warnung: " + e.getMessage());
+				e.printStackTrace();
 				return null;
 			} 
 		}
