@@ -3,6 +3,7 @@ package gdw.network.client;
 import gdw.network.NETCONSTANTS;
 import gdw.network.INetworkBridge;
 import gdw.network.RESPONSECODES;
+import gdw.network.server.GDWServerLogger;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -30,6 +31,8 @@ public class BasicClient implements INetworkBridge
 	private final SocketChannel tcpConnection;
 
 	private static ServerlistPendingThread pendingThread = null;
+	
+	private static ConnectionResponceThread connectionThread = null;
 
 	public final int id;
 	
@@ -157,7 +160,12 @@ public class BasicClient implements INetworkBridge
 			IBasicClientListener lis = BasicClient.getListener();
 			lis.connectionUpdate(RESPONSECODES.CONNECTING);
 
-			new ConnectionResponceThread(tcpSocket, udpSocket, buf, info);
+			if((BasicClient.connectionThread != null)&&(BasicClient.connectionThread.isAlive()))
+			{
+				BasicClient.connectionThread.interrupt();
+				GDWServerLogger.logMSG("Sei nicht so ungeduldig");
+			}
+			BasicClient.connectionThread =  new ConnectionResponceThread(tcpSocket, udpSocket, buf, info);
 		} catch (IOException e)
 		{
 			BasicClient.getListener().connectionUpdate(

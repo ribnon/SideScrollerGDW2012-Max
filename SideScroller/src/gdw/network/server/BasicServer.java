@@ -392,9 +392,6 @@ public abstract class BasicServer implements INetworkBridge
 				forgetOldLeaver();
 			}
 						
-		}else
-		{
-			this.joinRequests.clear();
 		}
 		//handle joinrequests
 		if((!blockNewconncector)&&(!this.joinRequests.isEmpty()))

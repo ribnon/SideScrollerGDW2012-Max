@@ -121,8 +121,6 @@ public class ServerlistPendingThread extends Thread
 					}
 			}
 			
-			
-
 			// send multicast
 			InetAddress group = InetAddress
 					.getByName(NETCONSTANTS.MULITCASTGROUP);

@@ -6,6 +6,7 @@ import Physics.SimulationComponentManager;
 
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplateManager;
+import gdw.entityCore.Level;
 
 public class ServerCoreLoop extends Thread
 {
@@ -17,6 +18,7 @@ public class ServerCoreLoop extends Thread
 	public ServerCoreLoop(SideScrollerServer ref)
 	{
 		this.ref = ref;
+		this.start();
 	}
 	
 	@Override
@@ -26,6 +28,7 @@ public class ServerCoreLoop extends Thread
 
 		while(!this.isInterrupted())
 		{
+			NetSubSystem.getInstance().pollMessages();
 			if(this.ref.getCurState()== SideScrollerServer.ServerGameStates.WAITING)
 			{
 				try
@@ -39,7 +42,7 @@ public class ServerCoreLoop extends Thread
 			{
 				//init
 				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
-				
+				Level.getInstance().start();
 				try
 				{
 					entTempMan.loadEntityTemplates("../EntityTemplates.txt");
@@ -48,14 +51,13 @@ public class ServerCoreLoop extends Thread
 				{
 					
 				}
-				NetSubSystem.initalise(1, true, ref);
 				this.ref.startComplete();
 			}
 			long curVal = System.currentTimeMillis();
 			float delta = curVal -  oldVal;
 			
 			//updates laufen lassen
-			NetSubSystem.getInstance().pollMessages();
+			//NetSubSystem.getInstance().pollMessages();
 		
 			SimulationComponentManager.getInstance().simulate(delta);
 			EntityManager.getInstance().tick(delta);

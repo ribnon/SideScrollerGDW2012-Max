@@ -20,6 +20,8 @@ public final class NETCONSTANTS
 
 	public static final int BROADCAST_PORT = 8888;
 	
+	public static final int DEBUG_TCP_PORT = 1337;
+	
 	public static final String MULITCASTGROUP = "225.1.33.7";
 	
 	public static final String DEFAULT_INFOTEXT = "GDW-Default Greeter";
