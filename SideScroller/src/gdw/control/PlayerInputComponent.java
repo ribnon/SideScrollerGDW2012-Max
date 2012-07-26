@@ -38,7 +38,8 @@ public class PlayerInputComponent extends Component {
 
 	// Flag if Key was down
 	private boolean wasDownKeyDown, wasJumpKeyDown, wasLeftKeyDown,
-			wasRightKeyDown, wasAttackKeyDown, wasSpecAttackKeyDown;
+			wasRightKeyDown, wasAttackKeyDown, wasSpecAttackKeyDown,
+			directionIsRight, isUnflippedRight;
 
 	public static final int COMPONENT_TYPE = 3;
 
@@ -58,7 +59,7 @@ public class PlayerInputComponent extends Component {
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
 			int specattackKey, float jumpVelocity, float runVelocity,
-			long waitingTime) {
+			long waitingTime, boolean isUnflippedRight) {
 
 		super(template);
 
@@ -78,6 +79,9 @@ public class PlayerInputComponent extends Component {
 		this.rightKey = rightKey;
 		this.leftKey = leftKey;
 
+		this.directionIsRight = true;
+		this.isUnflippedRight = isUnflippedRight;
+
 		this.jumpVelocity = jumpVelocity;
 		this.runVelocity = runVelocity;
 
@@ -86,26 +90,6 @@ public class PlayerInputComponent extends Component {
 
 		PlayerInputComponentManager.getInstance().registerPlayerInputComponent(
 				this);
-	}
-
-	/**
-	 * PlayerInputComponent without waitingTime parameter (default: 1000ms)
-	 * 
-	 * @param template
-	 * @param downKey
-	 * @param jumpKey
-	 * @param leftKey
-	 * @param rightKey
-	 * @param attackKey
-	 * @param specattackKey
-	 * @param jumpVelocity
-	 * @param runVelocity
-	 */
-	public PlayerInputComponent(ComponentTemplate template, int downKey,
-			int jumpKey, int leftKey, int rightKey, int attackKey,
-			int specattackKey, float jumpVelocity, float runVelocity) {
-		this(template, downKey, jumpKey, leftKey, rightKey, attackKey,
-				specattackKey, jumpVelocity, runVelocity, 1000l);
 	}
 
 	public void processingInput(Input input) {
@@ -194,6 +178,18 @@ public class PlayerInputComponent extends Component {
 		wasSpecAttackKeyDown = isSpecAttackKeyDown;
 	}
 
+	public boolean getUnflippedRight() {
+		return isUnflippedRight;
+	}
+
+	public void setUnflippedRight(boolean isUnflippedRight) {
+		this.isUnflippedRight = isUnflippedRight;
+	}
+
+	public boolean getDirectionIsRight() {
+		return directionIsRight;
+	}
+
 	public int getPlayerID() {
 		return playerID;
 	}
@@ -232,8 +228,10 @@ public class PlayerInputComponent extends Component {
 			if (simcomp != null) {
 				if (!tmpmsg.isForwardDirection()) {
 					simcomp.setVelocityX(-runVelocity);
+					directionIsRight = false;
 				} else {
 					simcomp.setVelocityX(runVelocity);
+					directionIsRight = true;
 				}
 			}
 
