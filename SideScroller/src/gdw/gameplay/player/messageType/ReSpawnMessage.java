@@ -1,4 +1,4 @@
-package gdw.gameplay.Player.messageType;
+package gdw.gameplay.player.messageType;
 
 import gdw.entityCore.Message;
 
