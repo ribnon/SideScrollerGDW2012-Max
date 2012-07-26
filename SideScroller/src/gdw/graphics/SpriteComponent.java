@@ -74,8 +74,7 @@ public abstract class SpriteComponent extends Component
 	/**
 	 * method to draw the Sprite to a desired location
 	 */
-	public abstract void draw();
-
+	public abstract void draw(float x,float y);
 	/*
 	 * generated getter/setter
 	 */

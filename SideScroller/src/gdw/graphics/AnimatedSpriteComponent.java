@@ -84,7 +84,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	/**
 	 *  draws the current frame of the animation
 	 */
-	public void draw()
+	public void draw(float camPosX,float camPosY)
 	{
 		//TODO: verify this is correct, image might have to be drawn with an offset to be centered at the entity
 		Image img = spriteSheet.getSprite(step, cycle);
@@ -93,9 +93,9 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		img.setCenterOfRotation(getPivotX(), getPivotY());
 		img.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
 		if(getFilter() != null)
-			img.draw(getOwner().getPosX(), getOwner().getPosY(), getScale(), getFilter());
+			img.draw(getOwner().getPosX()-camPosX, getOwner().getPosY()-camPosY, getScale(), getFilter());
 		else
-			img.draw(getOwner().getPosX(), getOwner().getPosY(), getScale());
+			img.draw(getOwner().getPosX()-camPosX, getOwner().getPosY()-camPosY, getScale());
 	}
 	
 	/**

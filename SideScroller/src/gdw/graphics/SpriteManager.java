@@ -46,7 +46,14 @@ public class SpriteManager {
 	
 	public void addSprite(SpriteComponent sprite)
 	{
-		sprites.add(sprite);
+		int i = 0;
+		for(; i < sprites.size(); ++i)
+		{
+			if(sprite.getLayer() >= sprites.get(i).getLayer())
+				break;
+				
+		}
+		sprites.add(i,sprite);
 	}
 	
 	public void removeSprite(SpriteComponent sprite)
