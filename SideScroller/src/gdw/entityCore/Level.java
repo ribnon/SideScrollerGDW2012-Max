@@ -14,9 +14,9 @@ public class Level {
 	public static Level getInstance(){
 		return instance;
 	}
-	private Level(String name){
+	private Level(String name, String tileSetLocation){
 		try {
-			map = new TiledMap(name);
+			map = new TiledMap(name, tileSetLocation);
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,8 +37,8 @@ public class Level {
 		return map;
 	}
 	
-	public void loadLevel(String name){
-		instance = new Level(name);
+	public void loadLevel(String name, String tileSetLocation){
+		instance = new Level(name, tileSetLocation);
 	}
 	
 	public void levelFinished(){
