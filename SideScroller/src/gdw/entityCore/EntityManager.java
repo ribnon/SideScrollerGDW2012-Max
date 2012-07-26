@@ -101,6 +101,46 @@ public class EntityManager {
 	public void loadEntitiesFromLevel(){
 		//TODO: Implement
 	}
+	/*
+	 *
+	 * .       _,..wWWw--./+'.            _      ,.                          .
+  ..wwWWWWWWWWW;ooo;++++.        .ll'  ,.++;
+   `'"">wW;oOOOOOO;:++\++.      .lll .l"+++'   ,..
+     ,wwOOOOOOOO,,,++++\+++.    lll',ll'++;  ,++;'
+    ,oOOOOOOOO,,,,+++++`'++ll. ;lll ll:+++' ;+++'
+   ;OOOOOOOOO,,,'++++++++++lll ;lll ll:++:'.+++'
+   OOOO;OOO",,"/;++++,+,++++ll`:llllll++++'+++
+  OOOO;OO",,'++'+++;###;"-++llX llll`;+++++++'  ,.    .,      _
+;O;'oOOO ,'+++\,-:  ###++++llX :l.;;;,--++."-+++++ w":---wWWWWWww-._
+;'  /O'"'"++++++' :;";#'+++lllXX,llll;++.+++++++++W,"WWWWWWWWww;""""'`
+   ."     `"+++++'.'"''`;'ll;xXXwllll++;--.++++;wWW;xXXXXXXXXXx"Ww.
+           .+++++++++++';xXXXXX;Wll"+-"++,'---"-.x""`"lllllllxXXxWWw.
+           "---'++++++-;XXXXXXwWWl"++++,"---++++",,,,,,,,,,;lllXXXxWW,
+             `'""""',+xXXXXX;wWW'+++++++++;;;";;;;;;;;oOo,,,,,llXXX;WW`
+                   ,+xXXXXXwWW"++.++++-.;;+++<'   `"WWWww;Oo,,,llXXX"Ww
+                   +xXXX"wwW"+++++'"--'"'  )+++     `WWW"WwOO,,lllXXXww
+                  ,x++++;"+++++++++++`., )  )+++     )W; ,WOO,,lllX:"Ww
+                  :++++++++++++++++++++W'"-:++++    .W'  WWOO,,lllX; `w
+                  .++++++++++++++++.+++"ww :+++'   ,"   ,WWOO,,lllX;  ;
+           ;ll--.-"`.;++++++++++++++.+++;+.;++(         :WWOO,,lllXx
+          ,'lllllllll,++++;+++++++++;"++++++++++++-.    :WWOO,,lllXx
+          ;llll;;;"';'++++;'"""'''`` `lll;;:+++++++++.  WWOOO,,lllX'
+         ,lllll,    ;+++++;            `"lllll.++++++++ WWwO,,,llX;
+         lllllll,  ,++++++;               llllll+++++++.:WWw',,llx
+        ,llllllll, ;++++++;               :llllll+++++++."WW;,,llx
+        ;lllllllllV+++++++;               :lllllll+++++++.`w' `.lx.
+        `lllllllll'+++++++;               :lllllll++++++++  `\  `,X\
+         "llllll;++++++++;                ;llllll'+++++++++   `-  \X;
+          "llll'+++++++++;               ;lllllll"+++++++++        `)
+           `-'`+++++++++;'              ,llllllll++++++++++
+             +++++++++++;              ,llllllll'++++++++++
+.           '++++++++++"               `""""""""'+++++++++"           .
+	 */
+	public void tick(float deltaTime){
+		for(Entity ent: entities.values()){
+			ent.tick(deltaTime);
+		}
+	}
 	
 	/**
 	 * Nuke the site from Orbit.
