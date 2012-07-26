@@ -8,7 +8,7 @@ import gdw.entityCore.ComponentTemplate;
 public class AttachableComponentTemplate extends ComponentTemplate
 {
 
-	protected AttachableComponentTemplate(HashMap<String, String> params)
+	public AttachableComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 	}
