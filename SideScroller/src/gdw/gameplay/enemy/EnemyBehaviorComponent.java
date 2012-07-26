@@ -1,7 +1,12 @@
 package gdw.gameplay.enemy;
 
+import java.util.LinkedList;
+
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.StaticEntityReference;
+import gdw.gameplay.player.PlayerBehaviorComponent;
+import gdw.gameplay.player.PlayerSubSystem;
 import gdw.genericBehavior.FollowComponent;
 
 
@@ -37,17 +42,30 @@ public class EnemyBehaviorComponent extends Component
 		}else
 		{
 			//hole alle Spielerkomponenten
-			
+			LinkedList<PlayerBehaviorComponent> playerList = PlayerSubSystem.getInstance().getAllPlayerBehaviorComponent();
+			float closestRange = aggroRange * aggroRange;
+			PlayerBehaviorComponent closest = null;
+			float myX = this.getOwner().getPosX();
+			float myY = this.getOwner().getPosY();
+			for(PlayerBehaviorComponent pComp : playerList)
+			{
+				//test dist
+				float distX = pComp.getOwner().getPosX() - myX;
+				float distY = pComp.getOwner().getPosY() - myY;
+				float dis = distX * distX + distY * distY;
+				if(dis < closestRange)
+				{
+					closestRange = dis;
+					closest = pComp;
+				}
+			}
+			if(closest != null)
+			{
+				StaticEntityReference ref = new StaticEntityReference(closest.getOwner().getID());
+				((FollowComponent)this.getOwner().getComponent(FollowComponent.COMPONENT_TYPE))
+				.setTargetEntityID(ref);
+			}
 		}
-		
-		
-		//wenn in aggroRange
-		
-		//vergleiche wer näher ist
-		//weis der followComponenten zu folgen
-		
-		
-		//TODO offen		
 	}
 
 	@Override

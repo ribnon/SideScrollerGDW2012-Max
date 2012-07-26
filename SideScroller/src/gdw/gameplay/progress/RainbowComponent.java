@@ -18,6 +18,11 @@ public class RainbowComponent extends Component {
 		checkPointNumber = t.getCheckPointNumber();
 	}
 	
+	public float getHealthIncrement()
+	{
+		return healthIncrement;
+	}
+
 	public int getCheckPointNumber()
 	{
 		return checkPointNumber;
