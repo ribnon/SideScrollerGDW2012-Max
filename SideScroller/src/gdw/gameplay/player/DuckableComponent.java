@@ -4,6 +4,7 @@ import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import collisionDetection.AABoxCollisionDetectionComponent;
 import collisionDetection.CircleCollisionDetectionComponent;
+import collisionDetection.CollisionDetectionComponent;
 import collisionDetection.OOBoxCollisionDetectionComponent;
 
 public class DuckableComponent extends Component {
@@ -39,18 +40,23 @@ public class DuckableComponent extends Component {
 		duckedSizeX = template.getFloatParam("duckedSizeX");
 		duckedSizeY = template.getFloatParam("duckedSizeY");
 
-		Component tempComp = getOwner().getComponent(4);
-		if (tempComp instanceof AABoxCollisionDetectionComponent) {
+		CollisionDetectionComponent tempComp = (CollisionDetectionComponent) getOwner().getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		if (tempComp instanceof AABoxCollisionDetectionComponent) 
+		{
 			originalSizeX = ((AABoxCollisionDetectionComponent) tempComp)
 					.getHalfExtentX();
 			originalSizeY = ((AABoxCollisionDetectionComponent) tempComp)
 					.getHalfExtentY();
-		} else if (tempComp instanceof OOBoxCollisionDetectionComponent) {
+		} 
+		else if (tempComp instanceof OOBoxCollisionDetectionComponent) 
+		{
 			originalSizeX = ((OOBoxCollisionDetectionComponent) tempComp)
 					.getHalfExtentX();
 			originalSizeY = ((OOBoxCollisionDetectionComponent) tempComp)
 					.getHalfExtentY();
-		} else {
+		} 
+		else 
+		{
 			originalSizeX = ((CircleCollisionDetectionComponent) tempComp)
 					.getRadius();
 			originalSizeY = 0;
@@ -74,44 +80,63 @@ public class DuckableComponent extends Component {
 	 * @param ducked
 	 *            set true if character should duck
 	 */
-	public void setDucked(boolean ducked) {
-		if (this.ducked == false && ducked) {
+	public void setDucked(boolean ducked) 
+	{
+		if (this.ducked == false && ducked) 
+		{
 			this.ducked = ducked;
-			Component tempComp = getOwner().getComponent(4);
-			if (tempComp instanceof AABoxCollisionDetectionComponent) {
+
+			CollisionDetectionComponent tempComp = (CollisionDetectionComponent) getOwner().getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+			if (tempComp instanceof AABoxCollisionDetectionComponent) 
+			{
 				((AABoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentX(duckedSizeX);
 				((AABoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentY(duckedSizeY);
-			} else if (tempComp instanceof OOBoxCollisionDetectionComponent) {
+			} 
+			else if (tempComp instanceof OOBoxCollisionDetectionComponent) 
+			{
 				((OOBoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentX(duckedSizeX);
 				((OOBoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentY(duckedSizeY);
-			} else {
+			} 
+			else 
+			{
 				((CircleCollisionDetectionComponent) tempComp)
 						.setRadius(duckedSizeX);
 			}
-		} else if (this.ducked == false && ducked == false) {
+		} 
+		else if (this.ducked == false && ducked == false) 
+		{
 			return;
-		} else if (this.ducked && ducked) {
+		} 
+		else if (this.ducked && ducked) 
+		{
 			return;
-		} else // this.ducked && ducked == false
+		} 
+		else // this.ducked && ducked == false
 		{
 			this.ducked = ducked;
-			Component tempComp = getOwner().getComponent(4);
+			
+			CollisionDetectionComponent tempComp = (CollisionDetectionComponent) getOwner().getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 			if (tempComp instanceof AABoxCollisionDetectionComponent
-					|| tempComp instanceof OOBoxCollisionDetectionComponent) {
+					|| tempComp instanceof OOBoxCollisionDetectionComponent) 
+			{
 				((AABoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentX(originalSizeX);
 				((AABoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentY(originalSizeY);
-			} else if (tempComp instanceof OOBoxCollisionDetectionComponent) {
+			}
+			else if (tempComp instanceof OOBoxCollisionDetectionComponent) 
+			{
 				((OOBoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentX(originalSizeX);
 				((OOBoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentY(originalSizeY);
-			} else {
+			} 
+			else 
+			{
 				((CircleCollisionDetectionComponent) tempComp)
 						.setRadius(originalSizeX);
 			}

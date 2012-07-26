@@ -7,7 +7,7 @@ import gdw.entityCore.ComponentTemplate;
 
 public class AttachmentComponentTemplate extends ComponentTemplate
 {
-	protected AttachmentComponentTemplate(HashMap<String, String> params)
+	public AttachmentComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 	}

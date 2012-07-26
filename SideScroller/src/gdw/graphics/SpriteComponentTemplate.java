@@ -14,7 +14,7 @@ public class SpriteComponentTemplate extends ComponentTemplate{
 	private float pivotX;
 	private float pivotY;
 	private int layer;
-	private boolean flipped;
+	private boolean flipped = false;
 	
 	public float getScale() {
 		return scale;
@@ -42,12 +42,12 @@ public class SpriteComponentTemplate extends ComponentTemplate{
 
 	public SpriteComponentTemplate(HashMap<String, String> params) {
 		super(params);
-		scale = getFloatParam("Scale", 1.0f);
-		filter = new Color(getFloatParam("FilterRed", 1.0f), getFloatParam("FilterGreen", 1.0f), getFloatParam("FilterBlue", 1.0f));
-		pivotX = getFloatParam("PivotX", 0.0f);
-		pivotY = getFloatParam("PivotY", 0.0f);
-		layer = getIntegerParam("Layer", 1);
-		flipped = false;
+		scale = getFloatParam("scale", 1.0f);
+		filter = new Color(getFloatParam("filterRed", 1.0f), getFloatParam("filterGreen", 1.0f), getFloatParam("filterBlue", 1.0f));
+		pivotX = getFloatParam("pivotX", 0.0f);
+		pivotY = getFloatParam("pivotY", 0.0f);
+		layer = getIntegerParam("layer", 1);
+		if(getIntegerParam("flipped", 0) == 1) flipped = true;
 	}
 
 	@Override

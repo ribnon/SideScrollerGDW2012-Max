@@ -22,7 +22,7 @@ public class StaticSpriteComponentTemplate extends ComponentTemplate
 		super(params);
 		
 		try {
-			image = new Image(getStringParam("Path", ""));
+			image = new Image(getStringParam("path", ""));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

@@ -89,15 +89,15 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 	public OverlayedAnimatedSpriteComponentTemplate(HashMap<String, String> params) {
 		super(params);
 		try {
-			baseSpritesheet = new SpriteSheet(getStringParam("BasePath", ""), getIntegerParam("BaseTileWidth", 64), getIntegerParam("BaseTileHeight", 64));
-			overlaySpritesheet1 = new SpriteSheet(getStringParam("Overlay1Path", ""), getIntegerParam("Overlay1TileWidth", 64), getIntegerParam("Overlay1TileHeight", 64));
-			overlaySpritesheet1 = new SpriteSheet(getStringParam("Overlay2Path", ""), getIntegerParam("Overlay2TileWidth", 64), getIntegerParam("Overlay2TileHeight", 64));
+			baseSpritesheet = new SpriteSheet(getStringParam("basePath", ""), getIntegerParam("baseTileWidth", 64), getIntegerParam("baseTileHeight", 64));
+			overlaySpritesheet1 = new SpriteSheet(getStringParam("overlay1Path", ""), getIntegerParam("overlay1TileWidth", 64), getIntegerParam("overlay1TileHeight", 64));
+			overlaySpritesheet1 = new SpriteSheet(getStringParam("overlay2Path", ""), getIntegerParam("overlay2TileWidth", 64), getIntegerParam("overlay2TileHeight", 64));
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		overlayColor1 = new Color(getFloatParam("Overlay1ColorRed", 1.0f), getFloatParam("Overlay1ColorGreen", 1.0f), getFloatParam("Overlay1ColorBlue", 1.0f));
-		overlayColor2 = new Color(getFloatParam("Overlay1ColorRed", 1.0f), getFloatParam("Overlay1ColorGreen", 1.0f), getFloatParam("Overlay1ColorBlue", 1.0f));
+		overlayColor1 = new Color(getFloatParam("overlay1ColorRed", 1.0f), getFloatParam("overlay1ColorGreen", 1.0f), getFloatParam("overlay1ColorBlue", 1.0f));
+		overlayColor2 = new Color(getFloatParam("overlay1ColorRed", 1.0f), getFloatParam("overlay1ColorGreen", 1.0f), getFloatParam("overlay1ColorBlue", 1.0f));
 		
 		baseCycleLength = new int[baseSpritesheet.getHorizontalCount()];
 		for(int i = 0; i < baseCycleLength.length; ++i) baseCycleLength[i] = 0;
@@ -108,13 +108,13 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 		overlayCycleLength2 = new int[baseSpritesheet.getHorizontalCount()];
 		for(int i = 0; i < baseCycleLength.length; ++i) baseCycleLength[i] = 0;
 		
-		baseCycle = getIntegerParam("BaseCycle", 0);
-		overlayCycle1 = getIntegerParam("OverlayCycle1", 0);
-		overlayCycle2 = getIntegerParam("OverlayCycle2", 0);
+		baseCycle = getIntegerParam("baseCycle", 0);
+		overlayCycle1 = getIntegerParam("overlayCycle1", 0);
+		overlayCycle2 = getIntegerParam("overlayCycle2", 0);
 		
-		baseStep = getIntegerParam("BaseStep", 0);
-		overlayStep1 = getIntegerParam("OverlayStep1", 0);
-		overlayStep2 = getIntegerParam("OverlayStep2", 0);
+		baseStep = getIntegerParam("baseStep", 0);
+		overlayStep1 = getIntegerParam("overlayStep1", 0);
+		overlayStep2 = getIntegerParam("overlayStep2", 0);
 	}
 
 	@Override

@@ -17,9 +17,8 @@ public class FollowComponent extends Component
 	protected FollowComponent(ComponentTemplate template)
 	{
 		super(template);
-		FollowComponentTemplate tmp = (FollowComponentTemplate) template;
-		targetEntityID = tmp.getTargetEntityID();
 		
+		targetEntityID = ((FollowComponentTemplate) template).getTargetEntityID();
 	}
 
 	@Override
@@ -30,14 +29,14 @@ public class FollowComponent extends Component
 	
 	public void tick(float deltaTime)
 	{
-		if(targetEntityID == null)
+		if (targetEntityID.getID() == -1)
 		{
 			return;
 		}
 		
 		SimulationComponent sim = (SimulationComponent) this.getOwner().getComponent(SimulationComponent.COMPONENT_TYPE);
 		
-		if(sim != null && sim instanceof SimulationComponent)
+		if(sim instanceof SimulationComponent)
 		{
 			Entity start = this.getOwner();
 			Entity target = EntityManager.getInstance().getEntity(targetEntityID.getID());

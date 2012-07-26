@@ -8,7 +8,7 @@ import gdw.entityCore.ComponentTemplate;
 public class PathFollowComponentTemplate extends ComponentTemplate
 {
 
-	protected PathFollowComponentTemplate(HashMap<String, String> params)
+	public PathFollowComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 	}
