@@ -1,6 +1,7 @@
 package gdw.network.client;
 
 import gdw.network.NETCONSTANTS;
+import gdw.network.INetworkBridge;
 import gdw.network.RESPONSECODES;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ import java.nio.channels.SocketChannel;
  *
  */ 
 
-public class BasicClient
+public class BasicClient implements INetworkBridge
 {
 	private static final int messagesPerUpdate = 5;
 
@@ -200,49 +201,7 @@ public class BasicClient
 	 * implementierung auf.
 	 * @return true wenn kein disconnect, false bei disconnect
 	 */
-	public boolean pollInput()
-	{
-		if ((this.discoFlag) || (checkForDisconnect(System.currentTimeMillis())))
-		{
-			System.out.println("client schließt verbindung");
-			disconnect();
-			return false;
-		}
-
-		int counter = 0;
-		try
-		{
-
-			for (; counter < messagesPerUpdate; ++counter)
-			{
-				ByteBuffer buf = ByteBuffer
-						.allocate(NETCONSTANTS.PACKAGELENGTH);
-				if (tcpConnection.read(buf) > 0)
-				{
-					this.incomingMessage(buf, true);
-					continue;
-				}
-				if (udpConnection.read(buf) > 0)
-				{
-					this.incomingMessage(buf, false);
-					continue;
-				}
-				break;
-			}
-
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-			return false;
-		}
-		if (counter > 0)
-		{
-			this.lastHeartbeat = System.currentTimeMillis();
-			this.pongRequest = -1L;
-		}
-		return true;
-
-	}
+	
 
 	private void incomingMessage(ByteBuffer buf, boolean wasReliable)
 	{
@@ -367,5 +326,47 @@ public class BasicClient
 		buf.clear();
 		buf.put(NETCONSTANTS.MESSAGE);
 		return buf;
+	}
+
+	@Override
+	public void pollNetInput()
+	{	
+		if ((this.discoFlag) || (checkForDisconnect(System.currentTimeMillis())))
+		{
+			System.out.println("client schließt verbindung");
+			disconnect();
+		}
+
+		int counter = 0;
+		try
+		{
+
+			for (; counter < messagesPerUpdate; ++counter)
+			{
+				ByteBuffer buf = ByteBuffer
+						.allocate(NETCONSTANTS.PACKAGELENGTH);
+				if (tcpConnection.read(buf) > 0)
+				{
+					this.incomingMessage(buf, true);
+					continue;
+				}
+				if (udpConnection.read(buf) > 0)
+				{
+					this.incomingMessage(buf, false);
+					continue;
+				}
+				break;
+			}
+
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+			return;
+		}
+		if (counter > 0)
+		{
+			this.lastHeartbeat = System.currentTimeMillis();
+			this.pongRequest = -1L;
+		}
 	}
 }
