@@ -2,7 +2,10 @@ package gdw.gameplay.color;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.EntityManager;
+import gdw.entityCore.EntityReference;
 import gdw.gameplay.GameColor;
+import gdw.gameplay.color.messageType.ColorableCleardMessage;
 import gdw.gameplay.enemy.EnemyBehaviorComponent;
 
 public class ColorableComponent extends Component
@@ -18,6 +21,8 @@ public class ColorableComponent extends Component
 	private float friendlyTimer;//counter
 	private int finishedCount;//fest
 	private int segmentCount;//counter
+	
+	private EntityReference notifyOnClear;
 
 	protected ColorableComponent(ComponentTemplate template)
 	{
@@ -34,12 +39,13 @@ public class ColorableComponent extends Component
 			friendlyTimer = temp.getFriendlyTimer();
 			finishedCount = temp.getFinishedCount();
 			segmentCount = temp.getSegmentCount();
+			notifyOnClear = temp.getNotifyOnClear();
 		}
 	}
 
 	public void tick(float deltaTime)
 	{
-		if(finishedCount == segmentCount)
+		/*if(finishedCount == segmentCount)
 		{
 			//wenn komplett
 			friendlyTimer -= deltaTime;
@@ -48,8 +54,8 @@ public class ColorableComponent extends Component
 				//verlier ein segment
 				segmentCount--;
 				((EnemyBehaviorComponent)this.getOwner().getComponent(EnemyBehaviorComponent.COMPONENT_TYPE)).setHostile(true);				
-			}
-		}else if(!currentColor.isTransparent())
+			}else*/
+		if(!currentColor.isTransparent())
 		{
 			//auf fade testen
 			this.remainingTimeToFade -= deltaTime;
@@ -85,8 +91,9 @@ public class ColorableComponent extends Component
 			this.segmentCount++;
 			if(this.segmentCount == this.finishedCount)
 			{
-				((EnemyBehaviorComponent)this.getOwner().getComponent(EnemyBehaviorComponent.COMPONENT_TYPE)).setHostile(false);	
-				this.friendlyTimer = this.friendlyDuration;
+				((EnemyBehaviorComponent)this.getOwner().getComponent(EnemyBehaviorComponent.COMPONENT_TYPE)).setHostile(false);
+				EntityManager.getInstance().getEntity(this.notifyOnClear.getID()).message(new ColorableCleardMessage());
+				//this.friendlyTimer = this.friendlyDuration;
 			}else
 			{
 				this.remainingTimeToFade = this.fadeTime;
