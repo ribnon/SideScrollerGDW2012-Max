@@ -42,7 +42,7 @@ public class ServerCoreLoop extends Thread
 			{
 				//init
 				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
-				//Level.getInstance().start();
+				Level.getInstance().start();
 				try
 				{
 					entTempMan.loadEntityTemplates("../EntityTemplates.txt");
@@ -60,7 +60,6 @@ public class ServerCoreLoop extends Thread
 			//NetSubSystem.getInstance().pollMessages();
 		
 			SimulationComponentManager.getInstance().simulate(delta);
-			NetSubSystem.getInstance().simulateGhosts(delta);
 			EntityManager.getInstance().tick(delta);
 		
 			NetSubSystem.getInstance().checkDeadReck();
