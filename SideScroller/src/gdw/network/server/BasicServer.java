@@ -74,7 +74,7 @@ public abstract class BasicServer implements INetworkBridge
 		this.maxPlayer = maxPlayer;
 		currentConnections = 0;
 		this.clientConnections = new HashMap<Integer, BasicClientConnection>();
-		this.idCounter = 0;
+		this.idCounter = 2;
 		this.infoText = infoText;
 		this.serverId = new Random().nextLong();
 		this.broadcastResponse = ByteBuffer
