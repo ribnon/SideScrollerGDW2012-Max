@@ -49,16 +49,11 @@ public class AttachmentComponent extends Component
 	public AttachmentComponent(ComponentTemplate template)
 	{
 		super(template);
-		attachPointX = template.getFloatParam("attachPointX", 0);
-		attachPointY = template.getFloatParam("attachPointY", 0);
-		attachOrientation = template.getFloatParam("attachOrientation", 0);
-
-		String[] autoAttachGroupsValues = template.getStringParam(
-				"autoAttachGroups", "").split(",");
-		for (String i : autoAttachGroupsValues)
-		{
-			autoAttachGroups.add(Integer.parseInt(i));
-		}
+		
+		attachPointX = ((AttachmentComponentTemplate) template).getAttachPointX();
+		attachPointY = ((AttachmentComponentTemplate) template).getAttachPointY();
+		attachOrientation = ((AttachmentComponentTemplate) template).getAttachOrientation();
+		autoAttachGroups = ((AttachmentComponentTemplate) template).getAutoAttachGroups();
 	}
 
 	/**
@@ -75,9 +70,7 @@ public class AttachmentComponent extends Component
 		{
 			Entity currentEntity = EntityManager.getInstance().getEntity(
 					entry.getValue().getID());
-			AttachableComponent ac = (AttachableComponent) currentEntity
-					.getComponent(AttachableComponent.COMPONENT_TYPE);
-			ac.setAttachedToEntityID(-1);
+			((AttachableComponent) currentEntity.getComponent(AttachableComponent.COMPONENT_TYPE)).setAttachedToEntityID(-1);
 		}
 	}
 
@@ -135,10 +128,8 @@ public class AttachmentComponent extends Component
 		if (e == null)
 			return;
 
-		AttachableComponent ac = (AttachableComponent) EntityManager
-				.getInstance().getEntity(e.getID())
-				.getComponent(AttachableComponent.COMPONENT_TYPE);
-		ac.setAttachedToEntityID(-1);
+		((AttachableComponent) EntityManager.getInstance().getEntity(e.getID())
+				.getComponent(AttachableComponent.COMPONENT_TYPE)).setAttachedToEntityID(-1);
 		attachedEntityID.remove(groupID);
 	}
 
