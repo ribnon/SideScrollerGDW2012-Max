@@ -61,7 +61,7 @@ public abstract class ComponentTemplate {
 	public EntityReference getEntityReferenceParam(String name){
 		if(params.containsKey(name)){
 			String val = params.get(name).trim();
-			if(val.charAt(0)=='@'){
+			if(Character.isJavaIdentifierStart(val.charAt(0))){
 				return new NamedEntityReference(val.substring(1));
 			}
 			else{
