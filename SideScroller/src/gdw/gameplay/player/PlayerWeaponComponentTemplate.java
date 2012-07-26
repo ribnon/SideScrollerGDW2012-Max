@@ -24,6 +24,8 @@ public class PlayerWeaponComponentTemplate extends ComponentTemplate
 			this.currentColor = new GameColor();
 		}
 		this.healthIncrement = getFloatParam("healthIncrement",50.0f);
+
+		healthIncrement = getFloatParam("healthIncrement", 0.0f);
 	}
 
 	@Override
