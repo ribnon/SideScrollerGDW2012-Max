@@ -45,7 +45,7 @@ public class PathFollowComponent extends Component
 		super(template);
 		// Waypoints are in the format:
 		// x;y x;y x;y
-		String[] points = template.getStringParam("wayPoints").split(" ");
+		String[] points = template.getStringParam("wayPoints", "").split(" ");
 		for (String tmpPoint : points)
 		{
 			String[] values = tmpPoint.split(";", 2);
@@ -56,7 +56,7 @@ public class PathFollowComponent extends Component
 			created.y = y;
 			wayPoints.add(created);
 		}
-		speed = template.getFloatParam("speed");
+		speed = template.getFloatParam("speed", 1.0F);
 	}
 
 	/**
@@ -82,11 +82,14 @@ public class PathFollowComponent extends Component
 		float xDiff = xTarget - xPos;
 		float yDiff = yTarget - yPos;
 		float vectorLength = calculateVectorLength(xDiff, yDiff);
-
-		float xPosNew = xPos + (xDiff / vectorLength) * speed * deltaTime;
-		float yPosNew = yPos + (yDiff / vectorLength) * speed * deltaTime;
-
-		getOwner().setPos(xPosNew, yPosNew);
+		
+		if (vectorLength != 0)
+		{
+			float xPosNew = xPos + (xDiff / vectorLength) * speed * deltaTime;
+			float yPosNew = yPos + (yDiff / vectorLength) * speed * deltaTime;
+	
+			getOwner().setPos(xPosNew, yPosNew);
+		}
 
 		// Change the wayPoint if the distance is smaller than the threshold
 		if (vectorLength < WAYPOINT_CHANGE_DISTANCE)
