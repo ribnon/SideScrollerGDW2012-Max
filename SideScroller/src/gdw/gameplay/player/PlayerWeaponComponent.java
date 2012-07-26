@@ -19,7 +19,12 @@ public class PlayerWeaponComponent extends Component
 	protected PlayerWeaponComponent(ComponentTemplate template)
 	{
 		super(template);
-		currentColor = new GameColor();
+		if((template != null)&&(template instanceof PlayerWeaponComponentTemplate))
+		{
+			PlayerWeaponComponentTemplate t = (PlayerWeaponComponentTemplate) template;
+			this.currentColor = t.getCurrentColor();
+			this.healthIncrement = t.getHealthIncrement();
+		}
 	}
 
 	@Override
@@ -59,6 +64,9 @@ public class PlayerWeaponComponent extends Component
 	{
 		return currentColor;
 	}
-	
-	
+
+	public float getHealthIncrement()
+	{
+		return healthIncrement;
+	}
 }
