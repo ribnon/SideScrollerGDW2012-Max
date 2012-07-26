@@ -2,9 +2,12 @@ package gdw.gameplay.levelObjects;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityReference;
 import gdw.entityCore.Message;
+import gdw.gameplay.levelObjects.messageType.ActivateMessage;
+import gdw.gameplay.levelObjects.messageType.DeactivateMessage;
 import collisionDetection.CollisionDetectionMessage;
 
 public class SwitchComponent extends Component {
@@ -35,7 +38,7 @@ public class SwitchComponent extends Component {
 		activeFlag = false;
 
 		completedActivation = 0.0f;
-		activationDuration = activationDuration;
+		this.activationDuration = activationDuration;
 	}
 
 	public SwitchComponent(ComponentTemplate template,
@@ -75,37 +78,146 @@ public class SwitchComponent extends Component {
 	public void tick(float deltaTime) {
 		// Handle for pullswitch
 		if (getType() == SwitchType.Pull) {
-
 			if (!activeFlag && contactFlag) {
 				completedActivation += deltaTime;
+
+				if (completedActivation >= activationDuration) {
+					Entity entity = EntityManager.getInstance().getEntity(
+							targetEntity.getID());
+					if (entity != null) {
+						entity.message(new ActivateMessage());
+						activeFlag = true;
+					}
+					return;
+				} else {
+					contactFlag = false;
+					return;
+				}
 			}
 
+			if (activeFlag && !contactFlag) {
+				completedActivation -= deltaTime;
+
+				if (completedActivation <= activationDuration) {
+					Entity entity = EntityManager.getInstance().getEntity(
+							targetEntity.getID());
+					if (entity != null) {
+						entity.message(new DeactivateMessage());
+						activeFlag = false;
+					}
+					return;
+				}
+				return;
+			}
+
+			if (activeFlag && contactFlag) {
+				contactFlag = false;
+				return;
+			}
+
+			return;
+		}
+
+		// Handle for stepswitch
+		if (getType() == SwitchType.Step) {
+			if (activeFlag && contactFlag) {
+				contactFlag = false;
+				return;
+			}
+
+			if (activeFlag && !contactFlag) {
+				Entity entity = EntityManager.getInstance().getEntity(
+						targetEntity.getID());
+				if (entity != null)
+					entity.message(new DeactivateMessage());
+				return;
+			}
+			return;
 		}
 	}
 
 	@Override
 	public void onMessage(Message msg) {
-		// Handle for pullswitch
-		if (getType() == SwitchType.Pull) {
-			if (msg instanceof CollisionDetectionMessage) {
-				CollisionDetectionMessage tmpmsg = (CollisionDetectionMessage) msg;
 
+		// On CollisionDetectionMessage
+		if (msg instanceof CollisionDetectionMessage) {
+			CollisionDetectionMessage tmpmsg = (CollisionDetectionMessage) msg;
+			int sourceid = targetEntity.getID() != tmpmsg.getIDCandidate1() ? tmpmsg
+					.getIDCandidate1() : tmpmsg.getIDCandidate2();
+
+			SwitchUserComponent swusrcomp = (SwitchUserComponent) EntityManager
+					.getInstance().getEntity(sourceid)
+					.getComponent(SwitchUserComponent.COMPONENT_TYPE);
+
+			// Handle for pullswitch
+			if (getType() == SwitchType.Pull) {
+				// On Contact
 				if (!contactFlag && !activeFlag) {
-					int sourceid = targetEntity.getID() != tmpmsg
-							.getIDCandidate1() ? tmpmsg.getIDCandidate1()
-							: tmpmsg.getIDCandidate2();
-
-					SwitchUserComponent swusrcomp = (SwitchUserComponent) EntityManager
-							.getInstance().getEntity(sourceid)
-							.getComponent(SwitchUserComponent.COMPONENT_TYPE);
-
-					if ((swusrcomp != null) && swusrcomp.getpullActive()) {
+					if ((swusrcomp != null) && swusrcomp.getpullActive()
+							&& !swusrcomp.gethitTrigger()) {
 						contactFlag = true;
+						return;
 					}
 				}
 
+				if (!contactFlag && activeFlag) {
+					if ((swusrcomp != null) && swusrcomp.getpullActive()
+							&& !swusrcomp.gethitTrigger()) {
+						contactFlag = false;
+						return;
+					}
+				}
+				return;
+			}
+
+			// Handle for stepswitch
+			if (getType() == SwitchType.Step) {
+				if (!contactFlag && !activeFlag) {
+					if ((swusrcomp != null) && !swusrcomp.getpullActive()
+							&& !swusrcomp.gethitTrigger()) {
+						contactFlag = true;
+						activeFlag = true;
+						Entity entity = EntityManager.getInstance().getEntity(
+								targetEntity.getID());
+						if (entity != null) {
+							entity.message(new ActivateMessage());
+						}
+						return;
+					}
+					return;
+				}
+
+				if (!contactFlag && activeFlag) {
+					if ((swusrcomp != null) && !swusrcomp.getpullActive()
+							&& !swusrcomp.gethitTrigger()) {
+						contactFlag = true;
+						return;
+					}
+					return;
+				}
+				return;
+			}
+
+			// Handle for hitswitch
+			if (getType() == SwitchType.Hit) {
+				if (!contactFlag && !activeFlag) {
+					if ((swusrcomp != null) && !swusrcomp.getpullActive()
+							&& swusrcomp.gethitTrigger()) {
+						contactFlag = true;
+						activeFlag = true;
+						Entity entity = EntityManager.getInstance().getEntity(
+								targetEntity.getID());
+						if (entity != null) {
+							entity.message(new ActivateMessage());
+						}
+						return;
+					}
+					return;
+				}
+				return;
 			}
 		}
+
 	}
 
 	@Override
