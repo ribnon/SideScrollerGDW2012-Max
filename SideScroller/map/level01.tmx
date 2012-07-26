@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="80" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Level Tileset" tilewidth="16" tileheight="16">
+  <image source="tilesets\area02_level_tiles.png" trans="ff00ff" width="256" height="192"/>
+ </tileset>
+ <layer name="Background" width="50" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3PsQ2DUAwFQK9FlAV+QksF+88BUuLGQmlorHCWrrFdvLdExHJzW4MMZ5lS3dXf5+EVnxkNsqfMlDPKbpSe9f/doMMc1+cfekwNOqTHN8964tdtbZAdAAAAAAAAAAAAAAAAAKC7HaNB8WuAPgAA
+  </data>
+ </layer>
+ <layer name="Stage" width="50" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2azW4UMQzHRwVxAImVdrs9FMS+we6BjxvceuURECon+gbw9MRiLFnGTpzEzoSqf8ma2Y9J8psktjOZy7Isd8ku65HbLtmJ/H5a7WA0LEf6Tiv73fr5nGlXzmg9F6VuqOd6sWsv/H/f0DarXbN6pLoPlQw5vQxmGKFbx7ajvRpK8FcRfRHJcZ/sxyPmiJjnW3B4zw/w38+IfWdHqz1n7bzK/AaKGFc7dn4i39HzIzEe6yQffVR+i+IomWfMiOKAmH1W2h7R/igObsfAtqOughlGxPTZGah/QntI9pMdHwIZeuMHvcfUl8HnX8yiGM6dHJRBy48PK1+uHXydwu9HZH/kGCQhlzampbUCvU6KWTS/aeGoZeDtgvXeruFarTyNQ5q31Hr9g5Z3tQrikcTBx7Z03nMvR3FEK4LjzrE81E2ytwVruS6XP2/RH63S2vtYOPbK97NK47hVvkfxmIW5Ui5vilRuXOEzSItBjvSbHbXcqTTPS/aikqOU73CTOErrXC/V9AfNd6T4R1kj2yzJ2h+WOa/lcyOU43i9+K2nomXpjygGzDlr5rQW17XnB8gRyTCin2vjeSmfl/L7EWO1xCG1m/qqko2abxIHHZu5degswmfepXHVuwbmgj6Wcm/tv9bxa2mblz+IfA5njX3w3zcODPicQ9oLjuYAaT7BMk5K/tdjf6qHg44TLcZZ/QPmOz1MrTmzZU+9JR9rYekdV1GqZZmVA+t84vhXdJ+4x/fWqodDy5lLe80twnitlVUzR6xjRSqz91kCXTNLPhJk7ZOaMU9ZRuSLNe891M5d72fMOUX4K9SsHHz+luL6rBxgNeu3HEftuteyrhg9rsBf0/1HPPL3ao7kKL1zU9P2medHa747GwdI26Ou5cjFdLhm1DyPiOe83BGKjIM196hlj4MqMg4iS+mdEY8+i+ZAaX3jpRaO98k+JPuY7FNFXZzFQxhPI/2uJC9f3NL+LTho3tLSVg+O3LizcETNISy7pT++sGOJI9IXYPktHF+TfSbHHEeUT+Z1AAe/vzlBzvKNGeyVShyRsYXXAxz8/pYkvTPI1y43a/nSO4Vwbo3vWI7F+P0t5QuzibJs8X6Cl5Dhf2w7VcSc20KeHLXxt/d6qw8s5Y38d486W7Vlf3iyPHHoZW3B4jG3ZrE/F2fX4oA+AAA=
+  </data>
+ </layer>
+ <layer name="Foreground" width="50" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3avQ7CMAxGUYsiBmDuxCPy/jMwVKqiJBWQH3/WPVKWDqkttYmd1gwAjq3v8aiMy7zQAAAWYx1Wy+GcuXYdHsV3cjF/PJPhWSkHJeTgQ4Qc0Nfd5vQ6avshcKS03p6GRvG/W+G69/ovJ639vNd/APqLUBt7zWExv7HVUJOOtUy4p+JzmSKHvvbfBUtG9cy1GAAggrXBHNt63GIuAJpm9XH8M4Zfee6HAOhR34vU4wciiv5e5vLbzoRb46wCAAB9L8e0EVCAPgAA
+  </data>
+ </layer>
+ <layer name="Collision" width="50" height="80" opacity="0.43">
+  <properties>
+   <property name="invisible" value="true"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2W2w7DIAxD2///6T1VqhCEJNgh6bDEw9ph53DJdl/Xdf/pQGhnbSiGxyvj+lr1BY6s592akZVjJMn/cHCHVGNFhrZW6V2GOldUvf5IDraq11+BQeubmSPirLM5Zh4VODzzvdnSvBUO1BqgtHof0bkMv4jegBLab1cuco0lX+2ers6roq9zXMLzjPJyaPsU445JOVL+ym8G6n+F9z5H5aNk4Zi9j6q5Jy9HNmk5skvDwc62nE9vn2Epap+tOZl6V6+u2fts/XdUZ+/Z7tos0taG5LD4oPcfzcAa2hoQDO3nHRy972o8LN/ZwcHqXcw9kp4zFH2umDocc89IHQ5eD5rViWDx5DJGFMfbN0pf4GDc89Y7QswzW4HD4o3MZfYJK8fIrxoHUl/heOcg7jKKfUXV96PNY6xt1N1k3g9LxqoiOKQslCI52jyEGGfUkovyyc6B7A+7OFh3SJuP8GH2Ak0+wod1BrT5szma2phnuZezMtfCMHruXYuIux+p6vU/qlz7W4dj7OW9fxl+zxEciGyk1w6WwzH2qnCmM48fJSHX2IA+AAA=
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="50" height="80">
+  <object name="PlayerStart" type="PlayerStart" x="32" y="64" width="64" height="64"/>
+  <object name="TrapDoor1" type="RotatableObject" x="288" y="128" width="48" height="16">
+   <properties>
+    <property name="Color" value="yellow"/>
+    <property name="PivotX" value="0"/>
+    <property name="PivotY" value="1"/>
+    <property name="TriggeredBy" value="HotButton2"/>
+   </properties>
+  </object>
+  <object name="HotButton1" type="HotButton" x="352" y="112" width="16" height="16">
+   <properties>
+    <property name="Color" value="red"/>
+    <property name="TriggeredObject" value="Door1"/>
+   </properties>
+  </object>
+  <object name="HotButton2" type="HotButton" x="304" y="208" width="16" height="16">
+   <properties>
+    <property name="Color" value="yellow"/>
+    <property name="TriggeredObject" value="Door1, Door2"/>
+   </properties>
+  </object>
+  <object name="Door1" type="RotatableObject" x="400" y="16" width="16" height="64">
+   <properties>
+    <property name="Color" value="red"/>
+    <property name="PivotX" value="1"/>
+    <property name="PivotY" value="0"/>
+    <property name="TriggeredBy" value="HotButton1"/>
+   </properties>
+  </object>
+  <object name="Door2" type="RotatableObject" x="256" y="160" width="16" height="80">
+   <properties>
+    <property name="Color" value="yellow"/>
+    <property name="PivotX" value="0"/>
+    <property name="PivotY" value="0"/>
+    <property name="TriggeredBy" value="HotButton2"/>
+   </properties>
+  </object>
+  <object name="ColorBucket2" type="ColorBucket" x="192" y="160" width="16" height="16">
+   <properties>
+    <property name="Color" value="red"/>
+   </properties>
+  </object>
+  <object name="ColorBucket1" type="ColorBucket" x="224" y="112" width="16" height="16">
+   <properties>
+    <property name="Color" value="yellow"/>
+   </properties>
+  </object>
+  <object name="PaintPuddle" type="HazardousLiquid" x="368" y="224" width="64" height="16"/>
+  <object name="Tomato1/Apple1" type="Enemy" x="112" y="240" width="64" height="64"/>
+ </objectgroup>
+</map>

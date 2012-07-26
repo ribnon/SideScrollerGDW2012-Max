@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="93" height="155" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="level" tilewidth="16" tileheight="16">
+  <image source="tilesets\area02_level_tiles.png" trans="ff00ff" width="256" height="192"/>
+ </tileset>
+ <layer name="Background" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3DQQ0AAAwDoTNZ/1YmYx9IWDVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV9e0BASgWTDzhAAA=
+  </data>
+ </layer>
+ <layer name="Layer2" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3XQQqDMBAFUPfd1XqcLl32Eu3971CFChK0FWoyGN+DkCARks8waNMAAAAAAEf0GsbzM1OOzMuTeXk1ZX6PPsBGNWX+iD7ARjIvr6bMAQAA4Iiuw+iDxxmNuXfDaGfztO4W1um+dmHf2rvps1uB+0X6VdO13z/KVNNpncp7H9/qWsb5pHV9hh5aylpNyzevMXc9Oh+9OoZenceW/0Q57y/t0/Palvf/fH/EmNe1Hg3AmV2iDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQDXePbrnwzzhAAA=
+  </data>
+ </layer>
+ <layer name="Layer1" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2dQZLbNhBFWUlWTixVjT2bpDxzAlMncHZaOkfIIjlOLuGjRqjhLz+1QRIkARCg8KtQlEQSBD4ajUY3QPVd151v6XRL11vqb+llOF6Gz6/Dkd9PSNchj/NwXtf2w3nldRnuvQ7Jd/8V6RV5Xj3PfjXXXXDuZfitx3N1vcrS43eWq0c64Tqbp64541qW7WI+k+dXw/UVeZDHK/JgPVlW8tObe8n1tfuxrlfkSV6UD9tNz1fZT/hN5T53P/LNOqjsbAuWg3JA+bAyJt7VLmpzycfZ/E5u+QzKjOqhvC/IX3lLFtTmlAny7GsbK8vX7l4GKXsv3X3fYNucTN7sn8rrZJ7J61Vfca/zlC/b//VM9mV7nZ7PclruqQOoK2xdKcPifUy2WH/Kq+pPndDjPp2nHOq+1+6+rXzc6N7eHMkvOWZ9VFf2V/Yfq0Ns3e25c3ffpkwfbukZx2ecYxnEkc6pjuRD16mu4oUyzfbRc/nsD+a3kM+2/Pbc80j+H1AftdsJR/Z76j7KEOWK4+AJR3Hpjh87P55QDo63zI91UJ7in+0untn+zxPPzg1XV6urOa6JOyvrdqxkn7O6Vnn+GlAW9kHmZflSudl/Nc5QJ/See0uAKz/tIvZPO8ZJ51OfnfG5N/dQp4TU3ZXF9sWpvsHyqm9yfCyRb8GVX/30Yo60l8Sn+i7Ha1tf6uJUdXflfu7ubQzpoJL5Ft513/WIZJz8cy5D24ByzmvmdHhMqH/UwDPhOOf8iPpF7SDurT45e353xzkd/uhwnNO2s/Ns2u/sA7Qtaee7z43zaUi3jI2B7ANjNqLaR/JfKuc/3dLPGdIvM+VwnNu5M+1lzi05B6WcW7ulVM419oYma0uFprnxRZzTNleifUK7hDa0OKfOKZXzUuA4t3qac1PrM7J2CvnW98b5NDSGSp45h6Zs039Du4VjZ+m6pRQ4zq3fwmeX08ch3WLn3k23hIF2C/mlv5vzfuvPZvuktFu+JMhzL2gMFZdK/M3O/3Wkv6vv0uqWrwny3AsaQ+nbZ4yDfkdxTX4p59Itv3V57OA97OsQGz/UPrexMMav6Ffh/MfGcS7Iw8aA2TcYT6A/0/rZOF7TTrXxBBtjGIsvjMUZ7G9T9vWT55419rnqZH0A0ie0SWjDcFzlnMjGX/ndcs+Y+Vhcl7Gm2vxZPmgMpa+KbaB6c64k+X0x19OXyzGB/LINeN8Zz7e+H5eOwLXg83FJhqkTeKSep06h3iF/ryYvn3z33T3P7rfQvlobqM9P5tjjnG+uz3agDUOZvnqusefI71F5JqRbaHfTp6Xv1OnW58Xx1xez5zyX+eq5R+bXB9qKdhzlOgjxzLmRzx/Wd/ecW/uE+uVoejoUjIlyTCMv1j6XvPM7+4F4tu1Be8/9/oh8O/ze3fsRGSeiT1Hc8fu5u+dRn+kXs+uxdM9efOeKW8zNmeyaMtrQ1Ls6R7513totPt+k7j+afF8XXu/qr3U9Ni5k1/3RPpduF9f8XbaJu39PW2ROpufm6EvxT/dW/38DryfvGjstf7TFlaTLqVOOKs9zcJw7TkI5d3gajlxrSXvczvOp/61u2YPvKbmOLdM+rOHcgfFRyrH0h/XbWh3/yHGipbpFEOf0o3CcpG+AYyXjRjk4H5PpHPI8hq2c23X30h12jQV1yqPH5rZybm0U2uccP+0cNJVu2VtXhyCGbiGPdr0c55b0uzy6nG8dQzVu0gbXfJW+QuvL3cJ5jNjXXtjKOedA0iPS2dZOaXbLGxznTlbXci4bkH4B608ZO85xXrMsTyGGnNMXviSF7iFSOgrWcu7b2xOaQjn3PecIWKtbtkB95JH1+RpbcQsa5+t0yxY0zhvnoYgdO8ppc4nz2qDxfGw/i2+N3dg+/6m1d2vaNnTt49Qa0Rrt7liwbWvXTPK9E9cubI8xdcuYzflosaOlWKqfa9XnJaFxnh+N8/zIzXkq31cN8Q4hN+e6f4v/bGm+pfXJtZyv3U/0vru3k5hScZ5r71Nof1rL+dbksyfl/43NuW3jsfegzb07bexdaUtt5LWcj+2tmqpDyP4pl/8aufT1n1L1Swjn/y28PkZ5YvQfztlKmqfNcfif+Z6ac/Jk+++cT6QkXqdQGuePgDYnygu3/2LpGHNEzmOuYZ/Ly431qe2cGkBbzLenfck4MeZr3TLe1Mz5mAw62Su5PjVzXpN/gDgi56XZ7xZH47yGeizlvIS9mj7/wJTfpzQs5TyGPyxVWsL3nrIjWdnaJ9nP166dDE2+d4cule9Y/tQtKRbnNehTBysja94JG+I/GssnBldbfOU5YHWJ+vde+t+1eQyuYuWTAj5dsud4G5NzV5c/IuQVG5bzve2b2JzvyfuUP6AUvh1icc79L3vpmDl7pAS+HUJilqli4LExxXkpfDuMxaHXrBPNwfnUfMY3Ny2Nb4eY9sYazpfOCRknGLOBQ9aW74lYnK+JUznYOPXcf1OUyOFSpLBbSrXTS0HjPD9icE69UuKYVRpicE4Zb3zPIybnje8whHI+Zxc3HR6OUM7n5tWl/idGafsyHEI59/0vhG/d9t7xF6ZS7fnYfu8S4l6ljy1H5Lz0sSUl51PxxbW6YmoveC3+gZScT8Uu7PrLOX9V6TwuQWrdUmKsbm/k0OeN93vkGkMb798RMzan/Gq0JXJCHE3tY1syfo1xfqQxcCty6JbYfOde4xnbf5Ca8xTyPazr+BaQbPvPnfdeH1sv1mor+vZXxZjD+uZstXGec+zc6ndgWblGKnZfrVG3jMEn6xaq65PnesuDuyZF+VNyvod9OBYnfDccfbzm9tPE5NzGovfk3PK397o+Ygnnc+/JKmH+Kbn1/V4j5/bd80vHpb2RSj8vxVLdohjd1P/Bl8p5KUixJ6WEteglI9U+oJLGrNLQOM+Pxnl+pOa8hLVGpa0rSs35iD8vayqtr2XifNKHN7ffe2o9wNi7OPm9BJuc2Ivz0njIiT04f2S+HXJz/uh8O+TkvPH9hlycN76/Iwfnje97tHloftTIeUnvv1uTUu2/Ssn5kHfu+WxnPm9Ka3j5NBz/vKUvw/ETPmfgfHYuauesMbiaSyHvzlvLy+fujd+/bunrcPyMz6k5X5Mv/7PP1wYfu7D4Y4x3rqwpv9Opf0+kWO9u9CHmu5V8fKWez22VmRR6aw6p33Hne79JTHt3a/nn/ne9hnVQuVFj+WssM1Fj+WssM1Fj+WssM6HyT9nbpeEonE/Z26UhZN/Zkvhzbl/C+6H8Y3Z2aTFzhwV7W76F2E1L8ovoR8hqX8fAnI261E4NyS9WmpvTNt93fLR3aeVH7TZAjWic50fjPD8a5/nxCJyXFj/N8T7KWHVeOz8r4b1suec9seq8tpyMyflip1O/h/zP09ia4rH8H4Hz0pBDnzfO79E4z4+aOJ/y35bo/xxDTZwfpQ80zvOjcZ4fS+Jca+dcqfme0/WlpRx8tPRj+h/mRo7GPOEAAA==
+  </data>
+ </layer>
+ <layer name="Collision" width="93" height="155" opacity="0.4">
+  <properties>
+   <property name="invisible" value="true"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2XgWrDMAxE0///6VFGWdo1iWNLpzv7HohBSZ3TS2arj23bHi6Xy+VyuULqiMp7I2Hx3ZJnJDcbLL7P8ozkZoXFd3RudtR8H2VXQtm5KnaOZyXn2edXa/92bufq2DkeO8czk3OV52jneOwcT6Vz9Rr1dUZ1b6w16uuM6t4ifahQ7W8l1y+qPa7m+0m1y1U876n2Orvfb1S7Xs33E/vGs5rv6ndsNd9bQ64ZC0l1r1cOZnD8CTpfz7rqvqvz9a6t6nsjyDS7c7Y8n5l6v6fqvIrZnLM86zNWc86AqnOG59vL7M4ZYXbOtm9FMYNzNZidt9xHkYr86s5GsXM8do7HztuJOsPsvB2Uc8+AeOyck7ue7HUcO8dj53jQzrPOA6Xzxc7xjDjPrJE+KutuVnRvo1mycs3qPHv9Xh8Isp/RSJ5Rt3Z+f33ld/kMNucrYOdYEGeuApF7VsY+aOdja43mU0P1/FXIeISd47FzPGquX4zMOazFzmzOe/pWyMvag1reSOcKVLtewXlW36N5WNbJgMn3Pk/UOozemXxvgRkYekLsoxGs5pyByHejujcF30/UnFfMZdFEZurpsdehqu8n1fv5DA7vUu18RewcT4SjGf//M8lwbs6Jdm6uaXW1wjyBItI5a7Fh53iic1X7ZXb9YlbnzNg5nmznrdepe7wD4j0376D2FvMHcj83v0TvpXZ+jZ3jUdzP1WdPxbnFzr+vl72n2Pn/9Sr28Ui3dh5378fJtZ/XZ++N0euhfV/d//Hx9+r6TCLvVfmOf8vQ8nkFd3IwnD+tGY8+t3MsLHnu5lB2zkLmLGTn38meh+z8P3aOx87xIJwzFBN2jsfO8VQ6X5Uq5ytT4Xx10M4N1rn5BeXc/IFwbt5RdF4967P+ZrBzO2esaBBr936v2iMifzRR6x5lzO5lZedX62f1MbrejM6zUcyvmHmPYn7FzHsU8ytm3qOYXzHzHsX80TMzYm7PmPOR2HkdkdmrHas4V8Vu8dg3HjvHY+d47BzPCs6r576KebA6Z7VbO+epTFRyorBzPHaOR835DM/DzvHYOR47x4Py4XJV1w88GPSiPOEAAA==
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="93" height="155">
+  <object name="PlayerStart" type="PlayerStart" x="128" y="256" width="64" height="64"/>
+  <object name="Platform1" type="MoveableObject" x="224" y="1936" width="96" height="16">
+   <properties>
+    <property name="acceleration" value="0.175"/>
+    <property name="initialDirection" value="LEFT"/>
+    <property name="maxPositionX" value="14"/>
+    <property name="maxPositionY" value="122"/>
+    <property name="minPositionX" value="2"/>
+    <property name="minPositionY" value="121"/>
+   </properties>
+  </object>
+  <object name="HotButton1" type="HotButton" x="944" y="288" width="32" height="32">
+   <properties>
+    <property name="color" value="0xFF0000"/>
+    <property name="triggeredEntity" value="Door1"/>
+   </properties>
+  </object>
+  <object name="HotButton1" type="HotButton" x="704" y="432" width="32" height="32">
+   <properties>
+    <property name="color" value="0xFFFF00"/>
+    <property name="triggeredEntity" value="TrapDoor1, Door2"/>
+   </properties>
+  </object>
+  <object name="TrapDoor1" type="RotatableObject" x="784" y="320" width="96" height="16">
+   <properties>
+    <property name="acceleration" value="0.45"/>
+    <property name="color" value="0xFFFF00"/>
+    <property name="direction" value="LEFT"/>
+    <property name="pivotX" value="0"/>
+    <property name="pivotY" value="1"/>
+    <property name="triggeredBy" value="HotButton2"/>
+   </properties>
+  </object>
+  <object name="ColorBucket1" type="ColorBucket" x="480" y="288" width="32" height="32">
+   <properties>
+    <property name="ColorBucket.color" value="0;1;0"/>
+    <property name="color" value="0x00FF00"/>
+    <property name="template" value="GreenColorBucket"/>
+   </properties>
+  </object>
+  <object name="ColorBucket2" type="ColorBucket" x="352" y="368" width="32" height="32">
+   <properties>
+    <property name="ColorBucket.color" value="1;0;0"/>
+    <property name="color" value="0xFF0000"/>
+   </properties>
+  </object>
+  <object name="Tomato1/Apple1" type="Enemy" x="256" y="560" width="64" height="64"/>
+  <object name="Door2" type="RotatableObject" x="624" y="352" width="16" height="112">
+   <properties>
+    <property name="acceleration" value="0.45"/>
+    <property name="color" value="0xFFFF00"/>
+    <property name="direction" value="LEFT"/>
+    <property name="pivotX" value="0"/>
+    <property name="pivotY" value="0"/>
+    <property name="triggeredBy" value="HotButton2"/>
+   </properties>
+  </object>
+  <object name="PaintPuddle1" type="HazardousLiquid" x="944" y="464" width="112" height="16"/>
+  <object name="Platform2" type="MoveableObject" x="32" y="2080" width="96" height="16">
+   <properties>
+    <property name="acceleration" value="0.125"/>
+    <property name="initialDirection" value="RIGHT"/>
+    <property name="maxPositionX" value="15"/>
+    <property name="maxPositionY" value="131"/>
+    <property name="minPositionX" value="2"/>
+    <property name="minPositionY" value="130"/>
+   </properties>
+  </object>
+  <object name="Platform3" type="MoveableObject" x="32" y="2272" width="96" height="16">
+   <properties>
+    <property name="acceleration" value="0.05"/>
+    <property name="initialDirection" value="RIGHT"/>
+    <property name="maxPositionX" value="15"/>
+    <property name="maxPositionY" value="143"/>
+    <property name="minPositionX" value="2"/>
+    <property name="minPositionY" value="142"/>
+   </properties>
+  </object>
+  <object name="Platform3" type="MoveableObject" x="288" y="2320" width="96" height="16">
+   <properties>
+    <property name="acceleration" value="0.125"/>
+    <property name="initialDirection" value="DOWN"/>
+    <property name="maxPositionX" value="24"/>
+    <property name="maxPositionY" value="151"/>
+    <property name="minPositionX" value="18"/>
+    <property name="minPositionY" value="145"/>
+   </properties>
+  </object>
+  <object name="Door1" type="RotatableObject" x="1008" y="80" width="16" height="112">
+   <properties>
+    <property name="acceleration" value="0.45"/>
+    <property name="color" value="0xFF0000"/>
+    <property name="direction" value="RIGHT"/>
+    <property name="pivotX" value="1"/>
+    <property name="pivotY" value="0"/>
+    <property name="triggeredBy" value="HotButton1"/>
+   </properties>
+  </object>
+  <object name="TestPlatform" type="MoveableObject" x="32" y="176" width="96" height="16">
+   <properties>
+    <property name="acceleration" value="0.125"/>
+    <property name="initialDirection" value="RIGHT"/>
+    <property name="maxPositionX" value="15"/>
+    <property name="maxPositionY" value="12"/>
+    <property name="minPositionX" value="2"/>
+    <property name="minPositionY" value="11"/>
+   </properties>
+  </object>
+  <object name="ExampleEntityObject" type="LevelEnd" x="1349" y="42" width="74" height="67">
+   <properties>
+    <property name="BaseTemplate" value="template zB ColorBucket"/>
+    <property name="ColorSource.color" value="0x00FF00"/>
+    <property name="PathFollow.points" value="x;y x;y x;y x;y"/>
+    <property name="Switch.targetEntity" value="Objektname"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
