@@ -1,6 +1,7 @@
 package collisionDetection;
 
 import gdw.entityCore.Entity;
+import gdw.entityCore.Level;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,19 @@ public class CollisionDetectionComponentManager
 		{
 			int mapWidth = Level.getInstance().getMapWidth();
 			int mapHeight = Level.getInstance().getMapHeight();
+			
+			int level = 1;
+			int levelDivider = Math.max(mapWidth, mapHeight);
+			
+			while (levelDivider > 128)
+			{
+				levelDivider /= 2;
+				level++;
+			}
+			
 			quadTree = new CollisionQuadTree(3, mapWidth, mapHeight);
 		}
+		
 		else quadTree = null;
 	}
 	
@@ -558,7 +570,7 @@ public class CollisionDetectionComponentManager
 	{
 		CollisionDetectionComponent comp1 = (CollisionDetectionComponent) e1.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 		CollisionDetectionComponent comp2 = (CollisionDetectionComponent) e2.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
-		
+	
 		if (comp1 == null || comp2 == null) return false;
 		
 		boolean result = false;
