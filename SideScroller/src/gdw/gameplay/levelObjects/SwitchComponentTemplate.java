@@ -13,6 +13,13 @@ public class SwitchComponentTemplate extends ComponentTemplate {
 	private SwitchType type;
 	private float activationDuration;
 
+	/**
+	 * SwitchComponentTemplate constructor Paramaters which will be initialized:
+	 * TargetEntity (:EntityReference), SwitchType (Hit, Step, Pull:String),
+	 * ActiviationDuration (:float)
+	 * 
+	 * @param params
+	 */
 	public SwitchComponentTemplate(HashMap<String, String> params) {
 		super(params);
 
@@ -25,7 +32,7 @@ public class SwitchComponentTemplate extends ComponentTemplate {
 		} else if (strtype.equals("Pull")) {
 			type = SwitchType.Pull;
 		}
-		activationDuration = super.getFloatParam("activationDuration");
+		activationDuration = super.getFloatParam("ActivationDuration");
 	}
 
 	@Override
