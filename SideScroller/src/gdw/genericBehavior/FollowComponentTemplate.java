@@ -8,28 +8,22 @@ import gdw.entityCore.EntityReference;
 
 public class FollowComponentTemplate extends ComponentTemplate
 {
-	
-	private EntityReference targetEntityID;
-	
-	public EntityReference getTargetEntityID()
-	{
-		return targetEntityID; 
-	}
+	private EntityReference targetEntityID;	
 	
 	protected FollowComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		
-		
-		targetEntityID = getTargetEntityID();
-		
+		targetEntityID = getEntityReferenceParam("targetEntityID");
 	}
 
-	@Override
 	public Component createComponent()
 	{
-		// TODO Auto-generated method stub
 		return new FollowComponent(this);
 	}
-
+	
+	public EntityReference getTargetEntityID()
+	{
+		return targetEntityID; 
+	}
 }
