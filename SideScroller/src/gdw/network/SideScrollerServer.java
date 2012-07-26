@@ -10,7 +10,7 @@ import gdw.network.server.ConnectionInfo;
 public class SideScrollerServer extends BasicServer
 {
 	
-	private enum ServerGameStates
+	public static enum ServerGameStates
 	{
 		WAITING ,LOBBY, START, PAUSE
 	};
@@ -71,9 +71,11 @@ public class SideScrollerServer extends BasicServer
 		} catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-		
-		
+		}	
 	}
 
+	public ServerGameStates getCurState()
+	{
+		return curState;
+	}
 }
