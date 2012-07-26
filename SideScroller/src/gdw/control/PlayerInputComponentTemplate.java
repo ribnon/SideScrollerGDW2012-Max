@@ -10,24 +10,33 @@ public class PlayerInputComponentTemplate extends ComponentTemplate {
 
 	private float jumpVelocity, runVelocity;
 
+	/**
+	 * PlayerInputComponentTemplate constructor which initializes:
+	 * DownKey(:String), JumpKey(:String), LeftKey(:String), RightKey(:String),
+	 * AttackKey(:String), SpecialAttackKey(:String), JumpVelocity(:float),
+	 * RunVelocity(:float) StringValues can be found in
+	 * PlayerInputComponentManager
+	 * 
+	 * @param params
+	 */
 	public PlayerInputComponentTemplate(HashMap<String, String> params) {
 		super(params);
 
-		downKey = PlayerInputComponentManager.getKeyValue(super
-				.getStringParam("DownKey"));
-		jumpKey = PlayerInputComponentManager.getKeyValue(super
-				.getStringParam("JumpKey"));
-		leftKey = PlayerInputComponentManager.getKeyValue(super
-				.getStringParam("LeftKey"));
+		downKey = PlayerInputComponentManager.getKeyValue(super.getStringParam(
+				"DownKey", "DOWN"));
+		jumpKey = PlayerInputComponentManager.getKeyValue(super.getStringParam(
+				"JumpKey", "UP"));
+		leftKey = PlayerInputComponentManager.getKeyValue(super.getStringParam(
+				"LeftKey", "LEFT"));
 		rightKey = PlayerInputComponentManager.getKeyValue(super
-				.getStringParam("RightKey"));
+				.getStringParam("RightKey", "RIGHT"));
 		attackKey = PlayerInputComponentManager.getKeyValue(super
-				.getStringParam("AttackKey"));
+				.getStringParam("AttackKey", "SPACE"));
 		specattackKey = PlayerInputComponentManager.getKeyValue(super
-				.getStringParam("SpecialAttackKey"));
+				.getStringParam("SpecialAttackKey", "RCONTROL"));
 
-		jumpVelocity = super.getIntegerParam("JumpVelocity");
-		runVelocity = super.getIntegerParam("RunVelocity");
+		jumpVelocity = super.getIntegerParam("JumpVelocity", 5);
+		runVelocity = super.getIntegerParam("RunVelocity", 10);
 	}
 
 	@Override

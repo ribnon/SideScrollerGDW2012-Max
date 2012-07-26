@@ -22,7 +22,9 @@ public class CollisionDetectionComponentManager
 		
 		if (useQuadTree) 
 		{
-			
+			int mapWidth = Level.getInstance().getMapWidth();
+			int mapHeight = Level.getInstance().getMapHeight();
+			quadTree = new CollisionQuadTree(3, mapWidth, mapHeight);
 		}
 		else quadTree = null;
 	}
@@ -59,9 +61,12 @@ public class CollisionDetectionComponentManager
 	/////////////////////////////////////////////////////////////////
 	// Methods for collision detection using a quadtree
 	
-	public void detectCollision(CollisionDetectionComponent comp)
+	public void detectCollisions(Entity e)
 	{
 		if (quadTree == null) return;
+		CollisionDetectionComponent comp = (CollisionDetectionComponent) e.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		if (comp == null) return;
+		
 		quadTree.updateRect(comp.getTreeRect());
 		ArrayList<CollisionQuadTreeRect> candidates = quadTree.getColliders(comp.getTreeRect());
 		
@@ -346,12 +351,13 @@ public class CollisionDetectionComponentManager
 	
 	private boolean testOOCircle(float c1PosX, float c1PosY, float c1HalfExtentX, float c1HalfExtentY, float c1Orientation, float c2PosX, float c2PosY, float c2Radius)
 	{
-		c1PosX = (float)(c1PosX * Math.cos(-c1Orientation) - c1PosY * Math.sin(-c1Orientation));
-		c1PosY = (float)(c1PosX * Math.sin(-c1Orientation) + c1PosY * Math.cos(-c1Orientation));
-		c2PosX = (float)(c2PosX * Math.cos(-c1Orientation) - c2PosY * Math.sin(-c1Orientation));
-		c2PosY = (float)(c2PosX * Math.sin(-c1Orientation) + c2PosY * Math.cos(-c1Orientation));
+		float c1PosX2 = (float)(c1PosX * Math.cos(-c1Orientation) - c1PosY * Math.sin(-c1Orientation));
+		float c1PosY2 = (float)(c1PosX * Math.sin(-c1Orientation) + c1PosY * Math.cos(-c1Orientation));
 		
-		return testAACircle(c1PosX, c1PosY, c1HalfExtentX, c1HalfExtentY, c2PosX, c2PosY, c2Radius);
+		float c2PosX2 = (float)(c2PosX * Math.cos(-c1Orientation) - c2PosY * Math.sin(-c1Orientation));
+		float c2PosY2 = (float)(c2PosX * Math.sin(-c1Orientation) + c2PosY * Math.cos(-c1Orientation));
+		
+		return testAACircle(c1PosX2, c1PosY2, c1HalfExtentX, c1HalfExtentY, c2PosX2, c2PosY2, c2Radius);
 	}
 	
 	private boolean testAAAA(float c1PosX, float c1PosY, float c1HalfExtentX, float c1HalfExtentY, float c2PosX, float c2PosY, float c2HalfExtentX, float c2HalfExtentY)
@@ -365,18 +371,37 @@ public class CollisionDetectionComponentManager
 		float distanceX = Math.abs(circleX - rectX);
 		float distanceY = Math.abs(circleY - rectY);
 		
+		float pointX;
+		float pointY;
+		
 		if ((distanceX >= circleRadius + rectExtX) ||
 			(distanceY >= circleRadius + rectExtY))
 			return false;
 		
-		if ((rectExtX + circleRadius > distanceX) ||
-			(rectExtY + circleRadius > distanceY))
-			return true;
+		if (circleX > rectX)
+			pointX = rectX + rectExtX;
+		else
+			pointX = rectX - rectExtX;
 		
-		float distanceCircleRectX = distanceX - rectExtX;
-		float distanceCircleRectY = distanceY - rectExtY;
-		float distanceCircleRect = distanceCircleRectX * distanceCircleRectX + distanceCircleRectY * distanceCircleRectY;
-		return distanceCircleRect < circleRadius * circleRadius;
+		if (circleY > rectY)
+			pointY = rectY + rectExtY;
+		else
+			pointY = rectY - rectExtY;
+		
+		float diffX = circleX - pointX;
+		float diffY = circleY - pointY;
+		
+		if (diffX * diffX + diffY * diffY < circleRadius * circleRadius) return true;
+		
+		if ((circleX > rectX - rectExtX && circleX < rectX + rectExtX) ||
+			(circleY > rectY - rectExtY && circleY < rectY + rectExtY))
+		{
+			if ((distanceX < circleRadius + rectExtX) ||
+				(distanceY < circleRadius + rectExtY))
+				return true;
+		}
+		
+		return false;
 	}
 	
 	private boolean testOOOO(float posX1, float posY1, float posX2, float posY2, float halfX1, float halfY1, float halfX2, float halfY2, float angle1, float angle2)
