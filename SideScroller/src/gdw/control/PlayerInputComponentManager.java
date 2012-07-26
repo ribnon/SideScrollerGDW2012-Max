@@ -7,6 +7,27 @@ import java.util.LinkedList;
 
 import org.newdawn.slick.Input;
 
+/**
+ * Following keyboard and mouse keys will be supported:
+ * 
+ * 0,1,2,3,4,5,6,7,8,9,A,ADD(+),APOSTROPHE('),APPS(MAC CTRL),AT(@),
+ * AX(???),B,BACK(???),BACKSLASH(<-),C,CAPITAL(SHIFT),CIRCUMFLEX(^),
+ * COLON(:),COMMA(,),CONVERT(???),D,DECIMAL(???),DIVIDE(/),DOWN(CURSORDOWN),
+ * E,END,ENTER,EQUALS(=),ESCAPE,F,F1-15,G,GRAVE(°),H,HOME(MAC),I,
+ * KANA(CONTENTMENU),KANJI(???),L,LALT,LBRACKET,LCONTROL,LEFT,LMENU(???),LSHIFT,
+ * LWIN
+ * (WIN),M,MINUS(-),MULTIPLY(*),N,NEXT(???),NOCONVERT(???),NUMLOCK,NUMPAD0-9,
+ * NUMPADCOMMA,
+ * NUMPADENTER,NUMPADEQUALS,O,P,PAÙSE,PERIOD,POWER,PRIOR,Q,R,RALT,RBRACKET
+ * (???),
+ * RCONTROL,RETURN,RIGHT(CURSORRIGHT),RMENU,RSHIFT,S,SCROLL,SEMICOLON,SLASH
+ * ,SLEEP,
+ * SPACE,STOP,SUBTRACT,SYSRQ,T,TAB,U,UNDERLINE,UNLABELED,UP(CURSORUP),V,W
+ * ,X,Y,YEN,Z,MOUSE_LEFT_BUTTON,MOUSE_RIGHT_BUTTON,MOUSE_MIDDLE_BUTTON
+ * 
+ * @author Michael
+ * 
+ */
 public class PlayerInputComponentManager {
 	private static PlayerInputComponentManager instance = null;
 	private static LinkedList<PlayerInputComponent> playerInpComponents;
