@@ -19,6 +19,7 @@ public class EntityTemplateManager {
 		return instance;
 	}
 	private EntityTemplateManager(){
+		reinitialize();
 	}
 
 	private HashMap<String, EntityTemplate> entityTemplates = new HashMap<String, EntityTemplate>();
@@ -83,14 +84,29 @@ public class EntityTemplateManager {
 	}
 	
 	public void loadEntityTemplatesFromLevel(){
-		TiledMap map = Level.getInstance().getMap();
 		//Kollision: Collision
 		//Objekte: Objects
 	}
 	
 	public void reinitialize(){
 		entityTemplates.clear();
-		
+		makeCollisionBoxTemplate();
+	}
+	
+	private void makeCollisionBoxTemplate(){
+		TiledMap map = Level.getInstance().getMap();
+		int tileWidth = map.getTileWidth();
+		int tileHeight = map.getTileHeight();
+		HashMap<String,HashMap<String,String>> compParams = new HashMap<String,HashMap<String,String>>();
+		HashMap<String,String> params = new HashMap<String,String>();
+		params.put("halfExtentX", Float.toString(tileWidth*0.5f));
+		params.put("halfExtentY", Float.toString(tileHeight*0.5f));
+		compParams.put("AABoxCollisionDetection", params);
+		params = new HashMap<String,String>();
+		params.put("impassableFromTop", "1");
+		params.put("impassableFromSide", "1");
+		compParams.put("CollisionReaction", params);
+		entityTemplates.put(" --- CollisionTile --- ", new EntityTemplate(" CollisionTile <internal> ", new ArrayList<String>(), compParams));
 	}
 	
 	public EntityTemplate getEntityTemplate(String name){
