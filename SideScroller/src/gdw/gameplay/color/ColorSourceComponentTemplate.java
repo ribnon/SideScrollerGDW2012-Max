@@ -10,7 +10,7 @@ public class ColorSourceComponentTemplate extends ComponentTemplate
 {
 	private GameColor color;
 	
-	protected ColorSourceComponentTemplate(HashMap<String, String> params)
+	public ColorSourceComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		String colorStr = getStringParam("color", "0;0;0");

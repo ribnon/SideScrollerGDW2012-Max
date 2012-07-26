@@ -10,7 +10,7 @@ public class EnemyDamageDealerComponentTemplate extends ComponentTemplate
 	
 	private float healthDecrement;
 
-	protected EnemyDamageDealerComponentTemplate(HashMap<String, String> params)
+	public EnemyDamageDealerComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		this.healthDecrement = getFloatParam("healthDecrement",0.0f);

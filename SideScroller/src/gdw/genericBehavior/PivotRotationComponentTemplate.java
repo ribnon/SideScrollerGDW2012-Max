@@ -10,7 +10,7 @@ public class PivotRotationComponentTemplate extends ComponentTemplate
 	private float pivotX;
 	private float pivotY;
 	
-	protected PivotRotationComponentTemplate(HashMap<String, String> params)
+	public PivotRotationComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		pivotX = getFloatParam("pivotX", 0.0f);
