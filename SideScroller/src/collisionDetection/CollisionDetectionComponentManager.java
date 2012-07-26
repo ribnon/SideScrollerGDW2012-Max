@@ -346,12 +346,13 @@ public class CollisionDetectionComponentManager
 	
 	private boolean testOOCircle(float c1PosX, float c1PosY, float c1HalfExtentX, float c1HalfExtentY, float c1Orientation, float c2PosX, float c2PosY, float c2Radius)
 	{
-		c1PosX = (float)(c1PosX * Math.cos(-c1Orientation) - c1PosY * Math.sin(-c1Orientation));
-		c1PosY = (float)(c1PosX * Math.sin(-c1Orientation) + c1PosY * Math.cos(-c1Orientation));
-		c2PosX = (float)(c2PosX * Math.cos(-c1Orientation) - c2PosY * Math.sin(-c1Orientation));
-		c2PosY = (float)(c2PosX * Math.sin(-c1Orientation) + c2PosY * Math.cos(-c1Orientation));
+		float c1PosX2 = (float)(c1PosX * Math.cos(-c1Orientation) - c1PosY * Math.sin(-c1Orientation));
+		float c1PosY2 = (float)(c1PosX * Math.sin(-c1Orientation) + c1PosY * Math.cos(-c1Orientation));
 		
-		return testAACircle(c1PosX, c1PosY, c1HalfExtentX, c1HalfExtentY, c2PosX, c2PosY, c2Radius);
+		float c2PosX2 = (float)(c2PosX * Math.cos(-c1Orientation) - c2PosY * Math.sin(-c1Orientation));
+		float c2PosY2 = (float)(c2PosX * Math.sin(-c1Orientation) + c2PosY * Math.cos(-c1Orientation));
+		
+		return testAACircle(c1PosX2, c1PosY2, c1HalfExtentX, c1HalfExtentY, c2PosX2, c2PosY2, c2Radius);
 	}
 	
 	private boolean testAAAA(float c1PosX, float c1PosY, float c1HalfExtentX, float c1HalfExtentY, float c2PosX, float c2PosY, float c2HalfExtentX, float c2HalfExtentY)
