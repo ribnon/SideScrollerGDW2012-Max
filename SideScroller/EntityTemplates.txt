@@ -1,6 +1,6 @@
 Template slidingPlatform
 Component StaticSprite
-path=../assets/staticSprites/background/background_bridge_1.png
+path=assets/staticSprites/background/background_bridge_1.png
 Component PathFollow
 waypoints=50;50 50;200 200;50
 speed=20.0
@@ -10,7 +10,7 @@ halfExtentY=8
 #
 Template Player
 Component AnimatedSprite
-path=../assets/spritesheets/teddy_anim.png
+path=assets/spritesheets/teddy_anim.png
 tileWidth=64
 tileHeight=64
 Component PlayerInput

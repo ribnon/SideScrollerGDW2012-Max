@@ -14,9 +14,11 @@ import gdw.network.client.ServerInfo;
 public class ClientListener implements IBasicClientListener {
 
 	LinkedList<ServerInfo> servers;
+	Client owner;
 	
-	public ClientListener(){
+	public ClientListener(Client o){
 		servers = new LinkedList<ServerInfo>();
+		owner = o;
 	}
 	
 	@Override
@@ -42,7 +44,8 @@ public class ClientListener implements IBasicClientListener {
 	public void connectionEstablished(BasicClient clientRef) {
 		System.out.println("Connection to " + clientRef.id);
 		NetSubSystem.initalise(0, false, clientRef);
-		Level.getInstance().start();
+		owner.setConnected(true);
+		//Level.getInstance().start();
 	}
 
 	@Override
