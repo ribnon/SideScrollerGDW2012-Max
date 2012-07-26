@@ -240,9 +240,17 @@ public class PlayerInputComponent extends Component {
 					SpriteComponent.COMPONENT_TYPE);
 			if (spritecomp != null) {
 				if (!tmpmsg.isForwardDirection()) {
-					spritecomp.setFlipped(true);
+					if (isUnflippedRight)
+						spritecomp.setFlipped(true);
+					else
+						spritecomp.setFlipped(false);
+					directionIsRight = false;
 				} else {
-					spritecomp.setFlipped(false);
+					if (isUnflippedRight)
+						spritecomp.setFlipped(false);
+					else
+						spritecomp.setFlipped(true);
+					directionIsRight = true;
 				}
 			}
 			return;
