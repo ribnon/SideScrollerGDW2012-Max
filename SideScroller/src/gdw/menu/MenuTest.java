@@ -24,8 +24,17 @@ public class MenuTest extends BasicGame
 	@Override
 	public void init(GameContainer arg0) throws SlickException
 	{
-		lobby.addToServerList("Foo");
-		lobby.addToServerList("Bar");
+		lobby.addToServerList("Rainbow Dash");
+		lobby.addToServerList("Pinkie Pie");
+		lobby.addToServerList("Fluttershy");
+		lobby.addToServerList("Rarity");
+		lobby.addToServerList("Applejack");
+		lobby.addToServerList("Twilight Sparkle");
+		lobby.addToServerList("Celestia");
+		lobby.addToServerList("Luna");
+		lobby.addToServerList("Scootaloo");
+		lobby.addToServerList("Applebloom");
+		lobby.addToServerList("Sweetie Belle");
 	}
 
 	@Override
@@ -40,7 +49,7 @@ public class MenuTest extends BasicGame
 	public static void main(String[] args) throws SlickException
 	{
 		AppGameContainer app = new AppGameContainer(new MenuTest());
-		app.setDisplayMode(800, 400, false);
+		app.setDisplayMode(800, 300, false);
 		app.start();
 	}
 

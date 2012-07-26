@@ -15,7 +15,10 @@ public class LobbyMenu
 	private ArrayList<String> serverList = new ArrayList<String>();
 	private int serverListDisplayStartIndex = 0;
 	private boolean isNameFieldActive = false;
-	private int currentActiveServerField = 0;
+	private int currentActiveServerIndex = 0;
+	private int currentIndexOnTopOfList = 0;
+
+	// TODO: scrolling
 
 	public LobbyMenu()
 	{
@@ -38,7 +41,7 @@ public class LobbyMenu
 
 	public String getSelectedServer()
 	{
-		return serverList.get(currentActiveServerField);
+		return serverList.get(currentActiveServerIndex);
 	}
 
 	private void onPlayerNameClick()
@@ -78,12 +81,45 @@ public class LobbyMenu
 		currentDrawY += lineHeight / 2;
 		graphics.drawRect(0.01f * width, currentDrawY, 0.99f * width - 0.01f
 				* width, 0.99f * height - currentDrawY);
+
+		// server list entries
+		//upwards arrow
+		if (currentIndexOnTopOfList != 0)
+		{
+			int widthOfDownwardCharacter = graphics.getFont().getWidth("^");
+			graphics.drawString("^", width / 2.0f
+					- widthOfDownwardCharacter, currentDrawY + textPadding);
+			currentDrawY += lineHeight + textPadding;
+		}
 		
-		 // server list entries
-		 for (int i = 0; i < serverList.size(); i++)
-		 {
-			 graphics.drawString(serverList.get(i), 0.01f * width + textPadding, currentDrawY + textPadding);
-			 currentDrawY += lineHeight + textPadding;
-		 }
+		int maxNumServerListEntries = maxNumServerListEntries((0.99f * height)
+				- (currentDrawY + textPadding), lineHeight, textPadding);
+		int numberOfLines;
+		if (maxNumServerListEntries > serverList.size() - currentIndexOnTopOfList)
+			numberOfLines = serverList.size() - currentIndexOnTopOfList;
+		else
+			numberOfLines = maxNumServerListEntries;
+		for (int i = 0; i < numberOfLines; i++)
+		{
+			if (i == numberOfLines - 1
+					&& numberOfLines == maxNumServerListEntries)
+			{
+				int widthOfDownwardCharacter = graphics.getFont().getWidth("v");
+				graphics.drawString("v", width / 2.0f
+						- widthOfDownwardCharacter, currentDrawY + textPadding);
+			} else
+			{
+				graphics.drawString(
+						serverList.get(i + currentIndexOnTopOfList), 0.01f * width
+						+ textPadding, currentDrawY + textPadding);
+			}
+			currentDrawY += lineHeight + textPadding;
+		}
+	}
+
+	int maxNumServerListEntries(float availableSpaceY, int lineheight,
+			int padding)
+	{
+		return (int) (availableSpaceY / (lineheight + padding));
 	}
 }
