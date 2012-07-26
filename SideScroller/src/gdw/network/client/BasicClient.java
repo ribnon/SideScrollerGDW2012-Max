@@ -373,7 +373,8 @@ public class BasicClient implements INetworkBridge
 		} catch (IOException e)
 		{
 			e.printStackTrace();
-			return;
+			this.discoFlag = true;
+			this.disconnect();
 		}
 		if (counter > 0)
 		{
