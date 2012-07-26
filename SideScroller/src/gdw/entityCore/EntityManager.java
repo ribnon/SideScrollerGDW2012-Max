@@ -101,6 +101,16 @@ public class EntityManager {
 	public void loadEntitiesFromLevel(){
 		//TODO: Implement
 	}
+	
+	/**
+	 * Nuke the site from Orbit.
+	 */
+	public void deleteAllEntities(){
+		for(Entity ent: entities.values()){
+			ent.destroy();
+		}
+	}
+	
 	void unregisterEntity(Entity entity){
 		entities.remove(entity.getID());
 	}

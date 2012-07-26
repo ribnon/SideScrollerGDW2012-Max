@@ -1,4 +1,9 @@
+Template DiesIstEinTest
+Component StaticSprite
+image=assets/teddy.png
+
 Template Mein_Testtemplate
+Base DiesIstEinTest
 Component Network
 Component CircleCollisionDetection
 radius=5
