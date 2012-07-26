@@ -14,7 +14,8 @@ public class PlayerInputComponentTemplate extends ComponentTemplate {
 	 * PlayerInputComponentTemplate constructor which initializes:
 	 * DownKey(:String), JumpKey(:String), LeftKey(:String), RightKey(:String),
 	 * AttackKey(:String), SpecialAttackKey(:String), JumpVelocity(:float),
-	 * RunVelocity(:float)
+	 * RunVelocity(:float) StringValues can be found in
+	 * PlayerInputComponentManager
 	 * 
 	 * @param params
 	 */
