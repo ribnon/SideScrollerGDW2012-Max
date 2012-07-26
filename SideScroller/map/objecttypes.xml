@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="ColorBucket" color="#aaaaff"/>
+ <objecttype name="MoveableObject" color="#ff0000"/>
+ <objecttype name="Enemy" color="#aa007f"/>
+ <objecttype name="HotButton" color="#55ff00"/>
+ <objecttype name="Rainbow" color="#ffff00"/>
+ <objecttype name="RotatableObject" color="#ffaa7f"/>
+ <objecttype name="HazardousLiquid" color="#5500ff"/>
+ <objecttype name="PlayerStart" color="#a0a0a4"/>
+ <objecttype name="LevelEnd" color="#ffffff"/>
+ <objecttype name="DeadlySpikes" color="#55007f"/>
+ <objecttype name="StaticSprite" color="#55ffff"/>
+</objecttypes>
