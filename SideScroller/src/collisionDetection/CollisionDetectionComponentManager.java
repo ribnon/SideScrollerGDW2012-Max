@@ -365,18 +365,37 @@ public class CollisionDetectionComponentManager
 		float distanceX = Math.abs(circleX - rectX);
 		float distanceY = Math.abs(circleY - rectY);
 		
+		float pointX;
+		float pointY;
+		
 		if ((distanceX >= circleRadius + rectExtX) ||
 			(distanceY >= circleRadius + rectExtY))
 			return false;
 		
-		if ((rectExtX + circleRadius > distanceX) ||
-			(rectExtY + circleRadius > distanceY))
-			return true;
+		if (circleX > rectX)
+			pointX = rectX + rectExtX;
+		else
+			pointX = rectX - rectExtX;
 		
-		float distanceCircleRectX = distanceX - rectExtX;
-		float distanceCircleRectY = distanceY - rectExtY;
-		float distanceCircleRect = distanceCircleRectX * distanceCircleRectX + distanceCircleRectY * distanceCircleRectY;
-		return distanceCircleRect < circleRadius * circleRadius;
+		if (circleY > rectY)
+			pointY = rectY + rectExtY;
+		else
+			pointY = rectY - rectExtY;
+		
+		float diffX = circleX - pointX;
+		float diffY = circleY - pointY;
+		
+		if (diffX * diffX + diffY * diffY < circleRadius * circleRadius) return true;
+		
+		if ((circleX > rectX - rectExtX && circleX < rectX + rectExtX) ||
+			(circleY > rectY - rectExtY && circleY < rectY + rectExtY))
+		{
+			if ((distanceX < circleRadius + rectExtX) ||
+				(distanceY < circleRadius + rectExtY))
+				return true;
+		}
+		
+		return false;
 	}
 	
 	private boolean testOOOO(float posX1, float posY1, float posX2, float posY2, float halfX1, float halfY1, float halfX2, float halfY2, float angle1, float angle2)
