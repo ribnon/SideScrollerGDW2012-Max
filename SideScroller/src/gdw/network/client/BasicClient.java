@@ -145,8 +145,12 @@ public class BasicClient implements INetworkBridge
 			buf.put(NETCONSTANTS.MAGIC_LOGIN_CODE);// magic code
 			buf.putInt(udpSocket.socket().getLocalPort());// udp port
 			buf.put(NETCONSTANTS.CONNECT);//what we want
-			additionalData.flip();
-			buf.put(additionalData);
+			if(additionalData != null)
+			{
+				additionalData.flip();
+				buf.put(additionalData);
+			}
+			
 			buf.flip();
 
 			// connect
