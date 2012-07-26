@@ -59,6 +59,7 @@ public class EntityTemplate {
 		Entity ent = EntityManager.getInstance().createEntity(id, whereX, whereY, orientation, this);
 		for(ComponentTemplate compTemplate: componentTemplateMap.values()){
 			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
+			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isGhostOnly() && NetSubSystem.getInstance().isServer()) continue;
 			if(compTemplate == null)
 				System.out.println("compTemplate null");
 			ent.addComponent(compTemplate.createComponent());

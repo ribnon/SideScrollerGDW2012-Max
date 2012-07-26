@@ -23,9 +23,9 @@ public class EnemyBehaviorComponent extends Component
 	{
 		super(template);
 		
-		if (template != null && template instanceof EnemyBehaviorComponenTemplate)
+		if (template != null && template instanceof EnemyBehaviorComponentTemplate)
 		{
-			EnemyBehaviorComponenTemplate temp = (EnemyBehaviorComponenTemplate) template;
+			EnemyBehaviorComponentTemplate temp = (EnemyBehaviorComponentTemplate) template;
 			this.hostile = temp.isHostile();
 			this.aggroRange = temp.getAggroRange();
 			this.shootEntityTemplate = temp.getShootEntityTemplate();
