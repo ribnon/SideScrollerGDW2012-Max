@@ -7,18 +7,30 @@ import gdw.entityCore.ComponentTemplate;
 
 public class PivotRotationComponentTemplate extends ComponentTemplate
 {
-
+	private float pivotX;
+	private float pivotY;
+	
 	protected PivotRotationComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
-		// TODO Auto-generated constructor stub
+		pivotX = getFloatParam("pivotX", 0.0f);
+		pivotY = getFloatParam("pivotY", 0.0f);
 	}
 
 	@Override
 	public Component createComponent()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new PivotRotationComponent(this);
+	}
+
+	public float getPivotX()
+	{
+		return pivotX;
+	}
+
+	public float getPivotY()
+	{
+		return pivotY;
 	}
 
 }

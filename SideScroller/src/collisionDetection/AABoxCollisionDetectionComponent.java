@@ -11,8 +11,17 @@ public class AABoxCollisionDetectionComponent extends CollisionDetectionComponen
 	{
 		super(template, CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX);
 		
-		halfExtentX = template.getFloatParam("halfExtentX", 1.0f);
-		halfExtentY = template.getFloatParam("halfExtentY", 1.0f);
+		if (template instanceof AABoxCollisionDetectionComponentTemplate)
+		{
+			halfExtentX = ((AABoxCollisionDetectionComponentTemplate) template).getHalfExtentX();
+			halfExtentY = ((AABoxCollisionDetectionComponentTemplate) template).getHalfExtentY();
+		}
+		else
+		{
+			halfExtentX = 1.0f;
+			halfExtentY = 1.0f;
+		}
+		
 		CollisionDetectionComponentManager.getInstance().registerAABoxCollisionDetectionComponent(this);
 	}
 	
