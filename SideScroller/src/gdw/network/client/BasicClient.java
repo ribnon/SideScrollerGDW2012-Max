@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SocketChannel;
 /**
@@ -372,7 +373,8 @@ public class BasicClient implements INetworkBridge
 
 		} catch (IOException e)
 		{
-			e.printStackTrace();
+			this.discoFlag = true;
+			this.disconnect();
 			return;
 		}
 		if (counter > 0)

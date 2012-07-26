@@ -68,11 +68,11 @@ public class Level {
 			e.printStackTrace();
 			throw new RuntimeException("Entity-Templatefile nicht gefunden. Bitte general.templates erstellen.");
 		}
-		EntityTemplateManager.getInstance().loadEntityTemplatesFromLevel();
+	//	EntityTemplateManager.getInstance().loadEntityTemplatesFromLevel();
 		try {
 			EntityManager.getInstance().loadEntities("general.entities");
 		} catch (IOException e) {}
-		EntityManager.getInstance().loadEntitiesFromLevel();
+		//EntityManager.getInstance().loadEntitiesFromLevel();
 	}
 	
 	public void levelFinished(){
