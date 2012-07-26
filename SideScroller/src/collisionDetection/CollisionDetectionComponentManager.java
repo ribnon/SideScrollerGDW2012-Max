@@ -22,7 +22,9 @@ public class CollisionDetectionComponentManager
 		
 		if (useQuadTree) 
 		{
-			
+			int mapWidth = Level.getInstance().getMapWidth();
+			int mapHeight = Level.getInstance().getMapHeight();
+			quadTree = new CollisionQuadTree(3, mapWidth, mapHeight);
 		}
 		else quadTree = null;
 	}
@@ -59,9 +61,12 @@ public class CollisionDetectionComponentManager
 	/////////////////////////////////////////////////////////////////
 	// Methods for collision detection using a quadtree
 	
-	public void detectCollision(CollisionDetectionComponent comp)
+	public void detectCollisions(Entity e)
 	{
 		if (quadTree == null) return;
+		CollisionDetectionComponent comp = (CollisionDetectionComponent) e.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		if (comp == null) return;
+		
 		quadTree.updateRect(comp.getTreeRect());
 		ArrayList<CollisionQuadTreeRect> candidates = quadTree.getColliders(comp.getTreeRect());
 		
