@@ -10,7 +10,7 @@ public class FollowComponentTemplate extends ComponentTemplate
 {
 	private EntityReference targetEntityID;	
 	
-	protected FollowComponentTemplate(HashMap<String, String> params)
+	public FollowComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		

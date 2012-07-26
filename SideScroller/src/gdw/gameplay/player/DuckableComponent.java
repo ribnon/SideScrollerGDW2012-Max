@@ -35,7 +35,7 @@ public class DuckableComponent extends Component {
 	 */
 	private final float originalSizeY;
 
-	protected DuckableComponent(ComponentTemplate template) {
+	public DuckableComponent(ComponentTemplate template) {
 		super(template);
 		duckedSizeX = template.getFloatParam("duckedSizeX");
 		duckedSizeY = template.getFloatParam("duckedSizeY");

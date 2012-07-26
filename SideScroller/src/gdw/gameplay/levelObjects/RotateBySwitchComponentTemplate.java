@@ -11,7 +11,7 @@ public class RotateBySwitchComponentTemplate extends ComponentTemplate
 	private float deactivateRotation;
 	private float angularVelocity;
 	
-	protected RotateBySwitchComponentTemplate(HashMap<String, String> params)
+	public RotateBySwitchComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		activateRotation = getFloatParam("activateRotation", 0.0f);
