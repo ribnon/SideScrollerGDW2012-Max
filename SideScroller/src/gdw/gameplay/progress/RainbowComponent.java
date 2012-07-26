@@ -13,9 +13,8 @@ public class RainbowComponent extends Component {
 	
 	protected RainbowComponent(ComponentTemplate template) {
 		super(template);
-		RainbowComponentTemplate t = (RainbowComponentTemplate) template;
-		active = t.isActive();
-		checkPointNumber = t.getCheckPointNumber();
+		active = ((RainbowComponentTemplate) template).isActive();
+		checkPointNumber = ((RainbowComponentTemplate) template).getCheckPointNumber();
 	}
 	
 	public float getHealthIncrement()
