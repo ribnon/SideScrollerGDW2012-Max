@@ -63,6 +63,7 @@ public class EntityTemplate {
 				System.out.println("compTemplate null");
 			ent.addComponent(compTemplate.createComponent());
 		}
+		ent.message(new EntityConstructedMessage());
 		return ent;
 	}
 }
