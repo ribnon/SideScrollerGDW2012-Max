@@ -12,7 +12,7 @@ public class SwitchUserComponentTemplate extends ComponentTemplate {
 	public SwitchUserComponentTemplate(HashMap<String, String> params) {
 		super(params);
 
-		int value = super.getIntegerParam("HitTrigger");
+		int value = super.getIntegerParam("HitTrigger", 0);
 		if (value == 0)
 			hitTrigger = false;
 		else if (value == 1)
