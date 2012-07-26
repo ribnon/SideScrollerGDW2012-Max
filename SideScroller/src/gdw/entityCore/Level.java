@@ -1,5 +1,14 @@
 package gdw.entityCore;
 
+import gdw.network.NetSubSystem;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Level {
@@ -12,10 +21,18 @@ public class Level {
 		return instance;
 	}
 	private Level(){
-		//TODO: Implement
+		try {
+			BufferedReader rdr = new BufferedReader(new FileReader("levels.txt"));
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			throw new RuntimeException("Levelliste nicht gefunden. Bitte levels.txt erstellen.");
+		}
 	}
 	
 	private TiledMap map = null;
+	private ArrayList<String> mapNames = new ArrayList<String>();
+	private int levelIndex=0;
 	
 	public int getMapWidth(){
 		return map.getWidth();
@@ -29,11 +46,38 @@ public class Level {
 		return map;
 	}
 	
+	public void start(){
+		levelIndex=0;
+		loadLevel(mapNames.get(levelIndex));
+	}
+	
 	public void loadLevel(String name){
-		//TODO: Implement
+		try {
+			map = new TiledMap(name);
+		} catch (SlickException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			throw new RuntimeException("Levelliste nicht gefunden. Bitte levels.txt erstellen.");
+		}	
+		EntityManager.getInstance().deleteAllEntities();
+		EntityTemplateManager.getInstance().reinitialize();
+		try {
+			EntityTemplateManager.getInstance().loadEntityTemplates("general.templates");
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			throw new RuntimeException("Entity-Templatefile nicht gefunden. Bitte general.templates erstellen.");
+		}
+		EntityTemplateManager.getInstance().loadEntityTemplatesFromLevel();
+		try {
+			EntityManager.getInstance().loadEntities("general.entities");
+		} catch (IOException e) {}
+		EntityManager.getInstance().loadEntitiesFromLevel();
 	}
 	
 	public void levelFinished(){
-		//TODO: Implement
+		if(!EntityManager.getInstance().isOfflineMode()) if(!NetSubSystem.getInstance().isServer()) return;
+		levelIndex=(levelIndex+1)%mapNames.size();
+		loadLevel(mapNames.get(levelIndex));
 	}
 }

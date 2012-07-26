@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.newdawn.slick.tiled.TiledMap;
+
 public class EntityTemplateManager {
 	//Singleton-Stuff:
 	private static EntityTemplateManager instance = null;
@@ -81,9 +83,15 @@ public class EntityTemplateManager {
 	}
 	
 	public void loadEntityTemplatesFromLevel(){
-		//TODO Implement
+		TiledMap map = Level.getInstance().getMap();
+		//Kollision: Collision
+		//Objekte: Objects
 	}
 	
+	public void reinitialize(){
+		entityTemplates.clear();
+		
+	}
 	
 	public EntityTemplate getEntityTemplate(String name){
 		if(entityTemplates.containsKey(name)){
