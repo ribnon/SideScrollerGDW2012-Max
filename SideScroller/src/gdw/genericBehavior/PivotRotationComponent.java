@@ -5,7 +5,7 @@ import gdw.entityCore.ComponentTemplate;
 
 public class PivotRotationComponent extends Component
 {
-	public static final int COMPONENT_TYPE = 0;
+	public static final int COMPONENT_TYPE = 26;
 	
 	private float pivotX;
 	private float pivotY;
@@ -13,8 +13,16 @@ public class PivotRotationComponent extends Component
 	protected PivotRotationComponent(ComponentTemplate template)
 	{
 		super(template);
-		pivotX = template.getFloatParam("pivotX", 0.0f);
-		pivotY = template.getFloatParam("pivotY", 0.0f);
+		if(template instanceof PivotRotationComponentTemplate)
+		{
+			pivotX = ((PivotRotationComponentTemplate) template).getPivotX();
+			pivotY = ((PivotRotationComponentTemplate) template).getPivotY();
+		}
+		else
+		{
+			pivotX = 0.0f;
+			pivotY = 0.0f;
+		}
 	}
 
 	@Override
@@ -42,6 +50,27 @@ public class PivotRotationComponent extends Component
 		
 		orientation += angle;
 		
-		getOwner().setPos(posXnew, posYnew)
+		getOwner().setPos(posXnew, posYnew);
+		getOwner().setOrientation(orientation);
+	}
+
+	public float getPivotX()
+	{
+		return pivotX;
+	}
+
+	public void setPivotX(float pivotX)
+	{
+		this.pivotX = pivotX;
+	}
+
+	public float getPivotY()
+	{
+		return pivotY;
+	}
+
+	public void setPivotY(float pivotY)
+	{
+		this.pivotY = pivotY;
 	}
 }

@@ -9,7 +9,6 @@ import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Message;
-import gdw.network.client.BasicClient;
 import gdw.network.messageType.DeadReckoningNetMessage;
 import gdw.network.messageType.EntityBusNetMessage;
 import gdw.network.messageType.EntityDeSpawnNetMessage;
@@ -34,17 +33,7 @@ public class NetSubSystem
 	 */
 	private final boolean serverFlag;
 	
-	/**
-	 * Eine Referenz auf den Clientkomponente, nötig um Nachrichten als
-	 * Client zu feuern. Null wenn Server
-	 */
-	private final BasicClient clientRef;
-	
-	/**
-	 * Eine Referenz auf die Serverkomponenten, nötig um Nachrichten als
-	 * Server zu feueren. NUll wenn client
-	 */
-	private final BasicServer serverRef;
+	private final INetworkBridge ref;
 	
 	private long lastTimeSync;
 	
@@ -60,12 +49,11 @@ public class NetSubSystem
 	private final LinkedList<TimeSyncMessage> listOfTimeSyncMessages;
 	
 	
-	private NetSubSystem(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
+	private NetSubSystem(int playerID, boolean serverFlag, INetworkBridge ref)
 	{
 		this.playerID = playerID;
 		this.serverFlag = serverFlag;
-		this.clientRef = cRef;
-		this.serverRef = sRef;
+		this.ref = ref;
 		this.listOfNetComponents = new LinkedList<NetComponent>();
 		this.listOfSpawnMessages = new LinkedList<EntitySpawnNetMessage>();
 		this.listOfBusMessages = new LinkedList<EntityBusNetMessage>();
@@ -78,15 +66,15 @@ public class NetSubSystem
 		
 	}
 	
-	//wenn man was ändert ohne es zu raffen ist es schieße -.-
-	public static void initalise(int playerID, boolean serverFlag, BasicClient cRef, BasicServer sRef)
+	//wenn man was ändert ohne es zu raffen ist es scheiße -.-
+	public static void initalise(int playerID, boolean serverFlag, INetworkBridge ref)
 	{
 		if(NetSubSystem.singelton != null)
 		{
 			System.out.println("Alter ich wurde schon gebaut, ich ignorie das mal");
 			return;
 		}
-		NetSubSystem.singelton = new NetSubSystem(playerID, serverFlag, cRef, sRef);
+		NetSubSystem.singelton = new NetSubSystem(playerID, serverFlag, ref);
 	}
 	
 	public static NetSubSystem getInstance()
@@ -94,7 +82,6 @@ public class NetSubSystem
 		return NetSubSystem.singelton;
 	}
 	
-	//singelton
 	public int getPlayerID()
 	{
 		return this.playerID;
@@ -107,13 +94,7 @@ public class NetSubSystem
 	
 	public void pollMessages()
 	{
-		if(this.serverFlag)
-		{
-			this.serverRef.processInputData();
-		}else
-		{
-			this.clientRef.pollInput();
-		}
+		this.ref.pollNetInput();
 	}
 	
 	public void processMessage(ByteBuffer buf)
@@ -213,7 +194,7 @@ public class NetSubSystem
 	
 	private void sendDeadReckAndAddRoundtip(ByteBuffer buf, int writePositon)
 	{
-		LinkedList<BasicClientConnection> clients = this.serverRef.getAllConnected();
+		LinkedList<BasicClientConnection> clients =  ((BasicServer)this.ref).getAllConnected();
 		int oldPostion = buf.position();
 		while(!clients.isEmpty())
 		{
@@ -234,45 +215,46 @@ public class NetSubSystem
 			//spawn
 			while(!this.listOfSpawnMessages.isEmpty())
 			{
-				buf = this.serverRef.getMessageBuffer();
+				buf = this.ref.getMessageBuffer();
 				EntitySpawnNetMessage.fillInByteBuffer(this.listOfSpawnMessages, buf);
-				this.serverRef.sendToAll(buf, true);
+				this.ref.sendMessage(buf, true);
 			}
 			//deadReck
 			while(!this.listOfDeadReckonigMessages.isEmpty())
 			{
-				buf = this.serverRef.getMessageBuffer();
+				buf = this.ref.getMessageBuffer();
 				DeadReckoningNetMessage.fillInByteBuffer(listOfDeadReckonigMessages, buf);
 				sendDeadReckAndAddRoundtip(buf, DeadReckoningNetMessage.ROUNDTIP_WRITE_POSITION);
 			}
 			//tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
-				buf = this.serverRef.getMessageBuffer();
+				buf = this.ref.getMessageBuffer();
 				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
-				this.serverRef.sendToAll(buf, true);
+				this.ref.sendMessage(buf, true);
 			}
 			//deSpawn
 			while(!this.listOfDeSpawnMessages.isEmpty())
 			{
-				buf = this.serverRef.getMessageBuffer();
+				buf = this.ref.getMessageBuffer();
 				EntityDeSpawnNetMessage.fillInByteBuffer(this.listOfDeSpawnMessages, buf);
+				this.ref.sendMessage(buf, true);
 			}
 		}else
 		{
 			while(!this.listOfTimeSyncMessages.isEmpty())
 			{
-				buf = this.clientRef.getMessageBuffer();
+				buf = this.ref.getMessageBuffer();
 				TimeSyncMessage.fillInByteBuffer(this.listOfTimeSyncMessages.poll(), buf, playerID);
-				this.clientRef.sendMessage(buf, false);
+				this.ref.sendMessage(buf, false);
 			}
 			
 			//nur tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
-				buf = this.clientRef.getMessageBuffer();
+				buf = this.ref.getMessageBuffer();
 				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
-				this.clientRef.sendMessage(buf, true);
+				this.ref.sendMessage(buf, true);
 			}
 		}
 		long currTimeStamp = System.currentTimeMillis();

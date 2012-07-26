@@ -1,6 +1,7 @@
 package gdw.network.server;
 
 import gdw.network.NETCONSTANTS;
+import gdw.network.INetworkBridge;
 import gdw.network.RESPONSECODES;
 import gdw.utils.DefaultCharSet;
 
@@ -13,7 +14,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class BasicServer
+public abstract class BasicServer implements INetworkBridge
 {
 	// *threads*
 
@@ -235,6 +236,33 @@ public abstract class BasicServer
 		this.broadcastResponse.position(0);
 	}
 
+	@Override
+	public void pollNetInput()
+	{
+		this.processIncoming();
+		Iterator<Integer> iter = this.clientConnections.keySet().iterator();
+		LinkedList<Integer> toLeave = new LinkedList<Integer>();
+		while (iter.hasNext())
+		{
+			Integer pos = iter.next();
+			BasicClientConnection client = this.clientConnections.get(pos);
+			if (client.checkForDisconnect(System.currentTimeMillis()))
+			{
+				toLeave.add(pos);				
+			}
+		}
+		while (!toLeave.isEmpty())
+		{
+			disconnectPlayer(this.clientConnections.get(toLeave.pop()));
+		}
+		iter = this.clientConnections.keySet().iterator();
+		while (iter.hasNext())
+		{
+			this.clientConnections.get(iter.next()).pollInput();
+		}
+	}
+	
+	
 	protected void addJoinRequest(ConnectionInfo info, ByteBuffer data)
 	{
 		if(blockNewconncector)
@@ -467,39 +495,6 @@ public abstract class BasicServer
 			sendErrorCodeToRequestAndClose(RESPONSECODES.CONNECT_REFUSE, this.joinRequests.poll().info);
 		}
 	}
-	
-	public ByteBuffer getMessageBuffer()
-	{
-		ByteBuffer buf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
-		buf.put(NETCONSTANTS.MESSAGE);
-		return buf;
-	}
-
-	public void processInputData()
-	{
-		this.processIncoming();
-		Iterator<Integer> iter = this.clientConnections.keySet().iterator();
-		LinkedList<Integer> toLeave = new LinkedList<Integer>();
-		while (iter.hasNext())
-		{
-			Integer pos = iter.next();
-			BasicClientConnection client = this.clientConnections.get(pos);
-			if (client.checkForDisconnect(System.currentTimeMillis()))
-			{
-				toLeave.add(pos);				
-			}
-		}
-		while (!toLeave.isEmpty())
-		{
-			disconnectPlayer(this.clientConnections.get(toLeave.pop()));
-		}
-		iter = this.clientConnections.keySet().iterator();
-		while (iter.hasNext())
-		{
-			this.clientConnections.get(iter.next()).pollInput();
-		}
-
-	}
 
 	protected abstract void playerDisconnected(BasicClientConnection client);
 	
@@ -522,17 +517,6 @@ public abstract class BasicServer
 		}
 		--this.currentConnections;
 
-	}
-
-	public void sendToAll(ByteBuffer buf, boolean reliable)
-	{
-		Iterator<Integer> iter = this.clientConnections.keySet().iterator();
-		while (iter.hasNext())
-		{
-			BasicClientConnection client = this.clientConnections.get(iter.next());
-			if(!client.isDisconnectFlaged())	
-				client.sendMSG(buf, reliable);
-		}
 	}
 
 	public int getMaxPlayer()
@@ -644,5 +628,25 @@ public abstract class BasicServer
 	protected ByteBuffer getBroadcastResponse()
 	{
 		return broadcastResponse;
+	}
+	
+	public ByteBuffer getMessageBuffer()
+	{
+		ByteBuffer buf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
+		buf.clear();
+		buf.put(NETCONSTANTS.MESSAGE);
+		return buf;
+	}
+	
+	public void sendMessage(ByteBuffer msg, boolean reliable)
+	{
+		//ist send to all
+		Iterator<Integer> iter = this.clientConnections.keySet().iterator();
+		while (iter.hasNext())
+		{
+			BasicClientConnection client = this.clientConnections.get(iter.next());
+			if(!client.isDisconnectFlaged())	
+				client.sendMSG(msg, reliable);
+		}
 	}
 }

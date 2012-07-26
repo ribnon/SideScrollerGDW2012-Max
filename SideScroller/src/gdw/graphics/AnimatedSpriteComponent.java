@@ -72,6 +72,13 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		super(template);
 		AnimatedSpriteComponentTemplate t = (AnimatedSpriteComponentTemplate) template;
 		
+		setScale(t.getScale());
+		setFilter(t.getFilter());
+		setPivotX(t.getPivotX());
+		setPivotY(t.getPivotY());
+		setLayer(t.getLayer());
+		setFlipped(t.isFlipped());
+		
 		spriteSheet = t.getSpriteSheet();
 		cycleLength = t.getCycleLength();
 		cycle = t.getCycle();

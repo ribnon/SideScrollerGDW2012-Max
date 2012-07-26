@@ -57,13 +57,6 @@ public abstract class SpriteComponent extends Component
 	public SpriteComponent(ComponentTemplate template)
 	{
 		super(template);
-		SpriteComponentTemplate t = (SpriteComponentTemplate) template;
-		scale = t.getScale();
-		filter = t.getFilter();
-		pivotX = t.getPivotX();
-		pivotY = t.getPivotY();
-		layer = t.getLayer();
-		flipped = t.isFlipped();
 	}
 
 	/**

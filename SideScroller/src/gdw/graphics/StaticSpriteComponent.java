@@ -17,6 +17,7 @@ public class StaticSpriteComponent extends SpriteComponent
 	/**
 	 * Image for sprite
 	 */
+	
 	private Image image;
 
 	/**
@@ -27,6 +28,14 @@ public class StaticSpriteComponent extends SpriteComponent
 	{
 		super(template);
 		StaticSpriteComponentTemplate t = (StaticSpriteComponentTemplate) template;
+		
+		setScale(t.getScale());
+		setFilter(t.getFilter());
+		setPivotX(t.getPivotX());
+		setPivotY(t.getPivotY());
+		setLayer(t.getLayer());
+		setFlipped(t.isFlipped());
+		
 		image = t.getImage();
 		
 		SpriteManager.getInstance().addSprite(this);
