@@ -48,11 +48,14 @@ public class CollisionDetectionComponentManager
 	
 	public static CollisionDetectionComponentManager getInstance()
 	{
-		if (collisionDetectionComponentManager == null) collisionDetectionComponentManager = new CollisionDetectionComponentManager(false);
+		if (collisionDetectionComponentManager == null) collisionDetectionComponentManager = new CollisionDetectionComponentManager(true);
 		return collisionDetectionComponentManager;
 	}
 	
-	
+	public boolean usingQuadTree()
+	{
+		return quadTree != null;
+	}
 	
 	/////////////////////////////////////////////////////////////////
 	// Check all objects for collision (WITHOUT quadtree)

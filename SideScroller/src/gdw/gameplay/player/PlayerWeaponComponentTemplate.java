@@ -14,7 +14,7 @@ public class PlayerWeaponComponentTemplate extends ComponentTemplate
 	protected PlayerWeaponComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
-		String 
+		healthIncrement = getFloatParam("healthIncrement", 0.0f);
 	}
 
 	@Override

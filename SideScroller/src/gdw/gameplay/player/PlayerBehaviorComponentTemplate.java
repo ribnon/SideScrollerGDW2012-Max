@@ -25,7 +25,7 @@ public class PlayerBehaviorComponentTemplate extends ComponentTemplate
 		deathTimer = getFloatParam("deathTimer",0f);
 		deathTimerDuration = getFloatParam("deathTimerDuration",3000f);
 		hitDuration = getFloatParam("hitDuration",0f);
-		hitActive = getFloatParam("hitActive",250f);
+		hitActive = getFloatParam("hitActive",0.0f);
 		healthChangeInterval = getFloatParam("helthChangeInterval",500.0f);
 		healthChangeTimer = getFloatParam("healthChangeTimer", 0f);
 	}
