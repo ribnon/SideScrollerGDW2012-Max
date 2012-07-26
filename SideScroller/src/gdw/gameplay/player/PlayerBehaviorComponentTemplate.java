@@ -18,14 +18,14 @@ public class PlayerBehaviorComponentTemplate extends ComponentTemplate
 	private float healthChangeInterval;
 	private float healthChangeTimer;
 
-	protected PlayerBehaviorComponentTemplate(HashMap<String, String> params)
+	public PlayerBehaviorComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		healthPercent = getFloatParam("healthPercent",100f);
 		deathTimer = getFloatParam("deathTimer",0f);
 		deathTimerDuration = getFloatParam("deathTimerDuration",3000f);
 		hitDuration = getFloatParam("hitDuration",0f);
-		hitActive = getFloatParam("hitActive",0.0f);
+		hitActive = getFloatParam("hitActive",250f);
 		healthChangeInterval = getFloatParam("helthChangeInterval",500.0f);
 		healthChangeTimer = getFloatParam("healthChangeTimer", 0f);
 	}
