@@ -19,10 +19,12 @@ public class ClientListener implements IBasicClientListener {
 	public void serverResponce(ServerInfo info) {
 		for(int i = 0; i < servers.size(); ++i)
 		{
+			System.out.println("found Server");
 			if(info.id == servers.get(i).id)
 				return;
 		}
 		servers.add(info);
+		System.out.println("Server " + info.address + " found");
 	}
 
 	@Override
@@ -33,7 +35,7 @@ public class ClientListener implements IBasicClientListener {
 
 	@Override
 	public void connectionEstablished(BasicClient clientRef) {
-		// TODO Auto-generated method stub
+		System.out.println("Connection to " + clientRef.id);
 
 	}
 
