@@ -24,7 +24,6 @@ public class StaticSpriteComponentTemplate extends ComponentTemplate
 		try {
 			image = new Image(getStringParam("Path", ""));
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
