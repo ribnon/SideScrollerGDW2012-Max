@@ -24,7 +24,7 @@ public class SwitchComponentTemplate extends ComponentTemplate {
 		super(params);
 
 		targetEntity = super.getEntityReferenceParam("TargetEntity");
-		String strtype = super.getStringParam("SwitchType");
+		String strtype = super.getStringParam("SwitchType", "Hit");
 		if (strtype.equals("Hit")) {
 			type = SwitchType.Hit;
 		} else if (strtype.equals("Step")) {
@@ -32,7 +32,7 @@ public class SwitchComponentTemplate extends ComponentTemplate {
 		} else if (strtype.equals("Pull")) {
 			type = SwitchType.Pull;
 		}
-		activationDuration = super.getFloatParam("ActivationDuration");
+		activationDuration = super.getFloatParam("ActivationDuration", 3.0f);
 	}
 
 	@Override
