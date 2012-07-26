@@ -170,7 +170,7 @@ public class NetSubSystem
 	}
 	
 	public void sendBusMessage(int entityID, Message msg)
-	{
+	{		
 		this.listOfBusMessages.add(new EntityBusNetMessage(entityID, msg));
 	}
 	

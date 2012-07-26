@@ -10,9 +10,9 @@ import gdw.network.server.ConnectionInfo;
 public class SideScrollerServer extends BasicServer
 {
 	
-	private enum ServerGameStates
+	public static enum ServerGameStates
 	{
-		WAITING ,LOBBY, START, PAUSE
+		WAITING ,LOBBY, START, PAUSE, RUNNING
 	};
 	
 	private ServerGameStates curState;
@@ -43,8 +43,16 @@ public class SideScrollerServer extends BasicServer
 	protected BasicClientConnection incomingConnection(ConnectionInfo info,
 			ByteBuffer data)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if(this.getAmountOfConnections() != this.maxPlayer -1)
+		{
+			this.curState = ServerGameStates.START;
+		}
+		
+		if(this.curState == ServerGameStates.WAITING)
+		{
+			this.curState = ServerGameStates.LOBBY;
+		}
+		return new PlayerConnection(info, this);
 	}
 	
 	public void killMe()
@@ -71,9 +79,19 @@ public class SideScrollerServer extends BasicServer
 		} catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-		
-		
+		}	
 	}
 
+	public ServerGameStates getCurState()
+	{
+		return curState;
+	}
+	
+	public void startComplete()
+	{
+		if(curState== ServerGameStates.START)
+		{
+			curState = ServerGameStates.RUNNING;
+		}
+	}
 }
