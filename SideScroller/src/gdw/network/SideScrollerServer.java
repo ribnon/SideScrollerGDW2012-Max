@@ -44,15 +44,7 @@ public class SideScrollerServer extends BasicServer
 	protected BasicClientConnection incomingConnection(ConnectionInfo info,
 			ByteBuffer data)
 	{
-		if(this.getAmountOfConnections() != this.maxPlayer -1)
-		{
-			this.curState = ServerGameStates.START;
-		}
-		
-		if(this.curState == ServerGameStates.WAITING)
-		{
-			this.curState = ServerGameStates.LOBBY;
-		}
+		this.curState = ServerGameStates.START;
 		return new PlayerConnection(info, this);
 	}
 	
