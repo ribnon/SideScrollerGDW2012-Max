@@ -487,7 +487,7 @@ public class CollisionDetectionComponentManager
 	private void notifyCollisionHasOccured(CollisionDetectionComponent candidate1, CollisionDetectionComponent candidate2)
 	{
 		candidate1.getOwner().message(new CollisionDetectionMessage(candidate1.getOwner().getID(), candidate2.getOwner().getID()));
-		candidate2.getOwner().message(new CollisionDetectionMessage(candidate1.getOwner().getID(), candidate2.getOwner().getID()));
+		candidate2.getOwner().message(new CollisionDetectionMessage(candidate2.getOwner().getID(), candidate1.getOwner().getID()));
 	}
 
 	
