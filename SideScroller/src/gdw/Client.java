@@ -3,6 +3,9 @@ package gdw;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import gdw.entityCore.EntityManager;
+import gdw.graphics.SpriteManager;
+import gdw.network.NetSubSystem;
 import gdw.network.client.BasicClient;
 
 import org.newdawn.slick.AppGameContainer;
@@ -10,6 +13,8 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
+import collisionDetection.CollisionDetectionComponentManager;
 
 public class Client extends BasicGame {
 
@@ -24,7 +29,7 @@ public class Client extends BasicGame {
 
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
-		// TODO Auto-generated method stub
+		SpriteManager.getInstance().render();
 		
 	}
 
@@ -32,23 +37,26 @@ public class Client extends BasicGame {
 	public void init(GameContainer arg0) throws SlickException {
 		BasicClient.setListener(l);
 		BasicClient.refreshServerList();
-		try {
-			BasicClient.connectToServer(InetAddress.getByName("192.168.1.1"), 55684, null);
+		/*try {
+			BasicClient.connectToServer(InetAddress.getByName("192.168.1.1"), 1337, null);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
-		/*if(!l.getServers().isEmpty() && !connected)
+		if(!l.getServers().isEmpty() && !connected)
 		{
 			BasicClient.connectToServer(l.getServers().get(0), null);
 			connected = true;
-			System.out.println("connected to "+l.getServers().get(0).address);
-		}*/
+			System.out.println("connecting to "+l.getServers().get(0).address);
+		}
+		NetSubSystem.getInstance().pollMessages();
+		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
+		EntityManager.getInstance().tick((float)arg1);
 		
 	}
 	

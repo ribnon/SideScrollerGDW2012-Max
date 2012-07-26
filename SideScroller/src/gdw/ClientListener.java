@@ -3,6 +3,10 @@ package gdw;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
+import collisionDetection.CollisionDetectionComponentManager;
+
+import gdw.entityCore.Level;
+import gdw.network.NetSubSystem;
 import gdw.network.client.BasicClient;
 import gdw.network.client.IBasicClientListener;
 import gdw.network.client.ServerInfo;
@@ -29,6 +33,7 @@ public class ClientListener implements IBasicClientListener {
 
 	@Override
 	public void connectionUpdate(int msg) {
+		System.out.println("con update " + msg);
 		// TODO Auto-generated method stub
 
 	}
@@ -36,7 +41,8 @@ public class ClientListener implements IBasicClientListener {
 	@Override
 	public void connectionEstablished(BasicClient clientRef) {
 		System.out.println("Connection to " + clientRef.id);
-
+		NetSubSystem.initalise(0, false, clientRef);
+		Level.getInstance().start();
 	}
 
 	@Override
