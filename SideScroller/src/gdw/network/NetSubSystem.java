@@ -16,6 +16,7 @@ import gdw.network.messageType.EntitySpawnNetMessage;
 import gdw.network.messageType.TimeSyncMessage;
 import gdw.network.server.BasicClientConnection;
 import gdw.network.server.BasicServer;
+import gdw.network.server.GDWServerLogger;
 
 public class NetSubSystem
 {
@@ -158,6 +159,7 @@ public class NetSubSystem
 	{
 		if(!this.serverFlag)
 			return;
+		GDWServerLogger.logMSG("Spawn id: "+id+"posx - Y: "+posX+" "+posY);
 		this.listOfSpawnMessages.add(new EntitySpawnNetMessage(template, id, posX, posY, orientation));
 	}
 	

@@ -7,6 +7,7 @@ import Physics.SimulationComponentManager;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
+import gdw.network.server.GDWServerLogger;
 
 public class ServerCoreLoop extends Thread
 {
@@ -42,28 +43,36 @@ public class ServerCoreLoop extends Thread
 			{
 				//init
 				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
-				Level.getInstance().start();
+				//Level.getInstance().start();
 				try
 				{
-					entTempMan.loadEntityTemplates("../EntityTemplates.txt");
+					GDWServerLogger.logMSG("init system");
+					entTempMan.loadEntityTemplates("EntityTemplates.txt");
 					entTempMan.getEntityTemplate("slidingPlatform").createEntity(200f, 200f, 0f);
 				} catch (IOException e)
 				{
-					
+					e.printStackTrace();
+					return;
 				}
 				this.ref.startComplete();
-			}
+			}else
+			{
+				
+			
 			long curVal = System.currentTimeMillis();
 			float delta = curVal -  oldVal;
 			
 			//updates laufen lassen
 			//NetSubSystem.getInstance().pollMessages();
 		
+			EntityTemplateManager.getInstance().getEntityTemplate("slidingPlatform").createEntity(200f, 200f, 0f);
 			SimulationComponentManager.getInstance().simulate(delta);
 			EntityManager.getInstance().tick(delta);
 		
 			NetSubSystem.getInstance().checkDeadReck();
 			NetSubSystem.getInstance().sendBufferedMessages();
+			
+			}
 				
 				
 		}

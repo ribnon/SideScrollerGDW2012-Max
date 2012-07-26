@@ -283,7 +283,10 @@ public class BasicClient implements INetworkBridge
 		{
 			if (reliable)
 			{
-				this.tcpConnection.write(msg);
+				while(msg.hasRemaining())
+				{
+					this.tcpConnection.write(msg);
+				}
 			} else
 			{
 				this.udpConnection.write(msg);
