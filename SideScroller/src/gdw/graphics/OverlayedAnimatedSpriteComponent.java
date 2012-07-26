@@ -175,8 +175,15 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 
 	public OverlayedAnimatedSpriteComponent(ComponentTemplate template)
 	{
-		super(template);
+		super(template);		
 		OverlayedAnimatedSpriteComponentTemplate t = (OverlayedAnimatedSpriteComponentTemplate) template;
+		
+		setScale(t.getScale());
+		setFilter(t.getFilter());
+		setPivotX(t.getPivotX());
+		setPivotY(t.getPivotY());
+		setLayer(t.getLayer());
+		setFlipped(t.isFlipped());
 		
 		baseSpritesheet = t.getBaseSpritesheet();
 		overlaySpritesheet1 = t.getOverlaySpritesheet1();

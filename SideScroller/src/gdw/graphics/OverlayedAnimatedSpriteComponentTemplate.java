@@ -11,6 +11,13 @@ import gdw.entityCore.ComponentTemplate;
 
 public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 
+	private float scale;
+	private Color filter;
+	private float pivotX;
+	private float pivotY;
+	private int layer;
+	private boolean flipped = false;
+	
 	private SpriteSheet baseSpritesheet;
 	private SpriteSheet overlaySpritesheet1;
 	private SpriteSheet overlaySpritesheet2;
@@ -29,6 +36,30 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 	private int baseStep = 0;
 	private int overlayStep1 = 0;
 	private int overlayStep2 = 0;
+	
+	public float getScale() {
+		return scale;
+	}
+
+	public Color getFilter() {
+		return filter;
+	}
+
+	public float getPivotX() {
+		return pivotX;
+	}
+
+	public float getPivotY() {
+		return pivotY;
+	}
+
+	public int getLayer() {
+		return layer;
+	}
+
+	public boolean isFlipped() {
+		return flipped;
+	}
 	
 	public SpriteSheet getBaseSpritesheet() {
 		return baseSpritesheet;
@@ -88,6 +119,14 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 
 	public OverlayedAnimatedSpriteComponentTemplate(HashMap<String, String> params) {
 		super(params);
+		
+		scale = getFloatParam("scale", 1.0f);
+		filter = new Color(getFloatParam("filterRed", 1.0f), getFloatParam("filterGreen", 1.0f), getFloatParam("filterBlue", 1.0f));
+		pivotX = getFloatParam("pivotX", 0.0f);
+		pivotY = getFloatParam("pivotY", 0.0f);
+		layer = getIntegerParam("layer", 1);
+		if(getIntegerParam("flipped", 0) == 1) flipped = true;
+		
 		try {
 			baseSpritesheet = new SpriteSheet(getStringParam("basePath", ""), getIntegerParam("baseTileWidth", 64), getIntegerParam("baseTileHeight", 64));
 			overlaySpritesheet1 = new SpriteSheet(getStringParam("overlay1Path", ""), getIntegerParam("overlay1TileWidth", 64), getIntegerParam("overlay1TileHeight", 64));
