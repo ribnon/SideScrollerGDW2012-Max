@@ -2,6 +2,7 @@ package gdw.gameplay.enemy;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.genericBehavior.FollowComponent;
 
 
 public class EnemyBehaviorComponent extends Component
@@ -30,11 +31,18 @@ public class EnemyBehaviorComponent extends Component
 	public void tick(float deltaTime)
 	{
 		//wenn hostile false dann followcomponenten leeren
+		if(!hostile)
+		{
+			((FollowComponent)this.getOwner().getComponent(FollowComponent.COMPONENT_TYPE)).setTargetEntityID(null);
+		}else
+		{
+			//hole alle Spielerkomponenten
+			
+		}
 		
-		//sonst
 		
 		//wenn in aggroRange
-		//hole alle Spielerkomponenten
+		
 		//vergleiche wer näher ist
 		//weis der followComponenten zu folgen
 		

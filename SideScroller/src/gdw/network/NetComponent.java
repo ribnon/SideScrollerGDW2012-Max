@@ -20,16 +20,8 @@ public class NetComponent extends Component
 	{
 		super(template);
 		
-		if((template != null)&&(template instanceof NetComponentTemplate))
-		{
-			NetComponentTemplate temp = (NetComponentTemplate) template;
-			this.ghost = temp.getGhost().clone();
-			sequenceID = 0;
-			NetSubSystem.getInstance().addNetComponentToList(this);
-		}else
-		{
-			this.ghost = null;
-		}
+		this.ghost = new Ghost();
+
 	}
 
 	@Override
