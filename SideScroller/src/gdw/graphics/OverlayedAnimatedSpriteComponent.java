@@ -196,6 +196,8 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 		baseStep = t.getBaseStep();
 		overlayStep1 = t.getOverlayStep1();
 		overlayStep2 = t.getOverlayStep2();
+		
+		SpriteManager.getInstance().addSprite(this);
  	}
 
 	
@@ -265,6 +267,8 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 
 	protected void destroy()
 	{
+		SpriteManager.getInstance().removeSprite(this);
+		
 		try
 		{
 			baseSpritesheet.destroy();

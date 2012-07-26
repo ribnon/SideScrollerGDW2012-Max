@@ -1,4 +1,4 @@
-package gdw.gameplay.Player;
+package gdw.gameplay.player;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;

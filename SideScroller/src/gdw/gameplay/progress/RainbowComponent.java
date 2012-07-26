@@ -5,7 +5,9 @@ import gdw.entityCore.*;
 public class RainbowComponent extends Component {
 
 	private int checkPointNumber;
-	private boolean active = false;
+	private boolean active;
+	
+	private float healthIncrement;
 	
 	public final static int COMPONENT_TYPE = 18;
 	

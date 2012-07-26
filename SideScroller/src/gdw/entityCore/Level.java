@@ -17,6 +17,18 @@ public class Level {
 	
 	private TiledMap map = null;
 	
+	public int getMapWidth(){
+		return map.getWidth();
+	}
+	
+	public int getMapHeight(){
+		return map.getHeight();
+	}
+	
+	public TiledMap getMap(){
+		return map;
+	}
+	
 	public void loadLevel(String name){
 		//TODO: Implement
 	}

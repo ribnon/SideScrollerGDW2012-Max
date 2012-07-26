@@ -26,11 +26,6 @@ public abstract class CollisionDetectionComponent extends Component
 	{
 	}
 
-	public void tick(float deltaTime)
-	{
-		CollisionDetectionComponentManager.getInstance().detectCollision(this);
-	}
-
 	protected int getSubClassType()
 	{
 		return COLLISION_COMPONENT_SUBCLASS_TYPE;

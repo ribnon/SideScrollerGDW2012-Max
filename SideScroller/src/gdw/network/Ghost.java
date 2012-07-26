@@ -24,13 +24,13 @@ public class Ghost
 	
 	private float remaingSteps;
 	
-	public Ghost(float posX, float posY, float velocityX, float velocityY)
+	public Ghost()
 	{
-		this.posX = posX;
-		this.posY = posY;
+		this.posX = 0.0f;
+		this.posY = 0.0f;
 		
-		this.velocityX = velocityX;
-		this.velocityY = velocityY;
+		this.velocityX = 0.0f;
+		this.velocityY = 0.0f;
 		
 		this.gotThing = NetSubSystem.getInstance().isServer();
 		
@@ -43,6 +43,7 @@ public class Ghost
 		this.remaingSteps = 0.0f;
 		
 	}
+	
 	
 	public void simulate(float deltaT)
 	{
@@ -106,7 +107,16 @@ public class Ghost
 	
 	public Ghost clone()
 	{
-		return new Ghost(this.posX, this.posY, this.velocityX, this.velocityY);
+		Ghost result = new Ghost();
+		result.posThingX = this.posThingX;
+		result.posThingY = this.posThingY;
+		result.posX = this.posX;
+		result.posY = this.posY;
+		result.velocityThingX = this.velocityThingX;
+		result.velocityThingY = this.velocityThingY;
+		result.velocityX = this.velocityX;
+		result.velocityY = this.velocityY;
+		return result;
 	}
 	
 	

@@ -1,4 +1,4 @@
-package gdw.gameplay.Player;
+package gdw.gameplay.player;
 
 import collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
@@ -13,6 +13,7 @@ import gdw.gameplay.color.ColorableComponent;
 public class PlayerWeaponComponent extends Component
 {
 	private GameColor currentColor;
+	private float healthIncrement;
 	public static final int COMPONENT_TYPE = 11;
 
 	protected PlayerWeaponComponent(ComponentTemplate template)

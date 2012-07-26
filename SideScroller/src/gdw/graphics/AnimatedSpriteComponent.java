@@ -67,7 +67,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	}
 	*/
 	
-	AnimatedSpriteComponent(ComponentTemplate template)
+	public AnimatedSpriteComponent(ComponentTemplate template)
 	{
 		super(template);
 		AnimatedSpriteComponentTemplate t = (AnimatedSpriteComponentTemplate) template;
@@ -76,7 +76,10 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		cycleLength = t.getCycleLength();
 		cycle = t.getCycle();
 		step = t.getStep();
+		
+		SpriteManager.getInstance().addSprite(this);
 	}
+	
 	
 	/**
 	 *  draws the current frame of the animation
@@ -119,6 +122,8 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 */
 	protected void destroy()
 	{
+		SpriteManager.getInstance().removeSprite(this);
+		
 		try {
 			spriteSheet.destroy();
 		} catch (SlickException e) {

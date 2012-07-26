@@ -30,6 +30,11 @@ public class FollowComponent extends Component
 	
 	public void tick(float deltaTime)
 	{
+		if(targetEntityID == null)
+		{
+			return;
+		}
+		
 		SimulationComponent sim = (SimulationComponent) this.getOwner().getComponent(SimulationComponent.COMPONENT_TYPE);
 		
 		if(sim != null && sim instanceof SimulationComponent)
@@ -38,6 +43,16 @@ public class FollowComponent extends Component
 			Entity target = EntityManager.getInstance().getEntity(targetEntityID.getID());
 			sim.addForce((target.getPosX() - start.getPosX())*deltaTime, (target.getPosY() - start.getPosY())*deltaTime);
 		}
+	}
+
+	public EntityReference getTargetEntityID()
+	{
+		return targetEntityID;
+	}
+
+	public void setTargetEntityID(EntityReference targetEntityID)
+	{
+		this.targetEntityID = targetEntityID;
 	}
 
 }

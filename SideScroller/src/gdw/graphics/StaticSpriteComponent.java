@@ -28,10 +28,14 @@ public class StaticSpriteComponent extends SpriteComponent
 		super(template);
 		StaticSpriteComponentTemplate t = (StaticSpriteComponentTemplate) template;
 		image = t.getImage();
+		
+		SpriteManager.getInstance().addSprite(this);
 	}
 
 	protected void destroy()
 	{
+		SpriteManager.getInstance().removeSprite(this);
+		
 		try
 		{
 			image.destroy();
