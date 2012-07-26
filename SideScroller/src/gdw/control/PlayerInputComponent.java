@@ -15,7 +15,7 @@ import gdw.entityCore.Message;
 import gdw.gameplay.levelObjects.SwitchUserComponent;
 import gdw.gameplay.player.DuckableComponent;
 import gdw.gameplay.player.PlayerBehaviorComponent;
-import gdw.gameplay.player.Type;
+import gdw.gameplay.player.PlayerBehaviorComponent.AttackType;
 import gdw.graphics.SpriteComponent;
 import gdw.network.NetComponent;
 import gdw.network.NetSubSystem;
@@ -293,7 +293,7 @@ public class PlayerInputComponent extends Component {
 			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
 					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
 			if (plbehcomp != null) {
-				plbehcomp.startAttack(Type.Normal);
+				plbehcomp.startAttack(AttackType.Normal);
 			}
 			return;
 		}
@@ -303,7 +303,7 @@ public class PlayerInputComponent extends Component {
 			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
 					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
 			if (plbehcomp != null) {
-				plbehcomp.startAttack(Type.Special);
+				plbehcomp.startAttack(AttackType.Special);
 			}
 			return;
 		}
