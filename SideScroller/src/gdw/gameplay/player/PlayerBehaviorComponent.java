@@ -1,12 +1,13 @@
 package gdw.gameplay.player;
 
-import java.util.LinkedList;
-
+import gdw.control.messageType.AttackMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
 import gdw.gameplay.progress.GameplayProgressManager;
 import gdw.network.NetSubSystem;
+
+import java.util.LinkedList;
 
 public class PlayerBehaviorComponent extends Component
 {
@@ -35,18 +36,18 @@ public class PlayerBehaviorComponent extends Component
 	public PlayerBehaviorComponent(ComponentTemplate template)
 	{
 		super(template);
-		if ((template != null)
-				&& (template instanceof PlayerBehaviorComponentTemplate))
+		if ((template != null) && (template instanceof PlayerBehaviorComponentTemplate))
 		{
 			PlayerBehaviorComponentTemplate t = (PlayerBehaviorComponentTemplate) template;
 			healthPercent = t.getHealthPercent();
-			deathTimer = t.getDeathTimer();
+			deathTimer = 0.0f;
 			deathTimerDuration = t.getDeathTimerDuration();
 			hitDuration = t.getHitDuration();
-			hitActive = t.getHitActive();
+			hitActive = 1.0f;
 			healthChangeInterval = t.getHealthChangeInterval();
 			healthChangeTimer = t.getHealthChangeTimer();
 		}
+		
 		PlayerSubSystem.getInstance().addPlayerBehaviorComponent(this);
 	}
 
@@ -92,6 +93,17 @@ public class PlayerBehaviorComponent extends Component
 		{
 			
 		}
+		
+		// Weapon Timer
+		float increment = 1.0f / (hitDuration * deltaTime);
+		
+		if (hitActive < 1.0f)
+		{
+			hitActive += increment;
+		}
+		
+		else if(hitActive == 1.0f) return;
+		else hitActive = 1.0f;
 	}
 
 	public void onMessage(Message msg)
@@ -99,6 +111,12 @@ public class PlayerBehaviorComponent extends Component
 		// collision
 
 		// meine nachrichten
+		
+		if (msg instanceof AttackMessage)
+		{
+			if (hitActive == 1.0f)
+				hitActive = 0.0f;
+		}
 	}
 
 	public void startAttack(AttackType type)
