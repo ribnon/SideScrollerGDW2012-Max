@@ -37,7 +37,7 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 		super(params);
 		try
 		{
-			spriteSheet = new SpriteSheet(getStringParam("Path"), getIntegerParam("TileWidth"), getIntegerParam("TileHeight"));
+			spriteSheet = new SpriteSheet(getStringParam("path", ""), getIntegerParam("tileWidth", 64), getIntegerParam("tileHeight", 64));
 		} catch (SlickException e)
 		{
 			// TODO Auto-generated catch block
@@ -46,7 +46,8 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 		cycleLength = new int[spriteSheet.getVerticalCount()];
 		for(int i = 0; i < cycleLength.length; ++i)
 			cycleLength[i] = spriteSheet.getHorizontalCount(); // TODO detect unused slots in spritesheet
-		cycle = getIntegerParam("Cycle");
+		cycle = getIntegerParam("cycle", 0);
+		step = getIntegerParam("step", 0);
 	}
 	
 	public Component createComponent()
