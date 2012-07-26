@@ -30,7 +30,9 @@ public class AttachableComponent extends Component
 	public AttachableComponent(ComponentTemplate template)
 	{
 		super(template);
-		groupID = template.getIntegerParam("groupID", -1);
+		
+		groupID = ((AttachableComponentTemplate) template).getGroupID();
+		attachedToEntityID = ((AttachableComponentTemplate) template).getAttachedToEntityID();
 	}
 
 	/**
@@ -44,9 +46,8 @@ public class AttachableComponent extends Component
 		// Remove the Entity of this AttachableComponent from the
 		// AttachmentComponent
 		Entity e = EntityManager.getInstance().getEntity(attachedToEntityID);
-		AttachmentComponent ac = (AttachmentComponent) e
-				.getComponent(AttachmentComponent.COMPONENT_TYPE);
-		ac.detachEntity(groupID);
+		((AttachmentComponent) e.getComponent(AttachmentComponent.COMPONENT_TYPE)).detachEntity(groupID);
+		
 	}
 
 	@Override
