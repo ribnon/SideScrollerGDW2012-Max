@@ -129,7 +129,10 @@ public abstract class BasicClientConnection
 		{
 			if (reliable)
 			{
-				this.tcpConnection.write(msg);
+				while(msg.hasRemaining())
+				{
+					this.tcpConnection.write(msg);
+				}
 			} else
 			{
 				this.udpConnection.write(msg);
@@ -140,7 +143,7 @@ public abstract class BasicClientConnection
 		}
 	}
 
-	public boolean pollInput()
+	public void pollInput()
 	{
 
 		int counter = 0;
@@ -168,14 +171,14 @@ public abstract class BasicClientConnection
 		{
 			//e.printStackTrace();
 			this.discoFlag = true;
-			return false;
+			return;
 		}
 		if (counter > 0)
 		{
 			this.lastHeartbeat = System.currentTimeMillis();
 			this.pongRequest = -1L;
 		}
-		return true;
+		return;
 
 	}
 

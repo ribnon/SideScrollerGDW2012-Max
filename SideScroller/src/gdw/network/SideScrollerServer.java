@@ -21,8 +21,9 @@ public class SideScrollerServer extends BasicServer
 	
 	public SideScrollerServer(String infoText) throws IOException
 	{
-		super(2, infoText, true, false);
+		super(1, infoText, true, false);
 		this.curState = ServerGameStates.WAITING;
+		NetSubSystem.initalise(1, true, this);
 		this.coreLoop = new ServerCoreLoop(this);
 	}
 
@@ -43,15 +44,7 @@ public class SideScrollerServer extends BasicServer
 	protected BasicClientConnection incomingConnection(ConnectionInfo info,
 			ByteBuffer data)
 	{
-		if(this.getAmountOfConnections() != this.maxPlayer -1)
-		{
-			this.curState = ServerGameStates.START;
-		}
-		
-		if(this.curState == ServerGameStates.WAITING)
-		{
-			this.curState = ServerGameStates.LOBBY;
-		}
+		this.curState = ServerGameStates.START;
 		return new PlayerConnection(info, this);
 	}
 	
