@@ -18,6 +18,12 @@ gdw.collisionReaction
 
 gdw.control
 				PlayerInput				
+							DownKey:String
+							JunpKey:String
+							LeftKey:String
+							RightKey:String
+							AttackKexy:String
+							SpecialAttackKey:String	
 							JumpVelocity:int
 							RunVelocity:int
 							WaitingTime:int
@@ -64,6 +70,10 @@ gdw.gameplay.levelObjects
 
 				SwitchUser
 							HitTrigger:int 			//{0;1}
+							
+				PathFollow
+							wayPoints:String		//0 0
+							speed:float
 
 gdw.gameplay.player
 				Duckable
