@@ -4,6 +4,7 @@ import gdw.collisionDetection.AABoxCollisionDetectionComponent;
 import gdw.collisionDetection.CircleCollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponentManager;
+import gdw.collisionDetection.OOBoxCollisionDetectionComponent;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
@@ -18,6 +19,7 @@ import gdw.network.NetSubSystem;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -36,6 +38,7 @@ public class SimulationTest extends BasicGame {
 	Entity ground;
 	Entity wall;
 	Entity platform;
+	Entity diag;
 	
 	
 	public SimulationTest() {
@@ -167,10 +170,10 @@ public class SimulationTest extends BasicGame {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		drawEntity(g, entity1);
 		drawEntity(g, entity2);
-		
 		drawEntity(g, ground);
 		drawEntity(g, wall);
 		drawEntity(g, platform);
+		drawEntity(g, diag);
 		if(simComp!=null) {
 			g.drawString("is active: "+simComp.isActive(), 10, 80);
 			g.drawString("is grounded: "+simComp.isGrounded(), 10, 175);
@@ -211,6 +214,8 @@ public class SimulationTest extends BasicGame {
 			
 			platform = entityTemplateManager.getEntityTemplate("TestBedPlatform").createEntity(200, 200, 0);
 			
+			diag = entityTemplateManager.getEntityTemplate("TestBedDiag").createEntity(500, 150, 45);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -234,16 +239,46 @@ public class SimulationTest extends BasicGame {
 				g.drawOval(e.getPosX()- circle.getRadius(), e.getPosY() - circle.getRadius(), 2*circle.getRadius(), 2*circle.getRadius(),32);
 //				g.drawOval(e.getPosX(), e.getPosY(), 2*circle.getRadius(), 2*circle.getRadius(),32);
 			}
+			if(colComp instanceof OOBoxCollisionDetectionComponent) {
+				OOBoxCollisionDetectionComponent box = (OOBoxCollisionDetectionComponent) colComp;
+				float angle = (float)Math.toRadians(e.getOrientation());
+				float cosAngle = (float)Math.cos(angle);
+				float sinAngle = (float)Math.sin(angle);
+				float[] vertices = new float[]{
+						
+					cosAngle*(- box.getHalfExtentX()) - sinAngle*(- box.getHalfExtentY()),
+					sinAngle*(- box.getHalfExtentX()) + cosAngle*(- box.getHalfExtentY()),
+					
+					cosAngle*(box.getHalfExtentX()) - sinAngle*(-box.getHalfExtentY()),
+					sinAngle*(box.getHalfExtentX()) + cosAngle*(- box.getHalfExtentY()),
+					
+					cosAngle*(box.getHalfExtentX()) - sinAngle*(box.getHalfExtentY()),
+					sinAngle*(box.getHalfExtentX()) + cosAngle*(box.getHalfExtentY()),
+					
+					cosAngle*(-box.getHalfExtentX()) - sinAngle*(box.getHalfExtentY()),
+					sinAngle*(-box.getHalfExtentX()) + cosAngle*(box.getHalfExtentY())
+				};
+				GL11.glBegin(GL11.GL_LINE_LOOP);
+				for (int i = 0; i < 8; i+=2) {
+					GL11.glVertex2f(e.getPosX()+vertices[i], e.getPosY()+vertices[i+1]);
+				}
+				GL11.glEnd();
+				
+			}
+			g.setColor(Color.red);
+			float[] dim = colComp.getDimensions();
+			g.drawRect(e.getPosX() - dim[0], e.getPosY() - dim[1], 2*dim[0], 2*dim[1]);
+			
 			g.setColor(Color.white);
 		}
 		SimulationComponent simComp = (SimulationComponent) e.getComponent(SimulationComponent.COMPONENT_TYPE);
 		if(simComp!=null) {
 			simComp.draw(g);
 		}
-		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
-		if(sprComp!=null) {
-			sprComp.draw(0,0);
-		}
+//		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
+//		if(sprComp!=null) {
+//			sprComp.draw(0,0);
+//		}
 		
 		
 	}
@@ -251,10 +286,10 @@ public class SimulationTest extends BasicGame {
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
-		// TODO Auto-generated method stub
+		Input inp = arg0.getInput();
 		if(simComp!=null) {
 			float forcePower = 150.f; 
-			Input inp = arg0.getInput();
+			
 			if(inp.isKeyDown(Input.KEY_LSHIFT))
 				forcePower *= 0.1f;
 			if(inp.isKeyDown(Input.KEY_A)) {
@@ -273,6 +308,10 @@ public class SimulationTest extends BasicGame {
 				simComp.addForce(0, forcePower);
 	//			simComp.setVelocityY(10);
 			}
+		}
+		
+		if(inp.isKeyDown(Input.KEY_Q)) {
+			diag.setOrientation(diag.getOrientation()+1);
 		}
 		
 //		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
