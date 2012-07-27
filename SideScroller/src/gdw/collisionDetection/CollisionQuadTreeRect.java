@@ -18,7 +18,7 @@ public class CollisionQuadTreeRect
 		update(owner.getPosX(), owner.getPosY(), circle.getRadius());
 		addReference(circle);
 	}
-	//Vita wir haben beim erstellen kein owner, der wird erst später nach dem erstellen zugewiesen!
+
 	protected CollisionQuadTreeRect(AABoxCollisionDetectionComponent aaBox)
 	{
 		Entity owner = aaBox.getOwner();

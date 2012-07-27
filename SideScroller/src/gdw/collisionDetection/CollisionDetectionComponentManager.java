@@ -501,19 +501,16 @@ public class CollisionDetectionComponentManager
 	protected void registerCircleCollisionDetectionComponent(CircleCollisionDetectionComponent c)
 	{
 		circleCollisionDetectionList.add(c);
-		registerTreeRect(c);
 	}
 	
 	protected void registerAABoxCollisionDetectionComponent(AABoxCollisionDetectionComponent c)
 	{
 		aaBoxCollisionDetectionList.add(c);
-		registerTreeRect(c);
 	}
 	
 	protected void registerOOBoxCollisionDetectionComponent(OOBoxCollisionDetectionComponent c)
 	{
 		ooBoxCollisionDetectionList.add(c);
-		registerTreeRect(c);
 	}
 	
 	protected void registerTreeRect(CircleCollisionDetectionComponent comp)

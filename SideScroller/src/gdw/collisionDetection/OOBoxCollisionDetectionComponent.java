@@ -1,6 +1,8 @@
 package gdw.collisionDetection;
 
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.EntityConstructedMessage;
+import gdw.entityCore.Message;
 
 public class OOBoxCollisionDetectionComponent extends CollisionDetectionComponent
 {
@@ -50,5 +52,11 @@ public class OOBoxCollisionDetectionComponent extends CollisionDetectionComponen
 	public void setHalfExtentY(float halfExtentY)
 	{
 		this.halfExtentY = halfExtentY;
+	}
+	
+	public void onMessage(Message msg)
+	{
+		if (msg instanceof EntityConstructedMessage)
+			CollisionDetectionComponentManager.getInstance().registerTreeRect(this);
 	}
 }
