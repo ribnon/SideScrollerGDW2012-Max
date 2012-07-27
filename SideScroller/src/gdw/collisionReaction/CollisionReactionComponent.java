@@ -6,6 +6,7 @@ import gdw.collisionDetection.AABoxCollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.collisionDetection.CollisionDetectionMessage;
+import gdw.collisionDetection.OOBoxCollisionDetectionComponent;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
@@ -83,6 +84,7 @@ public class CollisionReactionComponent extends Component
 			else {
 				reactToCollision(ownerSimulation, other);
 			}
+			
 		}
 	}
 	
@@ -156,9 +158,25 @@ public class CollisionReactionComponent extends Component
 		float deltaTime = SimulationComponentManager.getInstance()
 				.getDeltaTime();
 		// Push the simulated Entity out of the static Entity
-		simulatedObject.getOwner().setPos(
-				simulatedObject.getOwner().getPosX()-simulatedObject.getVelocityX() * deltaTime,
-				simulatedObject.getOwner().getPosY()-simulatedObject.getVelocityY() * deltaTime);
+		boolean isOOBox = false;
+		CollisionDetectionComponent cdc = (CollisionDetectionComponent) staticObject.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		if(cdc!=null && cdc instanceof OOBoxCollisionDetectionComponent) { 
+			isOOBox=true;
+		}
+		if(!isOOBox) {
+			simulatedObject.getOwner().setPos(
+					simulatedObject.getOwner().getPosX()-simulatedObject.getVelocityX() * deltaTime,
+					simulatedObject.getOwner().getPosY()-simulatedObject.getVelocityY() * deltaTime);
+		}
+		else {
+			simulatedObject.setGround(staticObject);
+			float[] selfDim = ((CollisionDetectionComponent)self.getComponent(CollisionDetectionComponent.COMPONENT_TYPE)).getDimensions();
+			
+			
+			simulatedObject.getOwner().setPos(
+					simulatedObject.getOwner().getPosX()-simulatedObject.getVelocityX() * deltaTime ,
+					simulatedObject.getOwner().getPosY()-simulatedObject.getVelocityY() * deltaTime );
+		}
 		float veloX = simulatedObject.getVelocityX();
 		float veloY = simulatedObject.getVelocityY();
 
@@ -186,6 +204,7 @@ public class CollisionReactionComponent extends Component
 			simulatedObject.setVelocityY(0);
 		}
 		else {
+			//TODO: check if is on a oobb
 			simulatedObject.setWall(staticObject);
 			simulatedObject.setVelocityX(0);
 		}
@@ -204,8 +223,8 @@ public class CollisionReactionComponent extends Component
 			float[] dimSelf = colCompA.getDimensions();
 			float[] dimOther = colCompB.getDimensions();
 //				AABoxCollisionDetectionComponent AAcolCompA = (AABoxCollisionDetectionComponent) colCompA;
-				if(Math.abs(B.getPosX() - A.getPosX()) < dimSelf[0]
-				
+				if(Math.abs(B.getPosX() - A.getPosX()) -dimSelf[0] < dimSelf[0]
+				&&  Math.abs(B.getPosY() + dimOther[1] - A.getPosY() - dimSelf[1]) < 0.1f
 				&&	Math.abs(B.getPosY() - dimOther[1] - A.getPosY() + dimSelf[1]) < 0.1f) {
 					return true;
 				}

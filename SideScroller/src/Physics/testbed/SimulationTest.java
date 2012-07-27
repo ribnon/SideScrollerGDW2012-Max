@@ -175,7 +175,7 @@ public class SimulationTest extends BasicGame {
 		drawEntity(g, platform);
 		drawEntity(g, diag);
 		if(simComp!=null) {
-			g.drawString("is walled: "+simComp.walled, 10, 60);
+			g.drawString("is walled: "+simComp.isWalled(), 10, 60);
 			g.drawString("is active: "+simComp.isActive(), 10, 80);
 			g.drawString("is grounded: "+simComp.isGrounded(), 10, 175);
 			g.drawString("vx: "+simComp.getVelocityX(), 10, 100);
@@ -183,6 +183,7 @@ public class SimulationTest extends BasicGame {
 			g.drawString("vy: "+simComp.getVelocityY(), 10, 140);
 			g.drawString("ay: "+simComp.getAccelerationY(), 10, 160);
 		}
+		g.drawString("Diag Orientation: "+diag.getOrientation(),600,60);
 		
 		SpriteManager.getInstance().render();
 	}
@@ -289,31 +290,36 @@ public class SimulationTest extends BasicGame {
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		Input inp = arg0.getInput();
+		float factor = 1.0f; 
+		if(inp.isKeyDown(Input.KEY_LSHIFT))
+			factor = 0.1f;
 		if(simComp!=null) {
 			float forcePower = 150.f; 
 			
-			if(inp.isKeyDown(Input.KEY_LSHIFT))
-				forcePower *= 0.1f;
+			
 			if(inp.isKeyDown(Input.KEY_A)) {
-				simComp.addForce(-forcePower, 0);
+				simComp.addForce(-factor*forcePower, 0);
 	//			simComp.setVelocityX(-10);
 			}
 			if(inp.isKeyDown(Input.KEY_D)) {
-				simComp.addForce(+forcePower, 0);
+				simComp.addForce(+forcePower*factor, 0);
 	//			simComp.setVelocityX(10);
 			}
 			if(inp.isKeyDown(Input.KEY_W)) {
-				simComp.addForce(0, -forcePower);
+				simComp.addForce(0, -forcePower*factor);
 	//			simComp.setVelocityY(-10);
 			}
 			if(inp.isKeyDown(Input.KEY_S)) {
-				simComp.addForce(0, forcePower);
+				simComp.addForce(0, forcePower*factor);
 	//			simComp.setVelocityY(10);
 			}
 		}
 		
+		if(inp.isKeyDown(Input.KEY_E)) {
+			diag.setOrientation(diag.getOrientation()+1*factor);
+		}
 		if(inp.isKeyDown(Input.KEY_Q)) {
-			diag.setOrientation(diag.getOrientation()+1);
+			diag.setOrientation(diag.getOrientation()-1*factor);
 		}
 		
 //		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();

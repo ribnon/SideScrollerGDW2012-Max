@@ -34,8 +34,8 @@ public class SimulationComponent extends Component {
 	private boolean grounded;
 	private Entity ground;
 	
-	public boolean walled;
-	public Entity wall;
+	private boolean walled;
+	private Entity wall;
 	
 	public void setWall(Entity wall) {
 		if((this.wall=wall)==null) {
@@ -46,11 +46,22 @@ public class SimulationComponent extends Component {
 			walled = true;
 		}
 	}
+	public boolean isWalled() {
+		return walled;
+	}
 	
 	public boolean isGrounded() {
 		return grounded;
 	}
 
+	public void setGround(Entity ground) {
+		if((this.ground=ground)==null) {
+			grounded=false;
+		}
+		else {
+			grounded = true;
+		}
+	}
 
 	public void setGrounded(boolean grounded) {
 		this.grounded = grounded;
@@ -210,6 +221,8 @@ public class SimulationComponent extends Component {
 		this.externalForceY = 0.f;
 	}
 
+	
+	boolean toggleSim=false;
 	public void simulate(float deltaTime) {
 		if (mass <= 0.0f) {// Unmoveable object
 			resetForce();
@@ -218,19 +231,27 @@ public class SimulationComponent extends Component {
 			return;
 		}
 		
-		if(grounded = isOnB(ground)) {
+		toggleSim = !toggleSim;
+		
+		if((grounded&&walled) || (grounded = isOnB(ground)) ) {
 			addForce(0, -SimulationComponentManager.getInstance().getGravity()*mass);
 		}
 		float forceX = 0.0f;
 //		System.out.println(walled);
 		if(!walled || ((wall.getPosX() - this.getOwner().getPosX()<0 && this.externalForceX>0) 
-		|| ((wall.getPosX() - this.getOwner().getPosX()>0 && this.externalForceX<0))
+		|| ((wall.getPosX() - this.getOwner().getPosX()>0 && this.externalForceX<0)
+		|| (grounded&&walled)
+		)
 //			&& (wall.getPosX() - this.getOwner().getPosX()>0 && this.externalForceX<0))) {
 				)) {
 			forceX = this.externalForceX - (this.friction * this.velocityX)*deltaTime;
 			
 		}	
+		
 		float forceY = this.externalForceY - (this.friction * this.velocityY)*deltaTime;
+		
+		
+		float stepVeloY = toggleSim?.50f:-.5f;
 		setWall(null);
 //		float forceX = this.externalForceX;
 //		float forceY = this.externalForceY;
@@ -256,6 +277,7 @@ public class SimulationComponent extends Component {
 		newVelocityX -= this.friction * newVelocityX * deltaTime;
 		float newVelocityY = this.velocityY + this.accelerationY * deltaTime;
 		newVelocityY -= this.friction * newVelocityY * deltaTime;
+		newVelocityY += stepVeloY*deltaTime;
 
 		boolean veloXNulled = false;
 		
@@ -276,9 +298,6 @@ public class SimulationComponent extends Component {
 		float posY = this.getOwner().getPosY() + velocityY*deltaTime;
 		
 		this.getOwner().setPos(posX, posY);
-		
-		if(walled) {
-		}
 		
 		if(shouldSleep) 
 			active = false;

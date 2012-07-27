@@ -60,8 +60,8 @@ impassableFromSide=0
 
 Template TestBedDiag
 Component OOBoxCollisionDetection
-halfExtentX=20.0
-halfExtentY=5.0
+halfExtentX=50.0
+halfExtentY=10.0
 
 
 

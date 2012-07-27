@@ -61,7 +61,10 @@ public class SimulationComponentManager {
 			if(sim.isActive()) {
 //				if(!sim.isGrounded())
 				sim.addForce(0, gravity*sim.getMass());
-				sim.simulate(lastDeltaTime);
+				//step up
+				sim.simulate(lastDeltaTime/2);
+				//step down
+				sim.simulate(lastDeltaTime/2);
 				CollisionDetectionComponentManager.getInstance().detectCollisions(sim.getOwner());
 			}
 		}
