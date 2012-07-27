@@ -34,7 +34,7 @@ public class AttachmentComponentTemplate extends ComponentTemplate
 	@Override
 	public Component createComponent()
 	{
-		return new AttachableComponent(this);
+		return new AttachmentComponent(this);
 	}
 
 	public float getAttachPointX()
