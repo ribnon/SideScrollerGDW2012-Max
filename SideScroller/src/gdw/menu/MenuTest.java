@@ -15,37 +15,54 @@ public class MenuTest extends BasicGame
 	{
 		super("Hardcoded Menu! 20% cooler in 10 seconds flat!");
 	}
-	LobbyMenu lobby = new LobbyMenu();
+	MenuBase menu;
 	private boolean shutdown = false;
 	
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException
 	{
-		lobby.draw(arg0, arg1);
+		menu.draw(arg0, arg1);
 	}
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException
 	{
-		lobby.init(arg0);
-		lobby.addToServerList("Rainbow Dash");
-		lobby.addToServerList("Pinkie Pie");
-		lobby.addToServerList("Fluttershy");
-		lobby.addToServerList("Rarity");
-		lobby.addToServerList("Applejack");
-		lobby.addToServerList("Twilight Sparkle");
-		lobby.addToServerList("Celestia");
-		lobby.addToServerList("Luna");
-		lobby.addToServerList("Scootaloo");
-		lobby.addToServerList("Applebloom");
-		lobby.addToServerList("Sweetie Belle");
-		lobby.addToServerList("Chimcherry");
-		lobby.addToServerList("Cherrychanga");
-		lobby.addToServerList("Chimcherry");
-		lobby.addToServerList("Cherrychanga");
-		lobby.addToServerList("Chimcherry");
-		lobby.addToServerList("Cherrychanga");
-		lobby.addToServerList("Last Entry");
+		LobbyMenu l = new LobbyMenu()
+		{
+			@Override
+			public void onJoinServerClicked(int indexInList)
+			{
+				CharacterSelectionMenu c = new CharacterSelectionMenu();
+				c.setPlayer1Name("Foo");
+				c.setPlayer2Name("Bar");
+				c.setServerName("20% cooler");
+				menu = c;
+			}
+			@Override
+			public void onCreateNewServerClicked()
+			{
+			}
+		};
+		l.init(arg0);
+		l.addToServerList("Rainbow Dash");
+		l.addToServerList("Pinkie Pie");
+		l.addToServerList("Fluttershy");
+		l.addToServerList("Rarity");
+		l.addToServerList("Applejack");
+		l.addToServerList("Twilight Sparkle");
+		l.addToServerList("Celestia");
+		l.addToServerList("Luna");
+		l.addToServerList("Scootaloo");
+		l.addToServerList("Applebloom");
+		l.addToServerList("Sweetie Belle");
+		l.addToServerList("Chimcherry");
+		l.addToServerList("Cherrychanga");
+		l.addToServerList("Chimcherry");
+		l.addToServerList("Cherrychanga");
+		l.addToServerList("Chimcherry");
+		l.addToServerList("Cherrychanga");
+		l.addToServerList("Last Entry");
+		menu = l;
 	}
 
 	@Override
@@ -58,41 +75,41 @@ public class MenuTest extends BasicGame
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount)
 	{
-		lobby.mouseClicked(button, x, y, clickCount);
+		menu.mouseClicked(button, x, y, clickCount);
 	}
 	@Override
 	public void mousePressed(int button, int x, int y)
 	{
-		lobby.mousePressed(button, x, y);
+		menu.mousePressed(button, x, y);
 	}
 	@Override
 	public void mouseReleased(int button, int x, int y)
 	{
-		lobby.mouseReleased(button, x, y);
+		menu.mouseReleased(button, x, y);
 	}
 	@Override
 	public void keyPressed(int key, char c)
 	{
-		lobby.keyPressed(key, c);
+		menu.keyPressed(key, c);
 	}
 	@Override
 	public void keyReleased(int key, char c)
 	{
 		if (key == Input.KEY_ESCAPE)
 			shutdown  = true;
-		lobby.keyReleased(key, c);
+		menu.keyReleased(key, c);
 	}
 	@Override
 	public void mouseMoved(int oldx, int oldy, int newx, int newy)
 	{
-		lobby.mouseMoved(oldx, oldy, newx, newy);
+		menu.mouseMoved(oldx, oldy, newx, newy);
 	}
 
 	@Override
 	public void mouseWheelMoved(int change)
 	{
 		change = Math.max(-1, Math.min(change, 1));
-		lobby.mouseWheelMoved(change);
+		menu.mouseWheelMoved(change);
 	}
 
 	/**

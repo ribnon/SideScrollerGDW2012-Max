@@ -9,7 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-public class LobbyMenu extends MenuBase
+public abstract class LobbyMenu extends MenuBase
 {
 	private static final String TITLE = "TEST";
 	private static final int MAX_PLAYERNAME = 32;
@@ -30,8 +30,6 @@ public class LobbyMenu extends MenuBase
 	private boolean isTopEntryArrow, isBottomEntryArrow;
 
 	// private int playerNameStringPosX, playerNameStringPosY;
-
-	// TODO: scrolling
 
 	public LobbyMenu()
 	{
@@ -238,6 +236,9 @@ public class LobbyMenu extends MenuBase
 			++currentIndexOnTopOfList;
 		else if (entry + currentIndexOnTopOfList < serverList.size())
 			currentActiveServerIndex = entry + currentIndexOnTopOfList;
+		
+		if (clickCount == 2)
+			onJoinServerClicked(currentActiveServerIndex);
 	}
 
 	@Override
@@ -263,4 +264,7 @@ public class LobbyMenu extends MenuBase
 		else if (currentIndexOnTopOfList > serverList.size()-2)
 			currentIndexOnTopOfList = serverList.size()-2;
 	}
+	
+	public abstract void onCreateNewServerClicked();
+	public abstract void onJoinServerClicked(int indexInList);
 }

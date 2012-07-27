@@ -7,8 +7,8 @@ import org.newdawn.slick.SlickException;
 
 public abstract class MenuBase
 {
-	private Image background;
-	private Image mouseCursor;
+	private static Image background;
+	private static Image mouseCursor;
 	private int mousePosX, mousePosY;
 
 	public MenuBase()
