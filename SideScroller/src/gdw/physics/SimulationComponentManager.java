@@ -1,5 +1,7 @@
 package gdw.physics;
 
+import gdw.collisionDetection.CollisionDetectionComponentManager;
+
 import java.util.ArrayList;
 
 public class SimulationComponentManager {
@@ -60,6 +62,7 @@ public class SimulationComponentManager {
 //				if(!sim.isGrounded())
 				sim.addForce(0, gravity*sim.getMass());
 				sim.simulate(lastDeltaTime);
+				CollisionDetectionComponentManager.getInstance().detectCollisions(sim.getOwner());
 			}
 		}
 		

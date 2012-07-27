@@ -267,10 +267,10 @@ public class SimulationComponent extends Component {
 			&& colCompA instanceof AABoxCollisionDetectionComponent) {
 				AABoxCollisionDetectionComponent AAcolCompB = (AABoxCollisionDetectionComponent) colCompB;
 				AABoxCollisionDetectionComponent AAcolCompA = (AABoxCollisionDetectionComponent) colCompA;
-				float x = B.getPosY() - AAcolCompB.getHalfExtentY() - this.getOwner().getPosY() - AAcolCompA.getHalfExtentY();
+				float dy = B.getPosY() - AAcolCompB.getHalfExtentY() - this.getOwner().getPosY() - AAcolCompA.getHalfExtentY();
 //				System.out.println(x+"");
-				if(Math.abs(this.getOwner().getPosX() - B.getPosX()) < AAcolCompB.getHalfExtentX()
-				&&	Math.abs(x) < 0.1f) {
+				if(Math.abs(this.getOwner().getPosX() - B.getPosX()) - AAcolCompA.getHalfExtentX() < AAcolCompB.getHalfExtentX() 
+				&&	Math.abs(dy) < 0.1f) {
 					ground = B;
 					return true;
 				}

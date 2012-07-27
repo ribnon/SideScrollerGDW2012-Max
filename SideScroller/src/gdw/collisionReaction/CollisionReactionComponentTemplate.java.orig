@@ -1,0 +1,39 @@
+package gdw.collisionReaction;
+
+import java.util.HashMap;
+
+import gdw.entityCore.Component;
+import gdw.entityCore.ComponentTemplate;
+
+public class CollisionReactionComponentTemplate extends ComponentTemplate
+{
+
+	private boolean impassableFromTop = true;
+	private boolean impassableFromSide = true;
+	public boolean isImpassableFromTop() {
+		return impassableFromTop;
+	}
+
+	public boolean isImpassableFromSide() {
+		return impassableFromSide;
+	}
+	
+	public CollisionReactionComponentTemplate(HashMap<String, String> params)
+	{
+		super(params);
+<<<<<<< HEAD
+		impassableFromTop = (getIntegerParam("impassableFromTop", 0) == 1);
+		impassableFromSide = (getIntegerParam("impassableFromSide", 0) == 1);
+=======
+		impassableFromTop = (getIntegerParam("impassableFromTop",1) == 1);
+		impassableFromSide = (getIntegerParam("impassableFromSide",1) == 1);
+>>>>>>> ad94ddf2da444a30e3853ee2bb2ab3b64fc73cfd
+	}
+
+	@Override
+	public Component createComponent()
+	{
+		return new CollisionReactionComponent(this);
+	}
+
+}
