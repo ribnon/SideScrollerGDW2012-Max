@@ -2,7 +2,6 @@ Include ./templates/LevelRainbow
 Include ./templates/Player1
 Include ./templates/LevelGoal
 Include ./templates/Camera
-Include ./templates/StartSpawn 
 
 
 
