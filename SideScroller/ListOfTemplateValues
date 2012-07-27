@@ -60,8 +60,8 @@ gdw.gameplay.enemy
 gdw.gameplay.levelObjects
 				PathFollow
 
-				RotateSwitch
-							activateTotation:float
+				RotateBySwitch
+							activateRotation:float
 							deactivateRotation:float
 							angularVelocity:float
 
