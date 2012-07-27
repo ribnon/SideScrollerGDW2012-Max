@@ -45,7 +45,7 @@ public class ClientListener implements IBasicClientListener {
 		System.out.println("Connection to " + clientRef.id);
 		NetSubSystem.initalise(0, false, clientRef);
 		owner.setConnected(true);
-		//Level.getInstance().start();
+		Level.getInstance().start();
 	}
 
 	@Override
