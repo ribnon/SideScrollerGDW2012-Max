@@ -304,7 +304,7 @@ public class BasicClient implements INetworkBridge
 		buf.flip();
 		try
 		{
-			this.udpConnection.write(buf);
+			this.tcpConnection.write(buf);
 			this.pongRequest = currentTimeStamp;
 		} catch (IOException e)
 		{
