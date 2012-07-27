@@ -24,7 +24,7 @@ public class AttachmentComponentTemplate extends ComponentTemplate
 		attachOrientation = getFloatParam("attachOrientation", 0);
 		
 		String[] autoAttachGroupsValues = getStringParam(
-				"autoAttachGroups", "").split(",");
+				"autoAttachGroups", "").split(";");
 		for (String i : autoAttachGroupsValues)
 		{
 			autoAttachGroups.add(Integer.parseInt(i));
