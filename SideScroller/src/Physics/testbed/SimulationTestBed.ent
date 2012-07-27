@@ -47,7 +47,7 @@ halfExtentX=10.0
 halfExtentY=100.0
 Component CollisionReaction
 impassableFromTop=1
-impassableFromSide=1
+impassableFromSide=0
 
 Template TestBedPlatform
 Component AABoxCollisionDetection
