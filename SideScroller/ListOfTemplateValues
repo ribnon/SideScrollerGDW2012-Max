@@ -64,7 +64,7 @@ gdw.gameplay.levelObjects
 							angularVelocity:float
 
 				Switch
-							TargetEntity:EntityReference
+							TargetEntities:List<EntityReference> //Entityname1;Entitiyname2
 							SwitchType:String 		//{Hit;Step;Pull}
 							ActivationDuration:float
 

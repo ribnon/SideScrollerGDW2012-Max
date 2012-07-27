@@ -5,11 +5,12 @@ import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.EntityReference;
 import gdw.gameplay.levelObjects.SwitchComponent.SwitchType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SwitchComponentTemplate extends ComponentTemplate {
 
-	private EntityReference targetEntity;
+	private ArrayList<EntityReference> targetEntity;
 	private SwitchType type;
 	private float activationDuration;
 
@@ -23,7 +24,7 @@ public class SwitchComponentTemplate extends ComponentTemplate {
 	public SwitchComponentTemplate(HashMap<String, String> params) {
 		super(params);
 
-		targetEntity = super.getEntityReferenceParam("TargetEntity");
+		targetEntity = super.getEntityReferenceArrayParam("TargetEntities");
 		String strtype = super.getStringParam("SwitchType", "Hit");
 		if (strtype.equals("Hit")) {
 			type = SwitchType.Hit;

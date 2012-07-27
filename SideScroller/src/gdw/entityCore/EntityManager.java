@@ -143,7 +143,7 @@ public class EntityManager {
 				EntityTemplate entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate(templateName);
 				Entity ent = entityTemplate.createEntity(
 						map.getObjectX(og, go)+map.getObjectWidth(og, go)*0.5f,
-						map.getObjectY(og, go)+map.getObjectHeight(og, go), orientation);
+						map.getObjectY(og, go)+map.getObjectHeight(og, go)*0.5f, orientation);
 				NamedEntityReference.setEntityID(objectName, ent.getID());
 			}
 		}
