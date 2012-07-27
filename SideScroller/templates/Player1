@@ -59,3 +59,7 @@ attachPointX=0
 attachPointY=0
 attachOrientation=0
 autoAttachGroups=10
+
+Component OOBoxCollisionDetectionComponent
+halfExtentX=64
+halfExtendY=64

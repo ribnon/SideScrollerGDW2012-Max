@@ -132,7 +132,7 @@ gdw.graphics
 				Camera
 							playerNumber:int
 							viewPortX:int
-							viewPortYY:int
+							viewPortY:int
 
 				OverlayedAnimatedSprite
 							scale:float

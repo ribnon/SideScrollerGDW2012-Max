@@ -2,7 +2,19 @@ Template LevelRainbow
 
 Component AnimatedSprite
 path=./assets/spritesheets/rainbow.png
-cycleLength=10
+tileWidth=66
+tileHeight=96
+scale=1
+filterRed=1
+filterGreen=1
+filterBlue=1
+pivotX=0
+pivotY=0
+layer=1
+flipped=0
+cycle=10
+step=0
 
 Component Rainbow
-checkPointNumber
+checkPointNumber=1
+healthIncrement=100
