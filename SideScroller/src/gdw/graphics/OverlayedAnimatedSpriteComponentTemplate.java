@@ -161,9 +161,9 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 		return new OverlayedAnimatedSpriteComponent(this);
 	}
 	
-	@Override
-	public boolean isGhostOnly()
+	public static boolean isGhostOnly()
 	{
 		return true;
 	}
+
 }

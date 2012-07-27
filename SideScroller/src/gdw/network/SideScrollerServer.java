@@ -3,6 +3,7 @@ package gdw.network;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import gdw.entityCore.Level;
 import gdw.network.server.BasicClientConnection;
 import gdw.network.server.BasicServer;
 import gdw.network.server.ConnectionInfo;
@@ -24,6 +25,7 @@ public class SideScrollerServer extends BasicServer
 		super(1, infoText, true, false);
 		this.curState = ServerGameStates.WAITING;
 		NetSubSystem.initalise(1, true, this);
+		Level.getInstance().start();
 		this.coreLoop = new ServerCoreLoop(this);
 	}
 

@@ -183,7 +183,7 @@ public class PlayerInputComponentManager {
 		return playerInpComponents.remove(comp);
 	}
 
-	public static int getKeyValue(String keyname) {
+	public int getKeyValue(String keyname) {
 		return buttonValues.get(keyname);
 	}
 

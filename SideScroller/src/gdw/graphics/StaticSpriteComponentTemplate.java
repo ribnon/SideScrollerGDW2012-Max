@@ -72,10 +72,10 @@ public class StaticSpriteComponentTemplate extends ComponentTemplate
 		return new StaticSpriteComponent(this);
 	}
 	
-	@Override
-	public boolean isGhostOnly()
+	public static boolean isGhostOnly()
 	{
 		return true;
 	}
+
 }
 

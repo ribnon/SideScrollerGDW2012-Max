@@ -11,6 +11,7 @@ public class EntityTemplate {
 	private HashMap<String,ComponentTemplate> componentTemplateMap=new HashMap<String,ComponentTemplate>();
 	private HashMap<String,HashMap<String,String>> componentParamsMap;
 	
+
 	public EntityTemplate(String name, ArrayList<String> baseTemplates, HashMap<String, HashMap<String, String> > componentParamsMap){
 		this.name = name;
 		this.baseTemplates = baseTemplates;
@@ -24,10 +25,10 @@ public class EntityTemplate {
 		}
 		
 		for(String compName: componentParamsMap.keySet()){
+			if(!EntityManager.getInstance().isOfflineMode()) if(ComponentTemplateFactory.getInstance().testIsGhostOnly(compName) && NetSubSystem.getInstance().isServer()) continue;
 			ComponentTemplate compTemplate = ComponentTemplateFactory.getInstance().createComponentTemplate(compName, componentParamsMap.get(compName));
 			if(compTemplate==null) continue;
 			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
-			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isGhostOnly() && NetSubSystem.getInstance().isServer()) continue;
 			this.componentTemplateMap.put(compName, compTemplate);
 		}
 	}

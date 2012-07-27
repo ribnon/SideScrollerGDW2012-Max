@@ -79,7 +79,7 @@ public abstract class ComponentTemplate {
 	public boolean isThingOnly(){
 		return false;
 	}
-	public boolean isGhostOnly(){
+	public static boolean isGhostOnly(){
 		return false;
 	}
 }

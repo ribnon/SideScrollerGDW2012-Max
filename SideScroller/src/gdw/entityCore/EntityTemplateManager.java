@@ -42,6 +42,7 @@ public class EntityTemplateManager {
 			if(line.charAt(0)=='#') continue;
 			int equalsPos = line.indexOf('=');
 			if(line.startsWith("Template")){
+				if(line.length()<10) continue;
 				if(line.charAt(8)!=' ') continue;
 				String templateNameStr=line.substring(9);
 				if(templateNameStr.length()==0) templateNameStr=null;
@@ -54,6 +55,7 @@ public class EntityTemplateManager {
 			}
 			else if(line.startsWith("Component")){
 				if(templateName==null) continue;
+				if(line.length()<11) continue;
 				if(line.charAt(9)!=' ') continue;
 				String compNameStr=line.substring(10);
 				if(compNameStr.length()==0) compNameStr=null;

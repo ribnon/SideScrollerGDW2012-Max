@@ -42,7 +42,7 @@ public class ServerCoreLoop extends Thread
 			}else if(this.ref.getCurState() == SideScrollerServer.ServerGameStates.START)
 			{
 				//init
-				Level.getInstance().start();
+			
 				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
 				
 				try

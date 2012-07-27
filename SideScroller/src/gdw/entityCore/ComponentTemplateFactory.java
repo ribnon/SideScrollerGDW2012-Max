@@ -106,4 +106,17 @@ public class ComponentTemplateFactory {
 		}
 		else return null;
 	}
+	
+	public boolean testIsGhostOnly(String compTemplateName){
+		if(componentTemplateClasses.containsKey(compTemplateName)){
+			try
+			{
+				return (Boolean)(componentTemplateClasses.get(compTemplateName).getMethod("isGhostOnly").invoke(null));
+			} catch (Exception e)
+			{
+				return false;
+			} 
+		}
+		else return false;
+	}
 }
