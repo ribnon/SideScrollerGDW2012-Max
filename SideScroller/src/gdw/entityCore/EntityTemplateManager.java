@@ -100,8 +100,43 @@ public class EntityTemplateManager {
 	}
 	
 	public void loadEntityTemplatesFromLevel(){
-		//Kollision: Collision
-		//Objekte: Objects
+		String mapTemplatesPrefix = "FromMap_";
+		MyTiledMap map = Level.getInstance().getMap();
+		int objectGroups = map.getObjectGroupCount();
+		for(int og=0;og<objectGroups;++og){
+			int groupObjects = map.getObjectCount(og);
+			for(int go=0;go<groupObjects;++go){
+				HashMap<String,HashMap<String, String>> componentParamsMap=new HashMap<String, HashMap<String,String>>();
+				ArrayList<String> propNames =  map.getObjectPropertyNames(og, go);
+				for(String propName: propNames){
+					int pointPos = propName.indexOf('.');
+					if(pointPos<1) continue;
+					String compName = propName.substring(0, pointPos);
+					if(!componentParamsMap.containsKey(compName)) componentParamsMap.put(compName, new HashMap<String,String>());
+					String paramName = propName.substring(pointPos+1);
+					if (paramName.length()==0) continue;
+					String propVal = map.getObjectProperty(og, go, paramName, null);
+					if(propVal!=null) componentParamsMap.get(compName).put(paramName, propVal);
+				}
+				String[] templateStrings = map.getObjectProperty(og, go, "Template", "").split(";");
+				ArrayList<String> baseTemplateNames = new ArrayList<String>();
+				for(String templateString: templateStrings){
+					if(templateString.length()==0) continue;
+					baseTemplateNames.add(templateString);
+				}
+				String objectType = map.getObjectType(og, go);
+				if(objectType.length()>0){
+					baseTemplateNames.add(objectType);
+				}
+				if(!componentParamsMap.containsKey("OOBoxCollisionDetection")){
+					componentParamsMap.put("OOBoxCollisionDetection", new HashMap<String,String>());
+					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentX",Float.toString(map.getObjectWidth(og, go)));
+					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentY",Float.toString(map.getObjectHeight(og, go)));
+				}
+				String templateName = mapTemplatesPrefix + map.getObjectName(og, go);
+				entityTemplates.put(templateName, new EntityTemplate(templateName, baseTemplateNames, componentParamsMap));
+			}
+		}
 	}
 	
 	public void reinitialize(){

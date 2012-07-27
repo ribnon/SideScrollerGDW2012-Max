@@ -62,8 +62,7 @@ public class ConnectionResponceThread extends Thread
 			lis.connectionUpdate(RESPONSECODES.HANDSHAKE);
 
 			// send buf
-			while(this.buf.hasRemaining())
-				tcpSocket.write(this.buf);
+			tcpSocket.write(this.buf);
 
 			// wait for responce
 			ByteBuffer responce = ByteBuffer

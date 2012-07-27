@@ -26,7 +26,7 @@ public class MyTiledMap extends TiledMap {
 		return res;
 	}
 	
-	public Enumeration<?> getObjectPropertyNamesInternal(int groupID, int objectID) {
+	private Enumeration<?> getObjectPropertyNamesInternal(int groupID, int objectID) {
 		if (groupID >= 0 && groupID < objectGroups.size()) {
 			ObjectGroup grp = (ObjectGroup) objectGroups.get(groupID);
 			if (objectID >= 0 && objectID < grp.objects.size()) {
