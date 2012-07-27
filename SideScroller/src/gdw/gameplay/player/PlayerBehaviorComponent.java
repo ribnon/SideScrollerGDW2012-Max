@@ -3,11 +3,16 @@ package gdw.gameplay.player;
 import gdw.control.messageType.AttackMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.Entity;
+import gdw.entityCore.EntityManager;
 import gdw.entityCore.Message;
 import gdw.gameplay.progress.GameplayProgressManager;
+import gdw.gameplay.progress.RainbowComponent;
 import gdw.network.NetSubSystem;
 
 import java.util.LinkedList;
+
+import collisionDetection.CollisionDetectionMessage;
 
 public class PlayerBehaviorComponent extends Component
 {
@@ -26,6 +31,9 @@ public class PlayerBehaviorComponent extends Component
 	{
 		Normal, Special
 	};
+	//alle healthChangeInterval damage bei kontakt enemydamagedealer
+	//rainbow component
+	//input component flip wenn getDirectionIsRight dann angle flip
 
 	public final static int COMPONENT_TYPE = 14;
 
@@ -81,7 +89,8 @@ public class PlayerBehaviorComponent extends Component
 					player.healthChangeTimer = 0.0f;
 				}
 
-				// TODO: Networkmessage für so einiges
+				// TODO: Networkmessage für so einiges an netzsubsystem
+				//und die gleichen messages auch behandeln
 				//TODO increment aus den anderen componenten auslesen
 				
 			}
@@ -89,6 +98,10 @@ public class PlayerBehaviorComponent extends Component
 		{
 			
 		}
+		
+		//Health change timer:
+		if (healthChangeTimer > 0)
+			healthChangeTimer -= deltaTime;
 		
 		// Weapon Timer
 		float increment = 1.0f / (hitDuration * deltaTime);
@@ -104,7 +117,7 @@ public class PlayerBehaviorComponent extends Component
 
 	public void onMessage(Message msg)
 	{
-		// collision
+		// collision: regenbogen, pinsel (nur wenn tod)
 
 		// meine nachrichten
 		
@@ -112,6 +125,21 @@ public class PlayerBehaviorComponent extends Component
 		{
 			if (hitActive == 1.0f)
 				hitActive = 0.0f;
+		}
+		//Collisions
+		else if (msg instanceof CollisionDetectionMessage)
+		{
+			CollisionDetectionMessage cmsg = (CollisionDetectionMessage) msg;
+			Entity other;
+			if (getOwner().getID() == cmsg.getIDCandidate1())
+				other = EntityManager.getInstance().getEntity(cmsg.getIDCandidate2());
+			else
+				other = EntityManager.getInstance().getEntity(cmsg.getIDCandidate1());
+			
+			//Rainbow (Dash)
+			if (other.getComponent(RainbowComponent.COMPONENT_TYPE) != null)
+			{
+			}
 		}
 	}
 
