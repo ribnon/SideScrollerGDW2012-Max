@@ -1,5 +1,6 @@
 package gdw.network.messageType;
 
+import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
@@ -69,7 +70,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 				buf.putFloat(msg.posY);
 				buf.putFloat(msg.velocityX);
 				buf.putFloat(msg.velocityY);
-			}catch(IndexOutOfBoundsException e)
+			}catch(IndexOutOfBoundsException | BufferOverflowException e)
 			{
 				break;
 			}
