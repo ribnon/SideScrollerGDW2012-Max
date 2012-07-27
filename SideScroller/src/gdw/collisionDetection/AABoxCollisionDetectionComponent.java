@@ -33,7 +33,7 @@ public class AABoxCollisionDetectionComponent extends CollisionDetectionComponen
 		super.destroy();
 	}
 
-	
+
 	// Getters / Setters
 	public float getHalfExtentX()
 	{

@@ -72,15 +72,16 @@ public class CollisionQuadTreeRect
 				r = ((CircleCollisionDetectionComponent)componentReference).getRadius();
 				break;
 				
-			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX: {
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX:
 				float halfX = ((OOBoxCollisionDetectionComponent)componentReference).getHalfExtentX();
 				float halfY = ((OOBoxCollisionDetectionComponent)componentReference).getHalfExtentY();
-				r = (float) Math.sqrt(halfX * halfX + halfY * halfY); }
+				r = (float) Math.sqrt(halfX * halfX + halfY * halfY);
+				break;
 				
-			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_OOBOX: {
-				float halfX = ((OOBoxCollisionDetectionComponent)componentReference).getHalfExtentX();
-				float halfY = ((OOBoxCollisionDetectionComponent)componentReference).getHalfExtentY();
-				r = (float) Math.sqrt(halfX * halfX + halfY * halfY); }
+			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_OOBOX:
+				halfX = ((OOBoxCollisionDetectionComponent)componentReference).getHalfExtentX();
+				halfY = ((OOBoxCollisionDetectionComponent)componentReference).getHalfExtentY();
+				r = (float) Math.sqrt(halfX * halfX + halfY * halfY);
 				break;
 				
 			default:
