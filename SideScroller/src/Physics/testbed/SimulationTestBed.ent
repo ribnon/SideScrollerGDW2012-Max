@@ -1,18 +1,22 @@
 Template TestBedControllable
-Component Simulation
-mass=100
-friction=0.8
+#Component Simulation
+#mass=100
+#friction=0.8
 Component AABoxCollisionDetection
 halfExtentX=24.0
 halfExtentY=32.0
 Component CollisionReaction
 impassableFromTop=1
-impassableFromSide=0
+impassableFromSide=1
 Component StaticSprite
-Path=assets/teddy.png
+path=assets/spritesheets/singleImages/teddy.png
 Scale=1
 pivotX=32
 pivotY=32
+Component FadeIn
+fadeTime=60.0
+startColor=0 255 0 0
+endColor=255 255 255 255
 
 Template TestBedEnemy
 #Component Simulation
@@ -24,7 +28,7 @@ Component CollisionReaction
 impassableFromTop=1
 impassableFromSide=1
 Component StaticSprite
-Path=assets/enemy_tomato_bad_move.png
+path=assets/spritesheets/singleImages/enemy_tomato_bad_move.png
 Scale=0.5
 pivotX=32
 pivotY=32
