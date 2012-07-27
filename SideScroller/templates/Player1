@@ -1,7 +1,7 @@
 Template Player1
 
 Component AnimatedSprite
-path=assets/spritesheets/teddy_anim.png
+path=../assets/spritesheets/teddy_anim.png
 cycleLength=8
 
 Component PlayerInput

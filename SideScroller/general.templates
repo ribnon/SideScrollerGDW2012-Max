@@ -1,6 +1,6 @@
 Include /templates/LevelRainbow
 Include /templates/Player1
-include /templates/LevelGoal
+Include /templates/LevelGoal
 Include /templates/Camera
 
 
