@@ -21,8 +21,8 @@ public class CollisionReactionComponentTemplate extends ComponentTemplate
 	public CollisionReactionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
-		impassableFromTop = (getIntegerParam("impassableFromTop", 0) == 1);
-		impassableFromSide = (getIntegerParam("impassableFromSide", 0) == 1);
+		impassableFromTop = (getIntegerParam("impassableFromTop",1) == 1);
+		impassableFromSide = (getIntegerParam("impassableFromSide",1) == 1);
 	}
 
 	@Override

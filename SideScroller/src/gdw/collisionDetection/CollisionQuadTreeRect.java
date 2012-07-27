@@ -73,8 +73,8 @@ public class CollisionQuadTreeRect
 				break;
 				
 			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_AABOX:
-				float halfX = ((OOBoxCollisionDetectionComponent)componentReference).getHalfExtentX();
-				float halfY = ((OOBoxCollisionDetectionComponent)componentReference).getHalfExtentY();
+				float halfX = ((AABoxCollisionDetectionComponent)componentReference).getHalfExtentX();
+				float halfY = ((AABoxCollisionDetectionComponent)componentReference).getHalfExtentY();
 				r = (float) Math.sqrt(halfX * halfX + halfY * halfY);
 				break;
 				

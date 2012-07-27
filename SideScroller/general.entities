@@ -6,5 +6,3 @@ Entity Player1 //todo as Player1
 Entity LevelGoal //todo
 
 Entity Camera //todo
-
-Entity StartSpawn //todo

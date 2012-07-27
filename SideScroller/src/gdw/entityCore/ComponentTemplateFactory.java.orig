@@ -19,18 +19,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-<<<<<<< HEAD
-import collisionDetection.AABoxCollisionDetectionComponent;
-import collisionDetection.AABoxCollisionDetectionComponentTemplate;
-import collisionDetection.CircleCollisionDetectionComponent;
-import collisionDetection.CircleCollisionDetectionComponentTemplate;
-=======
 import collisionDetection.AABoxCollisionDetectionComponentTemplate;
 import collisionDetection.CircleCollisionDetectionComponentTemplate;
 import collisionDetection.OOBoxCollisionDetectionComponentTemplate;
->>>>>>> develop
 
 import Physics.SimulationComponentTemplate;
+
 
 public class ComponentTemplateFactory {
 	//Singleton-Stuff:
@@ -46,11 +40,11 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("AnimatedSprite", AnimatedSpriteComponentTemplate.class);
 		componentTemplateClasses.put("OverlayedAnimatedSprite", OverlayedAnimatedSpriteComponentTemplate.class);
 		componentTemplateClasses.put("Camera", CameraComponentTemplate.class);
-		componentTemplateClasses.put("Simulation ", SimulationComponentTemplate.class);
+		componentTemplateClasses.put("Simulation", SimulationComponentTemplate.class);
 		componentTemplateClasses.put("PlayerInput", PlayerInputComponentTemplate.class);
-		componentTemplateClasses.put("AABoxCollisonDetection", AABoxCollisionDetectionComponentTemplate.class);
-		componentTemplateClasses.put("OOBoxCollisonDetection", OOBoxCollisionDetectionComponentTemplate.class);
-		componentTemplateClasses.put("CircleCollisonDetection", CircleCollisionDetectionComponentTemplate.class);
+		componentTemplateClasses.put("AABoxCollisionDetection", AABoxCollisionDetectionComponentTemplate.class);
+		componentTemplateClasses.put("OOBoxCollisionDetection", OOBoxCollisionDetectionComponentTemplate.class);
+		componentTemplateClasses.put("CircleCollisionDetection", CircleCollisionDetectionComponentTemplate.class);
 		componentTemplateClasses.put("CollisionReaction", CollisionReactionComponentTemplate.class);
 		componentTemplateClasses.put("Follow", FollowComponentTemplate.class);
 		componentTemplateClasses.put("Attachment", AttachmentComponentTemplate.class);
@@ -61,7 +55,7 @@ public class ComponentTemplateFactory {
 //		componentTemplateClasses.put("Duckable", DuckableComponentTemplate.class);
 //		componentTemplateClasses.put("PlayerBehavior", PlayerBehaviorComponentTemplate.class);
 //		componentTemplateClasses.put("EnemyBehavior", EnemyBehaviorComponentTemplate.class);
-//		componentTemplateClasses.put("EnemyProjectile", EnemyProjectileComponentTemplate.class);
+//		componentTemplateClasses.put("EnemyDamageDealer", EnemyDamageDealerComponentTemplate.class);
 //		componentTemplateClasses.put("SwitchUser", SwitchUserComponentTemplate.class);
 //		componentTemplateClasses.put("Switch", SwitchComponentTemplate.class);
 //		componentTemplateClasses.put("Door", DoorComponentTemplate.class);
@@ -73,31 +67,24 @@ public class ComponentTemplateFactory {
 //		componentTemplateClasses.put("Colorable", ColorableComponentTemplate.class);
 	}
 
-	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<>();
+	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<String, Class<? extends ComponentTemplate>>();
 	
 	public ComponentTemplate createComponentTemplate(String name, HashMap<String, String> params){
-<<<<<<< HEAD
-		if(name.equals("SimulationComponent")) {
-			return new SimulationComponentTemplate(params);
-		}
-		if(name.equals("AABoxCollisionDetectionComponent")) {
-			return new AABoxCollisionDetectionComponentTemplate(params);
-		}
-		if(name.equals("CircleCollisionDetectionComponent")) {
-			return new CircleCollisionDetectionComponentTemplate(params);
-		}
-		
-		return null;
-=======
 		if(componentTemplateClasses.containsKey(name)){
 			try {
 				return componentTemplateClasses.get(name).getConstructor(HashMap.class).newInstance(params);
-			} catch (Exception e) {
+			}
+			catch (InvocationTargetException e) {
+				System.err.println("Warnung: " + e.getTargetException().getMessage());
+				e.getTargetException().printStackTrace();
+				return null;
+			}
+			catch (Exception e) {
 				System.err.println("Warnung: " + e.getMessage());
+				e.printStackTrace();
 				return null;
 			} 
 		}
 		else return null;
->>>>>>> develop
 	}
 }

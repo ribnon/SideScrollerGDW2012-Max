@@ -23,7 +23,7 @@ public class EntityManager {
 	
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
 	private int nextID = 1;
-	private boolean offlineMode=false;
+	private boolean offlineMode;
 	
 	public boolean isOfflineMode() {
 		return offlineMode;
@@ -128,9 +128,25 @@ public class EntityManager {
 				}
 			}
 		}
-		//Kollision: Collision
-		//Objekte: Objects
-
+		String mapTemplatesPrefix = "FromMap_";
+		int objectGroups = map.getObjectGroupCount();
+		for(int og=0;og<objectGroups;++og){
+			int groupObjects = map.getObjectCount(og);
+			for(int go=0;go<groupObjects;++go){
+				String objectName = map.getObjectName(og, go);
+				String templateName = mapTemplatesPrefix+objectName;
+				String orientationStr = map.getObjectProperty(og, go, "Entity.orientation", "0");
+				float orientation=0.0f;
+				try {
+					orientation = Float.parseFloat(orientationStr);
+				} catch (NumberFormatException e) {}
+				EntityTemplate entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate(templateName);
+				Entity ent = entityTemplate.createEntity(
+						map.getObjectX(og, go)+map.getObjectWidth(og, go)*0.5f,
+						map.getObjectY(og, go)+map.getObjectHeight(og, go), orientation);
+				NamedEntityReference.setEntityID(objectName, ent.getID());
+			}
+		}
 	}
 	/*
 	 *

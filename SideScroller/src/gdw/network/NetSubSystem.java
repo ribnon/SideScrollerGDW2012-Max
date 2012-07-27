@@ -159,7 +159,7 @@ public class NetSubSystem
 	{
 		if(!this.serverFlag)
 			return;
-		GDWServerLogger.logMSG("Spawn id: "+id+"posx - Y: "+posX+" "+posY);
+		//GDWServerLogger.logMSG("Spawn id: "+id+"posx - Y: "+posX+" "+posY);
 		this.listOfSpawnMessages.add(new EntitySpawnNetMessage(template, id, posX, posY, orientation));
 	}
 	

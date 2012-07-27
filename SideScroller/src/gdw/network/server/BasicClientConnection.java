@@ -101,7 +101,7 @@ public abstract class BasicClientConnection
 
 		try
 		{
-			this.udpConnection.write(buf);
+			this.tcpConnection.write(buf);
 		} catch (IOException e)
 		{
 			// somethings wrong shutdown the connection
