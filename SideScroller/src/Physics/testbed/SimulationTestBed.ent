@@ -1,7 +1,7 @@
 Template TestBedControllable
-#Component Simulation
-#mass=100
-#friction=0.8
+Component Simulation
+mass=1
+friction=0.8
 Component AABoxCollisionDetection
 halfExtentX=24.0
 halfExtentY=32.0

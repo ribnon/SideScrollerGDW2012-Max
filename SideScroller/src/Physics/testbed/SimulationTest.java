@@ -9,6 +9,7 @@ import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
+import gdw.graphics.SpriteManager;
 import gdw.graphics.StaticSpriteComponent;
 import gdw.physics.SimulationComponent;
 import gdw.physics.SimulationComponentManager;
@@ -166,6 +167,7 @@ public class SimulationTest extends BasicGame {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		drawEntity(g, entity1);
 		drawEntity(g, entity2);
+		
 		drawEntity(g, ground);
 		drawEntity(g, wall);
 		drawEntity(g, platform);
@@ -177,6 +179,8 @@ public class SimulationTest extends BasicGame {
 			g.drawString("vy: "+simComp.getVelocityY(), 10, 140);
 			g.drawString("ay: "+simComp.getAccelerationY(), 10, 160);
 		}
+		
+		SpriteManager.getInstance().render();
 	}
 
 	@Override
@@ -185,7 +189,11 @@ public class SimulationTest extends BasicGame {
 		
 		try {
 			Level.getInstance().start();
+			
 			entityTemplateManager = EntityTemplateManager.getInstance();
+
+			
+			
 			entityTemplateManager.loadEntityTemplates("src/Physics/testbed/SimulationTestBed.ent");
 			
 			EntityTemplate entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate("TestBedControllable");
@@ -244,29 +252,30 @@ public class SimulationTest extends BasicGame {
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		// TODO Auto-generated method stub
-		float forcePower = 150.f; 
-		Input inp = arg0.getInput();
-		if(inp.isKeyDown(Input.KEY_LSHIFT))
-			forcePower *= 0.1f;
-		if(inp.isKeyDown(Input.KEY_A)) {
-			simComp.addForce(-forcePower, 0);
-//			simComp.setVelocityX(-10);
-		}
-		if(inp.isKeyDown(Input.KEY_D)) {
-			simComp.addForce(+forcePower, 0);
-//			simComp.setVelocityX(10);
-		}
-		if(inp.isKeyDown(Input.KEY_W)) {
-			simComp.addForce(0, -forcePower);
-//			simComp.setVelocityY(-10);
-		}
-		if(inp.isKeyDown(Input.KEY_S)) {
-			simComp.addForce(0, forcePower);
-//			simComp.setVelocityY(10);
+		if(simComp!=null) {
+			float forcePower = 150.f; 
+			Input inp = arg0.getInput();
+			if(inp.isKeyDown(Input.KEY_LSHIFT))
+				forcePower *= 0.1f;
+			if(inp.isKeyDown(Input.KEY_A)) {
+				simComp.addForce(-forcePower, 0);
+	//			simComp.setVelocityX(-10);
+			}
+			if(inp.isKeyDown(Input.KEY_D)) {
+				simComp.addForce(+forcePower, 0);
+	//			simComp.setVelocityX(10);
+			}
+			if(inp.isKeyDown(Input.KEY_W)) {
+				simComp.addForce(0, -forcePower);
+	//			simComp.setVelocityY(-10);
+			}
+			if(inp.isKeyDown(Input.KEY_S)) {
+				simComp.addForce(0, forcePower);
+	//			simComp.setVelocityY(10);
+			}
 		}
 		
-		
-		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
+//		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 		SimulationComponentManager.getInstance().simulate(arg1/1000.f);
 	}
 	
