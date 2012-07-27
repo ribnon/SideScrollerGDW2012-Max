@@ -15,7 +15,7 @@ import gdw.network.NetSubSystem;
 
 import java.util.LinkedList;
 
-import collisionDetection.CollisionDetectionMessage;
+import gdw.collisionDetection.CollisionDetectionMessage;
 
 public class PlayerBehaviorComponent extends Component
 {

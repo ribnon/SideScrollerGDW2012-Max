@@ -1,6 +1,6 @@
 package gdw.gameplay.progress;
 
-import collisionDetection.CollisionDetectionMessage;
+import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.*;
 
 public class RainbowComponent extends Component {
