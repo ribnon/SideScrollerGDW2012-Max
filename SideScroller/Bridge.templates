@@ -1,0 +1,15 @@
+Template Bridge
+Component StaticSpriteComponent
+path=./assets/staticSprites/background_bridge_1.png
+
+Component OOBoxCollisionDetection
+halfExtentX=56.0
+halfExtentY=8.0
+
+Component CollisionReaction
+
+
+Component PivotRotationComponent
+
+Template BridgeSwitch
+Component SwitchComponent

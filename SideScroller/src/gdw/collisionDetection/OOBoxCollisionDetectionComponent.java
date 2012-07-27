@@ -59,4 +59,11 @@ public class OOBoxCollisionDetectionComponent extends CollisionDetectionComponen
 		if (msg instanceof EntityConstructedMessage)
 			CollisionDetectionComponentManager.getInstance().registerTreeRect(this);
 	}
+
+	@Override
+	public float[] getDimensions()
+	{
+		float diag = (float) Math.sqrt(halfExtentX * halfExtentX + halfExtentY * halfExtentY);
+		return new float[] { diag, diag };
+	}
 }
