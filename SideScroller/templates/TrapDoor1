@@ -1,4 +1,4 @@
-Template Door1
+Template TrapDoor1
 
 Component CollisionReaction
 impassableFromTop=1
@@ -6,20 +6,20 @@ impassableGromSide=1
 
 Component RotateBySwitch
 activateRotation=0
-deactivateRotation=270
-angularVelocity=-10
+deactivateRotation=90
+angularVelocity=10
 
 Component PivotRotation
-pivotX=8
-pivotY=0
+pivotX=0
+pivotY=8
 
 Component StaticSprite
 scale=1
 filterRed=1
 filterGreen=1
 filterBlue=1
-pivotX=8
-pivotY=0
+pivotX=0
+pivotY=8
 layer=1
 flipped=1
-path=./assets/staticSprites/background/background_door_1.png
+path=./assets/staticSprites/background/background_trapdoor_1.png
