@@ -7,6 +7,7 @@ import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.Message;
 import gdw.gameplay.enemy.EnemyDamageDealerComponent;
+import gdw.gameplay.player.messageType.DeathMessage;
 import gdw.gameplay.player.messageType.ReSpawnMessage;
 import gdw.gameplay.player.messageType.HealthModify;
 import gdw.gameplay.progress.GameplayProgressManager;
@@ -36,8 +37,6 @@ public class PlayerBehaviorComponent extends Component
 		Normal, Special
 	};
 
-	// alle healthChangeInterval damage bei kontakt enemydamagedealer
-	// rainbow component
 	// input component flip wenn getDirectionIsRight dann angle flip
 
 	public final static int COMPONENT_TYPE = 14;
@@ -65,7 +64,6 @@ public class PlayerBehaviorComponent extends Component
 	protected void destroy()
 	{
 		PlayerSubSystem.getInstance().removePlayerBehaviorComponent(this);
-		// TODO alter digger, ich hätte gern ne PlayerSubsystem, schwör
 	}
 
 	public void tick(float deltaTime)
@@ -79,28 +77,9 @@ public class PlayerBehaviorComponent extends Component
 			deathTimer -= deltaTime;
 			if (deathTimer < 0.0f)
 			{
-				Component currentSpawn = GameplayProgressManager.getInstance()
-						.getCurrentSpawnComponent();
-				// get all Player
-				LinkedList<PlayerBehaviorComponent> allPlayer = PlayerSubSystem
-						.getInstance().getAllPlayerBehaviorComponent();
-				for (PlayerBehaviorComponent player : allPlayer)
-				{
-					player.getOwner()
-							.setPosX(currentSpawn.getOwner().getPosX());
-					player.getOwner()
-							.setPosY(currentSpawn.getOwner().getPosY());
-					player.revive(false);
-				}
-
-				// TODO: Networkmessage für so einiges an netzsubsystem
-				// und die gleichen messages auch behandeln
-				// TODO increment aus den anderen componenten auslesen
-
+				respawnAfterDead();
+				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(), new DeathMessage());
 			}
-		} else
-		{
-
 		}
 
 		// Health change timer:
@@ -123,8 +102,6 @@ public class PlayerBehaviorComponent extends Component
 
 	public void onMessage(Message msg)
 	{
-		//TODO:meine nachrichten
-
 		if (msg instanceof AttackMessage)
 		{
 			if (hitActive == 1.0f)
@@ -154,9 +131,15 @@ public class PlayerBehaviorComponent extends Component
 			HealthModify hm = (HealthModify) msg;
 			healthChange(hm.healthModify, false);
 		}
+		//RespawnMessage
 		else if (msg instanceof ReSpawnMessage)
 		{
 			revive(false);
+		}
+		//DeathMessage
+		else if (msg instanceof DeathMessage)
+		{
+			respawnAfterDead();
 		}
 	}
 
@@ -195,8 +178,7 @@ public class PlayerBehaviorComponent extends Component
 		{
 			if (healthChangeTimer < 0)
 			{
-				float healthChange = -enemyDmg.getHealthDecrement();
-				healthChange(healthChange, true);
+				healthChange(-enemyDmg.getHealthDecrement(), true);
 			}
 		}
 	}
@@ -229,9 +211,26 @@ public class PlayerBehaviorComponent extends Component
 					new ReSpawnMessage());
 	}
 
+	private void respawnAfterDead()
+	{
+		Component currentSpawn = GameplayProgressManager.getInstance()
+				.getCurrentSpawnComponent();
+		// get all Player
+		LinkedList<PlayerBehaviorComponent> allPlayer = PlayerSubSystem
+				.getInstance().getAllPlayerBehaviorComponent();
+		for (PlayerBehaviorComponent player : allPlayer)
+		{
+			player.getOwner()
+					.setPosX(currentSpawn.getOwner().getPosX());
+			player.getOwner()
+					.setPosY(currentSpawn.getOwner().getPosY());
+			player.revive(false);
+		}
+	}
+
 	public void startAttack(AttackType type)
 	{
-		// TODO: this
+		// TODO: attacks and the corresponding message
 	}
 
 	@Override
