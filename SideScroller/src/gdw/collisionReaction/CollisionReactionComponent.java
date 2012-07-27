@@ -124,7 +124,7 @@ public class CollisionReactionComponent extends Component
 		if(otherReact!=null) {
 			otherImpassibleCheck = otherReact.impassableFromTop
 					&& !otherReact.impassableFromSide
-					&& (simulatedObject.getVelocityY() < 0 || ratio < VERTICAL_ANGLE_LIMIT
+					&& (simulatedObject.getVelocityY() < 0 || ratio < -VERTICAL_ANGLE_LIMIT
 							|| staticObject.getPosY() < simulatedObject.getOwner().getPosY());
 		}
 		
