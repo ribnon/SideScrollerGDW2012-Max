@@ -34,7 +34,7 @@
   </object>
   <object name="Platform1" type="MoveableObject" x="224" y="2000" width="96" height="16">
    <properties>
-    <property name="PathFollow.wayPoints" value="x;y x;y"/>
+    <property name="PathFollow.wayPoints" value="0;0 100;100"/>
     <property name="Template" value="Platform"/>
    </properties>
   </object>
