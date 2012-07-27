@@ -417,8 +417,11 @@ public abstract class BasicServer implements INetworkBridge
 		send.flip();
 
 		try
-		{
-			socket.write(send);
+		{	while(send.hasRemaining())
+			{
+				socket.write(send);
+			}
+			
 		} catch (IOException e)
 		{
 		}
@@ -434,7 +437,8 @@ public abstract class BasicServer implements INetworkBridge
 		buf.flip();
 		try
 		{
-			info.tcpConnection.write(buf);
+			while(buf.hasRemaining())
+				info.tcpConnection.write(buf);
 		} catch (IOException e)
 		{
 			info.closeOpenSockets();

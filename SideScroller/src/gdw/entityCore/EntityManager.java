@@ -96,7 +96,20 @@ public class EntityManager {
 					}
 				} catch (NumberFormatException e) {
 					continue;
-				}	
+				}
+			}
+			else if(line.startsWith("Include")){
+				if(line.length()<9) continue;
+				if(line.charAt(7)!=' ') continue;
+				String includeFileNameStr=line.substring(8);
+				if(includeFileNameStr.length()==0) continue;
+				try{
+					loadEntities(includeFileNameStr);
+				}
+				catch(IOException e){
+					System.err.println("IOException beim Lesen eines Includefiles: " + e.getMessage());
+					e.printStackTrace();
+				}
 			}
 			else continue;
 		}
@@ -162,6 +175,19 @@ public class EntityManager {
 	
 	/**
 	 * Nuke the site from Orbit.
+	 * 
+	 *          
+     ..-^~~~^-..
+   .~           ~.
+  (;:           :;)
+   (:           :)
+     ':._   _.:'
+         | |
+       (=====)
+         | |
+         | |
+         | |
+      ((/   \))
 	 */
 	public void deleteAllEntities(){
 		ArrayList<Entity> toDelete = new ArrayList<Entity>();

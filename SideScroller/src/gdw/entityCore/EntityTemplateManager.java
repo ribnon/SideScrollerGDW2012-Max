@@ -66,10 +66,24 @@ public class EntityTemplateManager {
 			}
 			else if(line.startsWith("Base")){
 				if(templateName==null) continue;
+				if(line.length()<6) continue;
 				if(line.charAt(4)!=' ') continue;
 				String baseTemplateNameStr=line.substring(5);
 				if(baseTemplateNameStr.length()==0) continue;
 				baseTemplates.add(baseTemplateNameStr);
+			}
+			else if(line.startsWith("Include")){
+				if(line.length()<9) continue;
+				if(line.charAt(7)!=' ') continue;
+				String includeFileNameStr=line.substring(8);
+				if(includeFileNameStr.length()==0) continue;
+				try{
+					loadEntityTemplates(includeFileNameStr);
+				}
+				catch(IOException e){
+					System.err.println("IOException beim Lesen eines Includefiles: " + e.getMessage());
+					e.printStackTrace();
+				}
 			}
 			else if(equalsPos>0){
 				if(componentName==null) continue;

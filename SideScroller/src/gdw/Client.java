@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 
 import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.EntityManager;
+import gdw.entityCore.Level;
 import gdw.graphics.SpriteManager;
 import gdw.network.NetSubSystem;
 import gdw.network.client.BasicClient;
@@ -21,9 +22,25 @@ public class Client extends BasicGame {
 	ClientListener l;
 	boolean connected = false;
 	boolean connecting = false;
-
+	
+	boolean loadLevel = false;
+	boolean levelLoaded = false;
+	
+	boolean quit = false;
+	
+	
 	public void setConnected(boolean c) {
 		connected = c;
+	}
+	
+	public void setLoadLevel(boolean ll)
+	{
+		loadLevel = ll;
+	}
+	
+	public void setQuit(boolean q)
+	{
+		quit = q;
 	}
 
 	public Client(String title) {
@@ -53,17 +70,26 @@ public class Client extends BasicGame {
 
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
+		if(quit)
+			arg0.exit();
 		if (!l.getServers().isEmpty() && !connecting) {
 			BasicClient.connectToServer(l.getServers().get(0), null);
 			connecting = true;
 			System.out
 					.println("connecting to " + l.getServers().get(0).address);
 		}
+		if(loadLevel && !levelLoaded)
+		{
+			Level.getInstance().start();
+			levelLoaded = true;
+		}
 		if (connected) {
+			
 			NetSubSystem.getInstance().pollMessages();
 			// CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 			EntityManager.getInstance().tick((float) arg1);
 		}
+		
 
 	}
 
