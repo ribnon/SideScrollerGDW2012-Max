@@ -13,6 +13,8 @@ finishedCount=0
 segmentCount=0
 notifyOnClear=#################################
 
+Component Network
+
 Component FadeIn
 fadeTime=5
 fadeProgress=0

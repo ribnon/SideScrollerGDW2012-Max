@@ -119,6 +119,9 @@ gdw.genericBehavior
 							pivotX:float
 							pivotY:float
 
+gdw.network
+				Network
+
 gdw.graphics
 				AnimatedSprite
 							path:String
