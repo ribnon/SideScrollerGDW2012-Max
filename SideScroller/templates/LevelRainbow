@@ -1,0 +1,8 @@
+Template LevelRainbow
+
+Component AnimatedSprite
+path=assets/spritesheets/rainbow.png
+cycleLength=10
+
+Component Rainbow
+checkPointNumber
