@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.newdawn.slick.tiled.TiledMap;
@@ -163,7 +164,12 @@ public class EntityManager {
 	 * Nuke the site from Orbit.
 	 */
 	public void deleteAllEntities(){
+		ArrayList<Entity> toDelete = new ArrayList<Entity>();
 		for(Entity ent: entities.values()){
+			toDelete.add(ent);
+		}
+		
+		for(Entity ent: toDelete){
 			ent.destroy();
 		}
 	}

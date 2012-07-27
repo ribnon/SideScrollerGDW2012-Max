@@ -45,8 +45,8 @@ gdw.gameplay.color
 				FadeInComponent
 							fadeTime:float
 							fadeProgress:float
-							startColor:String[] //0 0 0 
-							endColor:String[]	//0 0 0
+							startColor:String[] //0;0;0;0
+							endColor:String[]	//0;0;0;0
 
 gdw.gameplay.enemy
 				EnemyBehavior
