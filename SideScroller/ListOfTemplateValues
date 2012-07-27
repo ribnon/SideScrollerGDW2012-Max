@@ -40,7 +40,7 @@ gdw.gameplay.color
 							notifyOnClear:EntityReference
 
 				ColorSource
-							color:String[] 		//0;0;0
+							color:String[] 		//0;0;0  //RYB
 
 				FadeInComponent
 							fadeTime:float
@@ -58,8 +58,8 @@ gdw.gameplay.enemy
 							healthDecrement:float
 
 gdw.gameplay.levelObjects
-				RotateSwitch
-							activateTotation:float
+				RotateBySwitch
+							activateRotation:float
 							deactivateRotation:float
 							angularVelocity:float
 
@@ -128,7 +128,9 @@ gdw.graphics
 							flipped:int 		//{0,1}
 							cycle:int
 							step:int
-
+							animationSpeed:float //Noch nicht implementiert
+							cycleLength:int[] //4;5;6 // Noch nicht implementiert
+							
 				Camera
 							playerNumber:int
 							viewPortX:int
@@ -164,6 +166,8 @@ gdw.graphics
 							baseStep:int
 							overlayStep1:int
 							overlayStep2:int
+							animationSpeed:float //Noch nicht implementiert
+							cycleLength:int[] //4;5;6 // Noch nicht implementiert
 
 				StaticSprite
 							scale:float

@@ -124,10 +124,10 @@ public class EntityTemplateManager {
 					if(templateString.length()==0) continue;
 					baseTemplateNames.add(templateString);
 				}
-				String objectType = map.getObjectType(og, go);
-				if(objectType.length()>0){
-					baseTemplateNames.add(objectType);
-				}
+//				String objectType = map.getObjectType(og, go);
+//				if(objectType.length()>0){
+//					baseTemplateNames.add(objectType);
+//				}
 				if(!componentParamsMap.containsKey("OOBoxCollisionDetection")){
 					componentParamsMap.put("OOBoxCollisionDetection", new HashMap<String,String>());
 					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentX",Float.toString(map.getObjectWidth(og, go)));
