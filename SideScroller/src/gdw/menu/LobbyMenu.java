@@ -228,16 +228,25 @@ public abstract class LobbyMenu extends MenuBase
 				&& y < playerNameBoxPosY + playerNameBoxSizeY)
 			isNameFieldActive = true;
 
+		boolean scrolled = false;
 		// server list index:
 		int entry = (y - serverListPosY) / serverListEntryHeight;
 		if (entry == 0 && isTopEntryArrow)
+		{
 			--currentIndexOnTopOfList;
+			scrolled = true;
+		}
 		else if (entry == bottomListEntry && isBottomEntryArrow)
+		{
 			++currentIndexOnTopOfList;
+			scrolled = true;
+		}
 		else if (entry + currentIndexOnTopOfList < serverList.size())
+		{
 			currentActiveServerIndex = entry + currentIndexOnTopOfList;
+		}
 		
-		if (clickCount == 2)
+		if (clickCount == 2 && !scrolled)
 			onJoinServerClicked(currentActiveServerIndex);
 	}
 

@@ -4,6 +4,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -15,9 +16,10 @@ public class MenuTest extends BasicGame
 	{
 		super("Hardcoded Menu! 20% cooler in 10 seconds flat!");
 	}
+
 	MenuBase menu;
 	private boolean shutdown = false;
-	
+
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException
 	{
@@ -36,8 +38,29 @@ public class MenuTest extends BasicGame
 				c.setPlayer1Name("Foo");
 				c.setPlayer2Name("Bar");
 				c.setServerName("20% cooler");
+				c.setPlayer1Modifiable(true);
+				c.setPlayer2Modifiable(true);
+				// c.addPlayerCharacterImage("")
+				try
+				{
+					c.setServerImage(new Image(
+							"assets/spritesheets/singleImages/enemy_brocoli_bad.png"));
+					c.addHat(new Image("assets/hat/teddy_bandana.png"));
+					c.addHat(new Image("assets/hat/teddy_basecap.png"));
+					c.addHat(new Image("assets/hat/teddy_headband.png"));
+					c.addHat(new Image("assets/hat/teddy_sombrero.png"));
+					c.addHat(new Image("assets/hat/teddy_tophat.png"));
+					c.addHat(new Image("assets/hat/teddy_viking.png"));
+				} catch (SlickException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				c.setPlayer1Hat(0);
+				c.setPlayer2Hat(0);
 				menu = c;
 			}
+
 			@Override
 			public void onCreateNewServerClicked()
 			{
@@ -77,28 +100,33 @@ public class MenuTest extends BasicGame
 	{
 		menu.mouseClicked(button, x, y, clickCount);
 	}
+
 	@Override
 	public void mousePressed(int button, int x, int y)
 	{
 		menu.mousePressed(button, x, y);
 	}
+
 	@Override
 	public void mouseReleased(int button, int x, int y)
 	{
 		menu.mouseReleased(button, x, y);
 	}
+
 	@Override
 	public void keyPressed(int key, char c)
 	{
 		menu.keyPressed(key, c);
 	}
+
 	@Override
 	public void keyReleased(int key, char c)
 	{
 		if (key == Input.KEY_ESCAPE)
-			shutdown  = true;
+			shutdown = true;
 		menu.keyReleased(key, c);
 	}
+
 	@Override
 	public void mouseMoved(int oldx, int oldy, int newx, int newy)
 	{
@@ -114,12 +142,12 @@ public class MenuTest extends BasicGame
 
 	/**
 	 * @param args
-	 * @throws SlickException 
+	 * @throws SlickException
 	 */
 	public static void main(String[] args) throws SlickException
 	{
 		AppGameContainer app = new AppGameContainer(new MenuTest());
-		app.setDisplayMode(600, 300, false);
+		app.setDisplayMode(800, 600, false);
 		app.setUpdateOnlyWhenVisible(false);
 		app.start();
 	}
