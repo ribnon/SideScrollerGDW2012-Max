@@ -65,14 +65,33 @@ public class CharacterSelectionMenu extends MenuBase
 		currentDrawY += 0.01f * height;
 		int titlewidth = graphics.getFont().getWidth(TITLE);
 		graphics.drawString(TITLE, 0.5f * width - titlewidth / 2, currentDrawY);
-		currentDrawY += lineHeight;
+		currentDrawY += lineHeight + lineHeight/2;
 
-		charSelectPlayer1.draw(container, graphics, (int) (0.01f * width),
-				currentDrawY);
-		charSelectPlayer2.draw(container, graphics, (int) (0.01f * width),
-				currentDrawY + charSelectPlayer1.getHeight());
-		serverSelecter.draw(container, graphics, charSelectPlayer1.getWidth(),
-				currentDrawY + (charSelectPlayer1.getHeight()/2+charSelectPlayer2.getHeight()/2)/2);
+		int availableSpaceX = (int) (width - 0.02 * width);
+		int availableSpaceY = (int) (height - currentDrawY - 0.01 * height);
+
+		float scaleFactorPlayer1 = Math.min((availableSpaceX / 2f)
+				/ charSelectPlayer1.getWidth(), (availableSpaceY / 2f)
+				/ charSelectPlayer1.getHeight());
+
+		float scaleFactorPlayer2 = Math.min((availableSpaceX / 2f)
+				/ charSelectPlayer2.getWidth(), (availableSpaceY / 2f)
+				/ charSelectPlayer2.getHeight());
+
+		float scaleFactorServer = Math.min((availableSpaceX / 2f)
+				/ serverSelecter.getWidth(), (availableSpaceY / 2f)
+				/ serverSelecter.getHeight());
+
+		charSelectPlayer1.draw(container, graphics, (int) (0.01 * width),
+				currentDrawY, scaleFactorPlayer1);
+		charSelectPlayer2.draw(container, graphics, (int) (0.01 * width),
+				(int) (currentDrawY + charSelectPlayer1.getHeight()
+						* scaleFactorPlayer1), scaleFactorPlayer2);
+		serverSelecter.draw(container, graphics,
+				(int) (availableSpaceX / 2 + 0.01 * width),
+				(int) (currentDrawY + (charSelectPlayer1.getHeight()
+						* scaleFactorPlayer1 + charSelectPlayer2.getHeight()
+						* scaleFactorPlayer2) / 4), scaleFactorServer);
 	}
 
 	public void setPlayer1Name(String name)

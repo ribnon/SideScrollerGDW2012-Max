@@ -46,7 +46,7 @@ public class Selecter
 	}
 
 	public void draw(GameContainer container, Graphics graphics, int offsetX,
-			int offsetY)
+			int offsetY, float scale)
 	{
 		lineHeight = graphics.getFont().getLineHeight();
 		int textPadding = lineHeight / 8;
@@ -55,13 +55,13 @@ public class Selecter
 		if (currentSelectionID >= 0 && currentSelectionID < images.size())
 			drawImage = images.get(currentSelectionID);
 
-		arrowLeft.draw(offsetX, offsetY + drawImage.getHeight() / 2);
-		drawImage.draw(offsetX + arrowLeft.getWidth(), offsetY);
-		arrowRight.draw(offsetX + arrowLeft.getWidth() + drawImage.getWidth(),
-				offsetY + drawImage.getHeight() / 2);
+		arrowLeft.draw(offsetX, offsetY + drawImage.getHeight()*scale / 2, scale);
+		drawImage.draw(offsetX + arrowLeft.getWidth()*scale, offsetY, scale);
+		arrowRight.draw(offsetX + arrowLeft.getWidth()*scale + drawImage.getWidth()*scale,
+				offsetY + drawImage.getHeight()*scale / 2, scale);
 		int nameWidth = graphics.getFont().getWidth(name);
-		graphics.drawString(name, offsetX + getWidth() / 2 - nameWidth / 2,
-				offsetY + drawImage.getHeight() + textPadding);
+		graphics.drawString(name, offsetX + getWidth()*scale / 2 - nameWidth / 2,
+				offsetY + drawImage.getHeight()*scale + textPadding);
 	}
 
 	public int getWidth()
