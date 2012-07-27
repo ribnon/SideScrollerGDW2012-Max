@@ -41,4 +41,10 @@ public class CircleCollisionDetectionComponent extends CollisionDetectionCompone
 		if (msg instanceof EntityConstructedMessage)
 			CollisionDetectionComponentManager.getInstance().registerTreeRect(this);
 	}
+
+	@Override
+	public float[] getDimensions()
+	{
+		return new float[] { radius, radius };
+	}
 }

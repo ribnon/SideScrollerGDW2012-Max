@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
@@ -36,7 +37,7 @@ public class EntityBusNetMessage extends NetMessageType
 			{
 				inStream = new ObjectInputStream(new ByteArrayInputStream(arr));
 				result[i] = new EntityBusNetMessage(entityID, (Message)inStream.readObject());
-			} catch (IOException | ClassNotFoundException e) 
+			} catch (IOException | ClassNotFoundException | BufferOverflowException e) 
 			{
 				e.printStackTrace();
 				return null;

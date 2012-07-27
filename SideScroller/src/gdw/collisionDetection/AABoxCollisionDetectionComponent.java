@@ -33,7 +33,7 @@ public class AABoxCollisionDetectionComponent extends CollisionDetectionComponen
 		super.destroy();
 	}
 
-	
+
 	// Getters / Setters
 	public float getHalfExtentX()
 	{
@@ -59,5 +59,11 @@ public class AABoxCollisionDetectionComponent extends CollisionDetectionComponen
 	{
 		if (msg instanceof EntityConstructedMessage)
 			CollisionDetectionComponentManager.getInstance().registerTreeRect(this);
+	}
+
+	@Override
+	public float[] getDimensions()
+	{
+		return new float[] {halfExtentX, halfExtentY};
 	}
 }
