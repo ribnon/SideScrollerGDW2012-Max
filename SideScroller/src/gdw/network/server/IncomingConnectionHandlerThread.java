@@ -94,6 +94,7 @@ public class IncomingConnectionHandlerThread extends Thread
 				}// magiccode
 				
 				//tcp, udp socket create
+				GDWServerLogger.logMSG("Client meint Server soll zu: "+udpPort+" vebinden");
 				ConnectionInfo info = new ConnectionInfo(socket, udpPort, id, sharedSecredt);
 				
 				if(recoRequest)

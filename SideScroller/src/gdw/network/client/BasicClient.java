@@ -7,6 +7,7 @@ import gdw.network.server.GDWServerLogger;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
@@ -128,6 +129,7 @@ public class BasicClient implements INetworkBridge
 		BasicClient.connectToServer(info, additionalData);
 	}
 
+	
 	/**
 	 * Weißt den Client an sich zu einem Server zu verbinden. 
 	 * Benutzt diese Methode mit den Daten die ihr bekommten habt beim Durchsuchen
@@ -141,7 +143,8 @@ public class BasicClient implements INetworkBridge
 		{
 			SocketChannel tcpSocket = SocketChannel.open();
 			DatagramChannel udpSocket = DatagramChannel.open();
-			udpSocket.socket().bind(null);
+			udpSocket.socket().bind(new InetSocketAddress("localhost",0));
+			
 
 			ByteBuffer buf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 			buf.clear();
@@ -319,6 +322,9 @@ public class BasicClient implements INetworkBridge
 		ByteBuffer buf = ByteBuffer.allocate(1);
 		buf.put(NETCONSTANTS.PONG);
 		buf.flip();
+		
+		GDWServerLogger.logMSG("sende Pong vom Client auf Port: "+this.udpConnection.socket().getPort());
+		GDWServerLogger.logMSG("an Addresse: "+this.udpConnection.socket().getInetAddress());
 
 		try
 		{

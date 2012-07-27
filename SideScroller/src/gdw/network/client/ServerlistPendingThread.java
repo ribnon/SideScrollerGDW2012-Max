@@ -121,15 +121,20 @@ public class ServerlistPendingThread extends Thread
 					}
 			}
 			
+			
 			// send multicast
-			InetAddress group = InetAddress
+			/*InetAddress group = InetAddress
 					.getByName(NETCONSTANTS.MULITCASTGROUP);
-			DatagramPacket packet = new DatagramPacket(new byte[0], 0, group,
-					NETCONSTANTS.BROADCAST_PORT);
-			this.socket.send(packet);
+			
+			this.socket.send(packet);*/
 			
 			//workaround for loopbackdevice
-			broadcastIps.add(InetAddress.getByName("127.0.0.1"));
+			broadcastIps.add(InetAddress.getLoopbackAddress());
+			
+			GDWServerLogger.logMSG("Loopback ist"+broadcastIps.peek());
+			
+			DatagramPacket packet = new DatagramPacket(new byte[0], 0, broadcastIps.pop(),
+					NETCONSTANTS.BROADCAST_PORT);
 
 			// send broadcasts s s s s
 			while (!broadcastIps.isEmpty())
