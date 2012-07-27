@@ -5,31 +5,23 @@ import gdw.network.NETCONSTANTS;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.ProtocolFamily;
-import java.net.StandardProtocolFamily;
-import java.nio.channels.DatagramChannel;
 
 
 public class BroadcastresponseThread extends Thread
 {
-	private final DatagramChannel socket;
+	private final DatagramSocket socket;
 	private final BasicServer ref;
 	private boolean close;
 	public final int boundedPort;
 
 	public BroadcastresponseThread( BasicServer ref) throws IOException
 	{
-		this.socket = DatagramChannel.open();
-		this.socket.bind(null);
-		this.boundedPort = this.socket.socket().getLocalPort();
-		this.socket.configureBlocking(true);
+		this.socket = new DatagramSocket(NETCONSTANTS.BROADCAST_PORT);
+		this.boundedPort = this.socket.getLocalPort();
 		this.ref = ref;
 		this.close = false;
 
-		this.socket.socket().setBroadcast(true);
-		
-		GDWServerLogger.logMSG("broacstsocket ist auf "+this.socket.getLocalAddress()+" gebunden");
+		this.socket.setBroadcast(true);
 
 		this.start();
 	}
@@ -46,14 +38,14 @@ public class BroadcastresponseThread extends Thread
 
 			try
 			{
-				this.socket.socket().receive(packet);
+				this.socket.receive(packet);
 				
 				byte [] buf = this.ref.getBroadcastResponse().array();
 				DatagramPacket responceDatagramPacket = new DatagramPacket(
 						buf, buf.length, packet.getAddress(),
 						packet.getPort());
 
-				this.socket.socket().send(responceDatagramPacket);
+				this.socket.send(responceDatagramPacket);
 
 			} catch (IOException e)
 			{
@@ -63,15 +55,11 @@ public class BroadcastresponseThread extends Thread
 			}
 			GDWServerLogger.logMSG("Broadcastresponce gesendet");
 		}
-		try {
-			this.socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.socket.close();
 	}
 
 	public int getBoundedPort()
 	{
-		return this.socket.socket().getLocalPort();
+		return this.socket.getLocalPort();
 	}
 }

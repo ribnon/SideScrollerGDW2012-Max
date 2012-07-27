@@ -1,7 +1,6 @@
 package gdw.network.server;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SocketChannel;
@@ -26,15 +25,9 @@ public class ConnectionInfo
 
 		this.sharedSecret = secret;
 		this.udpConnection = DatagramChannel.open();
-		this.udpConnection.socket().bind(new InetSocketAddress("localhost",1234));
-		
-		//debug
-		//this.udpConnection.connect(new InetSocketAddress(tcpConnection.socket()
-				//.getInetAddress(), port));
-				
-		this.udpConnection.connect(new InetSocketAddress(InetAddress.getLocalHost(), port));		
-		//debug
-		GDWServerLogger.logMSG("Client sollte sich auf: "+this.udpConnection.socket().getLocalPort()+" verbinden");
+		this.udpConnection.socket().bind(null);
+		this.udpConnection.connect(new InetSocketAddress(tcpConnection.socket()
+				.getInetAddress(), port));
 
 	}
 	

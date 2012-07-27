@@ -2,7 +2,6 @@ package gdw.network.client;
 
 import gdw.network.NETCONSTANTS;
 import gdw.network.RESPONSECODES;
-import gdw.network.server.GDWServerLogger;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -93,18 +92,19 @@ public class ConnectionResponceThread extends Thread
 			}
 
 			tcpSocket.configureBlocking(false);
-			
 			int udpPort = responce.getInt();
 			int id = responce.getInt();
 			int secret = responce.getInt();
 
-			GDWServerLogger.logMSG("Client soll zu UDPPort: "+udpPort+" vebinden");
-			
-			//udp socket
+			// nat punch through and udp socket
 			udpSocket.connect(new InetSocketAddress(tcpSocket.socket()
 					.getInetAddress(), udpPort));
 
-			
+			ByteBuffer pingBuf = ByteBuffer.allocate(1);
+			pingBuf.put(NETCONSTANTS.PING);
+			pingBuf.flip();
+			this.udpSocket.write(pingBuf);
+			this.udpSocket.configureBlocking(false);
 			// create client
 			this.pending = false;
 			BasicClient.registerClient(tcpSocket, udpSocket, id, secret, server );
