@@ -11,5 +11,8 @@ pivotY=0
 layer=1
 flipped=0
 
-Component 
+Component Switch
+TargetEntities=Door1
+SwitchType=Hit
+ActivationDuration=2
 
