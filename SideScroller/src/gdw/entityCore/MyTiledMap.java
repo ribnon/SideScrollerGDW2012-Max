@@ -18,6 +18,8 @@ public class MyTiledMap extends TiledMap {
 	public ArrayList<String> getObjectPropertyNames(int groupID, int objectID) {
 		Enumeration<?> e = getObjectPropertyNamesInternal(groupID, objectID);
 		ArrayList<String> res = new ArrayList<String>();
+		if(e == null)
+			return res;
 		while(e.hasMoreElements()){
 			Object o=e.nextElement();
 			String s=(String)o;
