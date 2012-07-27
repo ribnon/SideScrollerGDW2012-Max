@@ -175,6 +175,7 @@ public class SimulationTest extends BasicGame {
 		drawEntity(g, platform);
 		drawEntity(g, diag);
 		if(simComp!=null) {
+			g.drawString("is walled: "+simComp.walled, 10, 60);
 			g.drawString("is active: "+simComp.isActive(), 10, 80);
 			g.drawString("is grounded: "+simComp.isGrounded(), 10, 175);
 			g.drawString("vx: "+simComp.getVelocityX(), 10, 100);
@@ -191,6 +192,7 @@ public class SimulationTest extends BasicGame {
 		// TODO Auto-generated method stub
 		
 		try {
+			EntityManager.getInstance().setOfflineMode(true);
 			Level.getInstance().start();
 			
 			entityTemplateManager = EntityTemplateManager.getInstance();

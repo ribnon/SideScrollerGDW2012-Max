@@ -76,7 +76,6 @@ public class OOBoxCollisionDetectionComponent extends CollisionDetectionComponen
 			cosAngle*(-getHalfExtentX()) - sinAngle*(getHalfExtentY()),
 			sinAngle*(getHalfExtentX()) + cosAngle*(-getHalfExtentY()),
 		};
-		System.out.println(Arrays.toString(diag));
 		return new float[] { Math.max(Math.abs(diag[0]),Math.abs(diag[2])), Math.max(Math.abs(diag[1]),Math.abs(diag[3])) };
 	}
 }
