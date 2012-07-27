@@ -65,7 +65,7 @@ public class ServerCoreLoop extends Thread
 			float delta = curVal -  oldVal;
 			
 			//updates laufen lassen
-			//NetSubSystem.getInstance().pollMessages();
+			NetSubSystem.getInstance().pollMessages();
 		
 			//EntityTemplateManager.getInstance().getEntityTemplate("slidingPlatform").createEntity(200f, 200f, 0f);
 			SimulationComponentManager.getInstance().simulate(delta);
