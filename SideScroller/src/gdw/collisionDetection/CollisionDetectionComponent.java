@@ -6,7 +6,7 @@ import gdw.entityCore.ComponentTemplate;
 public abstract class CollisionDetectionComponent extends Component
 {
 	public static final int COMPONENT_TYPE = 4;
-	private static int COLLISION_COMPONENT_SUBCLASS_TYPE = -1;
+	private int COLLISION_COMPONENT_SUBCLASS_TYPE = -1;
 
 	protected static final int COLLISION_COMPONENT_SUBCLASS_CIRCLE = 0;
 	protected static final int COLLISION_COMPONENT_SUBCLASS_AABOX = 1;
