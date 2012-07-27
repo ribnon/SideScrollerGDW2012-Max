@@ -53,4 +53,5 @@ public abstract class CollisionDetectionComponent extends Component
 		return treeRect;
 	}
 
+	abstract public float[] getDimensions();
 }
