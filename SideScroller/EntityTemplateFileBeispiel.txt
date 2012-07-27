@@ -9,3 +9,5 @@ Component CircleCollisionDetection
 radius=5
 Component Follow
 targetEntityID=Spieler1
+
+Include andereTemplateDatei.templates
