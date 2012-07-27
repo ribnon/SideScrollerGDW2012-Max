@@ -1,5 +1,7 @@
 package gdw.entityCore;
 
+import gdw.network.NetSubSystem;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -10,7 +12,7 @@ import org.newdawn.slick.tiled.TiledMap;
 public class MyTiledMap extends TiledMap {
 
 	public MyTiledMap(String ref) throws SlickException {
-		super(ref);
+		super(ref,!NetSubSystem.getInstance().isServer());
 	}
 
 	public ArrayList<String> getObjectPropertyNames(int groupID, int objectID) {
