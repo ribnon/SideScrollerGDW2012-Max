@@ -1,6 +1,8 @@
 package gdw.collisionDetection;
 
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.EntityConstructedMessage;
+import gdw.entityCore.Message;
 
 public class CircleCollisionDetectionComponent extends CollisionDetectionComponent
 {
@@ -33,5 +35,10 @@ public class CircleCollisionDetectionComponent extends CollisionDetectionCompone
 	public void setRadius(float radius)
 	{
 		this.radius = radius;
+	}
+	public void onMessage(Message msg)
+	{
+		if (msg instanceof EntityConstructedMessage)
+			CollisionDetectionComponentManager.getInstance().registerTreeRect(this);
 	}
 }
