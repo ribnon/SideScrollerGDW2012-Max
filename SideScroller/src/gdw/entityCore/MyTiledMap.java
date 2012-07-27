@@ -12,7 +12,7 @@ import org.newdawn.slick.tiled.TiledMap;
 public class MyTiledMap extends TiledMap {
 
 	public MyTiledMap(String ref) throws SlickException {
-		super(ref,!NetSubSystem.getInstance().isServer());
+		super(ref,EntityManager.getInstance().isOfflineMode() || !NetSubSystem.getInstance().isServer());
 	}
 
 	public ArrayList<String> getObjectPropertyNames(int groupID, int objectID) {
@@ -26,7 +26,7 @@ public class MyTiledMap extends TiledMap {
 		return res;
 	}
 	
-	public Enumeration<?> getObjectPropertyNamesInternal(int groupID, int objectID) {
+	private Enumeration<?> getObjectPropertyNamesInternal(int groupID, int objectID) {
 		if (groupID >= 0 && groupID < objectGroups.size()) {
 			ObjectGroup grp = (ObjectGroup) objectGroups.get(groupID);
 			if (objectID >= 0 && objectID < grp.objects.size()) {
