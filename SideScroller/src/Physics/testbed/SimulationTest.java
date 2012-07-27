@@ -169,12 +169,14 @@ public class SimulationTest extends BasicGame {
 		drawEntity(g, ground);
 		drawEntity(g, wall);
 		drawEntity(g, platform);
-		g.drawString("is active: "+simComp.isActive(), 10, 80);
-		g.drawString("is grounded: "+simComp.isGrounded(), 10, 175);
-		g.drawString("vx: "+simComp.getVelocityX(), 10, 100);
-		g.drawString("ax: "+simComp.getAccelerationX(), 10, 120);
-		g.drawString("vy: "+simComp.getVelocityY(), 10, 140);
-		g.drawString("ay: "+simComp.getAccelerationY(), 10, 160);
+		if(simComp!=null) {
+			g.drawString("is active: "+simComp.isActive(), 10, 80);
+			g.drawString("is grounded: "+simComp.isGrounded(), 10, 175);
+			g.drawString("vx: "+simComp.getVelocityX(), 10, 100);
+			g.drawString("ax: "+simComp.getAccelerationX(), 10, 120);
+			g.drawString("vy: "+simComp.getVelocityY(), 10, 140);
+			g.drawString("ay: "+simComp.getAccelerationY(), 10, 160);
+		}
 	}
 
 	@Override
