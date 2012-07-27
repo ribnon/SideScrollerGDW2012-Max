@@ -21,20 +21,22 @@ public class FadeInComponentTemplate extends ComponentTemplate {
 		fadeTime = getFloatParam("fadeTime",0.0f);
 		fadeProgress = getFloatParam("fadeProgress", 0.0f);
 		
-		String[] colors = getStringParam("startColor","0 0 0").split(" ");
+		String[] colors = getStringParam("startColor","0;0;0;0").split(";");
 		
 		startColor = new Color(
 				Integer.valueOf(colors[0]),
 				Integer.valueOf(colors[1]), 
-				Integer.valueOf(colors[2])
+				Integer.valueOf(colors[2]),
+				Integer.valueOf(colors[3])
 				);
 		
-		colors = getStringParam("endColor","255 255 255").split(" ");
+		colors = getStringParam("endColor","255;255;255;255").split(";");
 		
 		endColor = new Color(
 				Integer.valueOf(colors[0]),
 				Integer.valueOf(colors[1]), 
-				Integer.valueOf(colors[2])
+				Integer.valueOf(colors[2]),
+				Integer.valueOf(colors[3])
 				); 
 		
 	}
