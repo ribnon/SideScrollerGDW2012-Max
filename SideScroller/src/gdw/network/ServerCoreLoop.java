@@ -67,7 +67,7 @@ public class ServerCoreLoop extends Thread
 			//updates laufen lassen
 			//NetSubSystem.getInstance().pollMessages();
 		
-			EntityTemplateManager.getInstance().getEntityTemplate("slidingPlatform").createEntity(200f, 200f, 0f);
+			//EntityTemplateManager.getInstance().getEntityTemplate("slidingPlatform").createEntity(200f, 200f, 0f);
 			SimulationComponentManager.getInstance().simulate(delta);
 			EntityManager.getInstance().tick(delta);
 		
