@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.EntityReference;
 import gdw.gameplay.GameColor;
 
 public class ColorableComponentTemplate extends ComponentTemplate
@@ -17,8 +18,9 @@ public class ColorableComponentTemplate extends ComponentTemplate
 	private float friendlyTimer;
 	private int finishedCount;
 	private int segmentCount;
+	private EntityReference notifyOnClear;
 
-	protected ColorableComponentTemplate(HashMap<String, String> params)
+	public ColorableComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		String bit = getStringParam("targetColor", "0;0;0");
@@ -51,6 +53,7 @@ public class ColorableComponentTemplate extends ComponentTemplate
 		friendlyTimer = getFloatParam("friendlyTimer", 1.0f);
 		finishedCount = getIntegerParam("finishedCount", 0);
 		segmentCount = getIntegerParam("segmentCount", 0);
+		notifyOnClear = getEntityReferenceParam("notifyOnClear");
 	}
 
 	@Override
@@ -99,4 +102,11 @@ public class ColorableComponentTemplate extends ComponentTemplate
 	{
 		return segmentCount;
 	}
+
+	public EntityReference getNotifyOnClear()
+	{
+		return notifyOnClear;
+	}
+	
+	
 }

@@ -7,7 +7,7 @@ import gdw.entityCore.ComponentTemplate;
 
 public class StartSpawnComponentTemplate extends ComponentTemplate
 {
-	protected StartSpawnComponentTemplate(HashMap<String, String> params)
+	public StartSpawnComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 	}

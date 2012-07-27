@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.newdawn.slick.tiled.TiledMap;
+
 public class EntityManager {
 	//Singleton-Stuff:
 	private static EntityManager instance = null;
@@ -99,8 +101,73 @@ public class EntityManager {
 		}
 	}
 	public void loadEntitiesFromLevel(){
-		//TODO: Implement
+		TiledMap map = Level.getInstance().getMap();
+		int collisionLayerIndex = map.getLayerIndex("Collision");
+		EntityTemplate colBoxTemplate = EntityTemplateManager.getInstance().getEntityTemplate(" --- CollisionTile --- ");
+		for(int x=0;x<map.getWidth();++x){
+			for(int y=0;y<map.getHeight();++y){
+				if(map.getTileId(x, y, collisionLayerIndex)==1){
+					float xCoord = map.getTileWidth()*x+map.getTileWidth()*0.5f;
+					float yCoord = map.getTileHeight()*y+map.getTileHeight()*0.5f;
+					
+					colBoxTemplate.createEntity(xCoord, yCoord, 0);
+				}
+			}
+		}
+		//Kollision: Collision
+		//Objekte: Objects
+
 	}
+	/*
+	 *
+	 * .       _,..wWWw--./+'.            _      ,.                          .
+  ..wwWWWWWWWWW;ooo;++++.        .ll'  ,.++;
+   `'"">wW;oOOOOOO;:++\++.      .lll .l"+++'   ,..
+     ,wwOOOOOOOO,,,++++\+++.    lll',ll'++;  ,++;'
+    ,oOOOOOOOO,,,,+++++`'++ll. ;lll ll:+++' ;+++'
+   ;OOOOOOOOO,,,'++++++++++lll ;lll ll:++:'.+++'
+   OOOO;OOO",,"/;++++,+,++++ll`:llllll++++'+++
+  OOOO;OO",,'++'+++;###;"-++llX llll`;+++++++'  ,.    .,      _
+;O;'oOOO ,'+++\,-:  ###++++llX :l.;;;,--++."-+++++ w":---wWWWWWww-._
+;'  /O'"'"++++++' :;";#'+++lllXX,llll;++.+++++++++W,"WWWWWWWWww;""""'`
+   ."     `"+++++'.'"''`;'ll;xXXwllll++;--.++++;wWW;xXXXXXXXXXx"Ww.
+           .+++++++++++';xXXXXX;Wll"+-"++,'---"-.x""`"lllllllxXXxWWw.
+           "---'++++++-;XXXXXXwWWl"++++,"---++++",,,,,,,,,,;lllXXXxWW,
+             `'""""',+xXXXXX;wWW'+++++++++;;;";;;;;;;;oOo,,,,,llXXX;WW`
+                   ,+xXXXXXwWW"++.++++-.;;+++<'   `"WWWww;Oo,,,llXXX"Ww
+                   +xXXX"wwW"+++++'"--'"'  )+++     `WWW"WwOO,,lllXXXww
+                  ,x++++;"+++++++++++`., )  )+++     )W; ,WOO,,lllX:"Ww
+                  :++++++++++++++++++++W'"-:++++    .W'  WWOO,,lllX; `w
+                  .++++++++++++++++.+++"ww :+++'   ,"   ,WWOO,,lllX;  ;
+           ;ll--.-"`.;++++++++++++++.+++;+.;++(         :WWOO,,lllXx
+          ,'lllllllll,++++;+++++++++;"++++++++++++-.    :WWOO,,lllXx
+          ;llll;;;"';'++++;'"""'''`` `lll;;:+++++++++.  WWOOO,,lllX'
+         ,lllll,    ;+++++;            `"lllll.++++++++ WWwO,,,llX;
+         lllllll,  ,++++++;               llllll+++++++.:WWw',,llx
+        ,llllllll, ;++++++;               :llllll+++++++."WW;,,llx
+        ;lllllllllV+++++++;               :lllllll+++++++.`w' `.lx.
+        `lllllllll'+++++++;               :lllllll++++++++  `\  `,X\
+         "llllll;++++++++;                ;llllll'+++++++++   `-  \X;
+          "llll'+++++++++;               ;lllllll"+++++++++        `)
+           `-'`+++++++++;'              ,llllllll++++++++++
+             +++++++++++;              ,llllllll'++++++++++
+.           '++++++++++"               `""""""""'+++++++++"           .
+	 */
+	public void tick(float deltaTime){
+		for(Entity ent: entities.values()){
+			ent.tick(deltaTime);
+		}
+	}
+	
+	/**
+	 * Nuke the site from Orbit.
+	 */
+	public void deleteAllEntities(){
+		for(Entity ent: entities.values()){
+			ent.destroy();
+		}
+	}
+	
 	void unregisterEntity(Entity entity){
 		entities.remove(entity.getID());
 	}

@@ -10,7 +10,8 @@ public class CameraComponent extends Component {
 	private int viewPortY;
 	
 	public final static int COMPONENT_TYPE = 6;
-	protected CameraComponent(ComponentTemplate template) {
+	
+	public CameraComponent(ComponentTemplate template) {
 		super(template);
 		CameraComponentTemplate t = (CameraComponentTemplate) template;
 		playerNumber = t.getPlayerNumber();

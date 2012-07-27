@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="93" height="155" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="level" tilewidth="16" tileheight="16">
+  <image source="tilesets/area02_level_tiles.png" trans="ff00ff" width="256" height="192"/>
+ </tileset>
+ <layer name="BackgroundLayer" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3DQQ0AAAwDoTNZ/1YmYx9IWDVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV9e0BASgWTDzhAAA=
+  </data>
+ </layer>
+ <layer name="MiddleLayer" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3aQQrCMBQE0J7EI3gLL6Ire4Pc3oUbUSg1aSeEvAd/00CSDmQ3ywIAAAAAba4f8+h8lxnJPE/mWfdF5mkyz5N5nszzLr0vAAAAADC4tXGd/5XGdeqUjeE8t53fOI7M39L//H2ezLPnzZh3bzLPkneezPNknidzAAAAgPHVdjqeh95iLrUdA92ENludj5YuSM0b0qVqs6c3pdtzvDPeDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABnr4PuPqAy+/6jKicOvF/g5XRQ84QAA
+  </data>
+ </layer>
+ <layer name="ForegroundLayer" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+ <layer name="Collision" width="93" height="155">
+  <properties>
+   <property name="invisible" value="true"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2Yi64bIQxEN///01VURaKUhx8zxrCMtEpKwDZnDfbt81xdXV1x9RE8K33PYvLYiNxrqZGvUSzeuK37ZLGKzjNpLKOx0bh2zkoxY9PsXZNb0rORWYwY2XvPcGd6xGTO1k6ca6Hj3pHBCiG5X+ZyIfuijEL32oia8lbmkjka1t6/CSzKyrwWsvdB9U4e/28Uqo+y2Hgr869W3c+XebyNyzx+/WW+bu3uj2dvFr05V7+aMR+t8/Sa2YTK2Wx5vgNv6zrE+UfFVdvIJBQjBm+EssTDysmMWrE39tnPruh9vo1vLVZdYfWyuwu99zezlIjB5/Iei8HnMh/rZOaev1tR9SiqhmVivtpHFItVzGf5JM21UW6izgHj/yBWSMKx/D57L62x3m/aONF3TTbm0rwfMZD8Jo2x9f69stYVVj3T3iWzeb3fZhq9e6+kzNli3JmI99r6zSs0cw079D2pkbVeRt3n2vuvXsPMGatm9UK6DuHbM2fUbyB6CKSssSDi1vDUzulxXs37F8vv09rLWPsFBPPoPEGoZh7hq/dv6bpyfHfmEb7q825ZNxvPrhXMtT4z9h4eRTL/+bH4zNZ7eBTN3OpTUpPZsvYNvbizM//NX9nvIZlH78HznrPcKUyGjHe44mztJCvnyzxGl3m8SpaXeYyimLN6giw9hkZSlgjmv09k7yvJE6RQeVJ+eueN1rPy3OvT09tZ9mFhjoy5tqmVxy9DDOYSf5Z9I5i3YpDGxToHvZjLz9m82RxrPrH3mUV1LszmSmyhmVvnZRWKOWPfp+R1rU/n+2xuPb47h0ihmO8qdK1A16HR3bqrVjOX2OvZ31WR8VveY1lrd+O9az2ume+kWc+ZVdKeMqN692J2aZlbajjzacWVXR7mWbQqJm+ueHsnRlzWnI+S16dnfW/PXhYZz1SpXj1h5HnPf+t+zaKoeqKNw6vy/WXi/RU6Hs/9xmK+Suz7HmXzpDzX1PPe2GwdihXSDpu5pX+x9j+M/VhjkdhjSWt7VPNGYxG8tb/PbFrjQD2zeGZ5zcidUWxWn1HMtfY0Yp7V3rnyxlrb3lHsHH+ef1lZ/THPZLSY93g5hrBb2r/6q14eehm1asHVX41qOMouojacotHeEcw9v5+oWb5JmHj7tzdJwkXD3BvDiidaqDzMuLeeVscl5en1kYn7ylikvlH9eQbuGXhHMS999uKw3kc73OGP0jcyxh7z1rwdOGqkiRHNfDdWCGn3ir5bPp1/nyrLPtE19NMZP1HW/SHu0t7ctzD3rvcyb90tJzP3rF35zlB+VjzePXgV0beccHaQ8Uf1ita8G81l5XQvDqStVff4qJaU473fy1gj7haUVjJv+S/Hn+f/eCR5L/FliROllbxr/5JxlD/LOnQMq5n3xlk1nbVGe79l6y3YfZR2jca2xn4m5iyxuWjrObvnyiLtHj0MLHfKicxLSbhH15XTmX81y/kVzKOfVYpirtknm9Vq5r8YJGMe+7PeUcJW+lv2PH86/lExoc/97L31/GZTKy4W89b4KA6JzVnuZ1Rv/2jbFr4nq+YSdbe8Xaz6c5mPJa1hXruX+79i9VnlvWWxZe2BdnuQqplb1p9cHxjxe+vziC2Du/d9rs7xXwzlp2X9KLboM4/kGMHcEqdkH+jcrMc1sVj8otVi3vIrYTrzw6hFzLsg6m75dL7PbOxeK1uKvM81OcOsNau1aw3dWcze6Hku85bQNR9hu7Z/mrz78vQlzLik9lc+rD147Vl8W9ZEnysGc6Q9ydzWd49Pb65G5Dla0lpRz4na14ghs84xJYlbYiNC1jMQqagalDGXvtqZueU+zaBMsWiEOgsrlDm2U3WZx+syj9cbma+uAW9lPvot6mEqW2wZciyCuWet5h1E5mm2XCqFtK+x1dpfhv79ZOa/+Svq5Eg7Ms/AzaPdmDNtRmln5rvm+67MI2yzdJnH6wTm98nXm2XUH0ZdykQ84QAA
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="93" height="155">
+  <object name="PlayerStart" type="PlayerStart" x="128" y="240" width="64" height="64">
+   <properties>
+    <property name="Template" value="StartSpawn"/>
+   </properties>
+  </object>
+  <object name="Platform1" type="MoveableObject" x="224" y="2000" width="96" height="16"/>
+  <object name="Platform2" type="MoveableObject" x="32" y="1808" width="96" height="16"/>
+  <object name="Platform4" type="MoveableObject" x="288" y="2320" width="96" height="16"/>
+  <object name="Platform3" type="MoveableObject" x="32" y="2224" width="96" height="16"/>
+  <object name="HotButton1" type="HotButton" x="944" y="272" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.color" value="1;0;0"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./data/image.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door1"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="Switch;StaticSprite"/>
+   </properties>
+  </object>
+  <object name="Door1" type="RotatableObject" x="1024" y="64" width="16" height="112">
+   <properties>
+    <property name="Door.isTrapDoor" value="false"/>
+    <property name="Entity.orientation" value="-1"/>
+    <property name="StaticSprite.color" value="1;0;0"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.flipped" value="false"/>
+    <property name="StaticSprite.image" value="./data/image.png"/>
+    <property name="StaticSprite.pivotX" value="1"/>
+    <property name="StaticSprite.pivotY" value="0"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Template" value="Door;StaticSprite"/>
+   </properties>
+  </object>
+  <object name="TrapDoor1" type="RotatableObject" x="800" y="304" width="80" height="16">
+   <properties>
+    <property name="Door.isTrapDoor" value="true"/>
+    <property name="Entity.orientation" value="1"/>
+    <property name="StaticSprite.color" value="0;1;0"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.flipped" value="false"/>
+    <property name="StaticSprite.image" value="./data/image.png"/>
+    <property name="StaticSprite.pivotX" value="0"/>
+    <property name="StaticSprite.pivotY" value="1"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Template" value="Door;StaticSprite"/>
+   </properties>
+  </object>
+  <object name="ColorBucket1" type="ColorBucket" x="384" y="352" width="32" height="224">
+   <properties>
+    <property name="AnimatedSprite.color" value="1;0;0"/>
+    <property name="AnimatedSprite.cycle" value=""/>
+    <property name="AnimatedSprite.cycleLength" value=""/>
+    <property name="AnimatedSprite.filter" value="1;1;1"/>
+    <property name="AnimatedSprite.flipped" value="false"/>
+    <property name="AnimatedSprite.frameDuration" value="150"/>
+    <property name="AnimatedSprite.pivotX" value="0"/>
+    <property name="AnimatedSprite.pivotY" value="0"/>
+    <property name="AnimatedSprite.scale" value="1"/>
+    <property name="AnimatedSprite.spritesheet" value="./data/ColorBucketSheet.png"/>
+    <property name="AnimatedSprite.step" value="0"/>
+    <property name="Template" value="AnimatedSprite"/>
+   </properties>
+  </object>
+  <object name="Tomato1/Apple1" type="Enemy" x="144" y="512" width="64" height="64"/>
+  <object name="PaintPuddle1" type="HazardousLiquid" x="960" y="496" width="112" height="16">
+   <properties>
+    <property name="Template" value="EnemyDamageDealer"/>
+   </properties>
+  </object>
+  <object name="Bridge1" type="RotatableObject" x="384" y="688" width="16" height="176"/>
+  <object name="HotButton3" type="HotButton" x="352" y="832" width="32" height="32"/>
+  <object name="Rainbow1" type="Rainbow" x="768" y="800" width="64" height="96"/>
+  <object name="PaintPuddle2" type="HazardousLiquid" x="16" y="880" width="208" height="16"/>
+  <object name="PaintPuddle3" type="HazardousLiquid" x="384" y="912" width="192" height="16"/>
+  <object name="ColorBucket3" type="ColorBucket" x="928" y="720" width="64" height="32"/>
+  <object name="Door3" type="RotatableObject" x="1184" y="816" width="16" height="112"/>
+  <object name="HotButton4" type="HotButton" x="1136" y="864" width="32" height="32"/>
+  <object name="Door5" type="RotatableObject" x="1344" y="672" width="16" height="112"/>
+  <object name="HotButton5" type="HotButton" x="1295" y="750" width="32" height="32"/>
+  <object name="Door4" type="RotatableObject" x="1120" y="672" width="112" height="16"/>
+  <object name="Grape1" type="Enemy" x="608" y="768" width="96" height="96"/>
+  <object name="Tomato2/Apple2" type="Enemy" x="944" y="832" width="64" height="64"/>
+  <object name="TrapDoor2.1" type="RotatableObject" x="976" y="1008" width="80" height="16"/>
+  <object name="TrapDoor2.2" type="RotatableObject" x="1056" y="1008" width="80" height="16"/>
+  <object name="ColorBucket4" type="ColorBucket" x="1040" y="944" width="32" height="224"/>
+  <object name="HotButton6" type="HotButton" x="832" y="976" width="32" height="32"/>
+  <object name="YellowPepper1" type="Enemy" x="960" y="1104" width="64" height="64"/>
+  <object name="YellowPepper2" type="Enemy" x="704" y="1344" width="64" height="64"/>
+  <object name="Tomato3" type="Enemy" x="1088" y="1520" width="64" height="64"/>
+  <object name="Tomato4" type="Enemy" x="1328" y="2032" width="64" height="64"/>
+  <object name="Door5" type="RotatableObject" x="496" y="992" width="16" height="112"/>
+  <object name="Door6" type="RotatableObject" x="496" y="1152" width="16" height="112"/>
+  <object name="Door4" type="RotatableObject" x="720" y="944" width="16" height="112"/>
+  <object name="HotButton8" type="HotButton" x="832" y="1168" width="32" height="32"/>
+  <object name="DeadlySpikes" type="DeadlySpikes" x="208" y="2032" width="128" height="32"/>
+  <object name="DeadlySpikes" type="DeadlySpikes" x="16" y="1856" width="112" height="32"/>
+  <object name="PaintPuddle4" type="HazardousLiquid" x="16" y="2432" width="368" height="16"/>
+  <object name="ColorBucket6" type="ColorBucket" x="640" y="1952" width="32" height="224"/>
+  <object name="ColorBucket8" type="ColorBucket" x="768" y="2416" width="64" height="32"/>
+  <object name="Carrot1" type="Enemy" x="1152" y="2224" width="64" height="64"/>
+  <object name="ColorBucket7" type="ColorBucket" x="1408" y="2256" width="64" height="32"/>
+  <object name="LevelEnd" type="LevelEnd" x="1440" y="2336" width="48" height="112">
+   <properties>
+    <property name="Template" value="LevelGoal"/>
+   </properties>
+  </object>
+  <object name="Door/Bridge7" type="RotatableObject" x="960" y="1984" width="16" height="112"/>
+  <object name="Door8" type="RotatableObject" x="608" y="2208" width="112" height="16"/>
+  <object name="HotButton10" type="HotButton" x="992" y="2416" width="32" height="32"/>
+  <object name="Door9" type="RotatableObject" x="1280" y="2336" width="16" height="112"/>
+  <object name="HotButton11" type="HotButton" x="1440" y="2064" width="32" height="32"/>
+  <object name="HotButton7" type="HotButton" x="512" y="1072" width="32" height="32"/>
+  <object name="HotButton9" type="HotButton" x="512" y="1232" width="32" height="32"/>
+  <object name="ColorBucket5" type="ColorBucket" x="1200" y="1552" width="64" height="32"/>
+  <object name="HotButton2" type="HotButton" x="704" y="464" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.color" value="0;1;0"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./data/image.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="TrapDoor1;Door2"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="Switch;StaticSprite"/>
+   </properties>
+  </object>
+  <object name="Door2" type="RotatableObject" x="624" y="384" width="16" height="112">
+   <properties>
+    <property name="Door.isTrapDoor" value="false"/>
+    <property name="Entity.orientation" value="1"/>
+    <property name="StaticSprite.color" value="1;0;0"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.flipped" value="false"/>
+    <property name="StaticSprite.image" value="./data/image.png"/>
+    <property name="StaticSprite.pivotX" value="0"/>
+    <property name="StaticSprite.pivotY" value="0"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Template" value="Door;StaticSprite"/>
+   </properties>
+  </object>
+  <object name="Schild_hüpfen" type="StaticSprite" x="496" y="240" width="64" height="64">
+   <properties>
+    <property name="StaticSprite.color" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./data/sign_jump.png"/>
+   </properties>
+  </object>
+  <object name="sign_hopping" type="StaticSprite" x="228" y="152" width="64" height="64">
+   <properties>
+    <property name="StaticSprite.color" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./data/sign_jump.png"/>
+   </properties>
+  </object>
+  <object name="sign_exclam" type="StaticSprite" x="384" y="240" width="64" height="64">
+   <properties>
+    <property name="StaticSprite.color" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./data/default.png"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

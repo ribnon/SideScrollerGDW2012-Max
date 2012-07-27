@@ -2,13 +2,13 @@ package gdw.network;
 
 import java.util.LinkedList;
 
-import Physics.SimulationComponent;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityConstructedMessage;
 import gdw.entityCore.Message;
 import gdw.network.messageType.DeadReckoningNetMessage;
+import gdw.physics.SimulationComponent;
 
 public class NetComponent extends Component
 {

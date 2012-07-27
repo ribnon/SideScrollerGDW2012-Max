@@ -25,7 +25,7 @@ public class IncomingConnectionHandlerThread extends Thread
 	{
 		this.ref = ref;
 		this.socket = ServerSocketChannel.open();
-		InetSocketAddress isa = new InetSocketAddress(0);
+		InetSocketAddress isa = new InetSocketAddress(NETCONSTANTS.DEBUG_TCP_PORT);
 		this.socket.socket().bind(isa);
 
 		this.boundPort = this.socket.socket().getLocalPort();

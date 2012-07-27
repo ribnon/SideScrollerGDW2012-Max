@@ -1,6 +1,7 @@
 package gdw.network.client;
 
 import gdw.network.NETCONSTANTS;
+import gdw.network.server.GDWServerLogger;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -120,8 +121,6 @@ public class ServerlistPendingThread extends Thread
 					}
 			}
 			
-			
-
 			// send multicast
 			InetAddress group = InetAddress
 					.getByName(NETCONSTANTS.MULITCASTGROUP);
@@ -135,8 +134,10 @@ public class ServerlistPendingThread extends Thread
 			// send broadcasts s s s s
 			while (!broadcastIps.isEmpty())
 			{
-				packet.setAddress(broadcastIps.pop());
+				InetAddress add = broadcastIps.pop();
+				packet.setAddress(add);
 				packet.setPort(NETCONSTANTS.BROADCAST_PORT);
+				GDWServerLogger.logMSG("bc to: "+add);
 				this.socket.send(packet);
 			}
 

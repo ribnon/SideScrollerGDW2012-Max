@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class NetComponentTemplate extends ComponentTemplate
 {
 
-	protected NetComponentTemplate(HashMap<String, String> params) 
+	public NetComponentTemplate(HashMap<String, String> params) 
 	{
 		super(params);
 

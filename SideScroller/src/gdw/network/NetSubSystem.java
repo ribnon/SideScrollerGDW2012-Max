@@ -16,6 +16,7 @@ import gdw.network.messageType.EntitySpawnNetMessage;
 import gdw.network.messageType.TimeSyncMessage;
 import gdw.network.server.BasicClientConnection;
 import gdw.network.server.BasicServer;
+import gdw.network.server.GDWServerLogger;
 
 public class NetSubSystem
 {
@@ -48,7 +49,6 @@ public class NetSubSystem
 	private final LinkedList<DeadReckoningNetMessage> listOfDeadReckonigMessages;
 	private final LinkedList<TimeSyncMessage> listOfTimeSyncMessages;
 	
-	
 	private NetSubSystem(int playerID, boolean serverFlag, INetworkBridge ref)
 	{
 		this.playerID = playerID;
@@ -66,7 +66,7 @@ public class NetSubSystem
 		
 	}
 	
-	//wenn man was ändert ohne es zu raffen ist es scheiße -.-
+	
 	public static void initalise(int playerID, boolean serverFlag, INetworkBridge ref)
 	{
 		if(NetSubSystem.singelton != null)
@@ -159,6 +159,7 @@ public class NetSubSystem
 	{
 		if(!this.serverFlag)
 			return;
+		GDWServerLogger.logMSG("Spawn id: "+id+"posx - Y: "+posX+" "+posY);
 		this.listOfSpawnMessages.add(new EntitySpawnNetMessage(template, id, posX, posY, orientation));
 	}
 	
@@ -170,7 +171,7 @@ public class NetSubSystem
 	}
 	
 	public void sendBusMessage(int entityID, Message msg)
-	{
+	{		
 		this.listOfBusMessages.add(new EntityBusNetMessage(entityID, msg));
 	}
 	

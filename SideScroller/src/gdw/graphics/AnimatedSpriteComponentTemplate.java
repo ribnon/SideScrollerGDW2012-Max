@@ -72,7 +72,6 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 			spriteSheet = new SpriteSheet(getStringParam("path", ""), getIntegerParam("tileWidth", 64), getIntegerParam("tileHeight", 64));
 		} catch (SlickException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -93,5 +92,10 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 	public Component createComponent()
 	{
 		return new AnimatedSpriteComponent(this);
+	}
+	
+	public static boolean isGhostOnly()
+	{
+		return true;
 	}
 }

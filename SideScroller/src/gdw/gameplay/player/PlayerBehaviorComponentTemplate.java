@@ -8,25 +8,31 @@ import gdw.entityCore.ComponentTemplate;
 public class PlayerBehaviorComponentTemplate extends ComponentTemplate
 {
 	private float healthPercent;
-
-	private float deathTimer;
 	private float deathTimerDuration;
 
 	private float hitDuration;
-	private float hitActive;
+	
+	private float hitAngle;
+	private float startAngle;
+	private float idleAngle;
 	
 	private float healthChangeInterval;
 	private float healthChangeTimer;
 
-	protected PlayerBehaviorComponentTemplate(HashMap<String, String> params)
+	public PlayerBehaviorComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
-		healthPercent = getFloatParam("healthPercent",100f);
-		deathTimer = getFloatParam("deathTimer",0f);
-		deathTimerDuration = getFloatParam("deathTimerDuration",3000f);
-		hitDuration = getFloatParam("hitDuration",0f);
-		hitActive = getFloatParam("hitActive",250f);
-		healthChangeInterval = getFloatParam("helthChangeInterval",500.0f);
+
+		healthPercent = getFloatParam("healthPercent", 100f);
+		deathTimerDuration = getFloatParam("deathTimerDuration", 3000f);
+		
+		hitDuration = getFloatParam("hitDuration", 1.0f);
+		
+		hitAngle = getFloatParam("hitAngle", 90.0f);
+		startAngle = getFloatParam("startAngle", 170.0f);
+		idleAngle = getFloatParam("idleAngle", 45.0f);
+
+		healthChangeInterval = getFloatParam("helthChangeInterval", 500.0f);
 		healthChangeTimer = getFloatParam("healthChangeTimer", 0f);
 	}
 	
@@ -34,11 +40,6 @@ public class PlayerBehaviorComponentTemplate extends ComponentTemplate
 	public float getHealthPercent()
 	{
 		return healthPercent;
-	}
-
-	public float getDeathTimer()
-	{
-		return deathTimer;
 	}
 
 	public float getDeathTimerDuration()
@@ -50,25 +51,16 @@ public class PlayerBehaviorComponentTemplate extends ComponentTemplate
 	{
 		return hitDuration;
 	}
-
-	public float getHitActive()
-	{
-		return hitActive;
-	}
 	
-
 	public float getHealthChangeInterval()
 	{
 		return healthChangeInterval;
 	}
 
-	
-
 	public float getHealthChangeTimer()
 	{
 		return healthChangeTimer;
 	}
-
 
 	@Override
 	public Component createComponent()
