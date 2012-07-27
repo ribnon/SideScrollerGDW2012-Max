@@ -1,5 +1,6 @@
 package gdw.gameplay.levelObjects;
 
+import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
@@ -8,7 +9,6 @@ import gdw.entityCore.EntityReference;
 import gdw.entityCore.Message;
 import gdw.gameplay.levelObjects.messageType.ActivateMessage;
 import gdw.gameplay.levelObjects.messageType.DeactivateMessage;
-import collisionDetection.CollisionDetectionMessage;
 
 public class SwitchComponent extends Component {
 

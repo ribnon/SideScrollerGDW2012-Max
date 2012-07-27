@@ -3,8 +3,8 @@ package gdw;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
-import collisionDetection.CollisionDetectionComponentManager;
 
+import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.Level;
 import gdw.network.NetSubSystem;
 import gdw.network.client.BasicClient;

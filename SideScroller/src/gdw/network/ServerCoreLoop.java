@@ -2,12 +2,12 @@ package gdw.network;
 
 import java.io.IOException;
 
-import Physics.SimulationComponentManager;
 
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
 import gdw.network.server.GDWServerLogger;
+import gdw.physics.SimulationComponentManager;
 
 public class ServerCoreLoop extends Thread
 {

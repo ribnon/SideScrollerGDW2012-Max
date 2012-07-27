@@ -1,6 +1,6 @@
 package gdw.gameplay.levelObjects;
 
-import collisionDetection.CollisionDetectionComponentManager;
+import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;

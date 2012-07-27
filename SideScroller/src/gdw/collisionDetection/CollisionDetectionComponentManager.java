@@ -1,4 +1,4 @@
-package collisionDetection;
+package gdw.collisionDetection;
 
 import gdw.entityCore.Entity;
 import gdw.entityCore.Level;

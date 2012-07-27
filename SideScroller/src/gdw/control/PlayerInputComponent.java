@@ -19,10 +19,10 @@ import gdw.gameplay.player.PlayerBehaviorComponent.AttackType;
 import gdw.graphics.SpriteComponent;
 import gdw.network.NetComponent;
 import gdw.network.NetSubSystem;
+import gdw.physics.SimulationComponent;
 
 import org.newdawn.slick.Input;
 
-import Physics.SimulationComponent;
 
 public class PlayerInputComponent extends Component {
 	private int playerID;

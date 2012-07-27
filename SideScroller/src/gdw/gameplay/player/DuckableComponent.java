@@ -1,11 +1,11 @@
 package gdw.gameplay.player;
 
+import gdw.collisionDetection.AABoxCollisionDetectionComponent;
+import gdw.collisionDetection.CircleCollisionDetectionComponent;
+import gdw.collisionDetection.CollisionDetectionComponent;
+import gdw.collisionDetection.OOBoxCollisionDetectionComponent;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
-import collisionDetection.AABoxCollisionDetectionComponent;
-import collisionDetection.CircleCollisionDetectionComponent;
-import collisionDetection.CollisionDetectionComponent;
-import collisionDetection.OOBoxCollisionDetectionComponent;
 
 public class DuckableComponent extends Component {
 	public static final int COMPONENT_TYPE = 13;

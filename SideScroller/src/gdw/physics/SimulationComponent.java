@@ -1,11 +1,11 @@
-package Physics;
+package gdw.physics;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import collisionDetection.AABoxCollisionDetectionComponent;
-import collisionDetection.CollisionDetectionComponent;
 
+import gdw.collisionDetection.AABoxCollisionDetectionComponent;
+import gdw.collisionDetection.CollisionDetectionComponent;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;

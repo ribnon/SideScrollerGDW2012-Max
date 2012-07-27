@@ -1,4 +1,4 @@
-package Physics;
+package gdw.physics;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;

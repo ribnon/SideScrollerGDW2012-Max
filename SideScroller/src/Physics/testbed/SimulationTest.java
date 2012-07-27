@@ -1,8 +1,14 @@
 package Physics.testbed;
 
+import gdw.collisionDetection.AABoxCollisionDetectionComponent;
+import gdw.collisionDetection.CircleCollisionDetectionComponent;
+import gdw.collisionDetection.CollisionDetectionComponent;
+import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
+import gdw.physics.SimulationComponent;
+import gdw.physics.SimulationComponentManager;
 
 import java.util.HashMap;
 
@@ -14,13 +20,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import Physics.SimulationComponent;
-import Physics.SimulationComponentManager;
 
-import collisionDetection.AABoxCollisionDetectionComponent;
-import collisionDetection.CircleCollisionDetectionComponent;
-import collisionDetection.CollisionDetectionComponent;
-import collisionDetection.CollisionDetectionComponentManager;
 
 public class SimulationTest extends BasicGame {
 	EntityManager entityManager;

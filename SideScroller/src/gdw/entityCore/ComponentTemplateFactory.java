@@ -1,5 +1,8 @@
 package gdw.entityCore;
 
+import gdw.collisionDetection.AABoxCollisionDetectionComponentTemplate;
+import gdw.collisionDetection.CircleCollisionDetectionComponentTemplate;
+import gdw.collisionDetection.OOBoxCollisionDetectionComponentTemplate;
 import gdw.collisionReaction.CollisionReactionComponentTemplate;
 import gdw.control.PlayerInputComponentTemplate;
 import gdw.gameplay.color.ColorSourceComponentTemplate;
@@ -30,16 +33,13 @@ import gdw.graphics.OverlayedAnimatedSpriteComponentTemplate;
 import gdw.graphics.StaticSpriteComponent;
 import gdw.graphics.StaticSpriteComponentTemplate;
 import gdw.network.NetComponentTemplate;
+import gdw.physics.SimulationComponentTemplate;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-import collisionDetection.AABoxCollisionDetectionComponentTemplate;
-import collisionDetection.CircleCollisionDetectionComponentTemplate;
-import collisionDetection.OOBoxCollisionDetectionComponentTemplate;
 
-import Physics.SimulationComponentTemplate;
 
 
 public class ComponentTemplateFactory {

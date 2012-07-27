@@ -1,4 +1,4 @@
-package Physics;
+package gdw.physics;
 
 import java.util.ArrayList;
 

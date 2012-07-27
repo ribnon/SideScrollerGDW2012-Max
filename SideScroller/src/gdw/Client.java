@@ -3,6 +3,7 @@ package gdw;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.EntityManager;
 import gdw.graphics.SpriteManager;
 import gdw.network.NetSubSystem;
@@ -14,7 +15,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import collisionDetection.CollisionDetectionComponentManager;
 
 public class Client extends BasicGame {
 
