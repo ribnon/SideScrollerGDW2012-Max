@@ -23,14 +23,18 @@ public class Level {
 	private Level(){
 		try {
 			BufferedReader rdr = new BufferedReader(new FileReader("levels.txt"));
-		} catch (FileNotFoundException e) {
+			String line = null;
+			while((line=rdr.readLine())!=null){
+				mapNames.add(line);
+			}
+		} catch (IOException e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
-			throw new RuntimeException("Levelliste nicht gefunden. Bitte levels.txt erstellen.");
+			throw new RuntimeException("Levelliste nicht lesbar. Bitte levels.txt erstellen.");
 		}
 	}
 	
-	private TiledMap map = null;
+	private MyTiledMap map = null;
 	private ArrayList<String> mapNames = new ArrayList<String>();
 	private int levelIndex=0;
 	
@@ -42,7 +46,7 @@ public class Level {
 		return map.getHeight();
 	}
 	
-	public TiledMap getMap(){
+	public MyTiledMap getMap(){
 		return map;
 	}
 	
@@ -53,7 +57,7 @@ public class Level {
 	
 	public void loadLevel(String name){
 		try {
-			map = new TiledMap(name);
+			map = new MyTiledMap(name);
 		} catch (SlickException e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();

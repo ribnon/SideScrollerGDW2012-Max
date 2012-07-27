@@ -1,16 +1,16 @@
-package collisionDetection;
+package gdw.collisionDetection;
 
 import java.util.HashMap;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 
-public class AABoxCollisionDetectionComponentTemplate extends ComponentTemplate
+public class OOBoxCollisionDetectionComponentTemplate extends ComponentTemplate
 {
 	private float halfExtentX;
 	private float halfExtentY;
 	
-	public AABoxCollisionDetectionComponentTemplate(HashMap<String, String> params)
+	public OOBoxCollisionDetectionComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		
@@ -21,7 +21,7 @@ public class AABoxCollisionDetectionComponentTemplate extends ComponentTemplate
 	@Override
 	public Component createComponent()
 	{
-		return new AABoxCollisionDetectionComponent(this);
+		return new OOBoxCollisionDetectionComponent(this);
 	}
 
 	public float getHalfExtentX()

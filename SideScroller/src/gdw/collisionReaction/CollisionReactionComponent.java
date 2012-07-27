@@ -1,18 +1,18 @@
 package gdw.collisionReaction;
 
-import collisionDetection.AABoxCollisionDetectionComponent;
-import collisionDetection.CollisionDetectionComponent;
-import collisionDetection.CollisionDetectionComponentManager;
-import collisionDetection.CollisionDetectionMessage;
 
-import Physics.SimulationComponent;
-import Physics.SimulationComponentManager;
 
+import gdw.collisionDetection.AABoxCollisionDetectionComponent;
+import gdw.collisionDetection.CollisionDetectionComponent;
+import gdw.collisionDetection.CollisionDetectionComponentManager;
+import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.Message;
+import gdw.physics.SimulationComponent;
+import gdw.physics.SimulationComponentManager;
 
 public class CollisionReactionComponent extends Component
 {

@@ -71,5 +71,11 @@ public class StaticSpriteComponentTemplate extends ComponentTemplate
 	{
 		return new StaticSpriteComponent(this);
 	}
+	
+	public static boolean isGhostOnly()
+	{
+		return true;
+	}
+
 }
 

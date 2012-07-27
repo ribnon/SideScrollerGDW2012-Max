@@ -1,4 +1,4 @@
-package collisionDetection;
+package gdw.collisionDetection;
 
 import gdw.entityCore.Entity;
 
@@ -18,10 +18,10 @@ public class CollisionQuadTreeRect
 		update(owner.getPosX(), owner.getPosY(), circle.getRadius());
 		addReference(circle);
 	}
-	
+	//Vita wir haben beim erstellen kein owner, der wird erst später nach dem erstellen zugewiesen!
 	protected CollisionQuadTreeRect(AABoxCollisionDetectionComponent aaBox)
 	{
-		Entity owner = aaBox.getOwner();
+		Entity owner = aaBox.getOwner()
 		float halfX = aaBox.getHalfExtentX();
 		float halfY = aaBox.getHalfExtentY();
 		update(owner.getPosX(), owner.getPosY(), (float) Math.sqrt(halfX * halfX + halfY * halfY));

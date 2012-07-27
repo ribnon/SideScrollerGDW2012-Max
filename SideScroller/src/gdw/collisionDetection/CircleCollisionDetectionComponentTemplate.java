@@ -1,4 +1,4 @@
-package collisionDetection;
+package gdw.collisionDetection;
 
 import java.util.HashMap;
 

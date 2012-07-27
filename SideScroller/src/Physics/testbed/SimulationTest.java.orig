@@ -7,9 +7,14 @@ import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
+<<<<<<< HEAD
+import gdw.entityCore.EntityTemplateManager;
+import gdw.graphics.StaticSpriteComponent;
+import gdw.network.NetSubSystem;
+=======
 import gdw.physics.SimulationComponent;
 import gdw.physics.SimulationComponentManager;
-import gdw.network.NetSubSystem;
+>>>>>>> develop
 
 import java.io.IOException;
 import java.util.HashMap;

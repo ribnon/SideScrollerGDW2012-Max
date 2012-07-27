@@ -1,4 +1,4 @@
-package collisionDetection;
+package gdw.collisionDetection;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
