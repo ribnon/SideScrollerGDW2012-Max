@@ -61,7 +61,7 @@ public class StaticSpriteComponentTemplate extends ComponentTemplate
 		if(getIntegerParam("flipped", 0) == 1) flipped = true;
 		
 		try {
-			image = new Image(getStringParam("path", ""));
+			image = new Image(getStringParam("image", getStringParam("path", "")));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

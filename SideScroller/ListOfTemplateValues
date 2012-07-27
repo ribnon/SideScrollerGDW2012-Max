@@ -40,7 +40,7 @@ gdw.gameplay.color
 							notifyOnClear:EntityReference
 
 				ColorSource
-							color:String[] 		//0;0;0
+							color:String[] 		//0;0;0  //RYB
 
 				FadeIn
 							fadeTime:float
@@ -66,7 +66,7 @@ gdw.gameplay.levelObjects
 							angularVelocity:float
 
 				Switch
-							TargetEntity:EntityReference
+							TargetEntities:List<EntityReference> //Entityname1;Entitiyname2
 							SwitchType:String 		//{Hit;Step;Pull}
 							ActivationDuration:float
 
@@ -137,7 +137,9 @@ gdw.graphics
 							flipped:int 		//{0,1}
 							cycle:int
 							step:int
-
+							animationSpeed:float //Noch nicht implementiert
+							cycleLength:int[] //4;5;6 // Noch nicht implementiert
+							
 				Camera
 							playerNumber:int
 							viewPortX:int
@@ -173,6 +175,8 @@ gdw.graphics
 							baseStep:int
 							overlayStep1:int
 							overlayStep2:int
+							animationSpeed:float //Noch nicht implementiert
+							cycleLength:int[] //4;5;6 // Noch nicht implementiert
 
 				StaticSprite
 							scale:float

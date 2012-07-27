@@ -85,7 +85,7 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 		cycleLength = new int[spriteSheet.getVerticalCount()];
 		for(int i = 0; i < cycleLength.length; ++i)
 			cycleLength[i] = spriteSheet.getHorizontalCount(); // TODO detect unused slots in spritesheet
-		cycle = getIntegerParam("cycle", 0);
+		cycle = getIntegerParam("cycle", 0);//TODO cyclelength aus Template lesen
 		step = getIntegerParam("step", 0);
 	}
 	

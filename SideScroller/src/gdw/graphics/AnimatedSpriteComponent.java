@@ -112,7 +112,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 */
 	public void tick(float deltaTime)
 	{
-		step++;
+		step++;//TODO: Frametiming einbauen
 		step %= cycleLength[cycle]; //loop back to frame 0 
 	}
 	
