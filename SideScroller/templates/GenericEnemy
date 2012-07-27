@@ -1,0 +1,64 @@
+Template GenericEnemy
+
+Component OOBoxCollisionDetection
+halfExtentX=64
+halfExtentY=64
+
+Component Colorable
+remainingTimeToFade=0
+fadeTime=1
+friendlyDuration=1
+friendlyTimer=1
+finishedCount=0
+segmentCount=0
+notifyOnClear=#################################
+
+Component FadeIn
+fadeTime=5
+fadeProgress=0
+startColor= 		//0;0;0;0
+endColor=			//0;0;0;0
+
+Component EnemyBehavior
+hostile=1
+aggroRange=5
+shootEntityTempalte=#######################
+
+Component EnemyDamageDealer
+healthDecrement=10
+
+Component PathFollow
+
+Component Follow
+targetEntityID=#############################
+
+Component OverlayedAnimatedSprite
+scale=1
+filterRed=1
+filterGreen=1
+filterBlue=1
+pivotX=0
+pivotY=0
+layer=1
+flipped=0
+basePath./assets/spritesheets/#######################
+baseTitleWidth=64
+baseTileHeight=64
+overlay1Path=./assets/spritesheets/###################
+overlay1TileWidth64
+overlay1TileHeight=64
+overlay2Path=./assets/spritesheets/###################
+overlay2TileWidth=64
+overlay2TileHeight=64
+overlay1ColorRed=1
+overlay1ColorGreen=1
+overlay1ColorBlue=1
+overlay2ColorRed=1
+overlay2ColorGreen=1
+overlay2ColorBlue=1
+baseCycle=###########################
+overlayCycle1=#######################
+overlayCycle2=#######################
+baseStep=0
+overlayStep1=0
+overlayStep2=0

@@ -42,7 +42,7 @@ gdw.gameplay.color
 				ColorSource
 							color:String[] 		//0;0;0
 
-				FadeInComponent
+				FadeIn
 							fadeTime:float
 							fadeProgress:float
 							startColor:String[] //0;0;0;0
@@ -58,6 +58,8 @@ gdw.gameplay.enemy
 							healthDecrement:float
 
 gdw.gameplay.levelObjects
+				PathFollow
+
 				RotateSwitch
 							activateTotation:float
 							deactivateRotation:float
@@ -91,9 +93,13 @@ gdw.gameplay.player
 							healthIncrement:float
 
 gdw.gameplay.progress
+				LevelGoal
+
 				Rainbow
 							checkPointNumber:int
 							healthIncrement:float
+
+				StartSpawn
 
 gdw.genericBehavior
 				Attachable

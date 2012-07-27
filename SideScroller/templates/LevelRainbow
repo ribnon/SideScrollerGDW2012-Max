@@ -2,7 +2,7 @@ Template LevelRainbow
 
 Component AnimatedSprite
 path=./assets/spritesheets/rainbow.png
-tileWidth=66
+tileWidth=64
 tileHeight=96
 scale=1
 filterRed=1
