@@ -1,4 +1,0 @@
-Template Mein_Testtemplate
-Component PathFollow
-wayPoints=300;100 200;500 500;300 100;300 400;500
-speed=200
