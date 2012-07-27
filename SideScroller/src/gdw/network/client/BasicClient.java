@@ -322,7 +322,7 @@ public class BasicClient implements INetworkBridge
 
 		try
 		{
-			this.udpConnection.write(buf);
+			this.tcpConnection.write(buf);
 		} catch (IOException e)
 		{
 			//s.o.

@@ -12,7 +12,7 @@ import gdw.physics.SimulationComponentManager;
 public class ServerCoreLoop extends Thread
 {
 	
-	private final long SLEEPCONST = 250L;
+	private final long SLEEPCONST = 300L;
 	
 	private SideScrollerServer ref;
 	
@@ -50,7 +50,7 @@ public class ServerCoreLoop extends Thread
 					GDWServerLogger.logMSG("init system");
 					//Level.getInstance().start();
 					entTempMan.loadEntityTemplates("general.templates");
-					entTempMan.getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
+					//entTempMan.getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
 				} catch (IOException e)
 				{
 					e.printStackTrace();
@@ -65,9 +65,9 @@ public class ServerCoreLoop extends Thread
 			float delta = curVal -  oldVal;
 			
 			//updates laufen lassen
-			//NetSubSystem.getInstance().pollMessages();
+			NetSubSystem.getInstance().pollMessages();
 		
-			EntityTemplateManager.getInstance().getEntityTemplate("slidingPlatform").createEntity(200f, 200f, 0f);
+			EntityTemplateManager.getInstance().getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
 			SimulationComponentManager.getInstance().simulate(delta);
 			EntityManager.getInstance().tick(delta);
 		
