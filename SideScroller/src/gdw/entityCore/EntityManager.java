@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.newdawn.slick.tiled.TiledMap;
 
 public class EntityManager {
 	//Singleton-Stuff:
@@ -20,7 +23,7 @@ public class EntityManager {
 	
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
 	private int nextID = 1;
-	private boolean offlineMode=false;
+	private boolean offlineMode;
 	
 	public boolean isOfflineMode() {
 		return offlineMode;
@@ -93,14 +96,126 @@ public class EntityManager {
 					}
 				} catch (NumberFormatException e) {
 					continue;
-				}	
+				}
+			}
+			else if(line.startsWith("Include")){
+				if(line.length()<9) continue;
+				if(line.charAt(7)!=' ') continue;
+				String includeFileNameStr=line.substring(8);
+				if(includeFileNameStr.length()==0) continue;
+				try{
+					loadEntities(includeFileNameStr);
+				}
+				catch(IOException e){
+					System.err.println("IOException beim Lesen eines Includefiles: " + e.getMessage());
+					e.printStackTrace();
+				}
 			}
 			else continue;
 		}
 	}
 	public void loadEntitiesFromLevel(){
-		//TODO: Implement
+		TiledMap map = Level.getInstance().getMap();
+		int collisionLayerIndex = map.getLayerIndex("Collision");
+		EntityTemplate colBoxTemplate = EntityTemplateManager.getInstance().getEntityTemplate(" --- CollisionTile --- ");
+		for(int x=0;x<map.getWidth();++x){
+			for(int y=0;y<map.getHeight();++y){
+				if(map.getTileId(x, y, collisionLayerIndex)==1){
+					float xCoord = map.getTileWidth()*x+map.getTileWidth()*0.5f;
+					float yCoord = map.getTileHeight()*y+map.getTileHeight()*0.5f;
+					
+					colBoxTemplate.createEntity(xCoord, yCoord, 0);
+				}
+			}
+		}
+		String mapTemplatesPrefix = "FromMap_";
+		int objectGroups = map.getObjectGroupCount();
+		for(int og=0;og<objectGroups;++og){
+			int groupObjects = map.getObjectCount(og);
+			for(int go=0;go<groupObjects;++go){
+				String objectName = map.getObjectName(og, go);
+				String templateName = mapTemplatesPrefix+objectName;
+				String orientationStr = map.getObjectProperty(og, go, "Entity.orientation", "0");
+				float orientation=0.0f;
+				try {
+					orientation = Float.parseFloat(orientationStr);
+				} catch (NumberFormatException e) {}
+				EntityTemplate entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate(templateName);
+				Entity ent = entityTemplate.createEntity(
+						map.getObjectX(og, go)+map.getObjectWidth(og, go)*0.5f,
+						map.getObjectY(og, go)+map.getObjectHeight(og, go), orientation);
+				NamedEntityReference.setEntityID(objectName, ent.getID());
+			}
+		}
 	}
+	/*
+	 *
+	 * .       _,..wWWw--./+'.            _      ,.                          .
+  ..wwWWWWWWWWW;ooo;++++.        .ll'  ,.++;
+   `'"">wW;oOOOOOO;:++\++.      .lll .l"+++'   ,..
+     ,wwOOOOOOOO,,,++++\+++.    lll',ll'++;  ,++;'
+    ,oOOOOOOOO,,,,+++++`'++ll. ;lll ll:+++' ;+++'
+   ;OOOOOOOOO,,,'++++++++++lll ;lll ll:++:'.+++'
+   OOOO;OOO",,"/;++++,+,++++ll`:llllll++++'+++
+  OOOO;OO",,'++'+++;###;"-++llX llll`;+++++++'  ,.    .,      _
+;O;'oOOO ,'+++\,-:  ###++++llX :l.;;;,--++."-+++++ w":---wWWWWWww-._
+;'  /O'"'"++++++' :;";#'+++lllXX,llll;++.+++++++++W,"WWWWWWWWww;""""'`
+   ."     `"+++++'.'"''`;'ll;xXXwllll++;--.++++;wWW;xXXXXXXXXXx"Ww.
+           .+++++++++++';xXXXXX;Wll"+-"++,'---"-.x""`"lllllllxXXxWWw.
+           "---'++++++-;XXXXXXwWWl"++++,"---++++",,,,,,,,,,;lllXXXxWW,
+             `'""""',+xXXXXX;wWW'+++++++++;;;";;;;;;;;oOo,,,,,llXXX;WW`
+                   ,+xXXXXXwWW"++.++++-.;;+++<'   `"WWWww;Oo,,,llXXX"Ww
+                   +xXXX"wwW"+++++'"--'"'  )+++     `WWW"WwOO,,lllXXXww
+                  ,x++++;"+++++++++++`., )  )+++     )W; ,WOO,,lllX:"Ww
+                  :++++++++++++++++++++W'"-:++++    .W'  WWOO,,lllX; `w
+                  .++++++++++++++++.+++"ww :+++'   ,"   ,WWOO,,lllX;  ;
+           ;ll--.-"`.;++++++++++++++.+++;+.;++(         :WWOO,,lllXx
+          ,'lllllllll,++++;+++++++++;"++++++++++++-.    :WWOO,,lllXx
+          ;llll;;;"';'++++;'"""'''`` `lll;;:+++++++++.  WWOOO,,lllX'
+         ,lllll,    ;+++++;            `"lllll.++++++++ WWwO,,,llX;
+         lllllll,  ,++++++;               llllll+++++++.:WWw',,llx
+        ,llllllll, ;++++++;               :llllll+++++++."WW;,,llx
+        ;lllllllllV+++++++;               :lllllll+++++++.`w' `.lx.
+        `lllllllll'+++++++;               :lllllll++++++++  `\  `,X\
+         "llllll;++++++++;                ;llllll'+++++++++   `-  \X;
+          "llll'+++++++++;               ;lllllll"+++++++++        `)
+           `-'`+++++++++;'              ,llllllll++++++++++
+             +++++++++++;              ,llllllll'++++++++++
+.           '++++++++++"               `""""""""'+++++++++"           .
+	 */
+	public void tick(float deltaTime){
+		for(Entity ent: entities.values()){
+			ent.tick(deltaTime);
+		}
+	}
+	
+	/**
+	 * Nuke the site from Orbit.
+	 * 
+	 *          
+     ..-^~~~^-..
+   .~           ~.
+  (;:           :;)
+   (:           :)
+     ':._   _.:'
+         | |
+       (=====)
+         | |
+         | |
+         | |
+      ((/   \))
+	 */
+	public void deleteAllEntities(){
+		ArrayList<Entity> toDelete = new ArrayList<Entity>();
+		for(Entity ent: entities.values()){
+			toDelete.add(ent);
+		}
+		
+		for(Entity ent: toDelete){
+			ent.destroy();
+		}
+	}
+	
 	void unregisterEntity(Entity entity){
 		entities.remove(entity.getID());
 	}

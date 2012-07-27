@@ -130,13 +130,13 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 		try {
 			baseSpritesheet = new SpriteSheet(getStringParam("basePath", ""), getIntegerParam("baseTileWidth", 64), getIntegerParam("baseTileHeight", 64));
 			overlaySpritesheet1 = new SpriteSheet(getStringParam("overlay1Path", ""), getIntegerParam("overlay1TileWidth", 64), getIntegerParam("overlay1TileHeight", 64));
-			overlaySpritesheet1 = new SpriteSheet(getStringParam("overlay2Path", ""), getIntegerParam("overlay2TileWidth", 64), getIntegerParam("overlay2TileHeight", 64));
+			overlaySpritesheet2 = new SpriteSheet(getStringParam("overlay2Path", ""), getIntegerParam("overlay2TileWidth", 64), getIntegerParam("overlay2TileHeight", 64));
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		overlayColor1 = new Color(getFloatParam("overlay1ColorRed", 1.0f), getFloatParam("overlay1ColorGreen", 1.0f), getFloatParam("overlay1ColorBlue", 1.0f));
-		overlayColor2 = new Color(getFloatParam("overlay1ColorRed", 1.0f), getFloatParam("overlay1ColorGreen", 1.0f), getFloatParam("overlay1ColorBlue", 1.0f));
+		overlayColor2 = new Color(getFloatParam("overlay2ColorRed", 1.0f), getFloatParam("overlay2ColorGreen", 1.0f), getFloatParam("overlay2ColorBlue", 1.0f));
 		
 		baseCycleLength = new int[baseSpritesheet.getHorizontalCount()];
 		for(int i = 0; i < baseCycleLength.length; ++i) baseCycleLength[i] = 0;
@@ -160,4 +160,10 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 	public Component createComponent() {
 		return new OverlayedAnimatedSpriteComponent(this);
 	}
+	
+	public static boolean isGhostOnly()
+	{
+		return true;
+	}
+
 }

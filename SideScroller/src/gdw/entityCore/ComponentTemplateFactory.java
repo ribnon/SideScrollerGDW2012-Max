@@ -1,10 +1,29 @@
 package gdw.entityCore;
 
+import gdw.collisionDetection.AABoxCollisionDetectionComponentTemplate;
+import gdw.collisionDetection.CircleCollisionDetectionComponentTemplate;
+import gdw.collisionDetection.OOBoxCollisionDetectionComponentTemplate;
 import gdw.collisionReaction.CollisionReactionComponentTemplate;
 import gdw.control.PlayerInputComponentTemplate;
+import gdw.gameplay.color.ColorSourceComponentTemplate;
+import gdw.gameplay.color.ColorableComponentTemplate;
+import gdw.gameplay.color.FadeInComponentTemplate;
+import gdw.gameplay.enemy.EnemyBehaviorComponentTemplate;
+import gdw.gameplay.enemy.EnemyDamageDealerComponentTemplate;
+import gdw.gameplay.levelObjects.PathFollowComponentTemplate;
+import gdw.gameplay.levelObjects.RotateBySwitchComponentTemplate;
+import gdw.gameplay.levelObjects.SwitchComponentTemplate;
+import gdw.gameplay.levelObjects.SwitchUserComponentTemplate;
+import gdw.gameplay.player.DuckableComponentTemplate;
+import gdw.gameplay.player.PlayerBehaviorComponentTemplate;
+import gdw.gameplay.player.PlayerWeaponComponentTemplate;
+import gdw.gameplay.progress.LevelGoalComponentTemplate;
+import gdw.gameplay.progress.RainbowComponentTemplate;
+import gdw.gameplay.progress.StartSpawnComponentTemplate;
 import gdw.genericBehavior.AttachableComponentTemplate;
 import gdw.genericBehavior.AttachmentComponentTemplate;
 import gdw.genericBehavior.FollowComponentTemplate;
+import gdw.genericBehavior.PivotRotationComponentTemplate;
 import gdw.graphics.AnimatedSpriteComponent;
 import gdw.graphics.AnimatedSpriteComponentTemplate;
 import gdw.graphics.CameraComponent;
@@ -14,16 +33,13 @@ import gdw.graphics.OverlayedAnimatedSpriteComponentTemplate;
 import gdw.graphics.StaticSpriteComponent;
 import gdw.graphics.StaticSpriteComponentTemplate;
 import gdw.network.NetComponentTemplate;
+import gdw.physics.SimulationComponentTemplate;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-import collisionDetection.AABoxCollisionDetectionComponentTemplate;
-import collisionDetection.CircleCollisionDetectionComponentTemplate;
-import collisionDetection.OOBoxCollisionDetectionComponentTemplate;
 
-import Physics.SimulationComponentTemplate;
 
 
 public class ComponentTemplateFactory {
@@ -51,20 +67,23 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("Attachable", AttachableComponentTemplate.class);
 		componentTemplateClasses.put("Network", NetComponentTemplate.class);
 		//TODO: Auskommentierung entfernen, wenn Komponenten geschrieben sind.
-//		componentTemplateClasses.put("PlayerWeapon", PlayerWeaponComponentTemplate.class);
-//		componentTemplateClasses.put("Duckable", DuckableComponentTemplate.class);
-//		componentTemplateClasses.put("PlayerBehavior", PlayerBehaviorComponentTemplate.class);
-//		componentTemplateClasses.put("EnemyBehavior", EnemyBehaviorComponentTemplate.class);
-//		componentTemplateClasses.put("EnemyDamageDealer", EnemyDamageDealerComponentTemplate.class);
-//		componentTemplateClasses.put("SwitchUser", SwitchUserComponentTemplate.class);
-//		componentTemplateClasses.put("Switch", SwitchComponentTemplate.class);
+		componentTemplateClasses.put("PlayerWeapon", PlayerWeaponComponentTemplate.class);
+		componentTemplateClasses.put("Duckable", DuckableComponentTemplate.class);
+		componentTemplateClasses.put("PlayerBehavior", PlayerBehaviorComponentTemplate.class);
+		componentTemplateClasses.put("EnemyBehavior", EnemyBehaviorComponentTemplate.class);
+		componentTemplateClasses.put("EnemyDamageDealer", EnemyDamageDealerComponentTemplate.class);
+		componentTemplateClasses.put("SwitchUser", SwitchUserComponentTemplate.class);
+		componentTemplateClasses.put("Switch", SwitchComponentTemplate.class);
 //		componentTemplateClasses.put("Door", DoorComponentTemplate.class);
-//		componentTemplateClasses.put("PathFollow", PathFollowComponentTemplate.class);
-//		componentTemplateClasses.put("Rainbow", RainbowComponentTemplate.class);
-//		componentTemplateClasses.put("StartSpawn", StartSpawnComponentTemplate.class);
-//		componentTemplateClasses.put("LevelGoal", LevelGoalComponentTemplate.class);
-//		componentTemplateClasses.put("ColorSource", ColorSourceComponentTemplate.class);
-//		componentTemplateClasses.put("Colorable", ColorableComponentTemplate.class);
+		componentTemplateClasses.put("PathFollow", PathFollowComponentTemplate.class);
+		componentTemplateClasses.put("Rainbow", RainbowComponentTemplate.class);
+		componentTemplateClasses.put("StartSpawn", StartSpawnComponentTemplate.class);
+		componentTemplateClasses.put("LevelGoal", LevelGoalComponentTemplate.class);
+		componentTemplateClasses.put("ColorSource", ColorSourceComponentTemplate.class);
+		componentTemplateClasses.put("Colorable", ColorableComponentTemplate.class);
+		componentTemplateClasses.put("PivotRotation", PivotRotationComponentTemplate.class);
+		componentTemplateClasses.put("RotateBySwitch", RotateBySwitchComponentTemplate.class);
+		componentTemplateClasses.put("FadeIn", FadeInComponentTemplate.class);
 	}
 
 	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<String, Class<? extends ComponentTemplate>>();
@@ -86,5 +105,18 @@ public class ComponentTemplateFactory {
 			} 
 		}
 		else return null;
+	}
+	
+	public boolean testIsGhostOnly(String compTemplateName){
+		if(componentTemplateClasses.containsKey(compTemplateName)){
+			try
+			{
+				return (Boolean)(componentTemplateClasses.get(compTemplateName).getMethod("isGhostOnly").invoke(null));
+			} catch (Exception e)
+			{
+				return false;
+			} 
+		}
+		else return false;
 	}
 }

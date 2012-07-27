@@ -3,6 +3,7 @@ package gdw.network.client;
 import gdw.network.NETCONSTANTS;
 import gdw.network.INetworkBridge;
 import gdw.network.RESPONSECODES;
+import gdw.network.server.GDWServerLogger;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -30,6 +31,8 @@ public class BasicClient implements INetworkBridge
 	private final SocketChannel tcpConnection;
 
 	private static ServerlistPendingThread pendingThread = null;
+	
+	private static ConnectionResponceThread connectionThread = null;
 
 	public final int id;
 	
@@ -145,15 +148,24 @@ public class BasicClient implements INetworkBridge
 			buf.put(NETCONSTANTS.MAGIC_LOGIN_CODE);// magic code
 			buf.putInt(udpSocket.socket().getLocalPort());// udp port
 			buf.put(NETCONSTANTS.CONNECT);//what we want
-			additionalData.flip();
-			buf.put(additionalData);
+			if(additionalData != null)
+			{
+				additionalData.flip();
+				buf.put(additionalData);
+			}
+			
 			buf.flip();
 
 			// connect
 			IBasicClientListener lis = BasicClient.getListener();
 			lis.connectionUpdate(RESPONSECODES.CONNECTING);
 
-			new ConnectionResponceThread(tcpSocket, udpSocket, buf, info);
+			if((BasicClient.connectionThread != null)&&(BasicClient.connectionThread.isAlive()))
+			{
+				BasicClient.connectionThread.interrupt();
+				GDWServerLogger.logMSG("Sei nicht so ungeduldig");
+			}
+			BasicClient.connectionThread =  new ConnectionResponceThread(tcpSocket, udpSocket, buf, info);
 		} catch (IOException e)
 		{
 			BasicClient.getListener().connectionUpdate(
@@ -271,7 +283,10 @@ public class BasicClient implements INetworkBridge
 		{
 			if (reliable)
 			{
-				this.tcpConnection.write(msg);
+				while(msg.hasRemaining())
+				{
+					this.tcpConnection.write(msg);
+				}
 			} else
 			{
 				this.udpConnection.write(msg);
@@ -289,7 +304,7 @@ public class BasicClient implements INetworkBridge
 		buf.flip();
 		try
 		{
-			this.udpConnection.write(buf);
+			this.tcpConnection.write(buf);
 			this.pongRequest = currentTimeStamp;
 		} catch (IOException e)
 		{
@@ -307,7 +322,7 @@ public class BasicClient implements INetworkBridge
 
 		try
 		{
-			this.udpConnection.write(buf);
+			this.tcpConnection.write(buf);
 		} catch (IOException e)
 		{
 			//s.o.
@@ -361,7 +376,8 @@ public class BasicClient implements INetworkBridge
 		} catch (IOException e)
 		{
 			e.printStackTrace();
-			return;
+			this.discoFlag = true;
+			this.disconnect();
 		}
 		if (counter > 0)
 		{

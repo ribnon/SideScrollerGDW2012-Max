@@ -1,7 +1,13 @@
 Entity Mein_Testtemplate 4 5 0
+
+#Dies ist ein Kommentar
 #1. Parameter: Templatename
 #2. Parameter: X-Pos
 #3. Parameter: Y-Pos
 #4. Parameter: Orientation
 
-Entity Spieler 1 2 0 as Spieler1
+	Entity Spieler 1 2 0 as Spieler1
+
+#Spieler1 ist Name der Instanz
+
+Include andereEntityDatei.templates

@@ -1,11 +1,11 @@
 package gdw.gameplay.player;
 
+import gdw.collisionDetection.AABoxCollisionDetectionComponent;
+import gdw.collisionDetection.CircleCollisionDetectionComponent;
+import gdw.collisionDetection.CollisionDetectionComponent;
+import gdw.collisionDetection.OOBoxCollisionDetectionComponent;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
-import collisionDetection.AABoxCollisionDetectionComponent;
-import collisionDetection.CircleCollisionDetectionComponent;
-import collisionDetection.CollisionDetectionComponent;
-import collisionDetection.OOBoxCollisionDetectionComponent;
 
 public class DuckableComponent extends Component {
 	public static final int COMPONENT_TYPE = 13;
@@ -28,40 +28,17 @@ public class DuckableComponent extends Component {
 	/**
 	 * the original not-ducked size for x
 	 */
-	private final float originalSizeX;
+	private float originalSizeX;
 
 	/**
 	 * the original not-ducked size for y
 	 */
-	private final float originalSizeY;
+	private float originalSizeY;
 
-	protected DuckableComponent(ComponentTemplate template) {
+	public DuckableComponent(ComponentTemplate template) {
 		super(template);
-		duckedSizeX = template.getFloatParam("duckedSizeX");
-		duckedSizeY = template.getFloatParam("duckedSizeY");
-
-		CollisionDetectionComponent tempComp = (CollisionDetectionComponent) getOwner().getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
-		if (tempComp instanceof AABoxCollisionDetectionComponent) 
-		{
-			originalSizeX = ((AABoxCollisionDetectionComponent) tempComp)
-					.getHalfExtentX();
-			originalSizeY = ((AABoxCollisionDetectionComponent) tempComp)
-					.getHalfExtentY();
-		} 
-		else if (tempComp instanceof OOBoxCollisionDetectionComponent) 
-		{
-			originalSizeX = ((OOBoxCollisionDetectionComponent) tempComp)
-					.getHalfExtentX();
-			originalSizeY = ((OOBoxCollisionDetectionComponent) tempComp)
-					.getHalfExtentY();
-		} 
-		else 
-		{
-			originalSizeX = ((CircleCollisionDetectionComponent) tempComp)
-					.getRadius();
-			originalSizeY = 0;
-		}
-
+		duckedSizeX = ((DuckableComponentTemplate) template).getDuckedSizeX();
+		duckedSizeY = ((DuckableComponentTemplate) template).getDuckedSizeY();
 	}
 
 	@Override
@@ -89,6 +66,10 @@ public class DuckableComponent extends Component {
 			CollisionDetectionComponent tempComp = (CollisionDetectionComponent) getOwner().getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 			if (tempComp instanceof AABoxCollisionDetectionComponent) 
 			{
+				originalSizeX = ((AABoxCollisionDetectionComponent) tempComp)
+						.getHalfExtentX();
+				originalSizeY = ((AABoxCollisionDetectionComponent) tempComp)
+						.getHalfExtentY();
 				((AABoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentX(duckedSizeX);
 				((AABoxCollisionDetectionComponent) tempComp)
@@ -96,6 +77,10 @@ public class DuckableComponent extends Component {
 			} 
 			else if (tempComp instanceof OOBoxCollisionDetectionComponent) 
 			{
+				originalSizeX = ((AABoxCollisionDetectionComponent) tempComp)
+						.getHalfExtentX();
+				originalSizeY = ((AABoxCollisionDetectionComponent) tempComp)
+						.getHalfExtentY();
 				((OOBoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentX(duckedSizeX);
 				((OOBoxCollisionDetectionComponent) tempComp)
@@ -103,6 +88,8 @@ public class DuckableComponent extends Component {
 			} 
 			else 
 			{
+				originalSizeX = ((CircleCollisionDetectionComponent) tempComp)
+						.getRadius();
 				((CircleCollisionDetectionComponent) tempComp)
 						.setRadius(duckedSizeX);
 			}

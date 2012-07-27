@@ -1,6 +1,6 @@
 package gdw.gameplay.player;
 
-import collisionDetection.CollisionDetectionMessage;
+import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;

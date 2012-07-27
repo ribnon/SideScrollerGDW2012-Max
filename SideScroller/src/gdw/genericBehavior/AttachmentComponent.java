@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import collisionDetection.CollisionDetectionMessage;
 
+import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
@@ -195,5 +195,35 @@ public class AttachmentComponent extends Component
 			currentEntity.setOrientation(thisEntity.getOrientation()
 					+ attachOrientation);
 		}
+	}
+
+	public float getAttachPointX()
+	{
+		return attachPointX;
+	}
+
+	public void setAttachPointX(float attachPointX)
+	{
+		this.attachPointX = attachPointX;
+	}
+
+	public float getAttachPointY()
+	{
+		return attachPointY;
+	}
+
+	public void setAttachPointY(float attachPointY)
+	{
+		this.attachPointY = attachPointY;
+	}
+
+	public float getAttachOrientation()
+	{
+		return attachOrientation;
+	}
+
+	public void setAttachOrientation(float attachOrientation)
+	{
+		this.attachOrientation = attachOrientation;
 	}
 }

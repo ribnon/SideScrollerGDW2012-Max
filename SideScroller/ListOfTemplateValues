@@ -1,0 +1,197 @@
+Package			Component	name:typ
+collisionDetection		
+				AABoxCollisionDetection			
+							halfExtentX:float
+							halfExtentY:float
+						
+				CircleCollisionDetection			
+							radius:float
+
+				OOBoxCollisionDetection
+							halfExtentX:float
+							halfExtentY:float
+
+gdw.collisionReaction
+				CollisionReaction
+							impassableFromTop:int
+							impassableGromSide:int
+
+gdw.control
+				PlayerInput				
+							DownKey:String
+							JumpKey:String
+							LeftKey:String
+							RightKey:String
+							AttackKey:String
+							SpecialAttackKey:String
+							JumpVelocity:int
+							RunVelocity:int
+							WaitingTime:int
+							IsUnflippedRight:Int	//{0,1}
+
+gdw.gameplay.color
+				Colorable				
+							remainingTimeToFade:float
+							fadeTime:float
+							friendlyDuration:float
+							friendlyTimer:float
+							finishedCount:int
+							segmentCount:int
+							notifyOnClear:EntityReference
+
+				ColorSource
+							color:String[] 		//0;0;0
+
+				FadeIn
+							fadeTime:float
+							fadeProgress:float
+							startColor:String[] //0;0;0;0
+							endColor:String[]	//0;0;0;0
+
+gdw.gameplay.enemy
+				EnemyBehavior
+							hostile:int
+							aggroRange:float
+							shootEntityTempalte:String
+
+				EnemyDamageDealer
+							healthDecrement:float
+
+gdw.gameplay.levelObjects
+				PathFollow
+
+				RotateSwitch
+							activateTotation:float
+							deactivateRotation:float
+							angularVelocity:float
+
+				Switch
+							TargetEntity:EntityReference
+							SwitchType:String 		//{Hit;Step;Pull}
+							ActivationDuration:float
+
+				SwitchUser
+							HitTrigger:int 			//{0;1}
+
+gdw.gameplay.player
+				Duckable
+							ducked:int 				//{0;1}
+							duckedSizeX:float
+							duckedSizeY:float
+				
+				PlayerBehavior
+							healthPercent:float
+							deathTimer:float
+							deathTimerDuration:float
+							hitDuration:float
+							hitAction:float
+							healthChangeInterval:float
+							healthChangeTimer:float
+
+				PlayerWeapon
+							currentColor:String		//0;0;0
+							healthIncrement:float
+
+gdw.gameplay.progress
+				LevelGoal
+
+				Rainbow
+							checkPointNumber:int
+							healthIncrement:float
+
+				StartSpawn
+
+gdw.genericBehavior
+				Attachable
+							groupID:int
+							attachedToEntity:int
+
+				Attachment
+							attachPointX:float
+							attachPointY:float
+							attachOrientation:float
+							autoAttachGroups:String[]	//1;2;3
+
+				Follow
+							targetEntityID:EntityReference
+
+				PivotRotation
+							pivotX:float
+							pivotY:float
+
+gdw.network
+				Network
+
+gdw.graphics
+				AnimatedSprite
+							path:String
+							tileWidth:int
+							tileHeight:int
+							scale:float
+							filterRed:float
+							filterGreen:float
+							filterBlue:float
+							pivotX:float
+							pivotY:float
+							layer:int
+							flipped:int 		//{0,1}
+							cycle:int
+							step:int
+
+				Camera
+							playerNumber:int
+							viewPortX:int
+							viewPortY:int
+
+				OverlayedAnimatedSprite
+							scale:float
+							filterRed:float
+							filterGreen:float
+							filterBlue:float
+							pivotX:float
+							pivotY:float
+							layer:int
+							flipped:int
+							basePath:String
+							baseTitleWidth:int
+							baseTileHeight:int
+							overlay1Path:String
+							overlay1TileWidth:int
+							overlay1TileHeight:int
+							overlay2Path:String
+							overlay2TileWidth:int
+							overlay2TileHeight:int
+							overlay1ColorRed:float
+							overlay1ColorGreen:float
+							overlay1ColorBlue:float
+							overlay2ColorRed:float
+							overlay2ColorGreen:float
+							overlay2ColorBlue:float
+							baseCycle:int
+							overlayCycle1:int
+							overlayCycle2:int
+							baseStep:int
+							overlayStep1:int
+							overlayStep2:int
+
+				StaticSprite
+							scale:float
+							filterRed:float
+							filterGreen:float
+							filterBlue:float
+							pivotX:float
+							pivotY:float
+							layer:int
+							flipped:int 		//{0,1}
+							path:String
+
+Physics
+				Simulation
+							friction:float
+							mass:float
+							externalForceX:float
+							externalForceY:float
+							velocityX:float
+							velocityY:float
+							accelerationX:float
+							accelerationY:float

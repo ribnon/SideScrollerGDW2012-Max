@@ -1,6 +1,7 @@
 package gdw.network.messageType;
 
 
+import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
@@ -26,7 +27,7 @@ public class EntityDeSpawnNetMessage extends NetMessageType
 			{
 				EntityDeSpawnNetMessage msg = list.peek();
 				buf.putInt(msg.entityID);
-			}catch (IndexOutOfBoundsException e)
+			}catch (IndexOutOfBoundsException | BufferOverflowException e)
 			{
 				break;
 			}

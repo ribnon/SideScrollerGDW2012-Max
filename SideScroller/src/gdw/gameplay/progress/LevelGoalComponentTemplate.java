@@ -7,7 +7,7 @@ import gdw.entityCore.ComponentTemplate;
 
 public class LevelGoalComponentTemplate extends ComponentTemplate
 {
-	protected LevelGoalComponentTemplate(HashMap<String, String> params)
+	public LevelGoalComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 	}

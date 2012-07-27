@@ -11,7 +11,7 @@ public class DuckableComponentTemplate extends ComponentTemplate {
 	private float duckedSizeX;
 	private float duckedSizeY;
 	
-	protected DuckableComponentTemplate(HashMap<String, String> params) {
+	public DuckableComponentTemplate(HashMap<String, String> params) {
 		super(params);
 		
 		ducked = getIntegerParam("ducked", 0) == 1;

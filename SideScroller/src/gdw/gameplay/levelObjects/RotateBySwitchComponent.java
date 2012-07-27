@@ -1,9 +1,11 @@
 package gdw.gameplay.levelObjects;
 
+import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
 import gdw.gameplay.levelObjects.messageType.ActivateMessage;
+import gdw.gameplay.levelObjects.messageType.DeactivateMessage;
 import gdw.genericBehavior.PivotRotationComponent;
 
 public class RotateBySwitchComponent extends Component
@@ -112,6 +114,8 @@ public class RotateBySwitchComponent extends Component
 				deltaAngle -= (currentRotationAngle - activateRotation);
 			}
 			pivotComp.rotate(deltaAngle);
+			if (CollisionDetectionComponentManager.getInstance().usingQuadTree())
+				CollisionDetectionComponentManager.getInstance().detectCollisions(getOwner());
 		}
 		
 		else if (rotatingState == ROTATING_DEACTIVATION)
@@ -124,6 +128,8 @@ public class RotateBySwitchComponent extends Component
 				deltaAngle -= (currentRotationAngle - activateRotation);
 			}
 			pivotComp.rotate(-deltaAngle);
+			if (CollisionDetectionComponentManager.getInstance().usingQuadTree())
+				CollisionDetectionComponentManager.getInstance().detectCollisions(getOwner());
 		}
 	}
 

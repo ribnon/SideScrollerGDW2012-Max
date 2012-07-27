@@ -3,7 +3,7 @@ package gdw.entityCore;
 import java.util.HashMap;
 
 public class NamedEntityReference extends EntityReference {
-	private static HashMap<String, Integer> keys;
+	private static HashMap<String, Integer> keys = new HashMap<String, Integer>();
 	private String key;
 	
 	public NamedEntityReference(String key) {

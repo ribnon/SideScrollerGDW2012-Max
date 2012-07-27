@@ -3,9 +3,11 @@ package gdw.network;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import gdw.entityCore.Level;
 import gdw.network.server.BasicClientConnection;
 import gdw.network.server.BasicServer;
 import gdw.network.server.ConnectionInfo;
+import gdw.network.server.GDWServerLogger;
 
 public class SideScrollerServer extends BasicServer
 {
@@ -21,8 +23,10 @@ public class SideScrollerServer extends BasicServer
 	
 	public SideScrollerServer(String infoText) throws IOException
 	{
-		super(2, infoText, true, false);
+		super(1, infoText, true, false);
 		this.curState = ServerGameStates.WAITING;
+		NetSubSystem.initalise(1, true, this);
+		Level.getInstance().start();
 		this.coreLoop = new ServerCoreLoop(this);
 	}
 
@@ -30,7 +34,8 @@ public class SideScrollerServer extends BasicServer
 	protected void playerDisconnected(BasicClientConnection client)
 	{
 		//unhandled
-		this.shutMeDown();
+		GDWServerLogger.logMSG(client.getId()+" ist Disconnected");
+		this.killMe();
 	}
 
 	@Override
@@ -43,15 +48,7 @@ public class SideScrollerServer extends BasicServer
 	protected BasicClientConnection incomingConnection(ConnectionInfo info,
 			ByteBuffer data)
 	{
-		if(this.getAmountOfConnections() != this.maxPlayer -1)
-		{
-			this.curState = ServerGameStates.START;
-		}
-		
-		if(this.curState == ServerGameStates.WAITING)
-		{
-			this.curState = ServerGameStates.LOBBY;
-		}
+		this.curState = ServerGameStates.START;
 		return new PlayerConnection(info, this);
 	}
 	
@@ -59,6 +56,7 @@ public class SideScrollerServer extends BasicServer
 	{
 		super.shutMeDown();
 		this.coreLoop.interrupt();
+		System.exit(0);
 	}
 	
 	public static void main(String[] args)

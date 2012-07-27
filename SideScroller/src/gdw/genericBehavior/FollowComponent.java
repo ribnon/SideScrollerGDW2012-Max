@@ -1,11 +1,11 @@
 package gdw.genericBehavior;
 
-import Physics.SimulationComponent;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityReference;
+import gdw.physics.SimulationComponent;
 
 public class FollowComponent extends Component
 {

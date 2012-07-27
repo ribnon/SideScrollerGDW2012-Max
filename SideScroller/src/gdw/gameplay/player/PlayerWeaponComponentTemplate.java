@@ -11,7 +11,7 @@ public class PlayerWeaponComponentTemplate extends ComponentTemplate
 	private GameColor currentColor;
 	private float healthIncrement;
 	
-	protected PlayerWeaponComponentTemplate(HashMap<String, String> params)
+	public PlayerWeaponComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		String gameColor = getStringParam("currentColor","0;1;0");

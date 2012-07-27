@@ -20,7 +20,7 @@ public class ColorableComponentTemplate extends ComponentTemplate
 	private int segmentCount;
 	private EntityReference notifyOnClear;
 
-	protected ColorableComponentTemplate(HashMap<String, String> params)
+	public ColorableComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		String bit = getStringParam("targetColor", "0;0;0");

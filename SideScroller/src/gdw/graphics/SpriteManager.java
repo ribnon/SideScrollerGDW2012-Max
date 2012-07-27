@@ -34,19 +34,20 @@ public class SpriteManager {
 	
 	public void render()
 	{
-		TiledMap map = Level.getInstance().getMap();
-		if(map == null) System.out.println("Error: Map not loaded, nullpointer exception imminent :P");
-		int lc = map.getLayerCount();
+		//TiledMap map = Level.getInstance().getMap();
+		//if(map == null) System.out.println("Error: Map not loaded, nullpointer exception imminent :P");
+		//int lc = map.getLayerCount();
 		
 		for(int i=0;i<cameras.size();i++)
 		{
+			/*
 			for(int j = 0; j < lc; ++j)
 			{
 				if(map.getLayerProperty(j, "invisible", "false").equals("true"))
 					continue;
 				map.render((int)(-cameras.get(i).getOwner().getPosX()+0.5f), (int)(-cameras.get(i).getOwner().getPosY()+0.5f), j);
 					
-			}
+			}*/
 			
 			float posX = cameras.get(i).getOwner().getPosX();
 			float posY = cameras.get(i).getOwner().getPosY();

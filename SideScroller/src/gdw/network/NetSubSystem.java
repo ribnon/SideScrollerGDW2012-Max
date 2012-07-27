@@ -16,6 +16,7 @@ import gdw.network.messageType.EntitySpawnNetMessage;
 import gdw.network.messageType.TimeSyncMessage;
 import gdw.network.server.BasicClientConnection;
 import gdw.network.server.BasicServer;
+import gdw.network.server.GDWServerLogger;
 
 public class NetSubSystem
 {
@@ -48,7 +49,6 @@ public class NetSubSystem
 	private final LinkedList<DeadReckoningNetMessage> listOfDeadReckonigMessages;
 	private final LinkedList<TimeSyncMessage> listOfTimeSyncMessages;
 	
-	
 	private NetSubSystem(int playerID, boolean serverFlag, INetworkBridge ref)
 	{
 		this.playerID = playerID;
@@ -66,7 +66,7 @@ public class NetSubSystem
 		
 	}
 	
-	//wenn man was ändert ohne es zu raffen ist es scheiße -.-
+	
 	public static void initalise(int playerID, boolean serverFlag, INetworkBridge ref)
 	{
 		if(NetSubSystem.singelton != null)
@@ -103,6 +103,7 @@ public class NetSubSystem
 		switch (buf.get())
 		{
 		case NetMessageType.DeadReckoningMessageType:
+			GDWServerLogger.logMSG("bekomme DeadReck");
 			DeadReckoningNetMessage[] dmsg = DeadReckoningNetMessage.getFromByteBuffer(buf);
 			for(int i=0;i< dmsg.length;++i)
 			{
@@ -112,6 +113,7 @@ public class NetSubSystem
 		break;
 		
 		case NetMessageType.EntityBusMessageType:
+			GDWServerLogger.logMSG("bekomme bussmessage");
 			EntityBusNetMessage[] ebnm = EntityBusNetMessage.getFromByteBuffer(buf);
 			for(int i=0;i<ebnm.length;++i)
 			{
@@ -120,6 +122,7 @@ public class NetSubSystem
 		break;
 		
 		case NetMessageType.EntitySpawnMessageType:
+			GDWServerLogger.logMSG("bekomme SpawnMessage");
 			EntitySpawnNetMessage[] sqnms = EntitySpawnNetMessage.getFromByteBuffer(buf);
 			for(int i=0;i<sqnms.length;++i)
 			{
@@ -130,6 +133,7 @@ public class NetSubSystem
 		break;
 		
 		case NetMessageType.EntityDespawnMessageType:
+			GDWServerLogger.logMSG("bekomme Despawn");
 			EntityDeSpawnNetMessage[] arrDNM = EntityDeSpawnNetMessage.getFromByteBuffer(buf);
 			for(int i=0;i<arrDNM.length;++i)
 			{
@@ -140,11 +144,13 @@ public class NetSubSystem
 		case NetMessageType.TimeSyncMessageType:
 			if(this.serverFlag)
 			{
+				GDWServerLogger.logMSG("bekomme timeSync vom client");
 				TimeSyncMessage msg = TimeSyncMessage.getFromByteBuffer(buf);
 				float calcedRoundtip = (System.currentTimeMillis() - msg.timeStamp)/2.0f;
 				this.roundTripMap.put(msg.clientID, calcedRoundtip);
 			}else
 			{
+				GDWServerLogger.logMSG("bekomme timeSync vom Server");
 				this.listOfTimeSyncMessages.add(TimeSyncMessage.getFromByteBuffer(buf));
 			}
 
@@ -159,6 +165,7 @@ public class NetSubSystem
 	{
 		if(!this.serverFlag)
 			return;
+		//GDWServerLogger.logMSG("Spawn id: "+id+"posx - Y: "+posX+" "+posY);
 		this.listOfSpawnMessages.add(new EntitySpawnNetMessage(template, id, posX, posY, orientation));
 	}
 	
@@ -258,7 +265,11 @@ public class NetSubSystem
 			}
 		}
 		long currTimeStamp = System.currentTimeMillis();
-		if(currTimeStamp > this.lastTimeSync +TIMESYNC_INTERVAL);
+		if(currTimeStamp > this.lastTimeSync +TIMESYNC_INTERVAL)
+		{
+			sendTimeStamp(currTimeStamp);
+			this.lastTimeSync = currTimeStamp;
+		}
 	}
 	
 	public float getRoundTipTime(int PlayerID)
@@ -280,6 +291,13 @@ public class NetSubSystem
 				comp.addDeadReckoningNetMessageToList(list);
 			}
 		}
+	}
+	
+	private void sendTimeStamp(long timeStamp)
+	{
+		ByteBuffer buf = this.ref.getMessageBuffer();
+		TimeSyncMessage msg = new TimeSyncMessage(timeStamp, 1);
+		TimeSyncMessage.fillInByteBuffer(msg, buf, 1);
 	}
 	
 }
