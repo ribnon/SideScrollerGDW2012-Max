@@ -30,6 +30,43 @@ accelerationY=0
 #Component Sound
 
 Component Duckable
+ducked=false
+duckedSizeX=64
+duckedSizeY=64
+
+Component PlayerBehavior
+healthPercent=100
+deathTimer=0
+deathTimerDuration=5
+hitDuration=0
+hitAction=0
+healthChangeInterval=0
+healthChangeTimer=0
+
+Component Network
+
+Component Attachment
+attachPointX=0
+attachPointY=0
+attachOrientation=0
+autoAttachGroups=10
+
+###############################################
+Template LevelGoal
+
+Component LevelGoal
+
+###############################################
+Template Camera
+
+Component Camera
+playerNumber=1
+viewPortX=200
+viewPortY=200
+
+###############################################
+Template 
+
 
 
 

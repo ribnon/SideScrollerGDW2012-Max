@@ -42,11 +42,13 @@ public class ServerCoreLoop extends Thread
 			}else if(this.ref.getCurState() == SideScrollerServer.ServerGameStates.START)
 			{
 				//init
+				Level.getInstance().start();
 				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
-				//Level.getInstance().start();
+				
 				try
 				{
 					GDWServerLogger.logMSG("init system");
+					Level.getInstance().start();
 					entTempMan.loadEntityTemplates("EntityTemplates.txt");
 					entTempMan.getEntityTemplate("slidingPlatform").createEntity(200f, 200f, 0f);
 				} catch (IOException e)
