@@ -7,6 +7,9 @@ import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
+import gdw.entityCore.EntityTemplateManager;
+import gdw.entityCore.Level;
+import gdw.graphics.StaticSpriteComponent;
 import gdw.physics.SimulationComponent;
 import gdw.physics.SimulationComponentManager;
 import gdw.network.NetSubSystem;
@@ -25,7 +28,7 @@ import org.newdawn.slick.SlickException;
 
 
 public class SimulationTest extends BasicGame {
-	EntityTemplateManager entityTemplateManager;
+	EntityTemplateManager entityTemplateManager = null;
 	
 	Entity entity1;
 	Entity entity2;
@@ -179,6 +182,7 @@ public class SimulationTest extends BasicGame {
 		// TODO Auto-generated method stub
 		
 		try {
+			Level.getInstance().start();
 			entityTemplateManager = EntityTemplateManager.getInstance();
 			entityTemplateManager.loadEntityTemplates("src/Physics/testbed/SimulationTestBed.ent");
 			

@@ -21,7 +21,7 @@ public class CollisionQuadTreeRect
 	//Vita wir haben beim erstellen kein owner, der wird erst später nach dem erstellen zugewiesen!
 	protected CollisionQuadTreeRect(AABoxCollisionDetectionComponent aaBox)
 	{
-		Entity owner = aaBox.getOwner()
+		Entity owner = aaBox.getOwner();
 		float halfX = aaBox.getHalfExtentX();
 		float halfY = aaBox.getHalfExtentY();
 		update(owner.getPosX(), owner.getPosY(), (float) Math.sqrt(halfX * halfX + halfY * halfY));
