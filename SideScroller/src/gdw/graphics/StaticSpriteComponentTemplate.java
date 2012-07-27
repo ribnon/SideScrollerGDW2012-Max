@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Component;
 
-public class StaticSpriteComponentTemplate extends ComponentTemplate
+public class StaticSpriteComponentTemplate extends SpriteComponentTemplate
 {
 	private float scale;
 	private Color filter;
