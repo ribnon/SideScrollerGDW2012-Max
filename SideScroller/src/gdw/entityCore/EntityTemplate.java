@@ -26,6 +26,8 @@ public class EntityTemplate {
 		for(String compName: componentParamsMap.keySet()){
 			ComponentTemplate compTemplate = ComponentTemplateFactory.getInstance().createComponentTemplate(compName, componentParamsMap.get(compName));
 			if(compTemplate==null) continue;
+			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
+			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isGhostOnly() && NetSubSystem.getInstance().isServer()) continue;
 			this.componentTemplateMap.put(compName, compTemplate);
 		}
 	}
@@ -58,8 +60,6 @@ public class EntityTemplate {
 	public Entity createEntity(int id, float whereX,float whereY, float orientation){
 		Entity ent = EntityManager.getInstance().createEntity(id, whereX, whereY, orientation, this);
 		for(ComponentTemplate compTemplate: componentTemplateMap.values()){
-			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
-			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isGhostOnly() && NetSubSystem.getInstance().isServer()) continue;
 			if(compTemplate == null)
 				System.out.println("compTemplate null");
 			ent.addComponent(compTemplate.createComponent());
