@@ -18,10 +18,16 @@ gdw.collisionReaction
 
 gdw.control
 				PlayerInput				
+							DownKey:String
+							JumpKey:String
+							LeftKey:String
+							RightKey:String
+							AttackKey:String
+							SpecialAttackKey:String
 							JumpVelocity:int
 							RunVelocity:int
 							WaitingTime:int
-							IsUnflippedRight:Int
+							IsUnflippedRight:Int	//{0,1}
 
 gdw.gameplay.color
 				Colorable				
