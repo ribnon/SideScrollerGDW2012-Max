@@ -179,6 +179,7 @@ public class CollisionReactionComponent extends Component
 				AABoxCollisionDetectionComponent AAcolCompB = (AABoxCollisionDetectionComponent) colCompB;
 				AABoxCollisionDetectionComponent AAcolCompA = (AABoxCollisionDetectionComponent) colCompA;
 				if(Math.abs(B.getPosX() - A.getPosX()) < AAcolCompA.getHalfExtentX()
+				
 				&&	Math.abs(B.getPosY() - AAcolCompB.getHalfExtentY() - A.getPosY() + AAcolCompA.getHalfExtentY()) < 0.1f) {
 					return true;
 				}

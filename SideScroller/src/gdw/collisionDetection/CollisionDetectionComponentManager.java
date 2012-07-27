@@ -141,12 +141,6 @@ public class CollisionDetectionComponentManager
 		Entity e1 = comp1.getOwner();
 		Entity e2 = comp2.getOwner();
 		
-		int circleCount = 0;
-		if(comp2.getSubClassType()==0) {
-			circleCount++;
-			
-			System.out.println(circleCount);
-		}
 		switch (comp2.getSubClassType())
 		{
 			case CollisionDetectionComponent.COLLISION_COMPONENT_SUBCLASS_CIRCLE:

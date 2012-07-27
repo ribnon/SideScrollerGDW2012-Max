@@ -191,7 +191,7 @@ public class SimulationTest extends BasicGame {
 			Level.getInstance().start();
 			
 			entityTemplateManager = EntityTemplateManager.getInstance();
-
+			EntityManager.getInstance().deleteAllEntities();
 			
 			
 			entityTemplateManager.loadEntityTemplates("src/Physics/testbed/SimulationTestBed.ent");
@@ -216,7 +216,7 @@ public class SimulationTest extends BasicGame {
 			e.printStackTrace();
 		}
 		
-		SimulationComponentManager.getInstance().setGravity(9.81f);
+		SimulationComponentManager.getInstance().setGravity(98.1f);
 	}
 
 	//debug draw for entities
