@@ -37,8 +37,8 @@ public class DuckableComponent extends Component {
 
 	public DuckableComponent(ComponentTemplate template) {
 		super(template);
-		duckedSizeX = template.getFloatParam("duckedSizeX");
-		duckedSizeY = template.getFloatParam("duckedSizeY");
+		duckedSizeX = ((DuckableComponentTemplate) template).getDuckedSizeX();
+		duckedSizeY = ((DuckableComponentTemplate) template).getDuckedSizeY();
 	}
 
 	@Override
