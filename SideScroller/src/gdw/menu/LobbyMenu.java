@@ -1,7 +1,14 @@
 package gdw.menu;
 
+import gdw.network.client.BasicClient;
+import gdw.network.client.IBasicClientListener;
+import gdw.network.client.ServerInfo;
+
+import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.print.attribute.standard.Severity;
 
@@ -9,19 +16,24 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-public abstract class LobbyMenu extends MenuBase
+public abstract class LobbyMenu implements IMenuBase,
+		IBasicClientListener
 {
 	private static final String TITLE = "TEST";
 	private static final int MAX_PLAYERNAME = 32;
 	private String playerName = "Player";
-	private ArrayList<String> serverList = new ArrayList<String>();
+	private ArrayList<ServerInfo> serverList = new ArrayList<ServerInfo>();
 	private boolean isNameFieldActive = false;
 	private int currentActiveServerIndex = 0;
 	private int currentIndexOnTopOfList = 0;
+	private static int SERVER_UPDATE_RATE_IN_MS = 5000; 
+	private int timeRemainingToUpdate = 0;
 
 	// private int titleYPos;
 	private int playerNameBoxPosX, playerNameBoxPosY, playerNameBoxSizeX,
 			playerNameBoxSizeY;
+	private int offlineButtonPosX, offlineButtonPosY, offlineButtonSizeX,
+			offlineButtonSizeY;
 	private int createServerButtonPosX, createServerButtonPosY,
 			createServerButtonSizeX, createServerButtonSizeY;
 	private int serverListPosY, serverListSizeY;
@@ -33,38 +45,7 @@ public abstract class LobbyMenu extends MenuBase
 
 	public LobbyMenu()
 	{
-	}
-
-	@Override
-	public void implInit(GameContainer c)
-	{
-		// int height = c.getHeight();
-		// int width = c.getWidth();
-		// int lineheight = 16; //TODO: baah
-		// int textPadding = lineheight / 8;
-		//
-		// int crntYPos = 0;
-		//
-		// crntYPos += 0.01f * height;
-		// titleYPos = crntYPos;
-		// crntYPos += lineheight;
-		//
-		// crntYPos += lineheight/2;
-		// playerNameBoxPosX = (int) (0.01 * width);
-		// playerNameBoxPosY = crntYPos;
-		// playerNameBoxSizeX = (int) (0.75 * width - 0.01 * width - 10);
-		// playerNameBoxSizeY = lineheight + textPadding;
-		// playerNameStringPosX = playerNameBoxPosX + textPadding;
-		// playerNameStringPosY = playerNameBoxPosY;
-		//
-		// createServerButtonPosX = (int) (0.75 * width);
-		// createServerButtonPosY = crntYPos;
-		//
-		// crntYPos += lineheight + textPadding*2 + lineheight/2;
-		// serverListPosX = (int) (0.01 * width);
-		// serverListPosY = crntYPos;
-		// serverListSizeX = (int) (0.99 * width - 0.01 * width);
-		// serverListSizeY = (int) (0.99 * height - crntYPos);
+		BasicClient.setListener(this);
 	}
 
 	public String getPlayerName()
@@ -77,17 +58,35 @@ public abstract class LobbyMenu extends MenuBase
 		this.playerName = playerName;
 	}
 
-	public void addToServerList(String serverName)
+	public void updateServerInfo(ServerInfo info)
 	{
-		serverList.add(serverName);
+		for (int i = 0; i < serverList.size(); i++)
+		{
+			if (serverList.get(i).address.equals(info))
+			{
+				serverList.set(i, info);
+				break;
+			}
+		}
 	}
 
-	public String getSelectedServer()
+	public InetAddress getSelectedServer()
 	{
-		return serverList.get(currentActiveServerIndex);
+		return serverList.get(currentActiveServerIndex).address;
 	}
 
-	public void implDraw(GameContainer container, Graphics graphics)
+	@Override
+	public void update(GameContainer container, int deltaTime)
+	{
+		timeRemainingToUpdate -= deltaTime;
+		if (timeRemainingToUpdate < 0)
+		{
+			BasicClient.refreshServerList();
+			timeRemainingToUpdate = SERVER_UPDATE_RATE_IN_MS;
+		}
+	}
+
+	public void draw(GameContainer container, Graphics graphics)
 	{
 		isTopEntryArrow = false;
 		isBottomEntryArrow = false;
@@ -104,11 +103,37 @@ public abstract class LobbyMenu extends MenuBase
 		graphics.drawString(TITLE, 0.5f * width - titlewidth / 2, currentDrawY);
 		currentDrawY += lineHeight;
 
+		// create server button
+		String createServer = "Create Server";
+		createServerButtonPosY = currentDrawY;
+		createServerButtonSizeX = graphics.getFont().getWidth(createServer)
+				+ textPadding * 2;
+		createServerButtonSizeY = lineHeight + textPadding * 2;
+		createServerButtonPosX = (int) (0.99 * width) - createServerButtonSizeX
+				- textPadding * 2;
+
+		graphics.drawRect(createServerButtonPosX, createServerButtonPosY,
+				createServerButtonSizeX, createServerButtonSizeY);
+		graphics.drawString(createServer, createServerButtonPosX + textPadding,
+				createServerButtonPosY + textPadding);
+
+		// create server button
+		String playOffline = "Play Offline";
+		offlineButtonPosY = currentDrawY;
+		offlineButtonSizeX = graphics.getFont().getWidth(createServer)
+				+ textPadding * 2;
+		offlineButtonSizeY = lineHeight + textPadding * 2;
+		offlineButtonPosX = createServerButtonPosX
+				- createServerButtonSizeX - textPadding * 2;
+
+		graphics.drawRect(offlineButtonPosX, offlineButtonPosY, offlineButtonSizeX, offlineButtonSizeY);
+		graphics.drawString(playOffline, offlineButtonPosX + textPadding,
+				offlineButtonPosY + textPadding);
+
 		// Player name
-		currentDrawY += lineHeight / 2;
-		playerNameBoxPosX = (int) (0.01f * width);
+		playerNameBoxPosX = (int) (0.01 * width);
 		playerNameBoxPosY = currentDrawY;
-		playerNameBoxSizeX = (int) (0.75f * width - 0.01f * width - 10);
+		playerNameBoxSizeX = width - (int)(0.02 * width) - createServerButtonSizeX - offlineButtonSizeX - textPadding*6;
 		playerNameBoxSizeY = lineHeight + textPadding * 2;
 		graphics.drawRect(playerNameBoxPosX, playerNameBoxPosY,
 				playerNameBoxSizeX, playerNameBoxSizeY);
@@ -122,12 +147,6 @@ public abstract class LobbyMenu extends MenuBase
 							+ playerNameBoxPosX, currentDrawY
 							+ playerNameBoxSizeY - textPadding);
 		}
-
-		// create server button
-		graphics.drawRect(0.75f * width, currentDrawY, 0.99f * width - 0.75f
-				* width, lineHeight + textPadding * 2);
-		graphics.drawString("Create Server", 0.75f * width + textPadding,
-				currentDrawY + textPadding);
 		currentDrawY += lineHeight + textPadding * 2;
 
 		// server list
@@ -157,7 +176,7 @@ public abstract class LobbyMenu extends MenuBase
 		{
 			if (i == 0 && isTopEntryArrow)
 				continue;
-			
+
 			if (i == maxEntries - 1
 					&& i != serverList.size() - 1 - currentIndexOnTopOfList)
 			{
@@ -174,10 +193,9 @@ public abstract class LobbyMenu extends MenuBase
 									- 0.01f * width - textPadding / 2,
 							lineHeight);
 				}
-				graphics.drawString(
-						serverList.get(i + currentIndexOnTopOfList), 0.01f
-								* width + textPadding, currentDrawY
-								+ textPadding);
+				ServerInfo info = serverList.get(i + currentIndexOnTopOfList);
+				graphics.drawString(info.address + "\t" + info.infoMsg, 0.01f
+						* width + textPadding, currentDrawY + textPadding);
 			}
 			bottomListEntry = i;
 			currentDrawY += lineHeight + textPadding;
@@ -216,8 +234,6 @@ public abstract class LobbyMenu extends MenuBase
 	@Override
 	public void keyReleased(int key, char c)
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -226,7 +242,24 @@ public abstract class LobbyMenu extends MenuBase
 		if (x > playerNameBoxPosX && y > playerNameBoxPosY
 				&& x < playerNameBoxPosX + playerNameBoxSizeX
 				&& y < playerNameBoxPosY + playerNameBoxSizeY)
+		{
 			isNameFieldActive = true;
+		} else
+		{
+			isNameFieldActive = false;
+		}
+		if (x > createServerButtonPosX && y > createServerButtonPosY
+				&& x < createServerButtonPosX + createServerButtonSizeX
+				&& y < createServerButtonPosY + createServerButtonSizeY)
+		{
+			onCreateNewServerClicked();
+		}
+		if (x > offlineButtonPosX && y > offlineButtonPosY
+				&& x < offlineButtonPosX + offlineButtonSizeX
+				&& y < offlineButtonPosY + offlineButtonSizeY)
+		{
+			onOfflineModeClicked();
+		}
 
 		boolean scrolled = false;
 		// server list index:
@@ -235,33 +268,32 @@ public abstract class LobbyMenu extends MenuBase
 		{
 			--currentIndexOnTopOfList;
 			scrolled = true;
-		}
-		else if (entry == bottomListEntry && isBottomEntryArrow)
+		} else if (entry == bottomListEntry && isBottomEntryArrow)
 		{
 			++currentIndexOnTopOfList;
 			scrolled = true;
-		}
-		else if (entry + currentIndexOnTopOfList < serverList.size())
+		} else if (entry + currentIndexOnTopOfList < serverList.size())
 		{
 			currentActiveServerIndex = entry + currentIndexOnTopOfList;
 		}
-		
+
 		if (clickCount == 2 && !scrolled)
-			onJoinServerClicked(currentActiveServerIndex);
+			onJoinServerClicked(serverList.get(currentActiveServerIndex));
 	}
 
 	@Override
 	public void mousePressed(int button, int x, int y)
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseReleased(int button, int x, int y)
 	{
-		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy)
+	{
 	}
 
 	@Override
@@ -270,10 +302,32 @@ public abstract class LobbyMenu extends MenuBase
 		currentIndexOnTopOfList -= change;
 		if (currentIndexOnTopOfList < 0)
 			currentIndexOnTopOfList = 0;
-		else if (currentIndexOnTopOfList > serverList.size()-2)
-			currentIndexOnTopOfList = serverList.size()-2;
+		else if (currentIndexOnTopOfList > serverList.size() - 2)
+			currentIndexOnTopOfList = serverList.size() - 2;
 	}
-	
+
+	@Override
+	public void serverResponce(ServerInfo info)
+	{
+		updateServerInfo(info);
+	}
+
+	@Override
+	public void connectionUpdate(int msg)
+	{
+	}
+
+	@Override
+	public void connectionEstablished(BasicClient clientRef)
+	{
+	}
+
+	@Override
+	public void incomingMessage(ByteBuffer msg, boolean wasReliable)
+	{
+	}
+
+	public abstract void onJoinServerClicked(ServerInfo info);
 	public abstract void onCreateNewServerClicked();
-	public abstract void onJoinServerClicked(int indexInList);
+	public abstract void onOfflineModeClicked();
 }
