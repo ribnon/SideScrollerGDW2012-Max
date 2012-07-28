@@ -20,6 +20,8 @@ public class ShooterComponent extends Component
 	
 	private int projectilesOwned;
 	
+	private Shooter projectileSet;
+	
 	public ShooterComponent(ComponentTemplate template)
 	{
 		super(template);
@@ -35,6 +37,11 @@ public class ShooterComponent extends Component
 		shootTimeStamp = 0.0f;
 		
 		projectilesOwned = projectilePoolSize;
+		
+		projectileSet = new Shooter();
+		projectileSet.addProjectile("MultifireProjectileA");
+		projectileSet.addProjectile("MultifireProjectileB");
+		projectileSet.addProjectile("MultifireProjectileC");
 	}
 
 	public int getProjectilePoolSize()
@@ -67,8 +74,15 @@ public class ShooterComponent extends Component
 				projectilesOwned -= projectileFireCount;
 				shootTimeStamp = timer;
 				
-				EntityTemplate template = EntityTemplateManager.getInstance().getEntityTemplate("BasicProjectile");
-				template.createEntity(getOwner().getPosX(), getOwner().getPosY(), getOwner().getOrientation());
+				if (projectileSet.getProjectileCount() == 0) return;
+				
+				for (int i = 0; i < projectileFireCount; i++)
+				{
+					System.out.println(i);
+					String name = projectileSet.getProjectile(i);
+					EntityTemplate template = EntityTemplateManager.getInstance().getEntityTemplate(name);
+					template.createEntity(getOwner().getPosX(), getOwner().getPosY(), getOwner().getOrientation());
+				}
 			}
 		}
 	}

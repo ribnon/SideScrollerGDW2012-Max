@@ -20,25 +20,65 @@ Component Destroyable
 destroyPower=0
 destroyGroup=1
 Component Shooter
+projectilePoolSize=3
+projectileFireCount=3
 
-Template BasicProjectile
+
+
+#============================================================
+#						PROJECTILES
+#============================================================
+
+Template ProjectileBase
 Component CircleCollisionDetection
 radius=4
 Component Destroyable
 destroyPower=1
 destroyGroup=2
 Component StaticSprite
-path=astroids/assets/spaceship.png
+path=astroids/assets/projektil2.png
 pivotX=8
 pivotY=8
 scale=1
+
+Template BasicProjectile
+Base ProjectileBase
 Component Projectile
-startSpeed=1.0
-endSpeed=50.0
-acceleration=10.0
+startSpeed=600.0
+endSpeed=600.0
+acceleration=0.0
 localOffsetY=-20.0
-Component Simulation
-mass=0.1
+
+Template MultifireProjectileA
+Base ProjectileBase
+Component Projectile
+startSpeed=600.0
+endSpeed=600.0
+acceleration=0.0
+localOffsetX=-10.0
+localOffsetY=-20.0
+localOffsetAngular=10.0
+
+Template MultifireProjectileB
+Base ProjectileBase
+Component Projectile
+startSpeed=600.0
+endSpeed=600.0
+acceleration=0.0
+localOffsetX=0.0
+localOffsetY=-20.0
+
+Template MultifireProjectileC
+Base ProjectileBase
+Component Projectile
+startSpeed=600.0
+endSpeed=600.0
+acceleration=0.0
+localOffsetX=10.0
+localOffsetY=-20.0
+localOffsetAngular=-10.0
+
+#============================================================
 
 Template FixedCamera
 Component Camera

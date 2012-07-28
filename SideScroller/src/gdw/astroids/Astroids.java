@@ -68,6 +68,8 @@ public class Astroids extends BasicGame {
 		EntityManager.getInstance().tick(delta/1000.f);
 		AstroidsInputComponentManager.getInstance().proceedInput(container.getInput());
 		SimulationComponentManager.getInstance().simulate(delta/1000.f);
+		
+		
 	}
 
 	public static void main(String[] args) throws SlickException {
