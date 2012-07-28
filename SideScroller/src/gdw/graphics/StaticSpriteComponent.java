@@ -44,15 +44,6 @@ public class StaticSpriteComponent extends SpriteComponent
 	protected void destroy()
 	{
 		SpriteManager.getInstance().removeSprite(this);
-		
-		try
-		{
-			image.destroy();
-		} catch (SlickException e)
-		{
-			e.printStackTrace();
-			System.out.println("Image konnte nicht zerstört werden!");
-		}
 	}
 
 	/**
