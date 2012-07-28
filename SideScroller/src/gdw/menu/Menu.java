@@ -138,8 +138,7 @@ public abstract class Menu
 			@Override
 			public void start()
 			{
-				Level.getInstance().start();
-				onGameStart(isOffline());
+				onGameStart(this, true);
 			}
 		};
 
@@ -158,7 +157,7 @@ public abstract class Menu
 			public void start()
 			{
 				Level.getInstance().start();
-				onGameStart(isOffline());
+				onGameStart(this, false);
 			}
 		};
 
@@ -172,6 +171,7 @@ public abstract class Menu
 	}
 	private void createServer(LobbyMenu lobbyMenu)
 	{
+		//Das hier ist leider nicht moeglich -___-
 //		String playerName = lobbyMenu.getPlayerName();
 //		final CharacterSelectionMenu c = new CharacterSelectionMenu(false)
 //		{
@@ -224,5 +224,5 @@ public abstract class Menu
 		}
 	}
 	
-	protected abstract void onGameStart(boolean offline);
+	protected abstract void onGameStart(CharacterSelectionMenu c, boolean offline);
 }

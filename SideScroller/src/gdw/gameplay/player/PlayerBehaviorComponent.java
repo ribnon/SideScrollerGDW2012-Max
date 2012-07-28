@@ -78,23 +78,26 @@ public class PlayerBehaviorComponent extends Component
 
 	public void tick(float deltaTime)
 	{
-		//debug sry
-		
-		if(NetSubSystem.getInstance().isServer())
+		if (!EntityManager.getInstance().isOfflineMode())
 		{
-			Entity entitty = this.getOwner();
-			SimulationComponent simcomp = (SimulationComponent) entitty.getComponent(SimulationComponent.COMPONENT_TYPE);
+			//debug sry
 			
-			
-			GDWServerLogger.logMSG("Pedo an: "+entitty.getPosX()+" "+entitty.getPosY());
-			GDWServerLogger.logMSG("Düst mist: "+simcomp.getAccelerationX()+ " "+simcomp.getAccelerationY());
-		}	
-		
-		//</debug
+			if(NetSubSystem.getInstance().isServer())
+			{
+				Entity entitty = this.getOwner();
+				SimulationComponent simcomp = (SimulationComponent) entitty.getComponent(SimulationComponent.COMPONENT_TYPE);
 				
-		// prüfen ob ich server bin
-		if (!NetSubSystem.getInstance().isServer())
-			return;
+				
+				GDWServerLogger.logMSG("Pedo an: "+entitty.getPosX()+" "+entitty.getPosY());
+				GDWServerLogger.logMSG("Düst mist: "+simcomp.getAccelerationX()+ " "+simcomp.getAccelerationY());
+			}	
+			
+			//</debug
+					
+			// prüfen ob ich server bin
+			if (!NetSubSystem.getInstance().isServer())
+				return;
+		}
 
 		if (isDown)
 		{
