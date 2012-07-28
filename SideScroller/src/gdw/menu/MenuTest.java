@@ -85,7 +85,7 @@ public class MenuTest extends BasicGame
 			EntityManager.getInstance().tick((float) arg1/1000f);
 			SimulationComponentManager.getInstance().simulate((float) arg1/1000f);
 			CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
-//			PlayerInputComponentManager.getInstance().
+			PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(arg0.getInput());
 			if (!offline)
 				NetSubSystem.getInstance().sendBufferedMessages();
 		}
