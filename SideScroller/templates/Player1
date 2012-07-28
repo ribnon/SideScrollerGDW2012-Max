@@ -52,6 +52,10 @@ hitAction=0
 healthChangeInterval=0
 healthChangeTimer=0
 
+Component Camera
+viewPortX=640
+viewPortY=480
+
 Component Network
 
 Component Attachment
