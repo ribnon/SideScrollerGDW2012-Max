@@ -1,83 +1,69 @@
 package gdw.menu;
 
-import gdw.network.client.BasicClient;
-import gdw.network.client.ServerInfo;
+import java.io.IOException;
+
+import gdw.control.PlayerInputComponent;
+import gdw.control.PlayerInputComponentManager;
+import gdw.entityCore.EntityManager;
+import gdw.entityCore.EntityTemplateManager;
+import gdw.entityCore.Level;
+import gdw.gameplay.player.PlayerSubSystem;
+import gdw.graphics.CameraComponent;
+import gdw.graphics.SpriteManager;
+import gdw.network.NetSubSystem;
+import gdw.physics.SimulationComponent;
+import gdw.physics.SimulationComponentManager;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import Physics.testbed.SimulationTest;
-
+//TODO: Zeugs dazuschreiben, dass das Game startet und rendert
 public class MenuTest extends BasicGame
 {
+	private Menu m = null;
+	private boolean shutdown = false;
+	private boolean gameStarted = false;
+	private boolean offline = true;
+
 	public MenuTest()
 	{
 		super("Hardcoded Menu! 20% cooler in 10 seconds flat!");
 	}
 
-	private boolean shutdown = false;
-
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException
 	{
-		Menu.getInstance().draw(arg0, arg1);
+		if (gameStarted)
+			SpriteManager.getInstance().render();
+		else
+			m.draw(arg0, arg1);
 	}
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException
 	{
-		Menu.getInstance().init(arg0);
-		
-		
-//		LobbyMenu l = new LobbyMenu()
-//		{
-//			@Override
-//			public void onOfflineModeClicked()
-//			{
-//				updateServerList = false;
-//				CharacterSelectionMenu c = new CharacterSelectionMenu(true)
-//				{
-//					@Override
-//					public void startOnline()
-//					{
-//					}
-//					@Override
-//					public void startOffline()
-//					{
-//					}
-//					@Override
-//					public void launchServer()
-//					{
-//					}
-//				};
-//
-//				try
-//				{
-//					c.addHat(new Image("assets/hat/teddy_bandana.png"));
-//					c.addHat(new Image("assets/hat/teddy_basecap.png"));
-//					c.addHat(new Image("assets/hat/teddy_headband.png"));
-//					c.addHat(new Image("assets/hat/teddy_sombrero.png"));
-//					c.addHat(new Image("assets/hat/teddy_tophat.png"));
-//					c.addHat(new Image("assets/hat/teddy_viking.png"));
-//				} catch (SlickException e)
-//				{
-//					e.printStackTrace();
-//				}
-//				c.setPlayer1Hat(0);
-//				c.setPlayer2Hat(0);
-//				menu = c;
-//			}
-//		};
-//		l.init(arg0);
-//		BasicClient.setListener(l);
-//		menu = l;
-//		updateServerList = true;
-//		BasicClient.refreshServerList();
+		m = new Menu()
+		{
+			@Override
+			protected void onGameStart(boolean offlineGame)
+			{
+				gameStarted = true;
+				Level.getInstance().start();
+				try
+				{
+					EntityTemplateManager.getInstance().loadEntityTemplates("general.templates");
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				offline = offlineGame; 
+			}
+		};
+		m.init(arg0);
 	}
 
 	@Override
@@ -85,41 +71,42 @@ public class MenuTest extends BasicGame
 	{
 		if (shutdown)
 			arg0.exit();
-//		
-//		if (updateServerList)
-//		{
-//			serverUpdateTimer += arg1;
-//			if (serverUpdateTimer > 5000)
-//			{
-//				serverUpdateTimer = 0;
-//				BasicClient.refreshServerList();
-//			}
-//		}
-		Menu.getInstance().update(arg0, arg1);
+		
+		if (gameStarted)
+		{
+//			PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(null)
+//			SimulationComponentManager.getInstance().simulate(arg1);
+			EntityManager.getInstance().tick((float) arg1);
+			SimulationComponentManager.getInstance().simulate((float) arg1);
+			if (!offline)
+				NetSubSystem.getInstance().sendBufferedMessages();
+		}
+		else
+			m.update(arg0, arg1);
 	}
 
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount)
 	{
-		Menu.getInstance().mouseClicked(button, x, y, clickCount);
+		m.mouseClicked(button, x, y, clickCount);
 	}
 
 	@Override
 	public void mousePressed(int button, int x, int y)
 	{
-		Menu.getInstance().mousePressed(button, x, y);
+		m.mousePressed(button, x, y);
 	}
 
 	@Override
 	public void mouseReleased(int button, int x, int y)
 	{
-		Menu.getInstance().mouseReleased(button, x, y);
+		m.mouseReleased(button, x, y);
 	}
 
 	@Override
 	public void keyPressed(int key, char c)
 	{
-		Menu.getInstance().keyPressed(key, c);
+		m.keyPressed(key, c);
 	}
 
 	@Override
@@ -127,20 +114,20 @@ public class MenuTest extends BasicGame
 	{
 		if (key == Input.KEY_ESCAPE)
 			shutdown = true;
-		Menu.getInstance().keyReleased(key, c);
+		m.keyReleased(key, c);
 	}
 
 	@Override
 	public void mouseMoved(int oldx, int oldy, int newx, int newy)
 	{
-		Menu.getInstance().mouseMoved(oldx, oldy, newx, newy);
+		m.mouseMoved(oldx, oldy, newx, newy);
 	}
 
 	@Override
 	public void mouseWheelMoved(int change)
 	{
 		change = Math.max(-1, Math.min(change, 1));
-		Menu.getInstance().mouseWheelMoved(change);
+		m.mouseWheelMoved(change);
 	}
 
 	/**
@@ -150,7 +137,7 @@ public class MenuTest extends BasicGame
 	public static void main(String[] args) throws SlickException
 	{
 		AppGameContainer app = new AppGameContainer(new MenuTest());
-		app.setDisplayMode(800, 600, false);
+		//app.setDisplayMode(400, 600, false);
 		app.setUpdateOnlyWhenVisible(false);
 		app.start();
 	}

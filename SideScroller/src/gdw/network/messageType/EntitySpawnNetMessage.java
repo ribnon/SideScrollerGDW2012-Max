@@ -46,7 +46,10 @@ public class EntitySpawnNetMessage extends NetMessageType
 				helper.putFloat(item.orientation);	
 				counter++;
 				list.remove();
-			}catch (IndexOutOfBoundsException| BufferOverflowException e)
+			}catch (IndexOutOfBoundsException e)
+			{
+				break;
+			}catch (BufferOverflowException e)
 			{
 				break;
 			}

@@ -1,7 +1,5 @@
 package gdw.menu;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,6 +13,7 @@ public abstract class MapSelecter
 
 	private Image baseImage = null;
 	private String name = "Server";
+//	private String mapName = "map/Karte.tmx";
 	private int lineHeight = 16;
 	private boolean nameModifiable = false;
 	private boolean buttonClickable = false;

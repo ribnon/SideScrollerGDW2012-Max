@@ -74,7 +74,7 @@ public class GenericSocketThread extends Thread
 	}
 
 	private void proccessSelctionKey(SelectionKey tcpKey, SelectionKey udpKey)
-			throws IOException
+			throws IOException, InterruptedException
 	{
 		ByteBuffer reader = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 
@@ -115,10 +115,9 @@ public class GenericSocketThread extends Thread
 						this.tcpConnection.read(reader);
 						reader.flip();
 					}*/
-					reader.position(1);
+					//reader.position(1);
 					message.put(reader);
 					message.position(0);
-					//GDWServerLogger.logMSG(message.get()+" bekam messagcode");
 					message.position(message.limit());
 					this.inMessages.add(new NetMessageWrapper(true, message));
 				}
@@ -162,7 +161,7 @@ public class GenericSocketThread extends Thread
 				NetMessageWrapper wrap = outMessages.poll();
 				ByteBuffer buf = wrap.msg;
 				byte messageCode = buf.get();
-				GDWServerLogger.logMSG(messageCode+" messageCode gesendet");
+				//GDWServerLogger.logMSG(messageCode+" messageCode gesendet");
 				buf.position(0);
 				if (wrap.reliable)
 				{
@@ -173,9 +172,9 @@ public class GenericSocketThread extends Thread
 						while (buf.hasRemaining())
 						{
 							writeBytes += this.tcpConnection.write(buf);
-							GDWServerLogger.logMSG("schreibe "+writeBytes);
+							//GDWServerLogger.logMSG("schreibe "+writeBytes);
 						}
-						GDWServerLogger.logMSG("es wurden "+writeBytes+" geschrieben");
+						//GDWServerLogger.logMSG("es wurden "+writeBytes+" geschrieben");
 					} else
 					{
 						// pushback
@@ -196,8 +195,11 @@ public class GenericSocketThread extends Thread
 					}
 				}
 			}
-
+			Thread.yield();
+			sleep(20L);
 		}
+		
+		
 	}
 
 	@Override
@@ -227,7 +229,7 @@ public class GenericSocketThread extends Thread
 				proccessSelctionKey(tcpKey, udpKey);
 				//itTcp.remove();
 				//itUdp.remove();
-			} catch (IOException e)
+			} catch (IOException | InterruptedException e )
 			{
 				e.printStackTrace();
 				this.bridge.discoFlag();
