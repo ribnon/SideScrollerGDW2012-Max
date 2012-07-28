@@ -55,6 +55,8 @@ public class Client extends BasicGame {
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		SpriteManager.getInstance().render();
+		if(connected)
+			CollisionDetectionComponentManager.getInstance().render(arg1);
 
 	}
 

@@ -56,18 +56,19 @@ public class SpriteManager {
 		
 		for(int i=0;i<cameras.size();i++)
 		{
+			CameraComponent cc = cameras.get(i);
+			float posX = cc.getOwner().getPosX()+cc.getViewPortX()/2.0f;
+			float posY = cc.getOwner().getPosY()+cc.getViewPortY()/2.0f;
 			
 			for(int j = 0; j < lc; ++j)
 			{
+				
 				if(map.getLayerProperty(j, "invisible", "false").equals("true"))
 					continue;
-				map.render((int)(-cameras.get(i).getOwner().getPosX()+0.5f), (int)(-cameras.get(i).getOwner().getPosY()+0.5f), j);
+				map.render(-(int)(posX), -(int)(posY), j);
 					
 			}
-			
-			float posX = cameras.get(i).getOwner().getPosX();
-			float posY = cameras.get(i).getOwner().getPosY();
-			
+				
 			//Verschiedene Cameras mit unterschiedlich großen viewports zu haben ist eine doofe Idee !
 			//g.setClip(i*cameras.get(i).getViewPortX(), i*cameras.get(i).getViewPortY(), cameras.get(i).getViewPortX(), cameras.get(i).getViewPortY());
 			

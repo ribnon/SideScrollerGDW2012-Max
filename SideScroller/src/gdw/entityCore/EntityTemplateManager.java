@@ -151,8 +151,8 @@ public class EntityTemplateManager {
 		int tileHeight = map.getTileHeight();
 		HashMap<String,HashMap<String,String>> compParams = new HashMap<String,HashMap<String,String>>();
 		HashMap<String,String> params = new HashMap<String,String>();
-		params.put("halfExtentX", Float.toString(tileWidth*0.5f));
-		params.put("halfExtentY", Float.toString(tileHeight*0.5f));
+		params.put("halfExtentX", Float.toString(tileWidth*0.5f-1));
+		params.put("halfExtentY", Float.toString(tileHeight*0.5f-1));
 		compParams.put("AABoxCollisionDetection", params);
 		params = new HashMap<String,String>();
 		params.put("impassableFromTop", "1");

@@ -61,13 +61,13 @@ public class PlayerInputComponent extends Component
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
 			int specattackKey, float jumpVelocity, float runVelocity,
-			long waitingTime, boolean isUnflippedRight)
+			long waitingTime, boolean isUnflippedRight, int playerNumber)
 	{
 
 		super(template);
 
-		this.setPlayerID(NetSubSystem.getInstance().getPlayerID());
-
+		playerID=playerNumber;
+		
 		wasDownKeyDown = false;
 		wasJumpKeyDown = false;
 		wasLeftKeyDown = false;
@@ -91,8 +91,7 @@ public class PlayerInputComponent extends Component
 		this.waitingTime = waitingTime;
 		this.pastTime = 0l;
 
-		PlayerInputComponentManager.getInstance().registerPlayerInputComponent(
-				this);
+		PlayerInputComponentManager.getInstance().registerPlayerInputComponent(this);
 	}
 
 	public void processingInput(Input input)

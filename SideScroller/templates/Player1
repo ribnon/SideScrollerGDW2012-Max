@@ -58,15 +58,15 @@ viewPortY=480
 
 Component Network
 
-Component Attachment
-attachPointX=0
-attachPointY=0
-attachOrientation=0
-autoAttachGroups=10
+#Component Attachment
+#attachPointX=0
+#attachPointY=0
+#attachOrientation=0
+#autoAttachGroups=10
 
 Component OOBoxCollisionDetection
-halfExtentX=64
-halfExtendY=64
+halfExtentX=32
+halfExtendY=32
 
 Component SwitchUser
 HitTrigger=0
