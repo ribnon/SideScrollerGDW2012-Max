@@ -14,6 +14,8 @@ import gdw.gameplay.player.messageType.HealthModify;
 import gdw.gameplay.progress.GameplayProgressManager;
 import gdw.gameplay.progress.RainbowComponent;
 import gdw.network.NetSubSystem;
+import gdw.network.server.GDWServerLogger;
+import gdw.physics.SimulationComponent;
 
 import java.util.LinkedList;
 
@@ -76,6 +78,20 @@ public class PlayerBehaviorComponent extends Component
 
 	public void tick(float deltaTime)
 	{
+		//debug sry
+		
+		if(NetSubSystem.getInstance().isServer())
+		{
+			Entity entitty = this.getOwner();
+			SimulationComponent simcomp = (SimulationComponent) entitty.getComponent(SimulationComponent.COMPONENT_TYPE);
+			
+			
+			GDWServerLogger.logMSG("Pedo an: "+entitty.getPosX()+" "+entitty.getPosY());
+			GDWServerLogger.logMSG("Düst mist: "+simcomp.getAccelerationX()+ " "+simcomp.getAccelerationY());
+		}	
+		
+		//</debug
+				
 		// prüfen ob ich server bin
 		if (!NetSubSystem.getInstance().isServer())
 			return;

@@ -27,7 +27,7 @@ RunVelocity=5
 IsUnflippedRight=1
 
 Component Simulation
-friction=5
+friction=0.5
 mass=50
 externalForceX=0
 externalForceY=0

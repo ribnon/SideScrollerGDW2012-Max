@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import gdw.Client;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
@@ -210,7 +211,15 @@ public class NetSubSystem
 			BasicClientConnection client = clients.poll();
 			ByteBuffer sendBuf = buf.duplicate();
 			sendBuf.position(writePositon);
-			sendBuf.putFloat(this.roundTripMap.get(client.getId()));
+			float roundTip;
+			if(this.roundTripMap.containsKey(client.getId()))
+			{
+				roundTip = this.roundTripMap.get(client.getId());
+			}else
+			{
+				roundTip = 0.0f;
+			}
+			sendBuf.putFloat(roundTip);
 			sendBuf.position(oldPostion);
 			client.sendMSG(sendBuf, false);
 		}
@@ -292,10 +301,9 @@ public class NetSubSystem
 		}
 		else
 		{
-			LinkedList<DeadReckoningNetMessage> list = new LinkedList<DeadReckoningNetMessage>();
 			for(NetComponent comp : this.listOfNetComponents)
 			{
-				comp.addDeadReckoningNetMessageToList(list);
+				comp.addDeadReckoningNetMessageToList(this.listOfDeadReckonigMessages);
 			}
 		}
 	}
