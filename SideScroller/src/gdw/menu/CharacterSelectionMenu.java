@@ -1,5 +1,7 @@
 package gdw.menu;
 
+import gdw.network.server.ConnectionInfo;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,6 +12,7 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 	private MapSelecter serverSelecter;
 	private static final String TITLE = "Select your character";
 	private boolean offline;
+	private int numberPlayers = 0;
 	
 	public CharacterSelectionMenu(boolean offline)
 	{
@@ -31,12 +34,6 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 		};
 		serverSelecter = new MapSelecter(offline)
 		{
-			@Override
-			public void launchServerClicked()
-			{
-				launchServer();
-			}
-
 			@Override
 			public void startClicked()
 			{
@@ -214,7 +211,20 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 	{
 		return offline;
 	}
+	
+	public void playerConnected(ConnectionInfo info)
+	{
+//		info.
+		++numberPlayers;
+		if (numberPlayers == 1)
+		{
+			charSelectPlayer1.setName("connected");
+		}
+		else if (numberPlayers == 2)
+		{
+			charSelectPlayer2.setName("connected");
+		} 
+	}
 
-	public abstract void launchServer();
 	public abstract void start();
 }

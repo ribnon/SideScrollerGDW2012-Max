@@ -2,6 +2,7 @@ package gdw.menu;
 
 import java.io.IOException;
 
+import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.control.PlayerInputComponent;
 import gdw.control.PlayerInputComponentManager;
 import gdw.entityCore.EntityManager;
@@ -52,15 +53,16 @@ public class MenuTest extends BasicGame
 			protected void onGameStart(boolean offlineGame)
 			{
 				gameStarted = true;
+//				try
+//				{
+//					EntityTemplateManager.getInstance().loadEntityTemplates("general.templates");
+//				} catch (IOException e)
+//				{
+//					e.printStackTrace();
+//				}
 				Level.getInstance().start();
-				try
-				{
-					EntityTemplateManager.getInstance().loadEntityTemplates("general.templates");
-				} catch (IOException e)
-				{
-					e.printStackTrace();
-				}
 				offline = offlineGame; 
+				EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(0, 0, 0);
 			}
 		};
 		m.init(arg0);
@@ -76,8 +78,9 @@ public class MenuTest extends BasicGame
 		{
 //			PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(null)
 //			SimulationComponentManager.getInstance().simulate(arg1);
-			EntityManager.getInstance().tick((float) arg1);
-			SimulationComponentManager.getInstance().simulate((float) arg1);
+			EntityManager.getInstance().tick((float) arg1/1000f);
+			SimulationComponentManager.getInstance().simulate((float) arg1/1000f);
+			CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 			if (!offline)
 				NetSubSystem.getInstance().sendBufferedMessages();
 		}

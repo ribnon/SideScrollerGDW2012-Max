@@ -1,5 +1,7 @@
 package gdw.menu;
 
+import gdw.network.server.ConnectionInfo;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -20,8 +22,8 @@ public abstract class MapSelecter
 	private boolean isNameFieldActive = false;
 	private int nameBoxStartX, nameBoxStartY, nameBoxSizeX, nameBoxSizeY;
 	private int buttonStartX, buttonStartY, buttonSizeX, buttonSizeY;
-	private static final int CLOSED = 0, OPENED = 1, FULL = 2, OFFLINE = 3;
-	private int state = 0;
+	private static final int OPENED = 1, FULL = 2, OFFLINE = 3;
+	private int state = 1;
 	private static final int MAX_SERVERNAME = 32;
 
 	public MapSelecter(boolean offline)
@@ -102,9 +104,6 @@ public abstract class MapSelecter
 		String buttonMsg;
 		switch (state)
 		{
-		case CLOSED:
-			buttonMsg = "open server";
-		break;
 		case OPENED:
 			buttonMsg = "waiting for players";
 		break;
@@ -180,11 +179,6 @@ public abstract class MapSelecter
 		{
 			switch (state)
 			{
-			case CLOSED:
-				nameModifiable = false;
-				launchServerClicked();
-				state = OPENED;
-			break;
 			case OPENED:
 			break;
 			case FULL:
@@ -202,7 +196,6 @@ public abstract class MapSelecter
 		isNameFieldActive = false;
 	}
 
-	public abstract void launchServerClicked();
 	public abstract void startClicked();
 
 	public void keyPressed(int key, char c)
