@@ -1,0 +1,68 @@
+Template Player1
+
+Component AnimatedSprite
+path=./assets/spritesheets/teddy_anim.png
+tileWidth=64
+tileHeight=64
+scale=1
+filterRed=1
+filterGreen=1
+filterBlue=1
+pivotX=0
+pivotY=0
+layer=1
+flipped=1
+cycle=8
+step=0
+
+Component PlayerInput
+DownKey=DOWN
+JumpKey=UP
+LeftKey=LEFT
+RightKey=RIGHT
+AttackKey=SPACE
+SpecialAttackKey=LSHIFT
+JumpVelocity=5
+RunVelocity=5
+IsUnflippedRight=1
+
+Component Simulation
+friction=5
+mass=50
+externalForceX=0
+externalForceY=0
+velocityX=0
+velocityY=0
+accelerationX=0
+accelerationY=0
+
+#Component Sound
+
+Component Duckable
+ducked=false
+duckedSizeX=64
+duckedSizeY=43
+
+Component PlayerBehavior
+healthPercent=100
+deathTimer=0
+deathTimerDuration=5
+hitDuration=0
+hitAction=0
+healthChangeInterval=0
+healthChangeTimer=0
+
+Component Network
+
+Component Attachment
+attachPointX=0
+attachPointY=0
+attachOrientation=0
+autoAttachGroups=10
+
+Component OOBoxCollisionDetectionComponent
+halfExtentX=64
+halfExtendY=64
+
+Component SwitchUser
+HitTrigger=0

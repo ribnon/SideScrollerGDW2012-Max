@@ -1,7 +1,10 @@
 package gdw.network.client;
 
+import gdw.network.GenericSocketThread;
+import gdw.network.IDiscoFlagAble;
 import gdw.network.NETCONSTANTS;
 import gdw.network.INetworkBridge;
+import gdw.network.NetMessageWrapper;
 import gdw.network.RESPONSECODES;
 import gdw.network.server.GDWServerLogger;
 
@@ -10,6 +13,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
+import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 /**
  * Die Hauptlientklasse. Sie hat keinen öffentlichen Konstruktor, sondern gibt euch über einen 
@@ -22,13 +26,15 @@ import java.nio.channels.SocketChannel;
  *
  */ 
 
-public class BasicClient implements INetworkBridge
+public class BasicClient implements INetworkBridge, IDiscoFlagAble
 {
 	private static final int messagesPerUpdate = 5;
 
 	private final DatagramChannel udpConnection;
 
 	private final SocketChannel tcpConnection;
+	
+	private GenericSocketThread myThread;
 
 	private static ServerlistPendingThread pendingThread = null;
 	
@@ -56,12 +62,6 @@ public class BasicClient implements INetworkBridge
 	{
 		this.udpConnection = udpConnection;
 		this.tcpConnection = tcpConnection;
-		try
-		{
-			this.tcpConnection.configureBlocking(false);
-		} catch (IOException e)
-		{
-		}
 
 		this.id = id;
 		this.lastHeartbeat = System.currentTimeMillis();
@@ -69,6 +69,8 @@ public class BasicClient implements INetworkBridge
 		this.discoFlag = false;
 		this.sharedSecret = secret;
 		this.lastServer = server;
+		
+		this.myThread = new GenericSocketThread(udpConnection, tcpConnection,this);
 	}
 
 	/**
@@ -217,7 +219,7 @@ public class BasicClient implements INetworkBridge
 
 	private void incomingMessage(ByteBuffer buf, boolean wasReliable)
 	{
-		buf.position(0);
+		
 		switch (buf.get())
 		{
 			case NETCONSTANTS.PING:
@@ -238,6 +240,8 @@ public class BasicClient implements INetworkBridge
 
 	private boolean checkForDisconnect(long currentTimeStamp)
 	{
+		return false;
+		/*
 		if ((this.lastHeartbeat + NETCONSTANTS.HEARTBEAT_REQUESTIME) < currentTimeStamp)
 		{
 			// check if ping request is needed
@@ -255,7 +259,7 @@ public class BasicClient implements INetworkBridge
 				sendPing(currentTimeStamp);
 			}
 		}
-		return false;
+		return false;*/
 	}
 	
 	private void disconnect()
@@ -278,23 +282,13 @@ public class BasicClient implements INetworkBridge
 	 */
 	public void sendMessage(ByteBuffer msg, boolean reliable)
 	{
-		msg.flip();
-		try
-		{
-			if (reliable)
-			{
-				while(msg.hasRemaining())
-				{
-					this.tcpConnection.write(msg);
-				}
-			} else
-			{
-				this.udpConnection.write(msg);
-			}
-		} catch (IOException e)
-		{
-			this.discoFlag = true;
-		}
+		int oldPos = msg.position();
+		short size =(short) (oldPos-1);
+		msg.position(0);
+		msg.putShort(size);
+		msg.position(oldPos);
+		
+		this.myThread.outMessages.add(new NetMessageWrapper(reliable, msg));
 	}
 
 	private void sendPing(long currentTimeStamp)
@@ -304,7 +298,7 @@ public class BasicClient implements INetworkBridge
 		buf.flip();
 		try
 		{
-			this.udpConnection.write(buf);
+			this.tcpConnection.write(buf);
 			this.pongRequest = currentTimeStamp;
 		} catch (IOException e)
 		{
@@ -322,7 +316,7 @@ public class BasicClient implements INetworkBridge
 
 		try
 		{
-			this.udpConnection.write(buf);
+			this.tcpConnection.write(buf);
 		} catch (IOException e)
 		{
 			//s.o.
@@ -339,6 +333,7 @@ public class BasicClient implements INetworkBridge
 	{
 		ByteBuffer buf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 		buf.clear();
+		buf.putShort(NETCONSTANTS.MESSAGE);//placeholder
 		buf.put(NETCONSTANTS.MESSAGE);
 		return buf;
 	}
@@ -351,38 +346,18 @@ public class BasicClient implements INetworkBridge
 			System.out.println("client schließt verbindung");
 			disconnect();
 		}
-
-		int counter = 0;
-		try
+		
+		while (!this.myThread.inMessages.isEmpty())
 		{
-
-			for (; counter < messagesPerUpdate; ++counter)
-			{
-				ByteBuffer buf = ByteBuffer
-						.allocate(NETCONSTANTS.PACKAGELENGTH);
-				if (tcpConnection.read(buf) > 0)
-				{
-					this.incomingMessage(buf, true);
-					continue;
-				}
-				if (udpConnection.read(buf) > 0)
-				{
-					this.incomingMessage(buf, false);
-					continue;
-				}
-				break;
-			}
-
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-			this.discoFlag = true;
-			this.disconnect();
+			NetMessageWrapper wrap = this.myThread.inMessages.poll();
+			this.incomingMessage(wrap.msg,wrap.reliable);
 		}
-		if (counter > 0)
-		{
-			this.lastHeartbeat = System.currentTimeMillis();
-			this.pongRequest = -1L;
-		}
+		
+	}
+
+	@Override
+	public void discoFlag()
+	{
+		this.discoFlag = true;		
 	}
 }

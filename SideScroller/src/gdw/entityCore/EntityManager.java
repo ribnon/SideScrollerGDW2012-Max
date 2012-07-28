@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.newdawn.slick.tiled.TiledMap;
@@ -22,7 +23,7 @@ public class EntityManager {
 	
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
 	private int nextID = 1;
-	private boolean offlineMode=false;
+	private boolean offlineMode;
 	
 	public boolean isOfflineMode() {
 		return offlineMode;
@@ -95,7 +96,20 @@ public class EntityManager {
 					}
 				} catch (NumberFormatException e) {
 					continue;
-				}	
+				}
+			}
+			else if(line.startsWith("Include")){
+				if(line.length()<9) continue;
+				if(line.charAt(7)!=' ') continue;
+				String includeFileNameStr=line.substring(8);
+				if(includeFileNameStr.length()==0) continue;
+				try{
+					loadEntities(includeFileNameStr);
+				}
+				catch(IOException e){
+					System.err.println("IOException beim Lesen eines Includefiles: " + e.getMessage());
+					e.printStackTrace();
+				}
 			}
 			else continue;
 		}
@@ -114,9 +128,25 @@ public class EntityManager {
 				}
 			}
 		}
-		//Kollision: Collision
-		//Objekte: Objects
-
+		String mapTemplatesPrefix = "FromMap_";
+		int objectGroups = map.getObjectGroupCount();
+		for(int og=0;og<objectGroups;++og){
+			int groupObjects = map.getObjectCount(og);
+			for(int go=0;go<groupObjects;++go){
+				String objectName = map.getObjectName(og, go);
+				String templateName = mapTemplatesPrefix+objectName;
+				String orientationStr = map.getObjectProperty(og, go, "Entity.orientation", "0");
+				float orientation=0.0f;
+				try {
+					orientation = Float.parseFloat(orientationStr);
+				} catch (NumberFormatException e) {}
+				EntityTemplate entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate(templateName);
+				Entity ent = entityTemplate.createEntity(
+						map.getObjectX(og, go)+map.getObjectWidth(og, go)*0.5f,
+						map.getObjectY(og, go)+map.getObjectHeight(og, go)*0.5f, orientation);
+				NamedEntityReference.setEntityID(objectName, ent.getID());
+			}
+		}
 	}
 	/*
 	 *
@@ -161,9 +191,27 @@ public class EntityManager {
 	
 	/**
 	 * Nuke the site from Orbit.
+	 * 
+	 *          
+     ..-^~~~^-..
+   .~           ~.
+  (;:           :;)
+   (:           :)
+     ':._   _.:'
+         | |
+       (=====)
+         | |
+         | |
+         | |
+      ((/   \))
 	 */
 	public void deleteAllEntities(){
+		ArrayList<Entity> toDelete = new ArrayList<Entity>();
 		for(Entity ent: entities.values()){
+			toDelete.add(ent);
+		}
+		
+		for(Entity ent: toDelete){
 			ent.destroy();
 		}
 	}

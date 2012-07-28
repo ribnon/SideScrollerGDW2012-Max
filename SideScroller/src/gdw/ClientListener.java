@@ -36,6 +36,8 @@ public class ClientListener implements IBasicClientListener {
 	@Override
 	public void connectionUpdate(int msg) {
 		System.out.println("con update " + msg);
+		if(msg == -1)
+			owner.setQuit(true);
 		// TODO Auto-generated method stub
 
 	}
@@ -43,14 +45,15 @@ public class ClientListener implements IBasicClientListener {
 	@Override
 	public void connectionEstablished(BasicClient clientRef) {
 		System.out.println("Connection to " + clientRef.id);
-		NetSubSystem.initalise(0, false, clientRef);
+		NetSubSystem.initalise(clientRef.id, false, clientRef);
 		owner.setConnected(true);
-		Level.getInstance().start();
+		owner.setLoadLevel(true);
+		//Level.getInstance().start();
 	}
 
 	@Override
 	public void incomingMessage(ByteBuffer msg, boolean wasReliable) {
-		// TODO Auto-generated method stub
+		NetSubSystem.getInstance().processMessage(msg);
 
 	}
 	

@@ -78,7 +78,7 @@ public class ConnectionResponceThread extends Thread
 			}
 
 			// get responce
-			responce.position(0);
+			responce.flip();
 			byte resCode = responce.get();
 			lis.connectionUpdate(resCode);
 			if (resCode != RESPONSECODES.OK)
@@ -99,11 +99,11 @@ public class ConnectionResponceThread extends Thread
 			udpSocket.connect(new InetSocketAddress(tcpSocket.socket()
 					.getInetAddress(), udpPort));
 
-			ByteBuffer pingBuf = ByteBuffer.allocate(1);
+			ByteBuffer pingBuf = ByteBuffer.allocate(3);
+			pingBuf.putShort((short) 1);
 			pingBuf.put(NETCONSTANTS.PING);
 			pingBuf.flip();
 			this.udpSocket.write(pingBuf);
-			this.udpSocket.configureBlocking(false);
 			// create client
 			this.pending = false;
 			BasicClient.registerClient(tcpSocket, udpSocket, id, secret, server );

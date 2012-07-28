@@ -14,6 +14,14 @@ import gdw.graphics.SpriteComponent;
  *
  */
 public class AnimatedSpriteComponent extends SpriteComponent {
+	public float getAnimationSpeed() {
+		return animationSpeed;
+	}
+
+	public void setAnimationSpeed(float animationSpeed) {
+		this.animationSpeed = animationSpeed;
+	}
+
 	/**
 	 * Sprite sheet where animation frames are read from. Frames of an animation are stored in row.
 	 * Multiple animations can be stored beneath each other in the spritesheet. 
@@ -34,6 +42,10 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 * current frame
 	 */
 	private int step;
+	
+	private float stepTime=0;
+	
+	private float animationSpeed;
 	
 	public SpriteSheet getSpriteSheet()
 	{
@@ -105,6 +117,15 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 			img.draw(getOwner().getPosX()-camPosX, getOwner().getPosY()-camPosY, getScale());
 	}
 	
+	public int getCycle() {
+		return cycle;
+	}
+
+	public void setCycle(int cycle) {
+		this.cycle = cycle;
+		resetCycle();
+	}
+
 	/**
 	 * Advances the animation by one frame, loops around if end of animation is reached
 	 * 
@@ -112,8 +133,11 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 */
 	public void tick(float deltaTime)
 	{
-		step++;
+		stepTime+=deltaTime;
+		step = (int) stepTime;
+		stepTime=stepTime-step;
 		step %= cycleLength[cycle]; //loop back to frame 0 
+		stepTime = step + stepTime;
 	}
 	
 	/**
@@ -122,6 +146,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	public void resetCycle()
 	{
 		step = 0;
+		stepTime = 0.0f;
 	}
 	
 	/**

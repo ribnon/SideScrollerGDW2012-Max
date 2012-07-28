@@ -1,0 +1,16 @@
+Template BucketGround
+
+Component AnimatedSprite
+path=./assets/spritesheets/bucket_ground.png
+tileWidth=64
+tileHeight=32
+scale=1
+filterRed=1
+filterGreen=1
+filterBlue=1
+pivotX=0
+pivotY=0
+layer=1
+flipped=0
+cycle=4
+step=0

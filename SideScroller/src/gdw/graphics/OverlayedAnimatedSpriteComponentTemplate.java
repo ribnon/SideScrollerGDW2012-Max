@@ -128,9 +128,9 @@ public class OverlayedAnimatedSpriteComponentTemplate extends ComponentTemplate{
 		if(getIntegerParam("flipped", 0) == 1) flipped = true;
 		
 		try {
-			baseSpritesheet = new SpriteSheet(getStringParam("basePath", ""), getIntegerParam("baseTileWidth", 64), getIntegerParam("baseTileHeight", 64));
-			overlaySpritesheet1 = new SpriteSheet(getStringParam("overlay1Path", ""), getIntegerParam("overlay1TileWidth", 64), getIntegerParam("overlay1TileHeight", 64));
-			overlaySpritesheet2 = new SpriteSheet(getStringParam("overlay2Path", ""), getIntegerParam("overlay2TileWidth", 64), getIntegerParam("overlay2TileHeight", 64));
+			baseSpritesheet = new SpriteSheet(getStringParam("baseSpriteSheet", getStringParam("basePath", "")), getIntegerParam("baseTileWidth", 64), getIntegerParam("baseTileHeight", 64));
+			overlaySpritesheet1 = new SpriteSheet(getStringParam("overlay1SpriteSheet", getStringParam("overlay1Path", "")), getIntegerParam("overlay1TileWidth", 64), getIntegerParam("overlay1TileHeight", 64));
+			overlaySpritesheet2 = new SpriteSheet(getStringParam("overlay2SpriteSheet", getStringParam("overlay2Path", "")), getIntegerParam("overlay2TileWidth", 64), getIntegerParam("overlay2TileHeight", 64));
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

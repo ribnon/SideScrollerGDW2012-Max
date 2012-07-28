@@ -1,5 +1,7 @@
 package gdw.collisionDetection;
 
+import java.util.Arrays;
+
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.EntityConstructedMessage;
 import gdw.entityCore.Message;
@@ -58,5 +60,22 @@ public class OOBoxCollisionDetectionComponent extends CollisionDetectionComponen
 	{
 		if (msg instanceof EntityConstructedMessage)
 			CollisionDetectionComponentManager.getInstance().registerTreeRect(this);
+	}
+
+	@Override
+	public float[] getDimensions()
+	{
+//		float diag = (float) Math.sqrt(halfExtentX * halfExtentX + halfExtentY * halfExtentY);
+		float angle = (float)Math.toRadians(this.getOwner().getOrientation());
+		float cosAngle = (float)Math.cos(angle);
+		float sinAngle = (float)Math.sin(angle);
+		float[] diag = new float[] {
+			cosAngle*(getHalfExtentX()) - sinAngle*(getHalfExtentY()),
+			sinAngle*(getHalfExtentX()) + cosAngle*(getHalfExtentY()),
+			
+			cosAngle*(-getHalfExtentX()) - sinAngle*(getHalfExtentY()),
+			sinAngle*(getHalfExtentX()) + cosAngle*(-getHalfExtentY()),
+		};
+		return new float[] { Math.max(Math.abs(diag[0]),Math.abs(diag[2])), Math.max(Math.abs(diag[1]),Math.abs(diag[3])) };
 	}
 }

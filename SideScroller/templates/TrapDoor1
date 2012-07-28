@@ -1,0 +1,25 @@
+Template TrapDoor1
+
+Component CollisionReaction
+impassableFromTop=1
+impassableGromSide=1
+
+Component RotateBySwitch
+activateRotation=0
+deactivateRotation=90
+angularVelocity=10
+
+Component PivotRotation
+pivotX=0
+pivotY=8
+
+Component StaticSprite
+scale=1
+filterRed=1
+filterGreen=1
+filterBlue=1
+pivotX=0
+pivotY=8
+layer=1
+flipped=1
+path=./assets/staticSprites/background/background_trapdoor_1.png

@@ -1,0 +1,16 @@
+Template BucketCeiling
+
+Component  AnimatedSprite
+path=./assets/spritesheets/bucket_ceiling.png
+tileWidth=32
+tileHeight=256
+scale=1
+filterRed=1
+filterGreen=1
+filterBlue=1
+pivotX=0
+pivotY=0
+layer=1
+flipped=0
+cycle=0
+step=0

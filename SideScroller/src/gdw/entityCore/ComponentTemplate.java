@@ -1,5 +1,6 @@
 package gdw.entityCore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class ComponentTemplate {
@@ -62,7 +63,7 @@ public abstract class ComponentTemplate {
 		if(params.containsKey(name)){
 			String val = params.get(name).trim();
 			if(Character.isJavaIdentifierStart(val.charAt(0))){
-				return new NamedEntityReference(val.substring(1));
+				return new NamedEntityReference(val);
 			}
 			else{
 				try {
@@ -74,6 +75,27 @@ public abstract class ComponentTemplate {
 		}
 		else{
 			return new StaticEntityReference(-1);
+		}
+	}
+	public ArrayList<EntityReference> getEntityReferenceArrayParam(String name){
+		if(params.containsKey(name)){
+			String s = params.get(name).trim();
+			String[] values = s.split(";");
+			ArrayList<EntityReference> refs = new ArrayList<EntityReference>();
+			for(String val: values){
+				if(Character.isJavaIdentifierStart(val.charAt(0))){
+					refs.add(new NamedEntityReference(val));
+				}
+				else{
+					try {
+						refs.add(new StaticEntityReference(Integer.parseInt(val)));
+					} catch (NumberFormatException e) {}
+				}
+			}
+			return refs;
+		}
+		else{
+			return new ArrayList<EntityReference>();
 		}
 	}
 	public boolean isThingOnly(){
