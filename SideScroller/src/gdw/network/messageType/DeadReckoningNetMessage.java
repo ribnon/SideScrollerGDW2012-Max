@@ -70,7 +70,10 @@ public class DeadReckoningNetMessage extends NetMessageType
 				buf.putFloat(msg.posY);
 				buf.putFloat(msg.velocityX);
 				buf.putFloat(msg.velocityY);
-			}catch(IndexOutOfBoundsException | BufferOverflowException e)
+			}catch(IndexOutOfBoundsException e)
+			{
+				break;
+			}catch (BufferOverflowException e)
 			{
 				break;
 			}

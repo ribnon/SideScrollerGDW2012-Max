@@ -74,6 +74,9 @@ public class EntityBusNetMessage extends NetMessageType
 			}catch (IndexOutOfBoundsException e)
 			{
 				break;
+			}catch (BufferOverflowException e)
+			{
+				break;
 			}
 			//hochzählen durchgrang erfolgreich
 			counter++;

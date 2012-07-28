@@ -99,13 +99,7 @@ public class ConnectionResponceThread extends Thread
 			udpSocket.connect(new InetSocketAddress(tcpSocket.socket()
 					.getInetAddress(), udpPort));
 
-			ByteBuffer pingBuf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
-			pingBuf.put(NETCONSTANTS.PING);
-			pingBuf.position(0);
-			//pingBuf.position(pingBuf.capacity());
-			//pingBuf.flip();
-			this.udpSocket.write(pingBuf);
-			// create client
+			
 			this.pending = false;
 			BasicClient.registerClient(tcpSocket, udpSocket, id, secret, server );
 		} catch (IOException e)
