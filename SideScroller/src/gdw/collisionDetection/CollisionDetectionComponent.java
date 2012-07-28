@@ -21,6 +21,13 @@ public abstract class CollisionDetectionComponent extends Component
 		COLLISION_COMPONENT_SUBCLASS_TYPE = subClassType;
 		treeRect = null;
 	}
+	
+	public String printNode()
+	{
+		if (treeRect != null)
+		return new String(treeRect.getTreeReference().getLevel() + " " + treeRect.getTreeReference().getNode());
+		else return "";
+	}
 
 	protected void destroy()
 	{

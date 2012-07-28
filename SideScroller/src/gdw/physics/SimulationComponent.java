@@ -6,6 +6,8 @@ import org.newdawn.slick.Graphics;
 
 import gdw.collisionDetection.AABoxCollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponent;
+import gdw.collisionDetection.CollisionDetectionComponentManager;
+import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
@@ -31,11 +33,35 @@ public class SimulationComponent extends Component {
 	// TODO: test code
 	private boolean grounded;
 	private Entity ground;
-
+	
+	private boolean walled;
+	private Entity wall;
+	
+	public void setWall(Entity wall) {
+		if((this.wall=wall)==null) {
+			walled=false;
+		}
+		else {
+			this.wall = wall;
+			walled = true;
+		}
+	}
+	public boolean isWalled() {
+		return walled;
+	}
+	
 	public boolean isGrounded() {
 		return grounded;
 	}
 
+	public void setGround(Entity ground) {
+		if((this.ground=ground)==null) {
+			grounded=false;
+		}
+		else {
+			grounded = true;
+		}
+	}
 
 	public void setGrounded(boolean grounded) {
 		this.grounded = grounded;
@@ -82,6 +108,8 @@ public class SimulationComponent extends Component {
 
 		// default value
 		active = true;
+		walled = false;
+		wall=null;
 		
 		SimulationComponentManager mng = SimulationComponentManager.getInstance();
 		mng.addSimulationComponent(this);
@@ -193,6 +221,7 @@ public class SimulationComponent extends Component {
 		this.externalForceY = 0.f;
 	}
 
+	
 	public void simulate(float deltaTime) {
 		if (mass <= 0.0f) {// Unmoveable object
 			resetForce();
@@ -201,13 +230,26 @@ public class SimulationComponent extends Component {
 			return;
 		}
 		
-		if(grounded = isOnB(ground)) {
+		
+		if((grounded&&walled) || (grounded = isOnB(ground)) ) {
 			addForce(0, -SimulationComponentManager.getInstance().getGravity()*mass);
 		}
+		float forceX = 0.0f;
+//		System.out.println(walled);
+		if(!walled || ((wall.getPosX() - this.getOwner().getPosX()<0 && this.externalForceX>0) 
+		|| ((wall.getPosX() - this.getOwner().getPosX()>0 && this.externalForceX<0)
+		|| (grounded&&walled)
+		)
+//			&& (wall.getPosX() - this.getOwner().getPosX()>0 && this.externalForceX<0))) {
+				)) {
+			forceX = this.externalForceX - (this.friction * this.velocityX)*deltaTime;
+			
+		}	
 		
-		float forceX = this.externalForceX - (this.friction * this.velocityX)*deltaTime;
 		float forceY = this.externalForceY - (this.friction * this.velocityY)*deltaTime;
 		
+		
+		setWall(null);
 //		float forceX = this.externalForceX;
 //		float forceY = this.externalForceY;
 		
@@ -263,18 +305,20 @@ public class SimulationComponent extends Component {
 		CollisionDetectionComponent colCompA =(CollisionDetectionComponent) this.getOwner().getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 		CollisionDetectionComponent colCompB =(CollisionDetectionComponent) B.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 		if(colCompA!=null && colCompB!=null) {
-			if(colCompB instanceof AABoxCollisionDetectionComponent
-			&& colCompA instanceof AABoxCollisionDetectionComponent) {
-				AABoxCollisionDetectionComponent AAcolCompB = (AABoxCollisionDetectionComponent) colCompB;
-				AABoxCollisionDetectionComponent AAcolCompA = (AABoxCollisionDetectionComponent) colCompA;
-				float dy = B.getPosY() - AAcolCompB.getHalfExtentY() - this.getOwner().getPosY() - AAcolCompA.getHalfExtentY();
+//			if(colCompB instanceof AABoxCollisionDetectionComponent
+//			&& colCompA instanceof AABoxCollisionDetectionComponent) {
+//				AABoxCollisionDetectionComponent AAcolCompB = (AABoxCollisionDetectionComponent) colCompB;
+//				AABoxCollisionDetectionComponent AAcolCompA = (AABoxCollisionDetectionComponent) colCompA;
+			float[] dimSelf = colCompA.getDimensions();
+			float[] dimOther = colCompB.getDimensions();
+				float dy = B.getPosY() - dimOther[1] - this.getOwner().getPosY() - dimSelf[1];
 //				System.out.println(x+"");
-				if(Math.abs(this.getOwner().getPosX() - B.getPosX()) - AAcolCompA.getHalfExtentX() < AAcolCompB.getHalfExtentX() 
+				if(Math.abs(this.getOwner().getPosX() - B.getPosX()) - dimSelf[0] < dimOther[0]
 				&&	Math.abs(dy) < 0.1f) {
 					ground = B;
 					return true;
 				}
-			}
+//			}
 		}
 		ground=null;
 		return false;

@@ -10,6 +10,7 @@ import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
+import gdw.gameplay.color.FadeInComponent;
 import gdw.graphics.SpriteManager;
 import gdw.graphics.StaticSpriteComponent;
 import gdw.physics.SimulationComponent;
@@ -175,6 +176,7 @@ public class SimulationTest extends BasicGame {
 		drawEntity(g, platform);
 		drawEntity(g, diag);
 		if(simComp!=null) {
+			g.drawString("is walled: "+simComp.isWalled(), 10, 60);
 			g.drawString("is active: "+simComp.isActive(), 10, 80);
 			g.drawString("is grounded: "+simComp.isGrounded(), 10, 175);
 			g.drawString("vx: "+simComp.getVelocityX(), 10, 100);
@@ -182,6 +184,7 @@ public class SimulationTest extends BasicGame {
 			g.drawString("vy: "+simComp.getVelocityY(), 10, 140);
 			g.drawString("ay: "+simComp.getAccelerationY(), 10, 160);
 		}
+		g.drawString("Diag Orientation: "+diag.getOrientation(),600,60);
 		
 		SpriteManager.getInstance().render();
 	}
@@ -191,6 +194,7 @@ public class SimulationTest extends BasicGame {
 		// TODO Auto-generated method stub
 		
 		try {
+			EntityManager.getInstance().setOfflineMode(true);
 			Level.getInstance().start();
 			
 			entityTemplateManager = EntityTemplateManager.getInstance();
@@ -229,7 +233,7 @@ public class SimulationTest extends BasicGame {
 		g.drawString(""+e.getID(), e.getPosX()-4, e.getPosY()-8);
 		CollisionDetectionComponent colComp = (CollisionDetectionComponent) e.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 		if(colComp!=null) {
-			g.setColor(Color.pink);
+			g.setColor(Color.magenta);
 			if(colComp instanceof AABoxCollisionDetectionComponent) {
 				AABoxCollisionDetectionComponent box = (AABoxCollisionDetectionComponent) colComp;
 				g.drawRect(e.getPosX() - box.getHalfExtentX(), e.getPosY() - box.getHalfExtentY(), 2*box.getHalfExtentX(), 2*box.getHalfExtentY());
@@ -258,12 +262,15 @@ public class SimulationTest extends BasicGame {
 					cosAngle*(-box.getHalfExtentX()) - sinAngle*(box.getHalfExtentY()),
 					sinAngle*(-box.getHalfExtentX()) + cosAngle*(box.getHalfExtentY())
 				};
+				GL11.glColor4f(1, 0, 1, 1);
+				GL11.glDisable(GL11.GL_BLEND);
 				GL11.glBegin(GL11.GL_LINE_LOOP);
 				for (int i = 0; i < 8; i+=2) {
 					GL11.glVertex2f(e.getPosX()+vertices[i], e.getPosY()+vertices[i+1]);
 				}
 				GL11.glEnd();
-				
+				GL11.glColor4f(1, 1, 1, 1);
+				GL11.glEnable(GL11.GL_BLEND);
 			}
 			g.setColor(Color.red);
 			float[] dim = colComp.getDimensions();
@@ -275,10 +282,10 @@ public class SimulationTest extends BasicGame {
 		if(simComp!=null) {
 			simComp.draw(g);
 		}
-//		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
-//		if(sprComp!=null) {
-//			sprComp.draw(0,0);
-//		}
+		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
+		if(sprComp!=null) {
+			sprComp.draw(0,0);
+		}
 		
 		
 	}
@@ -287,35 +294,44 @@ public class SimulationTest extends BasicGame {
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		SimulationComponent simComp = (SimulationComponent) entity1.getComponent(SimulationComponent.COMPONENT_TYPE);
 		Input inp = arg0.getInput();
+		float factor = 1.0f; 
+		if(inp.isKeyDown(Input.KEY_LSHIFT))
+			factor = 0.1f;
 		if(simComp!=null) {
 			float forcePower = 150.f; 
 			
-			if(inp.isKeyDown(Input.KEY_LSHIFT))
-				forcePower *= 0.1f;
+			
 			if(inp.isKeyDown(Input.KEY_A)) {
-				simComp.addForce(-forcePower, 0);
+				simComp.addForce(-factor*forcePower, 0);
 	//			simComp.setVelocityX(-10);
 			}
 			if(inp.isKeyDown(Input.KEY_D)) {
-				simComp.addForce(+forcePower, 0);
+				simComp.addForce(+forcePower*factor, 0);
 	//			simComp.setVelocityX(10);
 			}
 			if(inp.isKeyDown(Input.KEY_W)) {
-				simComp.addForce(0, -forcePower);
+				simComp.addForce(0, -forcePower*factor);
 	//			simComp.setVelocityY(-10);
 			}
 			if(inp.isKeyDown(Input.KEY_S)) {
-				simComp.addForce(0, forcePower);
+				simComp.addForce(0, forcePower*factor);
 	//			simComp.setVelocityY(10);
 			}
 		}
 		
+		if(inp.isKeyDown(Input.KEY_E)) {
+			diag.setOrientation(diag.getOrientation()+1*factor);
+		}
 		if(inp.isKeyDown(Input.KEY_Q)) {
-			diag.setOrientation(diag.getOrientation()+1);
+			diag.setOrientation(diag.getOrientation()-1*factor);
 		}
 		
 //		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 		SimulationComponentManager.getInstance().simulate(arg1/1000.f);
+		FadeInComponent ficmp = (FadeInComponent)entity1.getComponent(FadeInComponent.COMPONENT_TYPE);
+		if(ficmp!=null) {
+			ficmp.tick(arg1/1000.f);
+		}
 	}
 	
 	public static void main(String[] args) throws SlickException {
