@@ -2,6 +2,7 @@ package gdw.collisionDetection;
 
 import gdw.entityCore.Entity;
 import gdw.entityCore.Level;
+import gdw.gameplay.color.FadeInComponent;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class CollisionDetectionComponentManager
 				level++;
 			}
 			
-			quadTree = new CollisionQuadTree(3, mapWidth, mapHeight);
+			quadTree = new CollisionQuadTree(3, 800, 600);
 		}
 		
 		else quadTree = null;
@@ -84,6 +85,13 @@ public class CollisionDetectionComponentManager
 		
 		quadTree.updateRect(comp.getTreeRect());
 		ArrayList<CollisionQuadTreeRect> candidates = quadTree.getColliders(comp.getTreeRect());
+		
+		if (e.getComponent(FadeInComponent.COMPONENT_TYPE) != null)
+		for (int i = 0; i < candidates.size(); i++)
+		{
+			System.out.println("Testing with " + candidates.get(i).getComponentReference().getOwner().getID());
+		}
+		System.out.println("=======================================");
 		
 		boolean result = false;
 		
