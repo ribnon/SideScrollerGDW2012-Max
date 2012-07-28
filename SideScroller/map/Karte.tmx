@@ -98,15 +98,15 @@
   </object>
   <object name="Bridge1" type="RotatableObject" x="384" y="688" width="16" height="176">
    <properties>
-    <property name="Template" value="BridgeDown"/>
+    <property name="Template" value="Bridge_Down"/>
    </properties>
   </object>
   <object name="HotButton3" type="HotButton" x="352" y="832" width="32" height="32">
    <properties>
-    <property name="StaicSprite.image" value="./assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.color" value="1;1;1"/>
     <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./assets/spritesheets/singleImages/button_push.png"/>
     <property name="StaticSprite.scale" value="1"/>
-    <property name="StaticStripe.color" value="1;1;1"/>
     <property name="Switch.targetEntity" value="Bridge1"/>
     <property name="Switch.type" value="Hit"/>
     <property name="Template" value="HotButton"/>
@@ -189,7 +189,11 @@
     <property name="Template" value="TrapDoor_LeftDown"/>
    </properties>
   </object>
-  <object name="TrapDoor2.2" type="RotatableObject" x="1056" y="1008" width="80" height="16"/>
+  <object name="TrapDoor2.2" type="RotatableObject" x="1056" y="1008" width="80" height="16">
+   <properties>
+    <property name="Template" value="TrapDoor_RightDown"/>
+   </properties>
+  </object>
   <object name="ColorBucket4" type="ColorBucket" x="1040" y="944" width="32" height="224">
    <properties>
     <property name="AnimatedSprite.filterBlue" value="1"/>
@@ -235,7 +239,11 @@
     <property name="Template" value="Door_LeftUp"/>
    </properties>
   </object>
-  <object name="Door6" type="RotatableObject" x="496" y="1152" width="16" height="112"/>
+  <object name="Door6" type="RotatableObject" x="496" y="1152" width="16" height="112">
+   <properties>
+    <property name="Template" value="Door_LeftUp"/>
+   </properties>
+  </object>
   <object name="Door4" type="RotatableObject" x="720" y="944" width="16" height="112">
    <properties>
     <property name="Template" value="Door_LeftUp"/>
@@ -283,7 +291,11 @@
     <property name="Template" value="LevelEnd"/>
    </properties>
   </object>
-  <object name="Door/Bridge7" type="RotatableObject" x="960" y="1984" width="16" height="112"/>
+  <object name="Door/Bridge7" type="RotatableObject" x="960" y="1984" width="16" height="112">
+   <properties>
+    <property name="Template" value="Door_LeftDown"/>
+   </properties>
+  </object>
   <object name="Door8" type="RotatableObject" x="608" y="2208" width="112" height="16">
    <properties>
     <property name="Template" value="Door_RightDown"/>
@@ -329,7 +341,7 @@
   <object name="sign_hopping" type="StaticSprite" x="228" y="152" width="64" height="64">
    <properties>
     <property name="StaticSprite.color" value="1;1;1"/>
-    <property name="StaticSprite.image" value="./assets/staticSprites/sign_jump.png"/>
+    <property name="StaticSprite.path" value="./assets/staticSprites/sign_jump.png"/>
     <property name="Template" value="StaticSprite"/>
    </properties>
   </object>

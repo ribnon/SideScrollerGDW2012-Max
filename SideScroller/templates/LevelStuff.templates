@@ -62,7 +62,7 @@ Component RotateBySwitch
 activateRotation=90
 deactivateRotation=-90
 Component StaticSprite
-image=./assets/staticSprites/background/background_door_1.png
+image=./assets/staticSprites/background/background_door_2.png
 
 Template TrapDoor_LeftDown
 Base Door
