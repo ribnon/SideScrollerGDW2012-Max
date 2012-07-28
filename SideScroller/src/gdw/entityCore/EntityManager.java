@@ -121,8 +121,8 @@ public class EntityManager {
 		for(int x=0;x<map.getWidth();++x){
 			for(int y=0;y<map.getHeight();++y){
 				if(map.getTileId(x, y, collisionLayerIndex)==1){
-					float xCoord = map.getTileWidth()*x+map.getTileWidth()*0.5f;
-					float yCoord = map.getTileHeight()*y+map.getTileHeight()*0.5f;
+					float xCoord = Level.getInstance().getTileWidth()*x+Level.getInstance().getTileWidth()*0.5f;
+					float yCoord = Level.getInstance().getTileHeight()*y+Level.getInstance().getTileHeight()*0.5f;
 					
 					colBoxTemplate.createEntity(xCoord, yCoord, 0);
 				}

@@ -130,8 +130,8 @@ public class EntityTemplateManager {
 //				}
 				if(!componentParamsMap.containsKey("OOBoxCollisionDetection")){
 					componentParamsMap.put("OOBoxCollisionDetection", new HashMap<String,String>());
-					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentX",Float.toString(map.getObjectWidth(og, go)));
-					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentY",Float.toString(map.getObjectHeight(og, go)));
+					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentX",Float.toString(map.getObjectWidth(og, go)*0.5f));
+					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentY",Float.toString(map.getObjectHeight(og, go)*0.5f));
 				}
 				String templateName = mapTemplatesPrefix + map.getObjectName(og, go);
 				entityTemplates.put(templateName, new EntityTemplate(templateName, baseTemplateNames, componentParamsMap));
