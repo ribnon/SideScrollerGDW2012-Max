@@ -44,6 +44,7 @@ public class ServerCoreLoop extends Thread
 				{
 					GDWServerLogger.logMSG("init system");
 					entTempMan.loadEntityTemplates("general.templates");
+					EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(200f, 200f, 0f);
 					//entTempMan.getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
 				} catch (IOException e)
 				{
@@ -67,7 +68,7 @@ public class ServerCoreLoop extends Thread
 			//updates laufen lassen
 			NetSubSystem.getInstance().pollMessages();
 		
-			//EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(200f, 200f, 0f);
+			
 			SimulationComponentManager.getInstance().simulate(delta);
 			EntityManager.getInstance().tick(delta);
 		
