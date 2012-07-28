@@ -38,6 +38,10 @@ public class EntityTemplate {
 		}
 	}
 
+	public String getName(){
+		return name;
+	}
+	
 	private void mergeInBaseParams(HashMap<String,HashMap<String,String>> baseCompParamsMap){
 		for(String baseCompName: baseCompParamsMap.keySet()){
 			if(!componentParamsMap.containsKey(baseCompName)){

@@ -34,25 +34,25 @@
   </object>
   <object name="Platform1" type="MoveableObject" x="224" y="2000" width="96" height="16">
    <properties>
-    <property name="PathFollow.wayPoints" value="14;128 2;128"/>
+    <property name="PathFollow.wayPoints" value="272;2008 80;2008"/>
     <property name="Template" value="Platform"/>
    </properties>
   </object>
   <object name="Platform2" type="MoveableObject" x="32" y="1808" width="96" height="16">
    <properties>
-    <property name="PathFollow.wayPoints" value="2;113 2;106"/>
+    <property name="PathFollow.wayPoints" value="80;1816 80;1704"/>
     <property name="Template" value="Platform"/>
    </properties>
   </object>
   <object name="Platform4" type="MoveableObject" x="288" y="2320" width="96" height="16">
    <properties>
-    <property name="PathFollow.wayPoints" value="18;146 18;136"/>
+    <property name="PathFollow.wayPoints" value="336;2312 336;2456"/>
     <property name="Template" value="Platform"/>
    </properties>
   </object>
   <object name="Platform3" type="MoveableObject" x="32" y="2224" width="96" height="16">
    <properties>
-    <property name="PathFollow.wayPoints" value="2;139 12;139"/>
+    <property name="PathFollow.wayPoints" value="80;2232 336;2232"/>
     <property name="Template" value="Platform"/>
    </properties>
   </object>
