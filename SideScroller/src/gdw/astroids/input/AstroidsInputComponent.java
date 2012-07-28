@@ -60,7 +60,7 @@ public class AstroidsInputComponent extends Component {
 			float cosAngle = (float)Math.cos(angle);
 			float sinAngle = (float)Math.sin(angle);
 //			System.out.println("move down");
-			simComp.addForce(-sinAngle*(engComp.getPower()), cosAngle*(engComp.getPower()));
+			simComp.addForce(-sinAngle*(engComp.getBreakPower()), cosAngle*(engComp.getBreakPower()));
 		}
 		if(input.isKeyDown(leftKey)) {
 //			System.out.println("move left");

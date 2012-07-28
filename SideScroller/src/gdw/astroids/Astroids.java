@@ -1,22 +1,16 @@
 package gdw.astroids;
 
-import java.io.IOException;
-
 import gdw.astroids.input.AstroidsInputComponentManager;
 import gdw.collisionDetection.CollisionDetectionComponentManager;
-import gdw.entityCore.ComponentTemplate;
-import gdw.entityCore.ComponentTemplateFactory;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplateManager;
-import gdw.entityCore.Level;
-import gdw.graphics.SpriteComponent;
 import gdw.graphics.SpriteManager;
-import gdw.graphics.StaticSpriteComponent;
 import gdw.physics.SimulationComponentManager;
+
+import java.io.IOException;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
