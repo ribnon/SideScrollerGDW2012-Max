@@ -203,7 +203,7 @@ segmentCount=3
 Template Rainbow
 Component AnimatedSprite
 animationSpeed=10
-spriteSheet=
+spriteSheet=./assets/spritesheets/rainbow_2.png
 cycle=0
 cycleLenth=10
 Component OOBoxCollisionDetection
@@ -212,7 +212,7 @@ Component Rainbow
 
 Template Platform
 Component StaticSprite
-image=
+image=./assets/staticSprites/background/background_platform_1.png
 Component Simulation
 friction=0.5
 mass=0.5
@@ -227,7 +227,7 @@ speed=2
 Template LevelEnd
 Component AnimatedSprite
 animationSpeed=10
-spriteSheet=
+spriteSheet=./assets/staticSprites/environment_cloudfinish_rear.png
 cycle=0
 cycleLenth=10
 Component OOBoxCollisionDetection
