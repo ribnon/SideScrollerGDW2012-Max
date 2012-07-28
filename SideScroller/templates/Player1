@@ -12,7 +12,7 @@ pivotX=0
 pivotY=0
 layer=1
 flipped=1
-cycle=8
+cycle=0
 step=0
 
 Component PlayerInput
