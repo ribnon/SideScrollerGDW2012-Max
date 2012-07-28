@@ -12,6 +12,7 @@ public class PlayerInputComponentTemplate extends ComponentTemplate
 	private float jumpVelocity, runVelocity;
 	private long waitingTime;
 	private boolean isUnflippedRight;
+	private int playerNumber;
 
 	/**
 	 * PlayerInputComponentTemplate constructor which initializes:
@@ -44,6 +45,8 @@ public class PlayerInputComponentTemplate extends ComponentTemplate
 
 		waitingTime = super.getIntegerParam("waitingTime", 500);
 		isUnflippedRight = super.getIntegerParam("isUnflippedRight", 0) == 1;
+		
+		playerNumber = super.getIntegerParam("playerNumber", 2);
 	}
 
 	@Override
@@ -51,6 +54,6 @@ public class PlayerInputComponentTemplate extends ComponentTemplate
 	{
 		return new PlayerInputComponent(this, downKey, jumpKey, leftKey,
 				rightKey, attackKey, specattackKey, jumpVelocity, runVelocity,
-				waitingTime, isUnflippedRight);
+				waitingTime, isUnflippedRight,playerNumber);
 	}
 }

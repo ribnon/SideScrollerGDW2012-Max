@@ -1,5 +1,6 @@
 package gdw.control;
 
+import gdw.entityCore.EntityManager;
 import gdw.network.NetSubSystem;
 
 import java.util.HashMap;
@@ -194,8 +195,8 @@ public class PlayerInputComponentManager {
 	 */
 	public void sendInputToPlayerInputComponents(Input input) {
 		for (PlayerInputComponent currentcomponent : playerInpComponents) {
-			if (currentcomponent.getPlayerID() == NetSubSystem.getInstance()
-					.getPlayerID())
+			if (EntityManager.getInstance().isOfflineMode() || (currentcomponent.getPlayerID() == NetSubSystem.getInstance()
+					.getPlayerID()))
 				currentcomponent.processingInput(input);
 		}
 	}
