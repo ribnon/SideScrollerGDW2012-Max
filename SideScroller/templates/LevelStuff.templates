@@ -148,12 +148,9 @@ Component OverlayAnimatedSprite
 baseSpriteSheet=./assets/spritesheets/enemy_tomato.png
 baseTitleWidth=64
 baseTitleHeight=64
-overlaySpriteSheet1=
-#...
-overlaySpriteSheet2=
-#...
+overlaySpriteSheet1=./assets/spritesheets/enemy__hitsSheet.png
+overlaySpriteSheet2=./assets/spritesheets/enemy_hitsSingle.png
 cycleLength=3;3;3
-
 Component Colorable
 targetColor=1;0;0
 segmentCount=3
@@ -166,12 +163,9 @@ Component OverlayAnimatedSprite
 baseSpriteSheet=./assets/spritesheets/enemy_pepper.png
 baseTitleWidth=64
 baseTitleHeight=64
-overlaySpriteSheet1=
-#...
-overlaySpriteSheet2=
-#...
+overlaySpriteSheet1=./assets/spritesheets/enemy_pepper_hitsSheet.png
+overlaySpriteSheet2=./assets/spritesheets/enemy_hitsSingle.png
 cycleLength=4;4;4
-
 Component Colorable
 targetColor=0;1;0
 segmentCount=3
@@ -183,15 +177,12 @@ Component OverlayAnimatedSprite
 baseSpriteSheet=./assets/spritesheets/enemy_carrot.png
 baseTitleWidth=64
 baseTitleHeight=64
-overlaySpriteSheet1=
-#...
-overlaySpriteSheet2=
-#...
+overlaySpriteSheet1=./assets/spritesheets/enemy_carrot_stainsSheet.png
+overlaySpriteSheet2=./assets/spritesheets/enemy_carrot_Singlestains.png
 cycleLength=2;2
-
 Component Colorable
 targetColor=1;1;0
-segmentCount=3
+segmentCount=2
 
 
 
@@ -200,14 +191,10 @@ Base Enemy
 Component OverlayAnimatedSprite
 baseSpriteSheet=./assets/spritesheets/obstacle_grapes_crumble_sprite.png
 baseTitleWidth=96
-
 baseTitleHeight=96
-overlaySpriteSheet1=
-#...
-overlaySpriteSheet2=
-#...
+overlaySpriteSheet1=./assets/spritesheets/obstacle_grapses_splashed_sprite.png
+overlaySpriteSheet2=./assets/spritesheets/obstacle_grapses_Singlesplashed_sprite.png
 cycleLength=1;1;1
-
 Component Colorable
 targetColor=1;0;1
 segmentCount=3
