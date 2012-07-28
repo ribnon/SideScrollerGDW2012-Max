@@ -1,5 +1,7 @@
 package tiled.test.blocks;
 
+import gamestates.PlayState;
+
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
@@ -8,7 +10,6 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 
-import tiled.test.Game;
 import tiled.test.entities.ColorBucket;
 import tiled.test.entities.HotButton;
 import tiled.test.entities.MoveableObject;
@@ -161,7 +162,7 @@ public class BlockMap {
 				}
 				else if (type.equals("StaticSprite"))
 				{
-					final String imageRef = tmap.getObjectProperty(groupID, objectID, "StaticSprite.image", Game.DEFAULT_IMAGE_PATH);
+					final String imageRef = tmap.getObjectProperty(groupID, objectID, "StaticSprite.image", PlayState.DEFAULT_IMAGE_PATH);
 					final Vector2f position = new Vector2f(tmap.getObjectX(groupID, objectID)-1, tmap.getObjectY(groupID, objectID)-1);
 					
 					staticSpriteList.add(new StaticSprite(imageRef, position, Color.white));

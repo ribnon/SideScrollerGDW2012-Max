@@ -1,5 +1,7 @@
 package tiled.test.entities;
 
+import gamestates.PlayState;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -9,7 +11,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
-import tiled.test.Game;
 
 public class ColorBucket extends GameObject
 {
@@ -50,7 +51,7 @@ public class ColorBucket extends GameObject
 			}
 			else
 			{
-				final Image defaultImage = new Image(Game.DEFAULT_IMAGE_PATH);
+				final Image defaultImage = new Image(PlayState.DEFAULT_IMAGE_PATH);
 				bucket[0].addFrame(defaultImage, 1);
 				bucket[1].addFrame(defaultImage, 1);
 			}

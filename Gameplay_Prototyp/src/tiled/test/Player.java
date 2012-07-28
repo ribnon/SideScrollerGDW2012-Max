@@ -1,5 +1,7 @@
 package tiled.test;
 
+import gamestates.PlayState;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
@@ -42,8 +44,8 @@ public class Player {
 		try {
 			final SpriteSheet animationSheet = new SpriteSheet(spriteSheetRef, 64, 64);
 			final SpriteSheet hatSheet = new SpriteSheet(hatImageRef, 64, 64);
-			final SpriteSheet brushSheet = new SpriteSheet(Game.BRUSH_SHEET_REF, 64, 64);
-			final SpriteSheet brushPaintSheet = new SpriteSheet(Game.BRUSH_PAINT_SHEET_REF, 64, 64);
+			final SpriteSheet brushSheet = new SpriteSheet(PlayState.BRUSH_SHEET_REF, 64, 64);
+			final SpriteSheet brushPaintSheet = new SpriteSheet(PlayState.BRUSH_PAINT_SHEET_REF, 64, 64);
 			
 			hats[0] = hatSheet.getSprite(0, hatIndex).copy();
 			hats[1] = hatSheet.getSprite(0, hatIndex).getFlippedCopy(true, false);
@@ -83,7 +85,7 @@ public class Player {
 	{
 		try {
 			
-			final SpriteSheet hatSheet = new SpriteSheet(Game.HAT_SHEET_REF, 64, 64);
+			final SpriteSheet hatSheet = new SpriteSheet(PlayState.HAT_SHEET_REF, 64, 64);
 			
 			++hatIndex;
 			if (hatIndex >= hatSheet.getVerticalCount()-1) { hatIndex = 0; }
