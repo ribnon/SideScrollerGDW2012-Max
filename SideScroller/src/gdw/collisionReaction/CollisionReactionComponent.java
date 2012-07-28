@@ -205,6 +205,7 @@ public class CollisionReactionComponent extends Component
 		}
 		else {
 			//TODO: check if is on a oobb
+			simulatedObject.setVelocityY(0);
 			simulatedObject.setWall(staticObject);
 			simulatedObject.setVelocityX(0);
 		}

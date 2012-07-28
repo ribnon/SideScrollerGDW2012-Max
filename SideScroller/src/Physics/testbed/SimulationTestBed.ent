@@ -14,8 +14,8 @@ Scale=1
 pivotX=32
 pivotY=32
 Component FadeIn
-fadeTime=60.0
-startColor=0;255;0;0
+fadeTime=5.0
+startColor=0;255;0;255
 endColor=255;255;255;255
 
 Template TestBedEnemy

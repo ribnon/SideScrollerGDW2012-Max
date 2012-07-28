@@ -10,6 +10,7 @@ import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
+import gdw.gameplay.color.FadeInComponent;
 import gdw.graphics.SpriteManager;
 import gdw.graphics.StaticSpriteComponent;
 import gdw.physics.SimulationComponent;
@@ -232,7 +233,7 @@ public class SimulationTest extends BasicGame {
 		g.drawString(""+e.getID(), e.getPosX()-4, e.getPosY()-8);
 		CollisionDetectionComponent colComp = (CollisionDetectionComponent) e.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 		if(colComp!=null) {
-			g.setColor(Color.pink);
+			g.setColor(Color.magenta);
 			if(colComp instanceof AABoxCollisionDetectionComponent) {
 				AABoxCollisionDetectionComponent box = (AABoxCollisionDetectionComponent) colComp;
 				g.drawRect(e.getPosX() - box.getHalfExtentX(), e.getPosY() - box.getHalfExtentY(), 2*box.getHalfExtentX(), 2*box.getHalfExtentY());
@@ -261,12 +262,15 @@ public class SimulationTest extends BasicGame {
 					cosAngle*(-box.getHalfExtentX()) - sinAngle*(box.getHalfExtentY()),
 					sinAngle*(-box.getHalfExtentX()) + cosAngle*(box.getHalfExtentY())
 				};
+				GL11.glColor4f(1, 0, 1, 1);
+				GL11.glDisable(GL11.GL_BLEND);
 				GL11.glBegin(GL11.GL_LINE_LOOP);
 				for (int i = 0; i < 8; i+=2) {
 					GL11.glVertex2f(e.getPosX()+vertices[i], e.getPosY()+vertices[i+1]);
 				}
 				GL11.glEnd();
-				
+				GL11.glColor4f(1, 1, 1, 1);
+				GL11.glEnable(GL11.GL_BLEND);
 			}
 			g.setColor(Color.red);
 			float[] dim = colComp.getDimensions();
@@ -278,10 +282,10 @@ public class SimulationTest extends BasicGame {
 		if(simComp!=null) {
 			simComp.draw(g);
 		}
-//		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
-//		if(sprComp!=null) {
-//			sprComp.draw(0,0);
-//		}
+		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
+		if(sprComp!=null) {
+			sprComp.draw(0,0);
+		}
 		
 		
 	}
@@ -324,6 +328,10 @@ public class SimulationTest extends BasicGame {
 		
 //		CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 		SimulationComponentManager.getInstance().simulate(arg1/1000.f);
+		FadeInComponent ficmp = (FadeInComponent)entity1.getComponent(FadeInComponent.COMPONENT_TYPE);
+		if(ficmp!=null) {
+			ficmp.tick(arg1/1000.f);
+		}
 	}
 	
 	public static void main(String[] args) throws SlickException {

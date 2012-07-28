@@ -222,7 +222,6 @@ public class SimulationComponent extends Component {
 	}
 
 	
-	boolean toggleSim=false;
 	public void simulate(float deltaTime) {
 		if (mass <= 0.0f) {// Unmoveable object
 			resetForce();
@@ -231,7 +230,6 @@ public class SimulationComponent extends Component {
 			return;
 		}
 		
-		toggleSim = !toggleSim;
 		
 		if((grounded&&walled) || (grounded = isOnB(ground)) ) {
 			addForce(0, -SimulationComponentManager.getInstance().getGravity()*mass);
@@ -251,7 +249,6 @@ public class SimulationComponent extends Component {
 		float forceY = this.externalForceY - (this.friction * this.velocityY)*deltaTime;
 		
 		
-		float stepVeloY = toggleSim?.50f:-.5f;
 		setWall(null);
 //		float forceX = this.externalForceX;
 //		float forceY = this.externalForceY;
@@ -277,7 +274,6 @@ public class SimulationComponent extends Component {
 		newVelocityX -= this.friction * newVelocityX * deltaTime;
 		float newVelocityY = this.velocityY + this.accelerationY * deltaTime;
 		newVelocityY -= this.friction * newVelocityY * deltaTime;
-		newVelocityY += stepVeloY*deltaTime;
 
 		boolean veloXNulled = false;
 		
