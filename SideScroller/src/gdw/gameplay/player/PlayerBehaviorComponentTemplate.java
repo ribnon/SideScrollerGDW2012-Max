@@ -61,6 +61,19 @@ public class PlayerBehaviorComponentTemplate extends ComponentTemplate
 	{
 		return healthChangeTimer;
 	}
+	
+	public float getHitAngle()
+	{
+		return hitAngle;
+	}
+	public float getStartAngle()
+	{
+		return startAngle;
+	}
+	public float getIdleAngle()
+	{
+		return idleAngle;
+	}
 
 	@Override
 	public Component createComponent()
