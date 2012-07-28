@@ -1,6 +1,7 @@
 package gdw.network;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ProgressMonitor;
 
@@ -51,6 +52,7 @@ public class ServerCoreLoop extends Thread
 					Entity spawn =  GameplayProgressManager.getInstance().getCurrentSpawnComponent().getOwner();
 					GDWServerLogger.logMSG("Spieler sollte an X: "+spawn.getPosX()+" Y: "+spawn.getPosY());
 					EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(spawn.getPosX(), spawn.getPosY()-5, 0f);
+					EntityTemplateManager.getInstance().getEntityTemplate("FixCamera").createEntity(0f, 0f, 0f);
 					//entTempMan.getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
 				 
 				this.ref.startComplete();
@@ -70,11 +72,21 @@ public class ServerCoreLoop extends Thread
 			delta /= 1000f;
 			delta = Math.min(delta, 0.06f);
 			
+			//delta = 16f/1000f;
+			
 			NetSubSystem netSub = NetSubSystem.getInstance();
 			
 			//updates laufen lassen
 			netSub.pollMessages();
 		
+			
+			//teste
+			EntityManager entm = EntityManager.getInstance();
+			ArrayList<Entity> testbla = new ArrayList<Entity>();
+			testbla.add(entm.getEntity(118));
+			testbla.add(entm.getEntity(117));
+			testbla.add(entm.getEntity(116));
+			//Entity test1 =  EntityManager.getInstance().getEntity(118);
 			
 			SimulationComponentManager.getInstance().simulate(delta);
 			netSub.simulateGhosts(delta);

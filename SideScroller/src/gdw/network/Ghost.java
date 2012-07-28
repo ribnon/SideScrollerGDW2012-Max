@@ -1,11 +1,12 @@
 package gdw.network;
 
 import gdw.entityCore.Entity;
+import gdw.network.server.GDWServerLogger;
 
 public class Ghost
 {
-	private static final float MAX_THRESHOLD_INQUAD = 1.0f;
-	private static final float INTERPOLATE_TIME = 500f;
+	private static final float MAX_THRESHOLD_INQUAD = 2.0f;
+	private static final float INTERPOLATE_TIME = 0.5f;
 	
 	private float posX;
 	private float posY;
@@ -56,6 +57,8 @@ public class Ghost
 			this.posThingX += this.velocityThingX * deltaT;
 			this.posThingY += this.velocityThingY * deltaT;
 			
+			GDWServerLogger.logMSG("vorher: "+this.posX+" "+this.posY);
+			
 			this.remaingSteps -= deltaT;
 			if(this.remaingSteps < 0.0f)
 			{
@@ -69,6 +72,8 @@ public class Ghost
 			
 			this.velocityX = this.velocityX *(1.0f-lerpFactor) + this.velocityX * lerpFactor;
 			this.velocityY = this.velocityY *(1.0f-lerpFactor) + this.velocityY * lerpFactor;
+			
+			GDWServerLogger.logMSG("nachher :"+this.posX+" "+this.posY);
 		}
 	}
 	
@@ -87,6 +92,17 @@ public class Ghost
 	
 	public void correct(float posX, float posY, float velocityX, float velocityY, float roundTip)
 	{
+		//DEBUG
+		//GDWServerLogger.logMSG("Ghost soll nach: "+posX+" "+posY);
+		
+		//</DEBUG
+		//GDWServerLogger.logMSG("Ghost soll zu: "+this.posX+" "+this.posY);
+		//this.posX = posX;
+		//this.posY = posY;
+		
+		//this.velocityX = velocityX;
+		//this.velocityY = velocityY;
+		
 		this.posThingX = posX;
 		this.posThingY = posY;
 		
@@ -121,6 +137,7 @@ public class Ghost
 	
 	public void setDataToEntity(Entity ent)
 	{
+			
 		ent.setPosX(this.posX);
 		ent.setPosY(this.posY);
 	}
