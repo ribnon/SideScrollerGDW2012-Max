@@ -65,11 +65,7 @@ public class EntityTemplate {
 		if(!EntityManager.getInstance().isOfflineMode()) NetSubSystem.getInstance().sendSpawn(name,id,whereX,whereY,orientation);
 		return createEntity(id, whereX, whereY, orientation);
 	}
-	
-	public String getName()
-	{
-		return this.name;
-	}
+
 	
 	//Wird vom Netzwerkcode auf dem Client aufgerufen, um Entities zu replizieren:
 	public Entity createEntity(int id, float whereX,float whereY, float orientation){
