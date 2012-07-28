@@ -47,6 +47,9 @@ Component Projectile
 startSpeed=600.0
 endSpeed=600.0
 acceleration=0.0
+startSpeed=100.0
+endSpeed=500.0
+acceleration=200.0
 localOffsetY=-20.0
 
 Template MultifireProjectileA
