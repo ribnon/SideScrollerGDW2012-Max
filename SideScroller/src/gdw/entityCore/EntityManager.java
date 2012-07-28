@@ -216,6 +216,18 @@ public class EntityManager {
 		}
 	}
 	
+	public void cleanUpEntities(){
+		ArrayList<Entity> toDelete = new ArrayList<Entity>();
+		for(Entity ent: entities.values()){
+			if(ent.getDestroyFlag()){
+				toDelete.add(ent);
+			}
+		}
+		for(Entity ent: toDelete){
+			ent.destroy();
+		}
+	}
+	
 	void unregisterEntity(Entity entity){
 		entities.remove(entity.getID());
 	}
