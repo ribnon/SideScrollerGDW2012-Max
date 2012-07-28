@@ -71,6 +71,11 @@ public class NetComponent extends Component
 		//tunnel
 		NetSubSystem.getInstance().sendBusMessage(this.getOwner().getID(),msg);
 	}
+	
+	public void syncGhostWithEntity()
+	{
+		this.ghost.setDataToEntity(getOwner());
+	}
 
 	
 	public void addDeadReckoningNetMessageToList(LinkedList<DeadReckoningNetMessage> list)

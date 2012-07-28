@@ -50,10 +50,11 @@ public class ServerCoreLoop extends Thread
 					//entTempMan.loadEntityTemplates("general.templates");
 					Entity spawn =  GameplayProgressManager.getInstance().getCurrentSpawnComponent().getOwner();
 					GDWServerLogger.logMSG("Spieler sollte an X: "+spawn.getPosX()+" Y: "+spawn.getPosY());
-					EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(spawn.getPosX(), spawn.getPosY(), 0f);
+					EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(spawn.getPosX(), spawn.getPosY()-5, 0f);
 					//entTempMan.getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
 				 
 				this.ref.startComplete();
+				oldVal = System.currentTimeMillis();
 			}else
 			{
 			try
@@ -66,6 +67,8 @@ public class ServerCoreLoop extends Thread
 			
 			long curVal = System.currentTimeMillis();
 			float delta = curVal -  oldVal;
+			delta /= 1000f;
+			delta = Math.min(delta, 0.06f);
 			
 			NetSubSystem netSub = NetSubSystem.getInstance();
 			
