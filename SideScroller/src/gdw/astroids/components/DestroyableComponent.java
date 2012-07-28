@@ -78,11 +78,13 @@ public class DestroyableComponent extends Component {
 					c1_destroy.life -= c2_destroy.destroyPower;
 					if(c1_destroy.life <= 0) {
 						//destroy c1
+						c1.markForDestroy();
 					}
 					
 					c2_destroy.life -= c1_destroy.destroyPower;
 					if(c2_destroy.life <= 0) {
 						//destroy c2
+						c2.markForDestroy();
 					}
 				}
 			}
