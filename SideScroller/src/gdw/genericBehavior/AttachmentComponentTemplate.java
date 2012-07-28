@@ -24,7 +24,7 @@ public class AttachmentComponentTemplate extends ComponentTemplate
 		attachOrientation = getFloatParam("attachOrientation", 0);
 		
 		String[] autoAttachGroupsValues = getStringParam(
-				"autoAttachGroups", "").split(",");
+				"autoAttachGroups", "").split(";");
 		for (String i : autoAttachGroupsValues)
 		{
 			autoAttachGroups.add(Integer.parseInt(i));
@@ -34,7 +34,7 @@ public class AttachmentComponentTemplate extends ComponentTemplate
 	@Override
 	public Component createComponent()
 	{
-		return new AttachableComponent(this);
+		return new AttachmentComponent(this);
 	}
 
 	public float getAttachPointX()

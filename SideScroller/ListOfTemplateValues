@@ -13,21 +13,21 @@ collisionDetection
 
 gdw.collisionReaction
 				CollisionReaction
-							impassableFromTop:int
-							impassableGromSide:int
+							impassableFromTop:int		//{0,1}
+							impassableGromSide:int		//{0,1}
 
 gdw.control
 				PlayerInput				
 							DownKey:String
-							JunpKey:String
+							JumpKey:String
 							LeftKey:String
 							RightKey:String
-							AttackKexy:String
-							SpecialAttackKey:String	
+							AttackKey:String
+							SpecialAttackKey:String
 							JumpVelocity:int
 							RunVelocity:int
 							WaitingTime:int
-							IsUnflippedRight:Int
+							IsUnflippedRight:Int	//{0,1}
 
 gdw.gameplay.color
 				Colorable				
@@ -40,9 +40,9 @@ gdw.gameplay.color
 							notifyOnClear:EntityReference
 
 				ColorSource
-							color:String[] 		//0;0;0
+							color:String[] 		//0;0;0  //RYB
 
-				FadeInComponent
+				FadeIn
 							fadeTime:float
 							fadeProgress:float
 							startColor:String[] //0;0;0;0
@@ -58,22 +58,20 @@ gdw.gameplay.enemy
 							healthDecrement:float
 
 gdw.gameplay.levelObjects
-				RotateSwitch
-							activateTotation:float
+				PathFollow
+
+				RotateBySwitch
+							activateRotation:float
 							deactivateRotation:float
 							angularVelocity:float
 
 				Switch
-							TargetEntity:EntityReference
+							TargetEntities:List<EntityReference> //Entityname1;Entitiyname2
 							SwitchType:String 		//{Hit;Step;Pull}
 							ActivationDuration:float
 
 				SwitchUser
 							HitTrigger:int 			//{0;1}
-							
-				PathFollow
-							wayPoints:String		//0 0
-							speed:float
 
 gdw.gameplay.player
 				Duckable
@@ -95,9 +93,13 @@ gdw.gameplay.player
 							healthIncrement:float
 
 gdw.gameplay.progress
+				LevelGoal
+
 				Rainbow
 							checkPointNumber:int
 							healthIncrement:float
+
+				StartSpawn
 
 gdw.genericBehavior
 				Attachable
@@ -108,7 +110,7 @@ gdw.genericBehavior
 							attachPointX:float
 							attachPointY:float
 							attachOrientation:float
-							autoAttachGroups:String[]	//1,2,3
+							autoAttachGroups:String[]	//1;2;3
 
 				Follow
 							targetEntityID:EntityReference
@@ -116,6 +118,9 @@ gdw.genericBehavior
 				PivotRotation
 							pivotX:float
 							pivotY:float
+
+gdw.network
+				Network
 
 gdw.graphics
 				AnimatedSprite
@@ -132,11 +137,13 @@ gdw.graphics
 							flipped:int 		//{0,1}
 							cycle:int
 							step:int
-
+							animationSpeed:float //Noch nicht implementiert
+							cycleLength:int[] //4;5;6 // Noch nicht implementiert
+							
 				Camera
 							playerNumber:int
 							viewPortX:int
-							viewPortYY:int
+							viewPortY:int
 
 				OverlayedAnimatedSprite
 							scale:float
@@ -168,6 +175,8 @@ gdw.graphics
 							baseStep:int
 							overlayStep1:int
 							overlayStep2:int
+							animationSpeed:float //Noch nicht implementiert
+							cycleLength:int[] //4;5;6 // Noch nicht implementiert
 
 				StaticSprite
 							scale:float

@@ -1,5 +1,8 @@
 package gdw.gameplay.levelObjects;
 
+import java.security.acl.Owner;
+import java.util.ArrayList;
+
 import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
@@ -12,7 +15,7 @@ import gdw.gameplay.levelObjects.messageType.DeactivateMessage;
 
 public class SwitchComponent extends Component {
 
-	private EntityReference targetEntity;
+	private ArrayList<EntityReference> targetEntities;
 
 	private SwitchType type;
 
@@ -27,12 +30,13 @@ public class SwitchComponent extends Component {
 
 	public static final int COMPONENT_TYPE = 16;
 
+	@SuppressWarnings("unchecked")
 	public SwitchComponent(ComponentTemplate template,
-			EntityReference targetEntity, SwitchType type,
+			ArrayList<EntityReference> targetEntities, SwitchType type,
 			float activationDuration) {
 		super(template);
 
-		this.targetEntity = targetEntity;
+		this.targetEntities = (ArrayList<EntityReference>)targetEntities.clone();
 
 		contactFlag = false;
 		activeFlag = false;
@@ -42,16 +46,16 @@ public class SwitchComponent extends Component {
 	}
 
 	public SwitchComponent(ComponentTemplate template,
-			EntityReference targetEntity, SwitchType type) {
-		this(template, targetEntity, type, 3.0f);
+			ArrayList<EntityReference> targetEntities, SwitchType type) {
+		this(template, targetEntities, type, 3.0f);
 	}
 
-	public EntityReference getTargetEntity() {
-		return targetEntity;
+	public ArrayList<EntityReference> getTargetEntities() {
+		return targetEntities;
 	}
 
-	public void setTargetEntity(EntityReference targetEntity) {
-		this.targetEntity = targetEntity;
+	public void setTargetEntity(ArrayList<EntityReference> targetEntity) {
+		this.targetEntities = targetEntity;
 	}
 
 	public SwitchType getType() {
@@ -82,11 +86,12 @@ public class SwitchComponent extends Component {
 				completedActivation += deltaTime;
 
 				if (completedActivation >= activationDuration) {
-					Entity entity = EntityManager.getInstance().getEntity(
-							targetEntity.getID());
-					if (entity != null) {
-						entity.message(new ActivateMessage());
-						activeFlag = true;
+					for(EntityReference targetEntity: targetEntities){
+						Entity entity = EntityManager.getInstance().getEntity(targetEntity.getID());
+						if (entity != null) {
+							entity.message(new ActivateMessage());
+							activeFlag = true;
+						}
 					}
 					return;
 				} else {
@@ -99,11 +104,12 @@ public class SwitchComponent extends Component {
 				completedActivation -= deltaTime;
 
 				if (completedActivation <= activationDuration) {
-					Entity entity = EntityManager.getInstance().getEntity(
-							targetEntity.getID());
-					if (entity != null) {
-						entity.message(new DeactivateMessage());
-						activeFlag = false;
+					for(EntityReference targetEntity: targetEntities){
+						Entity entity = EntityManager.getInstance().getEntity(targetEntity.getID());
+						if (entity != null) {
+							entity.message(new DeactivateMessage());
+							activeFlag = true;
+						}
 					}
 					return;
 				}
@@ -126,10 +132,13 @@ public class SwitchComponent extends Component {
 			}
 
 			if (activeFlag && !contactFlag) {
-				Entity entity = EntityManager.getInstance().getEntity(
-						targetEntity.getID());
-				if (entity != null)
-					entity.message(new DeactivateMessage());
+				for(EntityReference targetEntity: targetEntities){
+					Entity entity = EntityManager.getInstance().getEntity(targetEntity.getID());
+					if (entity != null) {
+						entity.message(new DeactivateMessage());
+						activeFlag = true;
+					}
+				}
 				return;
 			}
 			return;
@@ -142,8 +151,7 @@ public class SwitchComponent extends Component {
 		// On CollisionDetectionMessage
 		if (msg instanceof CollisionDetectionMessage) {
 			CollisionDetectionMessage tmpmsg = (CollisionDetectionMessage) msg;
-			int sourceid = targetEntity.getID() != tmpmsg.getIDCandidate1() ? tmpmsg
-					.getIDCandidate1() : tmpmsg.getIDCandidate2();
+			int sourceid = getOwner().getID() != tmpmsg.getIDCandidate1() ? tmpmsg.getIDCandidate1() : tmpmsg.getIDCandidate2();
 
 			SwitchUserComponent swusrcomp = (SwitchUserComponent) EntityManager
 					.getInstance().getEntity(sourceid)
@@ -177,10 +185,12 @@ public class SwitchComponent extends Component {
 							&& !swusrcomp.gethitTrigger()) {
 						contactFlag = true;
 						activeFlag = true;
-						Entity entity = EntityManager.getInstance().getEntity(
-								targetEntity.getID());
-						if (entity != null) {
-							entity.message(new ActivateMessage());
+						for(EntityReference targetEntity: targetEntities){
+							Entity entity = EntityManager.getInstance().getEntity(targetEntity.getID());
+							if (entity != null) {
+								entity.message(new ActivateMessage());
+								activeFlag = true;
+							}
 						}
 						return;
 					}
@@ -205,10 +215,12 @@ public class SwitchComponent extends Component {
 							&& swusrcomp.gethitTrigger()) {
 						contactFlag = true;
 						activeFlag = true;
-						Entity entity = EntityManager.getInstance().getEntity(
-								targetEntity.getID());
-						if (entity != null) {
-							entity.message(new ActivateMessage());
+						for(EntityReference targetEntity: targetEntities){
+							Entity entity = EntityManager.getInstance().getEntity(targetEntity.getID());
+							if (entity != null) {
+								entity.message(new ActivateMessage());
+								activeFlag = true;
+							}
 						}
 						return;
 					}

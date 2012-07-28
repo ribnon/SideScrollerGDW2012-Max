@@ -23,6 +23,7 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 	private int[] cycleLength;
 	private int cycle;
 	private int step;
+	private float animationSpeed;
 
 	public float getScale() {
 		return scale;
@@ -69,7 +70,7 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 		super(params);
 		try
 		{
-			spriteSheet = new SpriteSheet(getStringParam("path", ""), getIntegerParam("tileWidth", 64), getIntegerParam("tileHeight", 64));
+			spriteSheet = new SpriteSheet(getStringParam("spriteSheet", getStringParam("path", "./assets/spritesheets/error_sprite.png")), getIntegerParam("tileWidth", 64), getIntegerParam("tileHeight", 64));
 		} catch (SlickException e)
 		{
 			e.printStackTrace();
@@ -81,14 +82,32 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 		pivotY = getFloatParam("pivotY", 0.0f);
 		layer = getIntegerParam("layer", 1);
 		if(getIntegerParam("flipped", 0) == 1) flipped = true;
+		String cycleLengthStr = getStringParam("cycleLength", "");
+		String[] cycleLengthStrs = cycleLengthStr.split(";");
 		
 		cycleLength = new int[spriteSheet.getVerticalCount()];
-		for(int i = 0; i < cycleLength.length; ++i)
-			cycleLength[i] = spriteSheet.getHorizontalCount(); // TODO detect unused slots in spritesheet
+		for(int i = 0; i < cycleLength.length; ++i){
+			if(i<cycleLengthStrs.length){
+				try {
+					cycleLength[i] = Integer.parseInt(cycleLengthStrs[i]);
+				} catch (Exception e) {
+					cycleLength[i] = spriteSheet.getHorizontalCount();
+				}
+			}
+			else{
+				cycleLength[i] = spriteSheet.getHorizontalCount();
+			}
+		}
+			
 		cycle = getIntegerParam("cycle", 0);
 		step = getIntegerParam("step", 0);
+		animationSpeed = getFloatParam("animationSpeed", 1.0f);
 	}
 	
+	public float getAnimationSpeed() {
+		return animationSpeed;
+	}
+
 	public Component createComponent()
 	{
 		return new AnimatedSpriteComponent(this);

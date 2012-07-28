@@ -5,7 +5,7 @@ import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityReference;
 import gdw.gameplay.GameColor;
-import gdw.gameplay.color.messageType.ColorableCleardMessage;
+import gdw.gameplay.color.messageType.ColorableClearMessage;
 import gdw.gameplay.enemy.EnemyBehaviorComponent;
 
 public class ColorableComponent extends Component
@@ -24,7 +24,7 @@ public class ColorableComponent extends Component
 	
 	private EntityReference notifyOnClear;
 
-	protected ColorableComponent(ComponentTemplate template)
+	public ColorableComponent(ComponentTemplate template)
 	{
 		super(template);
 
@@ -92,7 +92,7 @@ public class ColorableComponent extends Component
 			if(this.segmentCount == this.finishedCount)
 			{
 				((EnemyBehaviorComponent)this.getOwner().getComponent(EnemyBehaviorComponent.COMPONENT_TYPE)).setHostile(false);
-				EntityManager.getInstance().getEntity(this.notifyOnClear.getID()).message(new ColorableCleardMessage());
+				EntityManager.getInstance().getEntity(this.notifyOnClear.getID()).message(new ColorableClearMessage());
 				//this.friendlyTimer = this.friendlyDuration;
 			}else
 			{

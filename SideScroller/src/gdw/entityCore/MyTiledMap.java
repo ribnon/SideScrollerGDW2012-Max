@@ -18,15 +18,17 @@ public class MyTiledMap extends TiledMap {
 	public ArrayList<String> getObjectPropertyNames(int groupID, int objectID) {
 		Enumeration<?> e = getObjectPropertyNamesInternal(groupID, objectID);
 		ArrayList<String> res = new ArrayList<String>();
-		Object o=e.nextElement();
-		for (;e.hasMoreElements();o=e.nextElement()){
+		if(e == null)
+			return res;
+		while(e.hasMoreElements()){
+			Object o=e.nextElement();
 			String s=(String)o;
 			res.add(s);
 		}
 		return res;
 	}
 	
-	public Enumeration<?> getObjectPropertyNamesInternal(int groupID, int objectID) {
+	private Enumeration<?> getObjectPropertyNamesInternal(int groupID, int objectID) {
 		if (groupID >= 0 && groupID < objectGroups.size()) {
 			ObjectGroup grp = (ObjectGroup) objectGroups.get(groupID);
 			if (objectID >= 0 && objectID < grp.objects.size()) {

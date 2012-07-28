@@ -7,6 +7,7 @@ import gdw.entityCore.Level;
 import gdw.network.server.BasicClientConnection;
 import gdw.network.server.BasicServer;
 import gdw.network.server.ConnectionInfo;
+import gdw.network.server.GDWServerLogger;
 
 public class SideScrollerServer extends BasicServer
 {
@@ -33,7 +34,8 @@ public class SideScrollerServer extends BasicServer
 	protected void playerDisconnected(BasicClientConnection client)
 	{
 		//unhandled
-		this.shutMeDown();
+		GDWServerLogger.logMSG(client.getId()+" ist Disconnected");
+		this.killMe();
 	}
 
 	@Override
@@ -54,6 +56,7 @@ public class SideScrollerServer extends BasicServer
 	{
 		super.shutMeDown();
 		this.coreLoop.interrupt();
+		System.exit(0);
 	}
 	
 	public static void main(String[] args)
