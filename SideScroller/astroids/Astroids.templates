@@ -1,0 +1,14 @@
+Template Player
+Component AABoxCollisionDetection
+halfExtentX=16
+halfExtentY=16
+Component StaticSprite
+Component Simulation
+mass=0.5
+friction=0.45
+
+
+Template Astroid
+Component Simulation
+mass=0.9
+friction=0.85

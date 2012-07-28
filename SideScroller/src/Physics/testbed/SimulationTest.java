@@ -229,7 +229,7 @@ public class SimulationTest extends BasicGame {
 	}
 
 	//debug draw for entities
-	public void drawEntity(Graphics g, Entity e) {
+	public static void drawEntity(Graphics g, Entity e) {
 		g.drawString(""+e.getID(), e.getPosX()-4, e.getPosY()-8);
 		CollisionDetectionComponent colComp = (CollisionDetectionComponent) e.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 		if(colComp!=null) {

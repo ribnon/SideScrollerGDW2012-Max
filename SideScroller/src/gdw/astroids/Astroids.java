@@ -1,5 +1,12 @@
 package gdw.astroids;
 
+import java.io.IOException;
+
+import gdw.entityCore.EntityManager;
+import gdw.entityCore.EntityTemplateManager;
+import gdw.entityCore.Level;
+import gdw.graphics.SpriteManager;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -15,20 +22,28 @@ public class Astroids extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
-
+		SpriteManager.getInstance().render();
 	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
+		EntityManager.getInstance().setOfflineMode(true);
+		Level.getInstance().start();
+		EntityTemplateManager etm = EntityTemplateManager.getInstance();
+		try {
+			etm.loadEntityTemplates("astroids/Astroids.templates");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 
 	}
 
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
 
 	}
 
