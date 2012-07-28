@@ -45,12 +45,13 @@ public class FadeInComponent extends Component {
 	@Override
 	public void tick(float deltaTime) {
 		SpriteComponent sprComp = (SpriteComponent) this.getOwner().getComponent(SpriteComponent.COMPONENT_TYPE);
-		if(sprComp != null) {
+		if(sprComp != null && fadeProgress <= fadeTime) {
+			fadeProgress += deltaTime;
 			Color interpolate = new Color(
-					startColor.r + (fadeTime-fadeProgress)*(endColor.r - startColor.r),
-					startColor.g + (fadeTime-fadeProgress)*(endColor.g - startColor.g),
-					startColor.b + (fadeTime-fadeProgress)*(endColor.b - startColor.b),
-					startColor.a + (fadeTime-fadeProgress)*(endColor.a - startColor.a)
+					startColor.r + (fadeProgress/fadeTime)*(endColor.r - startColor.r),
+					startColor.g + (fadeProgress/fadeTime)*(endColor.g - startColor.g),
+					startColor.b + (fadeProgress/fadeTime)*(endColor.b - startColor.b),
+					startColor.a + (fadeProgress/fadeTime)*(endColor.a - startColor.a)
 					);
 			sprComp.setFilter(interpolate);
 		}
