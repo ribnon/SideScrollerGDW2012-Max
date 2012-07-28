@@ -1,11 +1,15 @@
 package gdw.astroids.components;
 
+import gdw.astroids.input.AstroidsInputComponent;
 import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
+import gdw.entityCore.EntityTemplate;
+import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Message;
+import gdw.gameplay.shooter.ProjectileComponent;
 
 public class DestroyableComponent extends Component {
 
@@ -74,20 +78,35 @@ public class DestroyableComponent extends Component {
 				DestroyableComponent c1_destroy = (DestroyableComponent)c1.getComponent(COMPONENT_TYPE);
 				DestroyableComponent c2_destroy = (DestroyableComponent)c2.getComponent(COMPONENT_TYPE);
 				
-				if((c1_destroy.destroyGroup & c2_destroy.destroyGroup) != 0) {
+				if((c1_destroy.destroyGroup & c2_destroy.destroyGroup) != 0 && (c1_destroy.destroyGroup != c2_destroy.destroyGroup)) {
 					c1_destroy.life -= c2_destroy.destroyPower;
 					if(c1_destroy.life <= 0) {
-						//destroy c1
+						createDestructionAnimation();
 						c1.markForDestroy();
 					}
 					
 					c2_destroy.life -= c1_destroy.destroyPower;
 					if(c2_destroy.life <= 0) {
-						//destroy c2
 						c2.markForDestroy();
 					}
 				}
 			}
+		}
+	}
+	
+	public void createDestructionAnimation() {
+		EntityTemplate template = null;
+		if (getOwner().getComponent(ProjectileComponent.COMPONENT_TYPE) != null) {
+			template = EntityTemplateManager.getInstance().getEntityTemplate("Explosion");
+			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
+		}
+		if (getOwner().getComponent(AstroidsPlayerMarkerComponent.COMPONENT_TYPE) != null) {
+			template = EntityTemplateManager.getInstance().getEntityTemplate("PlayerExplosion");
+			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
+		}
+		if (getOwner().getComponent(AstroidsAstroidMarkerComponent.COMPONENT_TYPE) != null) {
+			template = EntityTemplateManager.getInstance().getEntityTemplate("AstroidExplosion");
+			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
 		}
 	}
 

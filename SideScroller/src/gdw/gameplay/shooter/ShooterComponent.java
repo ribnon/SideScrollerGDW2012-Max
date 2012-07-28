@@ -78,7 +78,6 @@ public class ShooterComponent extends Component
 				
 				for (int i = 0; i < projectileFireCount; i++)
 				{
-					System.out.println(i);
 					String name = projectileSet.getProjectile(i);
 					EntityTemplate template = EntityTemplateManager.getInstance().getEntityTemplate(name);
 					template.createEntity(getOwner().getPosX(), getOwner().getPosY(), getOwner().getOrientation());
@@ -93,8 +92,8 @@ public class ShooterComponent extends Component
 		
 		if (projectilesOwned < projectilePoolSize && timer - shootTimeStamp >= projectilePoolCooldownTime)
 		{
-			projectilesOwned += projectileFireCount;
-			if (projectilesOwned > projectilePoolSize)
+			//projectilesOwned += projectileFireCount;
+			//if (projectilesOwned > projectilePoolSize)
 				projectilesOwned = projectilePoolSize;
 		}
 	}

@@ -10,6 +10,7 @@ import gdw.entityCore.EntityReference;
 import gdw.entityCore.EntityTemplate;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.NamedEntityReference;
+import gdw.gameplay.shooter.ProjectileComponentManager;
 import gdw.graphics.SpriteManager;
 import gdw.physics.SimulationComponentManager;
 
@@ -34,7 +35,7 @@ public class Astroids extends BasicGame {
 		
 		
 		SpriteManager.getInstance().render();
-		CollisionDetectionComponentManager.getInstance().render(g);
+		//CollisionDetectionComponentManager.getInstance().render(g);
 		
 		NamedEntityReference obj = new NamedEntityReference("Player1");
 		
@@ -67,7 +68,9 @@ public class Astroids extends BasicGame {
 		
 		EntityManager.getInstance().tick(delta/1000.f);
 		AstroidsInputComponentManager.getInstance().proceedInput(container.getInput());
+		
 		SimulationComponentManager.getInstance().simulate(delta/1000.f);
+		ProjectileComponentManager.getInstance().simulateProjectiles(delta/1000.f);
 		
 		EntityManager.getInstance().cleanUpEntities();
 	}
@@ -75,6 +78,7 @@ public class Astroids extends BasicGame {
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer app = new AppGameContainer(new Astroids());
 		app.setDisplayMode(800, 600, false);
+		app.setShowFPS(false);
 		app.start();
 	}
 }

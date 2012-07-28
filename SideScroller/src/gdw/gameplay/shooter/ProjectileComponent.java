@@ -42,6 +42,8 @@ public class ProjectileComponent extends Component
 		distance = distance * distance;
 		
 		currentSpeed = startSpeed;
+		
+		ProjectileComponentManager.getInstance().registerProjectileComponent(this);
 	}
 	
 	@Override
@@ -73,32 +75,26 @@ public class ProjectileComponent extends Component
 		}
 	}
 	
-	public void tick(float deltaTime)
+	public void simulate(float deltaTime)
 	{
-		int simSteps = 5;
-		float dt = deltaTime / 5;
+		currentSpeed += (deltaTime) * acceleration;
 		
-		for (int i = 0; i < simSteps; i++)
+		if (currentSpeed > endSpeed)
 		{
-			currentSpeed += (dt) * acceleration;
-			
-			if (currentSpeed > endSpeed)
-			{
-				acceleration = 0.0f;
-				currentSpeed = endSpeed;
-			}
-			
-			float posX = getOwner().getPosX() + (float) direction[0] * currentSpeed * dt;
-			float posY = getOwner().getPosY() + (float) direction[1] * currentSpeed * dt;
-			getOwner().setPos(posX, posY);
-			
-			float distX = getOwner().getPosX() - startPos[0];
-			float distY = getOwner().getPosY() - startPos[1];
-			
-			if (distX * distX + distY * distY > distance) getOwner().markForDestroy();
-			
-			CollisionDetectionComponentManager.getInstance().detectCollisions(getOwner());
+			acceleration = 0.0f;
+			currentSpeed = endSpeed;
 		}
+		
+		float posX = getOwner().getPosX() + (float) direction[0] * currentSpeed * deltaTime;
+		float posY = getOwner().getPosY() + (float) direction[1] * currentSpeed * deltaTime;
+		getOwner().setPos(posX, posY);
+		
+		float distX = getOwner().getPosX() - startPos[0];
+		float distY = getOwner().getPosY() - startPos[1];
+		
+		if (distX * distX + distY * distY > distance) getOwner().markForDestroy();
+		
+
 	}
 	
 	////////////////////////////////////////////////////////////////////

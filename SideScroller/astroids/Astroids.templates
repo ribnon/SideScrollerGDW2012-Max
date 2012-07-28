@@ -1,7 +1,6 @@
 Template Player
-Component AABoxCollisionDetection
-halfExtentX=16
-halfExtentY=16
+Component CircleCollisionDetection
+radius=12
 Component StaticSprite
 #path=assets/spritesheets/singleImages/teddy.png
 path=astroids/assets/spaceship.png
@@ -13,17 +12,18 @@ Component Simulation
 mass=0.5
 friction=0.8
 Component Engine
-power=50.0
+power=100.0
 breakPower=0.001
-rotation=80
+rotation=160
 Component Destroyable
 destroyPower=0
 destroyGroup=1
 Component Shooter
-projectilePoolSize=3
+projectilePoolSize=15
 projectileFireCount=3
-
-
+projectilePoolCooldownTime=0.7
+projectileFireFrequency=6
+Component AstroidsPlayerMarker
 
 #============================================================
 #						PROJECTILES
@@ -40,33 +40,30 @@ path=astroids/assets/projektil2.png
 pivotX=8
 pivotY=8
 scale=1
+Component Projectile
+startSpeed=1000.0
+endSpeed=1000.0
 
 Template BasicProjectile
 Base ProjectileBase
 Component Projectile
-startSpeed=600.0
-endSpeed=600.0
 acceleration=0.0
-startSpeed=100.0
-endSpeed=500.0
-acceleration=200.0
 localOffsetY=-20.0
+Component Projectile
+startSpeed=1000.0
+endSpeed=1000.0
 
 Template MultifireProjectileA
 Base ProjectileBase
 Component Projectile
-startSpeed=600.0
-endSpeed=600.0
 acceleration=0.0
-localOffsetX=-10.0
+localOffsetX=-5.0
 localOffsetY=-20.0
-localOffsetAngular=10.0
+localOffsetAngular=-10.0
 
 Template MultifireProjectileB
 Base ProjectileBase
 Component Projectile
-startSpeed=600.0
-endSpeed=600.0
 acceleration=0.0
 localOffsetX=0.0
 localOffsetY=-20.0
@@ -74,12 +71,10 @@ localOffsetY=-20.0
 Template MultifireProjectileC
 Base ProjectileBase
 Component Projectile
-startSpeed=600.0
-endSpeed=600.0
 acceleration=0.0
-localOffsetX=10.0
+localOffsetX=5.0
 localOffsetY=-20.0
-localOffsetAngular=-10.0
+localOffsetAngular=10.0
 
 #============================================================
 
@@ -91,13 +86,34 @@ Component Simulation
 mass=0.5
 friction=0.4
 Component CircleCollisionDetection
-radius=32
+radius=28
 Component StaticSprite
 path=astroids/assets/meteorit1.png
 pivotX=32
 pivotY=32
 Component Destroyable
-life=5
+life=50
+destroyPower=1
+destroyGroup=3
+Component RandomMovement
+forceX=10.0
+forceY=10.0
+Component RandomRotation
+angularVelocity=20
+Component AstroidsAstroidMarker
+
+Template BorgCube
+Component Simulation
+mass=0.5
+friction=0.4
+Component CircleCollisionDetection
+radius=28
+Component StaticSprite
+path=astroids/assets/meteorit1.png
+pivotX=32
+pivotY=32
+Component Destroyable
+life=100
 destroyPower=1
 destroyGroup=3
 Component RandomMovement
@@ -111,3 +127,40 @@ Component StaticSprite
 path=astroids/assets/map.jpg
 layer=-1
 
+Template Explosion
+Component TimedSelfDestruction
+lifeTime=0.5
+Component AnimatedSprite
+path=astroids/assets/explosion_.png
+pivotX=16
+pivotY=18.5
+layer=2
+tileWidth=32
+tileHeight=37
+animationSpeed=15
+
+Template AstroidExplosion
+Component TimedSelfDestruction
+lifeTime=0.5
+Component AnimatedSprite
+path=astroids/assets/explosion_.png
+pivotX=64
+pivotY=74
+scale=4
+layer=2
+tileWidth=32
+tileHeight=37
+animationSpeed=15
+
+Template PlayerExplosion
+Component TimedSelfDestruction
+lifeTime=0.5
+Component AnimatedSprite
+path=astroids/assets/explosion_.png
+pivotX=32
+pivotY=37
+layer=2
+scale=2
+tileWidth=32
+tileHeight=37
+animationSpeed=15
