@@ -12,3 +12,5 @@ Template Astroid
 Component Simulation
 mass=0.9
 friction=0.85
+Component SphereCollisionDetection
+radius=30.0

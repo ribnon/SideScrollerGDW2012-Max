@@ -281,13 +281,7 @@ public class SimulationTest extends BasicGame {
 		SimulationComponent simComp = (SimulationComponent) e.getComponent(SimulationComponent.COMPONENT_TYPE);
 		if(simComp!=null) {
 			simComp.draw(g);
-		}
-		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
-		if(sprComp!=null) {
-			sprComp.draw(0,0);
-		}
-		
-		
+		}		
 	}
 	
 	@Override
