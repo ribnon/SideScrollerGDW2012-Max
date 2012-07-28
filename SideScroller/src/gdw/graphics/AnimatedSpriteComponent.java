@@ -47,6 +47,11 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	
 	private float animationSpeed;
 	
+	public SpriteSheet getImage()
+	{
+		return spriteSheet;
+	}
+	
 	public SpriteSheet getSpriteSheet()
 	{
 		return spriteSheet;
@@ -110,7 +115,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		if(getFlipped())
 			img = img.getFlippedCopy(false, true); //TODO: 
 		img.setCenterOfRotation(getPivotX(), getPivotY());
-		img.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
+		img.setRotation(getOwner().getOrientation());
 		if(getFilter() != null)
 			img.draw(getOwner().getPosX()-camPosX, getOwner().getPosY()-camPosY, getScale(), getFilter());
 		else

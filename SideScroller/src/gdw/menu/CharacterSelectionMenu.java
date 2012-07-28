@@ -4,15 +4,15 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-public class CharacterSelectionMenu extends MenuBase
+public abstract class CharacterSelectionMenu implements IMenuBase
 {
 	// TODO: character selection menu
 	private Selecter charSelectPlayer1, charSelectPlayer2;
-	private Selecter serverSelecter;
-	private boolean isServerNameFieldActive = false;
+	private MapSelecter serverSelecter;
 	private static final String TITLE = "Select your character";
+	private boolean offline;
 
-	public CharacterSelectionMenu()
+	public CharacterSelectionMenu(boolean offline)
 	{
 		charSelectPlayer1 = new Selecter()
 		{
@@ -31,13 +31,35 @@ public class CharacterSelectionMenu extends MenuBase
 			}
 		};
 		// unneeded
-		serverSelecter = new Selecter()
+		serverSelecter = new MapSelecter(offline)
 		{
 			@Override
-			public void notifyPeerOfHatChange(int newHatID)
+			public void launchServerClicked()
 			{
+				launchServer();
+			}
+
+			@Override
+			public void startClicked()
+			{
+				start();
 			}
 		};
+		this.offline = offline;
+		if (offline)
+		{
+			charSelectPlayer1.setModifiable(true);
+			charSelectPlayer2.setModifiable(true);
+			charSelectPlayer1.setName("Player 1");
+			charSelectPlayer2.setName("Player 2");
+		}
+		else
+		{
+			charSelectPlayer1.setModifiable(false);
+			charSelectPlayer2.setModifiable(false);
+			charSelectPlayer1.setName("not connected");
+			charSelectPlayer2.setName("not connected");
+		}
 	}
 
 	@Override
@@ -61,11 +83,13 @@ public class CharacterSelectionMenu extends MenuBase
 	@Override
 	public void keyPressed(int key, char c)
 	{
+		serverSelecter.keyPressed(key, c);
 	}
 
 	@Override
 	public void keyReleased(int key, char c)
 	{
+		serverSelecter.keyReleased(key, c);
 	}
 
 	@Override
@@ -74,12 +98,17 @@ public class CharacterSelectionMenu extends MenuBase
 	}
 
 	@Override
-	protected void implInit(GameContainer c)
+	public void mouseMoved(int oldx, int oldy, int newx, int newy)
 	{
 	}
 
 	@Override
-	protected void implDraw(GameContainer container, Graphics graphics)
+	public void update(GameContainer container, int deltaTime)
+	{
+	}
+	
+	@Override
+	public void draw(GameContainer container, Graphics graphics)
 	{
 		int height = container.getHeight();
 		int width = container.getWidth();
@@ -170,6 +199,7 @@ public class CharacterSelectionMenu extends MenuBase
 	public void setServerModifiable(boolean m)
 	{
 		serverSelecter.setModifiable(m);
+		serverSelecter.setButtonClickable(m);
 	}
 
 	public void addHat(Image img)
@@ -180,7 +210,9 @@ public class CharacterSelectionMenu extends MenuBase
 
 	public void setServerImage(Image img)
 	{
-		serverSelecter.setBaseImage(img);
+		serverSelecter.setImage(img);
 	}
 
+	public abstract void launchServer();
+	public abstract void start();
 }

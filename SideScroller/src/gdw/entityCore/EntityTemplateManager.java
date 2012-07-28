@@ -130,8 +130,8 @@ public class EntityTemplateManager {
 //				}
 				if(!componentParamsMap.containsKey("OOBoxCollisionDetection")){
 					componentParamsMap.put("OOBoxCollisionDetection", new HashMap<String,String>());
-					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentX",Float.toString(map.getObjectWidth(og, go)));
-					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentY",Float.toString(map.getObjectHeight(og, go)));
+					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentX",Float.toString(map.getObjectWidth(og, go)*0.5f));
+					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentY",Float.toString(map.getObjectHeight(og, go)*0.5f));
 				}
 				String templateName = mapTemplatesPrefix + map.getObjectName(og, go);
 				entityTemplates.put(templateName, new EntityTemplate(templateName, baseTemplateNames, componentParamsMap));
@@ -158,7 +158,19 @@ public class EntityTemplateManager {
 			params.put("impassableFromTop", "1");
 			params.put("impassableFromSide", "1");
 			compParams.put("CollisionReaction", params);
-			entityTemplates.put(" --- CollisionTile --- ", new EntityTemplate(" CollisionTile <internal> ", new ArrayList<String>(), compParams));
+		TiledMap map = Level.getInstance().getMap();
+		int tileWidth = map.getTileWidth();
+		int tileHeight = map.getTileHeight();
+		HashMap<String,HashMap<String,String>> compParams = new HashMap<String,HashMap<String,String>>();
+		HashMap<String,String> params = new HashMap<String,String>();
+		params.put("halfExtentX", Float.toString(tileWidth*0.5f));
+		params.put("halfExtentY", Float.toString(tileHeight*0.5f));
+		compParams.put("AABoxCollisionDetection", params);
+		params = new HashMap<String,String>();
+		params.put("impassableFromTop", "1");
+		params.put("impassableFromSide", "1");
+		compParams.put("CollisionReaction", params);
+		entityTemplates.put(" CollisionTile <internal> ", new EntityTemplate(" CollisionTile <internal> ", new ArrayList<String>(), compParams));
 		}
 	}
 	

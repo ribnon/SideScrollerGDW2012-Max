@@ -1,6 +1,8 @@
 package gdw.graphics;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Image;
+
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 
@@ -135,4 +137,6 @@ public abstract class SpriteComponent extends Component
 	{
 		this.flipped = f;
 	}
+	
+	public abstract Image getImage();
 }

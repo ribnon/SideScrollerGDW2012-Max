@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="30" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Collision" tilewidth="16" tileheight="16">
+  <image source="collision.png" trans="ffffff" width="80" height="32"/>
+ </tileset>
+ <tileset firstgid="11" name="Tiles" tilewidth="16" tileheight="16">
+  <image source="tiles.png" trans="ffffff" width="128" height="64"/>
+ </tileset>
+ <layer name="collision" width="40" height="30" opacity="0.2">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WQQrAIAwF0Xj/S/cEFnQM/NoZyNoHKmRU1XDwpKWPpY+lj6WPpY+lj3W7r3sPortXuq+7BMNbKb7Z+X/2rbzl3T9A/kqSr+t9nLpffd/wOXvzAEIUgqbAEgAA
+  </data>
+ </layer>
+ <layer name="tiles" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2U3QqAMAhGvS8iiLqJuunn/R8xRwQ2tCgdjfDAB91sHpYK4DiO4ziOc6bEVF9LMBSwu7WY7mMXjhp2t7/6He9PY9knsR9X76rmhJkxC8ma0I+rZ11T45cbufiFvuJ6KBe/0FdcD6X0ezJr0h6489PsDzprM/nm3knaA3d+cQ3pfql/tFj930Z5XsLKr8eMJkZnrPyk+dNC/Qbg502bmCdnB+KXKjFv7tgAWhS3RMASAAA=
+  </data>
+ </layer>
+ <objectgroup name="objects" width="40" height="30">
+  <object name="Raphaelo" type="Schildkröte" x="96" y="336" width="96" height="32">
+   <properties>
+    <property name="Gewicht" value="32,04"/>
+   </properties>
+  </object>
+  <object name="Alberto" type="Frosch" x="544" y="320" width="64" height="32">
+   <properties>
+    <property name="Sound" value="Quak"/>
+   </properties>
+  </object>
+  <object name="PlayerStart" type="PlayerStart" x="64" y="240" width="32" height="32"/>
+ </objectgroup>
+</map>

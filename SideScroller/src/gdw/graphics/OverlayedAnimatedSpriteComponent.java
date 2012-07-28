@@ -48,6 +48,11 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 	private int overlayStep1 = 0;
 	private int overlayStep2 = 0;
 
+	public SpriteSheet getImage()
+	{
+		return baseSpritesheet;
+	}
+	
 	public SpriteSheet getBaseSpritesheet()
 	{
 		return baseSpritesheet;
@@ -217,21 +222,21 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 		if(getFlipped())
 			baseimg = baseimg.getFlippedCopy(false, true);
 		baseimg.setCenterOfRotation(getPivotX(), getPivotY());
-		baseimg.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
+		baseimg.setRotation(getOwner().getOrientation());
 
 		Image overlayimg1 = overlaySpritesheet1.getSprite(overlayStep1,
 				overlayCycle1);
 		if(getFlipped())
 			overlayimg1 = overlayimg1.getFlippedCopy(false, true);
 		overlayimg1.setCenterOfRotation(getPivotX(), getPivotY());
-		overlayimg1.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
+		overlayimg1.setRotation(getOwner().getOrientation());
 		
 		Image overlayimg2 = overlaySpritesheet2.getSprite(overlayStep2,
 				overlayCycle2);
 		if(getFlipped())
 			overlayimg2 = overlayimg2.getFlippedCopy(false, true);
 		overlayimg2.setCenterOfRotation(getPivotX(), getPivotY());
-		overlayimg2.setRotation((float) (getOwner().getOrientation() * (180 / Math.PI)));
+		overlayimg2.setRotation(getOwner().getOrientation());
 
 
 		if (getFilter() != null)

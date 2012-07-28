@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+<!-- GAMEPLAY -->
+
+  <!-- IMAGES -->
+	<!-- Tileset -->
+	<resource type="image/tileset" id="level01_tileset">data/map/tilesets/area02_level_tiles.png</resource>
+	<!-- Icons -->
+	<resource type="image/icon" id="icon_16">data/assets/staticSprites/icon/teddy_icon_16.png</resource>
+	<resource type="image/icon" id="icon_24">data/assets/staticSprites/icon/teddy_icon_24.png</resource>
+	<resource type="image/icon" id="icon_32">data/assets/staticSprites/icon/teddy_icon_32.png</resource>
+	<resource type="image/icon" id="icon_48">data/assets/staticSprites/icon/teddy_icon_48.png</resource>
+	<!-- Static Sprites -->
+	<resource type="image/background" id="bg_CakePie">data/assets/staticSprites/background/cake_pie_test_image.png</resource>
+	<resource type="image/background" id="bg_KnifeTomato">data/assets/staticSprites/background/background_knife_and_tomato.png</resource>
+	<resource type="image/background" id="bg_credits">data/assets/staticSprites/background/creditsScreen.png</resource>
+	<resource type="image/staticsprite" id="sign_ColorMix">data/assets/staticSprites/sign_colormix.png</resource>
+	<resource type="image/staticsprite" id="sign_Jump">data/assets/staticSprites/sign_jump.png</resource>
+	
+	<!-- SPRITESHEETS -->
+	<!-- NON ANIMATED SPRITES -->
+		<!-- brush (not animated) -->
+		<resource type="image/spritesheet" id="brush_base">data/assets/spritesheets/brush_sheet.png</resource>
+		<resource type="image/spritesheet" id="brush_overlay">data/assets/spritesheets/brush_paint_sheet.png</resource>
+		<!-- hats (not animated) -->
+		<resource type="image/spritesheet" id="brush_base">data/assets/spritesheets/brush_sheet.png</resource>
+	
+	<!-- ANIMATED SPRITES -->
+		<!-- ColorBucket -->
+		<resource type="animation/object" id="colorbucket_ceiling_base" tw="32" th="224" duration="150" flipped="false">data/assets/spritesheets/bucket_ceiling_sheet.png</resource>
+		<resource type="animation/object" id="colorbucket_ceiling_overlay" tw="32" th="224" duration="150" flipped="false">data/assets/spritesheets/bucket_ceiling_paint_sheet.png</resource>
+		<resource type="animation/object" id="colorbucket_ground_base" tw="64" th="32" duration="150" flipped="false">data/assets/spritesheets/bucket_ground_sheet.png</resource>
+		<resource type="animation/object" id="colorbucket_ground_overlay" tw="64" th="32" duration="150" flipped="false">data/assets/spritesheets/bucket_ground_paint_sheet.png</resource>
+		
+		<!--  player animation -->
+		<resource type="animation/player" id="teddy_walk_right" tw="64" th="64" duration="150" flipped="false">data/assets/spritesheets/teddy_walk_sheet.png</resource>
+		<resource type="animation/player" id="teddy_walk_left" tw="64" th="64" duration="150" flipped="true">data/assets/spritesheets/teddy_walk_sheet.png</resource>
+		<resource type="animation/player" id="teddy_duck_right" tw="64" th="64" duration="150" flipped="false">data/assets/spritesheets/teddy_duck_sheet.png</resource>
+		<resource type="animation/player" id="teddy_duck_left" tw="64" th="64" duration="150" flipped="true">data/assets/spritesheets/teddy_duck_sheet.png</resource>
+
+		<!-- rainbow -->
+		<resource type="animation" id="rainbow" tw="64" th="96" duration="150">data/assets/spritesheets/rainbow.png</resource>
+
+		<!-- MUSIC -->
+		<resource type="music" id="green_town">data/music/PlayOnLoop-green-town-short.wav</resource>
+		<resource type="music" id="horror_tale">data/music/PlayOnLoop-horror-tale-short.wav</resource>
+  
+  
+  <!-- NOTHING OF THIS IS YET ACCESSIBLE OR CREATED -->
+  <!-- Title Screen -->
+  <!--
+	<resource type="image" id="TITLE_SCREEN">data/assets/title_screen.png</resource>
+	<resource type="image" id="TITLE_LOGO">data/assets/title_logo.png</resource>
+  -->
+  <!-- Options Screen -->
+  <!--
+	<resource type="image" id="OPTIONS_SCREEN">data/assets/optionsScreen.png</resource>
+  -->
+  <!-- Menu Options SpriteSheet -->
+  <!--
+	<resource type="image" id="MENU_OPTIONS">data/assets/spritesheets/menuOptions.png</resource>
+  -->
+  <!-- Menu Music -->
+  <!--
+	<resource type="music" id="MENU_MUSIC">data/music/menu_music.ogg</resource>
+  -->
+  <!-- SOUNDS -->
+  <!--
+	<resource type="sound" id="sfx_walk">data/sfx/teddy_walk.wav</resource>
+	<resource type="sound" id="sfx_crouch">data/sfx/teddy_crouch.wav</resource>
+	<resource type="sound" id="sfx_attack">data/sfx/brush_attack.wav</resource>
+	<resource type="sound" id="sfx_enemy_dead">data/sfx/enemy_dead.wav</resource>
+  -->
+  
+</resources>

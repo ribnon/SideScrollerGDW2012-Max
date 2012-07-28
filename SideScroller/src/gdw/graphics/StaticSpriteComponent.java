@@ -36,7 +36,7 @@ public class StaticSpriteComponent extends SpriteComponent
 		setLayer(t.getLayer());
 		setFlipped(t.isFlipped());
 		
-		image = t.getImage().copy();
+		image = t.getImage();
 		
 		SpriteManager.getInstance().addSprite(this);
 	}
@@ -92,7 +92,7 @@ public class StaticSpriteComponent extends SpriteComponent
 	{
 		
 		image.setCenterOfRotation(getPivotX(), getPivotY());
-//		image.setRotation((float)(getOwner().getOrientation() * (180f / Math.PI)));
+		image.setRotation(getOwner().getOrientation());
 		image.setRotation(getOwner().getOrientation());
 		if (getFilter() != null)
 		{

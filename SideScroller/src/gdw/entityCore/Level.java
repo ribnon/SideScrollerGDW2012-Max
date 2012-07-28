@@ -77,6 +77,7 @@ public class Level {
 			throw new RuntimeException("Entity-Templatefile nicht gefunden. Bitte general.templates erstellen.");
 		}
 		EntityTemplateManager.getInstance().loadEntityTemplatesFromLevel();
+		if(!EntityManager.getInstance().isOfflineMode()) if(!NetSubSystem.getInstance().isServer()) return;
 		try {
 			EntityManager.getInstance().loadEntities("general.entities");
 		} catch (IOException e) {}
@@ -84,8 +85,13 @@ public class Level {
 	}
 	
 	public void levelFinished(){
-		if(!EntityManager.getInstance().isOfflineMode()) if(!NetSubSystem.getInstance().isServer()) return;
 		levelIndex=(levelIndex+1)%mapNames.size();
 		loadLevel(mapNames.get(levelIndex));
+	}
+	public int getTileWidth() {
+		return map.getTileWidth();
+	}
+	public int getTileHeight() {
+		return map.getTileHeight();
 	}
 }

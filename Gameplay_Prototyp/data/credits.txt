@@ -1,0 +1,54 @@
+﻿
+=== DREAMGUARDS ===
+  GameDevWeek 2012
+
+
+== Programmers ==
+
+ Vorname Nachname
+ Vorname Nachname
+
+
+
+ == Designers ==
+
+ Vorname Nachname
+ Vorname Nachname
+
+
+
+== Graphic Artists ==
+ Vorname Nachname
+ Vorname Nachname
+
+
+ Unterkategorien?
+ ?Core Engine Design
+ ?Gameplay Design
+ ?Level Design
+ ?
+ ?etc...
+ 
+
+=== Tileset ===
+
+"GfxLib-Fuzed" tileset
+http://www.spicypixel.net/2008/01/10/gfxlib-fuzed-a-free-developer-graphic-library/
+licensed under Common Public License Version 1.0 (http://opensource.org/licenses/cpl1.0.php)
+
+
+=== Music ===
+
+"Green Town" and "Horror Tale" short version music loops by Filippo Vicarelli (PlayOnLoop.com)
+licensed under Creative Commons 3.0 (http://creativecommons.org/licenses/by/3.0/)
+http://www.playonloop.com/2011-music-loops/green-town/
+
+
+=== Sounds ===
+
+
+
+
+=== Special Thanks ===
+
+Fachhochschule Trier, University of Applied Sciences

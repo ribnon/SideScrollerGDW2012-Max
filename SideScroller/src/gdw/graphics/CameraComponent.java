@@ -9,6 +9,16 @@ public class CameraComponent extends Component {
 	private int viewPortX;
 	private int viewPortY;
 	
+	public int getViewPortX()
+	{
+		return viewPortX;
+	}
+	
+	public int getViewPortY()
+	{
+		return viewPortY;
+	}
+	
 	public final static int COMPONENT_TYPE = 6;
 	
 	public CameraComponent(ComponentTemplate template) {

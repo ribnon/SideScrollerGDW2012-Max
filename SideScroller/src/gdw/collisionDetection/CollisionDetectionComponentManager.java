@@ -2,6 +2,7 @@ package gdw.collisionDetection;
 
 import gdw.entityCore.Entity;
 import gdw.entityCore.Level;
+import gdw.gameplay.color.FadeInComponent;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class CollisionDetectionComponentManager
 				level++;
 			}
 			
-			quadTree = new CollisionQuadTree(3, mapWidth, mapHeight);
+			quadTree = new CollisionQuadTree(level, mapWidth, mapHeight);
 		}
 		
 		else quadTree = null;
