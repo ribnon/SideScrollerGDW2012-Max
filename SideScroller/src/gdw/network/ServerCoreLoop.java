@@ -39,6 +39,7 @@ public class ServerCoreLoop extends Thread
 			
 				Level.getInstance().start();
 				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
+				SimulationComponentManager.getInstance().setGravity(98.1f);
 				
 				
 					GDWServerLogger.logMSG("init system");
@@ -69,6 +70,8 @@ public class ServerCoreLoop extends Thread
 		
 			NetSubSystem.getInstance().checkDeadReck();
 			NetSubSystem.getInstance().sendBufferedMessages();
+			
+			EntityManager.getInstance().cleanUpEntities();
 			
 			}
 				

@@ -178,7 +178,8 @@ public class NetSubSystem
 	}
 	
 	public void sendBusMessage(int entityID, Message msg)
-	{		
+	{	
+		GDWServerLogger.logMSG("Bus Nachricht soll geschickt werden: "+msg.getClass().getName()+" von id: "+entityID);
 		this.listOfBusMessages.add(new EntityBusNetMessage(entityID, msg));
 	}
 	
@@ -239,7 +240,7 @@ public class NetSubSystem
 			//tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
-				GDWServerLogger.logMSG("send Bus Message");
+				//GDWServerLogger.logMSG("send Bus Message");
 				buf = this.ref.getMessageBuffer();
 				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
 				this.ref.sendMessage(buf, true);

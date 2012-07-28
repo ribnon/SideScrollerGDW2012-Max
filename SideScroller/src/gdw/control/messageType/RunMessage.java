@@ -2,7 +2,7 @@ package gdw.control.messageType;
 
 import gdw.entityCore.Message;
 
-public class RunMessage extends Message {
+public class RunMessage extends InputMessage {
 	private final boolean forward;
 
 	public RunMessage(boolean forward) {

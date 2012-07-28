@@ -172,7 +172,7 @@ public class PlayerBehaviorComponent extends Component
 		// Rainbow (Dash (is best pony))
 		RainbowComponent rainbow = (RainbowComponent) other
 				.getComponent(RainbowComponent.COMPONENT_TYPE);
-		if (rainbow != null)
+		if ((rainbow != null)&&(this.healthChangeTimer < 0f))
 		{
 			healthChange(rainbow.getHealthIncrement(), true);
 		}
