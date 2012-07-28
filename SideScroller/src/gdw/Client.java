@@ -1,10 +1,12 @@
 package gdw;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.EntityManager;
+import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
 import gdw.graphics.SpriteManager;
 import gdw.network.NetSubSystem;
@@ -81,6 +83,13 @@ public class Client extends BasicGame {
 		if(loadLevel && !levelLoaded)
 		{
 			Level.getInstance().start();
+			try
+			{
+				EntityTemplateManager.getInstance().loadEntityTemplates("general.templates");
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 			levelLoaded = true;
 		}
 		if (connected) {

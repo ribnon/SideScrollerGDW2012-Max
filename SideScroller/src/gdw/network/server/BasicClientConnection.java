@@ -130,11 +130,11 @@ public abstract class BasicClientConnection implements IDiscoFlagAble
 	{
 		
 		
-		int oldPos = msg.position();
-		short size =(short) (oldPos-1);
-		msg.position(0);
-		msg.putShort(size);
-		msg.position(oldPos);
+		//int oldPos = msg.position();
+		//short size =(short) (oldPos-1);
+		//msg.position(0);
+		//msg.putShort(size);
+		//msg.position(oldPos);
 		
 		this.myThread.outMessages.add(new NetMessageWrapper(reliable, msg));
 	}

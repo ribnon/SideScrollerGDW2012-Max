@@ -49,7 +49,6 @@ public class SpriteManager {
 		try {
 			g = sprites.get(0).getImage().getGraphics();
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -68,7 +67,7 @@ public class SpriteManager {
 			float posY = cameras.get(i).getOwner().getPosY();
 			
 			//Verschiedene Cameras mit unterschiedlich großen viewports zu haben ist eine doofe Idee !
-			g.setClip(i*cameras.get(i).getViewPortX(), i*cameras.get(i).getViewPortY(), cameras.get(i).getViewPortX(), cameras.get(i).getViewPortY());
+			//g.setClip(i*cameras.get(i).getViewPortX(), i*cameras.get(i).getViewPortY(), cameras.get(i).getViewPortX(), cameras.get(i).getViewPortY());
 			for(int j=0;j<sprites.size();j++)
 			{
 				sprites.get(j).draw(posX,posY);

@@ -66,7 +66,7 @@ public class ConnectionResponceThread extends Thread
 
 			// wait for responce
 			ByteBuffer responce = ByteBuffer
-					.allocate(NETCONSTANTS.PACKAGELENGTH);
+					.allocate(Byte.SIZE+Integer.SIZE+Integer.SIZE+Integer.SIZE);
 
 			try
 			{
@@ -99,10 +99,11 @@ public class ConnectionResponceThread extends Thread
 			udpSocket.connect(new InetSocketAddress(tcpSocket.socket()
 					.getInetAddress(), udpPort));
 
-			ByteBuffer pingBuf = ByteBuffer.allocate(3);
-			pingBuf.putShort((short) 1);
+			ByteBuffer pingBuf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 			pingBuf.put(NETCONSTANTS.PING);
-			pingBuf.flip();
+			pingBuf.position(0);
+			//pingBuf.position(pingBuf.capacity());
+			//pingBuf.flip();
 			this.udpSocket.write(pingBuf);
 			// create client
 			this.pending = false;

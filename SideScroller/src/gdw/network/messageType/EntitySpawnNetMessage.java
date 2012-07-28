@@ -29,7 +29,7 @@ public class EntitySpawnNetMessage extends NetMessageType
 	{		
 		buf.put(NetMessageType.EntitySpawnMessageType);
 		//was noch platz gelassen hat und anzahl
-		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE);
+		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE-Byte.SIZE);
 		byte counter = 0;
 		while(!list.isEmpty())
 		{
