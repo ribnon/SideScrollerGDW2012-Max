@@ -6,7 +6,7 @@ public class CollisionQuadTree
 {
 	private CollisionQuadTree[] child;
 	private CollisionQuadTree parent;
-	private CollisionQuadTree root;
+	private int node;
 	
 	private ArrayList<CollisionQuadTreeRect> rectList;
 	
@@ -18,18 +18,30 @@ public class CollisionQuadTree
 	
 	protected CollisionQuadTree(int levelCount, int xDimension, int yDimension)
 	{
-		this(levelCount, levelCount, xDimension, yDimension, 0, 0, null);
+		this(levelCount, levelCount, xDimension, yDimension, 0, 0, null, 0);
 	}
 	
-	private CollisionQuadTree(int levelCount, int level, int xDimension, int yDimension, int xOffset, int yOffset, CollisionQuadTree parent)
+	private CollisionQuadTree(int levelCount, int level, int xDimension, int yDimension, int xOffset, int yOffset, CollisionQuadTree parent, int node)
 	{
 		this.parent = parent;
 		this.level = levelCount - level;
 		this.xDimension = xDimension;
 		this.yDimension = yDimension;
 		
+		this.node = node;
+		
 		child = new CollisionQuadTree[4];
 		rectList = new ArrayList<CollisionQuadTreeRect>();
+		
+		String bla;
+		if (parent != null)
+		{
+			bla = parent.level + " " + parent.node;
+		}
+		else
+			bla = "itself";
+		//System.out.println("Tree created on level " + this.level + ", node " + node + " from " + bla);
+		//System.out.println("Dimensions: " + this.xDimension + " x " + this.yDimension);
 		
 		xDimension /= 2;
 		yDimension /= 2;
@@ -37,12 +49,15 @@ public class CollisionQuadTree
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 		
+		//System.out.println("Offset: " + xOffset + " x " + yOffset);
+		//System.out.println("=======================================================================");
+		
 		if (level > 0)
 		{	
-			child[0] = new CollisionQuadTree(levelCount, level - 1, xDimension, yDimension, xOffset, yOffset, this);
-			child[1] = new CollisionQuadTree(levelCount, level - 1, xDimension, yDimension, xOffset + xDimension, yOffset, this);
-			child[2] = new CollisionQuadTree(levelCount, level - 1, xDimension, yDimension, xOffset, yOffset + yDimension, this);
-			child[3] = new CollisionQuadTree(levelCount, level - 1, xDimension, yDimension, xOffset + xDimension, yOffset + yDimension, this);
+			child[0] = new CollisionQuadTree(levelCount, level - 1, xDimension, yDimension, xOffset, yOffset, this, 1);
+			child[1] = new CollisionQuadTree(levelCount, level - 1, xDimension, yDimension, xOffset + xDimension, yOffset, this, 2);
+			child[2] = new CollisionQuadTree(levelCount, level - 1, xDimension, yDimension, xOffset, yOffset + yDimension, this, 3);
+			child[3] = new CollisionQuadTree(levelCount, level - 1, xDimension, yDimension, xOffset + xDimension, yOffset + yDimension, this, 4);
 		}
 	}
 	
@@ -56,17 +71,30 @@ public class CollisionQuadTree
 			else if (!child[1].testCollisionOnTree(rect)) child[1].insert(rect);
 			else if (!child[2].testCollisionOnTree(rect)) child[2].insert(rect);
 			else if (!child[3].testCollisionOnTree(rect)) child[3].insert(rect);
-			else rectList.add(rect);
+			
+			else 
+			{
+				rectList.add(rect);
+				//System.out.println("Player inserted at " + level + " " + node);
+			}
 		}
-		else rectList.add(rect);
+		else 
+		{
+			rectList.add(rect);
+			//System.out.println("Player inserted at " + level + " " + node);
+		}
 	}
 	
-	private void insertParent(CollisionQuadTreeRect rect)
+	private void insertRoot(CollisionQuadTreeRect rect)
 	{
-		if (parent == null)
+		rect.updateTreeReference(this);
+		
+		if (!testCollisionOnTree(rect) || parent == null)
+		{
 			rectList.add(rect);
-		else
-			parent.insertParent(rect);
+			//System.out.println("Player inserted at " + level + " " + node);
+		}
+		else parent.insertRoot(rect);
 	}
 	
 	protected void updateRect(CollisionQuadTreeRect rect)
@@ -90,10 +118,10 @@ public class CollisionQuadTree
 			}
 		}
 		
-		if(rectTree.testCollisionOnTree(rect))
+		if(rectTree.testCollisionOnTree(rect)) 
 		{
 			rectTree.rectList.remove(rect);
-			rectTree.insertParent(rect);
+			rectTree.insertRoot(rect);
 		}
 	}
 	
@@ -157,5 +185,15 @@ public class CollisionQuadTree
 	private boolean testCollisionOnTree(CollisionQuadTreeRect rect)
 	{
 		return rect.testRect(xOffset, yOffset, xDimension, yDimension);
+	}
+
+	public int getNode()
+	{
+		return node;
+	}
+
+	public int getLevel()
+	{
+		return level;
 	}
 }
