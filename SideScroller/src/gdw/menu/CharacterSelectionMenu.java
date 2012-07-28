@@ -6,12 +6,11 @@ import org.newdawn.slick.Image;
 
 public abstract class CharacterSelectionMenu implements IMenuBase
 {
-	// TODO: character selection menu
 	private Selecter charSelectPlayer1, charSelectPlayer2;
 	private MapSelecter serverSelecter;
 	private static final String TITLE = "Select your character";
 	private boolean offline;
-
+	
 	public CharacterSelectionMenu(boolean offline)
 	{
 		charSelectPlayer1 = new Selecter()
@@ -30,7 +29,6 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 				charSelectPlayer1.disableHatID(newHatID);
 			}
 		};
-		// unneeded
 		serverSelecter = new MapSelecter(offline)
 		{
 			@Override
@@ -45,7 +43,6 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 				start();
 			}
 		};
-		this.offline = offline;
 		if (offline)
 		{
 			charSelectPlayer1.setModifiable(true);
@@ -60,6 +57,7 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 			charSelectPlayer1.setName("not connected");
 			charSelectPlayer2.setName("not connected");
 		}
+		this.offline = offline;
 	}
 
 	@Override
@@ -114,7 +112,6 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 		int width = container.getWidth();
 
 		int lineHeight = graphics.getFont().getLineHeight();
-		int textPadding = lineHeight / 8;
 		int currentDrawY = 0;
 		// Title
 		currentDrawY += 0.01f * height;
@@ -211,6 +208,11 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 	public void setServerImage(Image img)
 	{
 		serverSelecter.setImage(img);
+	}
+	
+	public boolean isOffline()
+	{
+		return offline;
 	}
 
 	public abstract void launchServer();

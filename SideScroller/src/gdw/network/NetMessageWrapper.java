@@ -12,7 +12,9 @@ public class NetMessageWrapper
 	{
 		super();
 		this.reliable = reliable;
-		this.msg = msg;
+		
+		msg.position(msg.capacity());
 		msg.flip();
+		this.msg = msg;
 	}
 }

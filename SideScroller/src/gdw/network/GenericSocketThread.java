@@ -74,9 +74,9 @@ public class GenericSocketThread extends Thread
 	}
 
 	private void proccessSelctionKey(SelectionKey tcpKey, SelectionKey udpKey)
-			throws IOException
+			throws IOException, InterruptedException
 	{
-		ByteBuffer reader = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH * 3);
+		ByteBuffer reader = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 
 		while ((tcpKey.isValid()) && (udpKey.isValid()))
 		{
@@ -96,23 +96,29 @@ public class GenericSocketThread extends Thread
 				}
 					
 				// tcp
-				while(readBytes < 3)
+				while(readBytes < NETCONSTANTS.PACKAGELENGTH)
 				{
 					readBytes += this.tcpConnection.read(reader);
 				}
 				reader.flip();
+				ByteBuffer message = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
+				message.clear();
 				while (reader.hasRemaining())
 				{
-					int target = reader.getShort();
-					GDWServerLogger.logMSG(target + " ist das Ziel");
-					ByteBuffer message = ByteBuffer.allocate(target);
+					/*int target = reader.getShort();
+					//GDWServerLogger.logMSG(target + " ist das Ziel");
+					//ByteBuffer message = ByteBuffer.allocate(target);
 					message.clear();
 					while (!deBufferNetwork(reader, message))
 					{
 						reader.position(0);
 						this.tcpConnection.read(reader);
 						reader.flip();
-					}
+					}*/
+					//reader.position(1);
+					message.put(reader);
+					message.position(0);
+					message.position(message.limit());
 					this.inMessages.add(new NetMessageWrapper(true, message));
 				}
 			}
@@ -125,24 +131,26 @@ public class GenericSocketThread extends Thread
 			{
 				if (readBytes == -1)
 					return;
-				while(readBytes < 3)
+				while(readBytes < NETCONSTANTS.PACKAGELENGTH)
 				{
 					readBytes += this.udpConnection.read(reader);
 				}
 				
 				reader.flip();
-				// udp
+				ByteBuffer message = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 				while (reader.hasRemaining())
 				{
-					int target = reader.getShort();
-					ByteBuffer message = ByteBuffer.allocate(target);
+					/*int target = reader.getShort();
+					//GDWServerLogger.logMSG(target + " ist das Ziel");
+					//ByteBuffer message = ByteBuffer.allocate(target);
 					message.clear();
 					while (!deBufferNetwork(reader, message))
 					{
 						reader.position(0);
 						this.tcpConnection.read(reader);
 						reader.flip();
-					}
+					}*/
+					message.put(reader);
 					this.inMessages.add(new NetMessageWrapper(false, message));
 				}
 			}
@@ -152,15 +160,21 @@ public class GenericSocketThread extends Thread
 			{
 				NetMessageWrapper wrap = outMessages.poll();
 				ByteBuffer buf = wrap.msg;
+				byte messageCode = buf.get();
+				//GDWServerLogger.logMSG(messageCode+" messageCode gesendet");
+				buf.position(0);
 				if (wrap.reliable)
 				{
+					int writeBytes = 0;
 					// tcp
-					if (udpKey.isWritable())
+					if (tcpKey.isWritable())
 					{
 						while (buf.hasRemaining())
 						{
-							this.tcpConnection.write(buf);
+							writeBytes += this.tcpConnection.write(buf);
+							//GDWServerLogger.logMSG("schreibe "+writeBytes);
 						}
+						//GDWServerLogger.logMSG("es wurden "+writeBytes+" geschrieben");
 					} else
 					{
 						// pushback
@@ -169,7 +183,7 @@ public class GenericSocketThread extends Thread
 				} else
 				{
 					// udp
-					if (tcpKey.isWritable())
+					if (udpKey.isWritable())
 					{
 						while (buf.hasRemaining())
 						{
@@ -181,14 +195,17 @@ public class GenericSocketThread extends Thread
 					}
 				}
 			}
-
+			Thread.yield();
+			sleep(20L);
 		}
+		
+		
 	}
 
 	@Override
 	public void run()
 	{
-		while (!this.isInterrupted())
+		//while (!this.isInterrupted())
 		{
 			SelectionKey tcpKey, udpKey;
 			try
@@ -210,13 +227,13 @@ public class GenericSocketThread extends Thread
 			try
 			{
 				proccessSelctionKey(tcpKey, udpKey);
-				itTcp.remove();
-				itUdp.remove();
-			} catch (IOException e)
+				//itTcp.remove();
+				//itUdp.remove();
+			} catch (IOException | InterruptedException e )
 			{
 				e.printStackTrace();
 				this.bridge.discoFlag();
-				break;
+				//break;
 			}
 		}
 	}

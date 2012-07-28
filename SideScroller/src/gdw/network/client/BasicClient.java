@@ -222,12 +222,12 @@ public class BasicClient implements INetworkBridge, IDiscoFlagAble
 		
 		switch (buf.get())
 		{
-			case NETCONSTANTS.PING:
+			/*case NETCONSTANTS.PING:
 				sendPong();
 				break;
 			case NETCONSTANTS.PONG:
 				this.pongRequest = -1L;
-				break;
+				break;*/
 
 			case NETCONSTANTS.MESSAGE:
 				listener.incomingMessage(buf, wasReliable);
@@ -282,11 +282,11 @@ public class BasicClient implements INetworkBridge, IDiscoFlagAble
 	 */
 	public void sendMessage(ByteBuffer msg, boolean reliable)
 	{
-		int oldPos = msg.position();
-		short size =(short) (oldPos-1);
-		msg.position(0);
-		msg.putShort(size);
-		msg.position(oldPos);
+		//int oldPos = msg.position();
+		//short size =(short) (oldPos-1);
+		//msg.position(0);
+		//msg.putShort(size);
+		//msg.position(oldPos);
 		
 		this.myThread.outMessages.add(new NetMessageWrapper(reliable, msg));
 	}
@@ -333,7 +333,7 @@ public class BasicClient implements INetworkBridge, IDiscoFlagAble
 	{
 		ByteBuffer buf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 		buf.clear();
-		buf.putShort(NETCONSTANTS.MESSAGE);//placeholder
+		//buf.putShort(NETCONSTANTS.MESSAGE);//placeholder
 		buf.put(NETCONSTANTS.MESSAGE);
 		return buf;
 	}

@@ -106,6 +106,7 @@ public class EntityTemplateManager {
 		for(int og=0;og<objectGroups;++og){
 			int groupObjects = map.getObjectCount(og);
 			for(int go=0;go<groupObjects;++go){
+				String objectName = map.getObjectName(og, go);
 				HashMap<String,HashMap<String, String>> componentParamsMap=new HashMap<String, HashMap<String,String>>();
 				ArrayList<String> propNames =  map.getObjectPropertyNames(og, go);
 				for(String propName: propNames){
@@ -115,7 +116,7 @@ public class EntityTemplateManager {
 					if(!componentParamsMap.containsKey(compName)) componentParamsMap.put(compName, new HashMap<String,String>());
 					String paramName = propName.substring(pointPos+1);
 					if (paramName.length()==0) continue;
-					String propVal = map.getObjectProperty(og, go, paramName, null);
+					String propVal = map.getObjectProperty(og, go, compName+"."+paramName, null);
 					if(propVal!=null) componentParamsMap.get(compName).put(paramName, propVal);
 				}
 				String[] templateStrings = map.getObjectProperty(og, go, "Template", "").split(";");

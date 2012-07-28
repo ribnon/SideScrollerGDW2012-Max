@@ -26,7 +26,7 @@ public class SideScrollerServer extends BasicServer
 		super(1, infoText, true, false);
 		this.curState = ServerGameStates.WAITING;
 		NetSubSystem.initalise(1, true, this);
-		Level.getInstance().start();
+		//Level.getInstance().start();
 		this.coreLoop = new ServerCoreLoop(this);
 	}
 

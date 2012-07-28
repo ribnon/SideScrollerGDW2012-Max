@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplateManager;
+import gdw.entityCore.Level;
 import gdw.network.server.GDWServerLogger;
 import gdw.physics.SimulationComponentManager;
 
@@ -36,19 +37,15 @@ public class ServerCoreLoop extends Thread
 			{
 				//init
 			
+				Level.getInstance().start();
 				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
 				
-				try
-				{
+				
 					GDWServerLogger.logMSG("init system");
-					//Level.getInstance().start();
-					entTempMan.loadEntityTemplates("general.templates");
+					//entTempMan.loadEntityTemplates("general.templates");
+					EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(200f, 200f, 0f);
 					//entTempMan.getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
-				} catch (IOException e)
-				{
-					e.printStackTrace();
-					return;
-				}
+				 
 				this.ref.startComplete();
 			}else
 			{
@@ -66,7 +63,7 @@ public class ServerCoreLoop extends Thread
 			//updates laufen lassen
 			NetSubSystem.getInstance().pollMessages();
 		
-			EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(200f, 200f, 0f);
+			
 			SimulationComponentManager.getInstance().simulate(delta);
 			EntityManager.getInstance().tick(delta);
 		

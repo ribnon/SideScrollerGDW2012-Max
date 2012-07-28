@@ -1,5 +1,7 @@
 package gdw.menu;
 
+import gdw.entityCore.EntityManager;
+import gdw.entityCore.Level;
 import gdw.network.client.ServerInfo;
 
 import org.newdawn.slick.GameContainer;
@@ -7,22 +9,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Menu
+public abstract class Menu
 {
 	private static Image background;
 	private static Image mouseCursor;
 	private int mousePosX, mousePosY;
 	private IMenuBase currentScreen = null;
-	private static Menu singletonInstance = null;
 
-	public static Menu getInstance()
-	{
-		if (singletonInstance == null)
-			singletonInstance = new Menu();
-		return singletonInstance;
-	}
-	
-	private Menu()
+	public Menu()
 	{
 	}
 	
@@ -133,11 +127,14 @@ public class Menu
 
 	private void offlineGame(LobbyMenu lobbyMenu)
 	{
+		EntityManager.getInstance().setOfflineMode(true);
 		CharacterSelectionMenu c = new CharacterSelectionMenu(true)
 		{
 			@Override
 			public void start()
 			{
+				Level.getInstance().start();
+				onGameStart(isOffline());
 			}
 			@Override
 			public void launchServer()
@@ -152,6 +149,7 @@ public class Menu
 	}
 	private void createServer(LobbyMenu lobbyMenu)
 	{
+		EntityManager.getInstance().setOfflineMode(false);
 		String playerName = lobbyMenu.getPlayerName();
 		CharacterSelectionMenu c = new CharacterSelectionMenu(false)
 		{
@@ -191,4 +189,5 @@ public class Menu
 		}
 	}
 	
+	protected abstract void onGameStart(boolean offline);
 }
