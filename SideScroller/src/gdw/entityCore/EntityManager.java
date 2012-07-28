@@ -25,6 +25,9 @@ public class EntityManager {
 	private int nextID = 1;
 	private boolean offlineMode=false;
 	
+	private boolean inTick = false;
+	private HashMap<Integer, Entity> deferredRegistrations = new HashMap<Integer, Entity>();
+	
 	public boolean isOfflineMode() {
 		return offlineMode;
 	}
@@ -38,11 +41,19 @@ public class EntityManager {
 		Entity ent = new Entity(id, template);
 		ent.setPos(posX, posY);
 		ent.setOrientation(orientation);
-		entities.put(id, ent);
+		if(inTick){
+			deferredRegistrations.put(id, ent);
+		}
+		else{
+			entities.put(id, ent);
+		}
 		return ent;
 	}
 	public Entity getEntity(int id){
-		if(entities.containsKey(id)){
+		if(deferredRegistrations.containsKey(id)){
+			return deferredRegistrations.get(id);
+		}
+		else if(entities.containsKey(id)){
 			return entities.get(id);
 		}
 		else{
@@ -184,8 +195,14 @@ public class EntityManager {
 .           '++++++++++"               `""""""""'+++++++++"           .
 	 */
 	public void tick(float deltaTime){
+		inTick=true;
 		for(Entity ent: entities.values()){
 			ent.tick(deltaTime);
+		}
+		inTick=false;
+		if(!deferredRegistrations.isEmpty()){
+			entities.putAll(deferredRegistrations);
+			deferredRegistrations=new HashMap<Integer, Entity>();
 		}
 	}
 	
