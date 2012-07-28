@@ -117,9 +117,13 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		img.setCenterOfRotation(getPivotX(), getPivotY());
 		img.setRotation(getOwner().getOrientation());
 		if(getFilter() != null)
-			img.draw(getOwner().getPosX()-camPosX, getOwner().getPosY()-camPosY, getScale(), getFilter());
+			img.draw(getOwner().getPosX()+ camPosX - ((img.getWidth() / 2f)*getScale()),
+					getOwner().getPosY()+ camPosY - ((img.getHeight() / 2f)*getScale()), getScale(),
+					getFilter());
 		else
-			img.draw(getOwner().getPosX()-camPosX, getOwner().getPosY()-camPosY, getScale());
+			img.draw(getOwner().getPosX()+ camPosX - ((img.getWidth() / 2f)*getScale()),
+					getOwner().getPosY()+ camPosY - ((img.getHeight() / 2f)*getScale()), getScale(),
+					getFilter());
 	}
 	
 	public int getCycle() {
@@ -160,14 +164,6 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	protected void destroy()
 	{
 		SpriteManager.getInstance().removeSprite(this);
-		
-		try {
-			spriteSheet.destroy();
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("destroying spritesheet failed :-(");
-		}
 	}
 
 }

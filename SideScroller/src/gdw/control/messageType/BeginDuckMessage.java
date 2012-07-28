@@ -2,7 +2,7 @@ package gdw.control.messageType;
 
 import gdw.entityCore.Message;
 
-public class BeginDuckMessage extends Message {
+public class BeginDuckMessage extends InputMessage {
 	public BeginDuckMessage() {
 	}
 }
