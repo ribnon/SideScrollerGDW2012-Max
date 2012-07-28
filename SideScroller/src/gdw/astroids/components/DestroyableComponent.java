@@ -70,13 +70,20 @@ public class DestroyableComponent extends Component {
 			Entity c2 = EntityManager.getInstance().getEntity(cmsg.getIDCandidate2());
 			
 			if((c1.getComponent(COMPONENT_TYPE) != null) 
-			&& (c2.getComponent(COMPONENT_TYPE)!=null)) {
+			&& (c2.getComponent(COMPONENT_TYPE) != null)) {
 				DestroyableComponent c1_destroy = (DestroyableComponent)c1.getComponent(COMPONENT_TYPE);
 				DestroyableComponent c2_destroy = (DestroyableComponent)c2.getComponent(COMPONENT_TYPE);
 				
 				if((c1_destroy.destroyGroup ^ c2_destroy.destroyGroup) != 0) {
 					c1_destroy.life -= c2_destroy.destroyPower;
+					if(c1_destroy.life <= 0) {
+						//destroy c1
+					}
+					
 					c2_destroy.life -= c1_destroy.destroyPower;
+					if(c2_destroy.life <= 0) {
+						//destroy c2
+					}
 				}
 			}
 		}

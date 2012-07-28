@@ -1,4 +1,4 @@
-package gdw.astroids.components;
+package gdw.astroids.components.random;
 
 import java.util.HashMap;
 

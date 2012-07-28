@@ -15,7 +15,7 @@ friction=0.8
 Component Engine
 power=50.0
 breakPower=0.001
-rotation=60
+rotation=80
 Component Destroyable
 destroyPower=0
 destroyGroup=1
@@ -32,6 +32,8 @@ Component CircleCollisionDetection
 radius=32
 Component StaticSprite
 path=astroids/assets/meteorit1.png
+pivotX=32
+pivotY=32
 Component Destroyable
 life=5
 destroyPower=1
@@ -39,6 +41,8 @@ destroyGroup=3
 Component RandomMovement
 forceX=10.0
 forceY=10.0
+Component RandomRotation
+angularVelocity=20
 
 Template Background
 Component StaticSprite

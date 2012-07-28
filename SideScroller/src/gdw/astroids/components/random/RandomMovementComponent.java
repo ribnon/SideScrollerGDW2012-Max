@@ -1,4 +1,4 @@
-package gdw.astroids.components;
+package gdw.astroids.components.random;
 
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
@@ -9,13 +9,17 @@ import gdw.physics.SimulationComponent;
 public class RandomMovementComponent extends Component {
 
 	private float forceX;
+	private float currentForceX;
 	private float forceY;
+	private float currentForceY;
 	
 	public RandomMovementComponent(ComponentTemplate template) {
 		super(template);
 		RandomMovementComponentTemplate t = (RandomMovementComponentTemplate)template;
-		forceX = (2*(float)(Math.random()-0.5))*t.forceX;
-		forceY = (2*(float)(Math.random()-0.5))*t.forceY;
+		forceX = t.forceX;
+		currentForceX = (2*(float)(Math.random()-0.5))*forceX;
+		forceY = t.forceY;
+		currentForceY = (2*(float)(Math.random()-0.5))*forceY;
 	}
 
 	public static final int COMPONENT_TYPE = 1004;
@@ -31,7 +35,7 @@ public class RandomMovementComponent extends Component {
 		Component cmp = this.getOwner().getComponent(SimulationComponent.COMPONENT_TYPE);
 		if(cmp!=null) {
 			SimulationComponent scmp = (SimulationComponent) cmp;
-			scmp.addForce(forceX, forceY);
+			scmp.addForce(currentForceX, currentForceY);
 		}
 	}
 
