@@ -3,10 +3,22 @@ Component AABoxCollisionDetection
 halfExtentX=16
 halfExtentY=16
 Component StaticSprite
+#path=assets/spritesheets/singleImages/teddy.png
+path=astroids/assets/spaceship.png
+pivotX=16
+pivotY=16
+scale=2
+Component AstroidInput
 Component Simulation
 mass=0.5
-friction=0.45
+friction=0.8
+Component Engine
+power=15.0
+breakPower=5.0
+rotation=45
 
+Template FixedCamera
+Component Camera
 
 Template Astroid
 Component Simulation
@@ -14,3 +26,5 @@ mass=0.9
 friction=0.85
 Component SphereCollisionDetection
 radius=30.0
+Component Static
+

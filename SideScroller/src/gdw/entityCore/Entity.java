@@ -87,6 +87,7 @@ public class Entity {
 		}
 	}
 	public void message(Message msg){
+//		System.out.println("Send message");
 		for(Component comp: components.values()){
 			comp.onMessage(msg);
 		}

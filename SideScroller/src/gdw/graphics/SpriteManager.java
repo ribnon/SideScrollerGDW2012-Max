@@ -58,7 +58,7 @@ public class SpriteManager {
 			
 			for(int j=0;j<sprites.size();j++)
 			{
-				sprites.get(i).draw(posX,posY);
+				sprites.get(j).draw(posX,posY);
 			}
 		}
 			

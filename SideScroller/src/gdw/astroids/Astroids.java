@@ -2,15 +2,21 @@ package gdw.astroids;
 
 import java.io.IOException;
 
+import gdw.astroids.input.AstroidsInputComponentManager;
 import gdw.collisionDetection.CollisionDetectionComponentManager;
+import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.ComponentTemplateFactory;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
+import gdw.graphics.SpriteComponent;
 import gdw.graphics.SpriteManager;
+import gdw.graphics.StaticSpriteComponent;
 import gdw.physics.SimulationComponentManager;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -24,6 +30,7 @@ public class Astroids extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
+		
 		SpriteManager.getInstance().render();
 		CollisionDetectionComponentManager.getInstance().render(g);
 	}
@@ -31,7 +38,9 @@ public class Astroids extends BasicGame {
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		EntityManager.getInstance().setOfflineMode(true);
-		Level.getInstance().start();
+//		Level.getInstance().start();
+//		EntityManager.getInstance().deleteAllEntities();
+		
 		EntityTemplateManager etm = EntityTemplateManager.getInstance();
 		try {
 			etm.loadEntityTemplates("astroids/Astroids.templates");
@@ -49,6 +58,8 @@ public class Astroids extends BasicGame {
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
+		
+		AstroidsInputComponentManager.getInstance().proceedInput(container.getInput());
 		SimulationComponentManager.getInstance().simulate(delta/1000.f);
 	}
 

@@ -18,8 +18,8 @@ public class CameraComponentTemplate extends ComponentTemplate {
 	public CameraComponentTemplate(HashMap<String, String> params) {
 		super(params);
 		playerNumber = getIntegerParam("playerNumber",1);
-		viewPortX = getIntegerParam("viewPortX",200);
-		viewPortY = getIntegerParam("viewPortY",200);
+		viewPortX = getIntegerParam("viewPortX",800);
+		viewPortY = getIntegerParam("viewPortY",600);
 	}
 	@Override
 	public Component createComponent() {

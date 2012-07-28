@@ -1,1 +1,3 @@
-Entity Player 400 300 0 
+Entity Player 350 300 0 
+Entity Player 350 300 0 
+Entity FixedCamera 400 300 0

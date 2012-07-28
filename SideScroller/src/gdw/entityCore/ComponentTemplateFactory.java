@@ -1,5 +1,7 @@
 package gdw.entityCore;
 
+import gdw.astroids.components.EngineComponentTemplate;
+import gdw.astroids.input.AstroidsInputComponentTemplate;
 import gdw.collisionDetection.AABoxCollisionDetectionComponentTemplate;
 import gdw.collisionDetection.CircleCollisionDetectionComponentTemplate;
 import gdw.collisionDetection.OOBoxCollisionDetectionComponentTemplate;
@@ -84,6 +86,10 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("PivotRotation", PivotRotationComponentTemplate.class);
 		componentTemplateClasses.put("RotateBySwitch", RotateBySwitchComponentTemplate.class);
 		componentTemplateClasses.put("FadeIn", FadeInComponentTemplate.class);
+		
+		//astroid specific
+		componentTemplateClasses.put("AstroidInput", AstroidsInputComponentTemplate.class);
+		componentTemplateClasses.put("Engine", EngineComponentTemplate.class);
 	}
 
 	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<String, Class<? extends ComponentTemplate>>();

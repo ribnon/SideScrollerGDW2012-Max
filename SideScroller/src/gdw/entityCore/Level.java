@@ -39,10 +39,14 @@ public class Level {
 	private int levelIndex=0;
 	
 	public int getMapWidth(){
+		if(map==null)
+			return 800;
 		return map.getWidth();
 	}
 	
 	public int getMapHeight(){
+		if(map==null)
+			return 600;
 		return map.getHeight();
 	}
 	

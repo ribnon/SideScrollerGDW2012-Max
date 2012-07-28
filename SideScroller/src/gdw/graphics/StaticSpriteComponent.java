@@ -36,7 +36,7 @@ public class StaticSpriteComponent extends SpriteComponent
 		setLayer(t.getLayer());
 		setFlipped(t.isFlipped());
 		
-		image = t.getImage();
+		image = t.getImage().copy();
 		
 		SpriteManager.getInstance().addSprite(this);
 	}
@@ -92,16 +92,17 @@ public class StaticSpriteComponent extends SpriteComponent
 	{
 		
 		image.setCenterOfRotation(getPivotX(), getPivotY());
-		image.setRotation((float)(getOwner().getOrientation() * (180f / Math.PI)));
+//		image.setRotation((float)(getOwner().getOrientation() * (180f / Math.PI)));
+		image.setRotation(getOwner().getOrientation());
 		if (getFilter() != null)
 		{
-			image.draw(getOwner().getPosX()- camPosX - ((image.getWidth() / 2f)*getScale()),
-					getOwner().getPosY()- camPosY - ((image.getHeight() / 2f)*getScale()), getScale(),
+			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					getOwner().getPosY()- ((image.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
 		} else
 		{
-			image.draw(getOwner().getPosX()- camPosX - ((image.getWidth() / 2f)*getScale()),
-					getOwner().getPosY()- camPosY - ((image.getWidth() / 2f)*getScale()), getScale());
+			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					getOwner().getPosY() - ((image.getWidth() / 2f)*getScale()), getScale());
 		}
 	}
 }
