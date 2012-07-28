@@ -223,7 +223,7 @@ public class NetSubSystem
 			//spawn
 			while(!this.listOfSpawnMessages.isEmpty())
 			{
-				GDWServerLogger.logMSG("schreibe spawn");
+				//GDWServerLogger.logMSG("schreibe spawn");
 				buf = this.ref.getMessageBuffer();
 				EntitySpawnNetMessage.fillInByteBuffer(this.listOfSpawnMessages, buf);
 				this.ref.sendMessage(buf, true);
@@ -231,6 +231,7 @@ public class NetSubSystem
 			//deadReck
 			while(!this.listOfDeadReckonigMessages.isEmpty())
 			{
+				GDWServerLogger.logMSG("send DeadReck");
 				buf = this.ref.getMessageBuffer();
 				DeadReckoningNetMessage.fillInByteBuffer(listOfDeadReckonigMessages, buf);
 				sendDeadReckAndAddRoundtip(buf, DeadReckoningNetMessage.ROUNDTIP_WRITE_POSITION);
@@ -238,6 +239,7 @@ public class NetSubSystem
 			//tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
+				GDWServerLogger.logMSG("send Bus Message");
 				buf = this.ref.getMessageBuffer();
 				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
 				this.ref.sendMessage(buf, true);
@@ -245,6 +247,7 @@ public class NetSubSystem
 			//deSpawn
 			while(!this.listOfDeSpawnMessages.isEmpty())
 			{
+				GDWServerLogger.logMSG("send Despawn");
 				buf = this.ref.getMessageBuffer();
 				EntityDeSpawnNetMessage.fillInByteBuffer(this.listOfDeSpawnMessages, buf);
 				this.ref.sendMessage(buf, true);
@@ -261,6 +264,7 @@ public class NetSubSystem
 			//nur tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
+				GDWServerLogger.logMSG("client sendet BusMessage");
 				buf = this.ref.getMessageBuffer();
 				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
 				this.ref.sendMessage(buf, true);

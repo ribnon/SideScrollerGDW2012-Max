@@ -27,7 +27,10 @@ public class EntityDeSpawnNetMessage extends NetMessageType
 			{
 				EntityDeSpawnNetMessage msg = list.peek();
 				buf.putInt(msg.entityID);
-			}catch (IndexOutOfBoundsException | BufferOverflowException e)
+			}catch (IndexOutOfBoundsException e)
+			{
+				break;
+			}catch (BufferOverflowException e)
 			{
 				break;
 			}

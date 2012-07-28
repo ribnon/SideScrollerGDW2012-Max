@@ -222,12 +222,12 @@ public class BasicClient implements INetworkBridge, IDiscoFlagAble
 		
 		switch (buf.get())
 		{
-			case NETCONSTANTS.PING:
+			/*case NETCONSTANTS.PING:
 				sendPong();
 				break;
 			case NETCONSTANTS.PONG:
 				this.pongRequest = -1L;
-				break;
+				break;*/
 
 			case NETCONSTANTS.MESSAGE:
 				listener.incomingMessage(buf, wasReliable);

@@ -40,17 +40,12 @@ public class ServerCoreLoop extends Thread
 				Level.getInstance().start();
 				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
 				
-				try
-				{
+				
 					GDWServerLogger.logMSG("init system");
-					entTempMan.loadEntityTemplates("general.templates");
+					//entTempMan.loadEntityTemplates("general.templates");
 					EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(200f, 200f, 0f);
 					//entTempMan.getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
-				} catch (IOException e)
-				{
-					e.printStackTrace();
-					return;
-				}
+				 
 				this.ref.startComplete();
 			}else
 			{

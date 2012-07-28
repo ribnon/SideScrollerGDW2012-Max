@@ -99,9 +99,9 @@ public abstract class BasicClientConnection implements IDiscoFlagAble
 
 	private void sendPong()
 	{
-		ByteBuffer buf = ByteBuffer.allocate(1);
+		ByteBuffer buf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 		buf.put(NETCONSTANTS.PONG);
-		buf.flip();
+		buf.position(0);
 
 		try
 		{
@@ -153,12 +153,12 @@ public abstract class BasicClientConnection implements IDiscoFlagAble
 	{
 		switch (buf.get())
 		{
-		case NETCONSTANTS.PING:
+		/*case NETCONSTANTS.PING:
 			sendPong();
 			break;
 		case NETCONSTANTS.PONG:
 			this.pongRequest = -1L;
-			break;
+			break;*/
 
 		case NETCONSTANTS.MESSAGE:
 			this.incomingMessage(buf, wasReliable);
