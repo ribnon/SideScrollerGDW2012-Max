@@ -157,7 +157,7 @@ public class EntityTemplateManager {
 		params.put("impassableFromTop", "1");
 		params.put("impassableFromSide", "1");
 		compParams.put("CollisionReaction", params);
-		entityTemplates.put(" --- CollisionTile --- ", new EntityTemplate(" CollisionTile <internal> ", new ArrayList<String>(), compParams));
+		entityTemplates.put(" CollisionTile <internal> ", new EntityTemplate(" CollisionTile <internal> ", new ArrayList<String>(), compParams));
 	}
 	
 	public EntityTemplate getEntityTemplate(String name){
