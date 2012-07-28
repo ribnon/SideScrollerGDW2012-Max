@@ -43,6 +43,7 @@ public class SpriteManager {
 			lc = map.getLayerCount();
 		}
 		
+		/*
 		Graphics g = null;
 		if(sprites.size() == 0)
 			return;
@@ -51,6 +52,7 @@ public class SpriteManager {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		*/
 		
 		for(int i=0;i<cameras.size();i++)
 		{
@@ -68,6 +70,7 @@ public class SpriteManager {
 			
 			//Verschiedene Cameras mit unterschiedlich großen viewports zu haben ist eine doofe Idee !
 			//g.setClip(i*cameras.get(i).getViewPortX(), i*cameras.get(i).getViewPortY(), cameras.get(i).getViewPortX(), cameras.get(i).getViewPortY());
+			
 			for(int j=0;j<sprites.size();j++)
 			{
 				sprites.get(j).draw(posX,posY);

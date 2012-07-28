@@ -220,21 +220,21 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 	{
 		Image baseimg = baseSpritesheet.getSprite(baseStep, baseCycle);
 		if(getFlipped())
-			baseimg = baseimg.getFlippedCopy(false, true);
+			baseimg = baseimg.getFlippedCopy(true, false);
 		baseimg.setCenterOfRotation(getPivotX(), getPivotY());
 		baseimg.setRotation(getOwner().getOrientation());
 
 		Image overlayimg1 = overlaySpritesheet1.getSprite(overlayStep1,
 				overlayCycle1);
 		if(getFlipped())
-			overlayimg1 = overlayimg1.getFlippedCopy(false, true);
+			overlayimg1 = overlayimg1.getFlippedCopy(true, false);
 		overlayimg1.setCenterOfRotation(getPivotX(), getPivotY());
 		overlayimg1.setRotation(getOwner().getOrientation());
 		
 		Image overlayimg2 = overlaySpritesheet2.getSprite(overlayStep2,
 				overlayCycle2);
 		if(getFlipped())
-			overlayimg2 = overlayimg2.getFlippedCopy(false, true);
+			overlayimg2 = overlayimg2.getFlippedCopy(true, false);
 		overlayimg2.setCenterOfRotation(getPivotX(), getPivotY());
 		overlayimg2.setRotation(getOwner().getOrientation());
 
