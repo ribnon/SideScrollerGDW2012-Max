@@ -122,14 +122,17 @@ public class ServerlistPendingThread extends Thread
 			}
 			
 			// send multicast
-			InetAddress group = InetAddress
-					.getByName(NETCONSTANTS.MULITCASTGROUP);
-			DatagramPacket packet = new DatagramPacket(new byte[0], 0, group,
-					NETCONSTANTS.BROADCAST_PORT);
-			this.socket.send(packet);
+			//InetAddress group = InetAddress
+				//	.getByName(NETCONSTANTS.MULITCASTGROUP);
+			
+			//this.socket.send(packet);
 			
 			//workaround for loopbackdevice
 			broadcastIps.add(InetAddress.getByName("127.0.0.1"));
+			
+			DatagramPacket packet = new DatagramPacket(new byte[0], 0);
+			//DatagramPacket packet = new DatagramPacket(new byte[0], 0, group,
+				//	NETCONSTANTS.BROADCAST_PORT);
 
 			// send broadcasts s s s s
 			while (!broadcastIps.isEmpty())

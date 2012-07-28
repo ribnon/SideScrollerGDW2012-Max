@@ -63,3 +63,6 @@ autoAttachGroups=10
 Component OOBoxCollisionDetectionComponent
 halfExtentX=64
 halfExtendY=64
+
+Component SwitchUser
+HitTrigger=0

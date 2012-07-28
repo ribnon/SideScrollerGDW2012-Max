@@ -13,8 +13,8 @@ collisionDetection
 
 gdw.collisionReaction
 				CollisionReaction
-							impassableFromTop:int
-							impassableGromSide:int
+							impassableFromTop:int		//{0,1}
+							impassableGromSide:int		//{0,1}
 
 gdw.control
 				PlayerInput				

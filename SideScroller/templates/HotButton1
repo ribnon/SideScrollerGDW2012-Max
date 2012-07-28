@@ -1,0 +1,18 @@
+Template HotButton1
+
+Component StaticSprite
+path=./assets/singleImages/buttonPush.png
+scale=1
+filterRed=1
+filterGreen=1
+filterBlue=1
+pivotX=0
+pivotY=0
+layer=1
+flipped=0
+
+Component Switch
+TargetEntities=Door1
+SwitchType=Hit
+ActivationDuration=2
+

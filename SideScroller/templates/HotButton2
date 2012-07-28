@@ -1,4 +1,4 @@
-Template ButtonPush
+Template HotButton2
 
 Component StaticSprite
 path=./assets/singleImages/buttonPush.png
@@ -11,5 +11,9 @@ pivotY=0
 layer=1
 flipped=0
 
-Component 
+Component Switch
+TargetEntities=TrapDoor1;Door2
+SwitchType=Hit
+ActivationDuration=2
+
 

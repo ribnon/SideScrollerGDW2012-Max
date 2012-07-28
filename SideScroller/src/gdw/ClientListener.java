@@ -53,7 +53,7 @@ public class ClientListener implements IBasicClientListener {
 
 	@Override
 	public void incomingMessage(ByteBuffer msg, boolean wasReliable) {
-		// TODO Auto-generated method stub
+		NetSubSystem.getInstance().processMessage(msg);
 
 	}
 	

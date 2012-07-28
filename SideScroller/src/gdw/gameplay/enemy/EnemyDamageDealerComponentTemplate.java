@@ -24,7 +24,7 @@ public class EnemyDamageDealerComponentTemplate extends ComponentTemplate
 	@Override
 	public Component createComponent()
 	{
-		return null;
+		return new EnemyDamageDealerComponent(this);
 	}
 
 }
