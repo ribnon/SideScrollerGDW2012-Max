@@ -129,10 +129,47 @@ public class EntityTemplateManager {
 //				if(objectType.length()>0){
 //					baseTemplateNames.add(objectType);
 //				}
-				if(!componentParamsMap.containsKey("OOBoxCollisionDetection")){
-					componentParamsMap.put("OOBoxCollisionDetection", new HashMap<String,String>());
-					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentX",Float.toString(map.getObjectWidth(og, go)*0.5f));
-					componentParamsMap.get("OOBoxCollisionDetection").put("halfExtentY",Float.toString(map.getObjectHeight(og, go)*0.5f));
+				boolean hasCollision = false;
+				String colCompName=null;
+				for(String baseTemplateName: baseTemplateNames){
+					EntityTemplate et = getEntityTemplate(baseTemplateName);
+					if(et!=null){
+						ComponentTemplate ctOO = et.getComponentTemplate("OOBoxCollisionDetection");
+						if(ctOO!=null){
+							colCompName="OOBoxCollisionDetection";
+							hasCollision=true;
+							break;
+						}
+						ComponentTemplate ctAA = et.getComponentTemplate("AABoxCollisionDetection");
+						if(ctAA!=null){
+							colCompName="AABoxCollisionDetection";
+							hasCollision=true;
+							break;
+						}
+						ComponentTemplate ctCirc = et.getComponentTemplate("CircleCollisionDetection");
+						if(ctCirc!=null){
+							hasCollision=true;
+							break;
+						}
+					}
+				}
+				if (hasCollision && colCompName!=null) {
+					if (!componentParamsMap.containsKey(colCompName)) {
+						componentParamsMap.put(colCompName,
+								new HashMap<String, String>());
+					}
+					componentParamsMap.get(colCompName).put("halfExtentX",
+							Float.toString(map.getObjectWidth(og, go) * 0.5f));
+					componentParamsMap.get(colCompName).put("halfExtentY",
+							Float.toString(map.getObjectHeight(og, go) * 0.5f));
+				}
+				else if(hasCollision && colCompName==null){
+					if (!componentParamsMap.containsKey("CircleCollisionDetection")) {
+						componentParamsMap.put("CircleCollisionDetection",	new HashMap<String, String>());
+					}
+					float x = map.getObjectWidth(og, go) * 0.5f;
+					float y = map.getObjectHeight(og, go) * 0.5f;
+					componentParamsMap.get("CircleCollisionDetection").put("radius",Float.toString((float)Math.sqrt(x*x+y*y)));
 				}
 				String templateName = mapTemplatesPrefix + map.getObjectName(og, go);
 				entityTemplates.put(templateName, new EntityTemplate(templateName, baseTemplateNames, componentParamsMap));

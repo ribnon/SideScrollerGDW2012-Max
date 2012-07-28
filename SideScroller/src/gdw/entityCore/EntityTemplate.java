@@ -42,6 +42,10 @@ public class EntityTemplate {
 		return name;
 	}
 	
+	public ComponentTemplate getComponentTemplate(String compName){
+		return componentTemplateMap.get(compName);
+	}
+	
 	private void mergeInBaseParams(HashMap<String,HashMap<String,String>> baseCompParamsMap){
 		for(String baseCompName: baseCompParamsMap.keySet()){
 			if(!componentParamsMap.containsKey(baseCompName)){
