@@ -11,6 +11,7 @@ import gdw.control.messageType.SpecialAttackMessage;
 import gdw.control.messageType.StopMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.EntityManager;
 import gdw.entityCore.Message;
 import gdw.gameplay.levelObjects.SwitchUserComponent;
 import gdw.gameplay.player.DuckableComponent;
@@ -114,21 +115,33 @@ public class PlayerInputComponent extends Component {
 		if (netcomp != null) {
 			// Run
 			if (isRightKeyDown && !wasRightKeyDown) {
-				netcomp.sendNetworkMessage(new RunMessage(true));
+				if (EntityManager.getInstance().isOfflineMode()){
+					if(this.getOwner()!=null) this.getOwner().message(new RunMessage(true));
+				}
+				else netcomp.sendNetworkMessage(new RunMessage(true));
 			}
 
 			if (isLeftKeyDown && !wasLeftKeyDown) {
-				netcomp.sendNetworkMessage(new RunMessage(false));
+				if (EntityManager.getInstance().isOfflineMode()){
+					if(this.getOwner()!=null) this.getOwner().message(new RunMessage(false));
+				}
+				else netcomp.sendNetworkMessage(new RunMessage(false));
 			}
 
 			if ((!isRightKeyDown && wasRightKeyDown)
 					|| (!isLeftKeyDown && wasLeftKeyDown)) {
-				netcomp.sendNetworkMessage(new StopMessage());
+				if (EntityManager.getInstance().isOfflineMode()){
+					if(this.getOwner()!=null) this.getOwner().message(new StopMessage());
+				}
+				else netcomp.sendNetworkMessage(new StopMessage());
 			}
 
 			// Jump
 			if (isJumpKeyDown && !wasJumpKeyDown) {
-				netcomp.sendNetworkMessage(new JumpMessage());
+				if (EntityManager.getInstance().isOfflineMode()){
+					if(this.getOwner()!=null) this.getOwner().message(new JumpMessage());
+				}
+				else netcomp.sendNetworkMessage(new JumpMessage());
 			}
 
 			// Attack
@@ -140,31 +153,49 @@ public class PlayerInputComponent extends Component {
 
 			if (isAttackKeyDown && wasAttackKeyDown) {
 				if ((pastTime != 0l) && (deltaTime >= waitingTime)) {
-					netcomp.sendNetworkMessage(new BeginPullMessage());
+					if (EntityManager.getInstance().isOfflineMode()){
+						if(this.getOwner()!=null) this.getOwner().message(new BeginPullMessage());
+					}
+					else netcomp.sendNetworkMessage(new BeginPullMessage());
 				}
 			}
 
 			if (!isAttackKeyDown && wasAttackKeyDown) {
 				if (deltaTime < waitingTime) {
-					netcomp.sendNetworkMessage(new AttackMessage());
+					if (EntityManager.getInstance().isOfflineMode()){
+						if(this.getOwner()!=null) this.getOwner().message(new AttackMessage());
+					}
+					else netcomp.sendNetworkMessage(new AttackMessage());
 				} else {
-					netcomp.sendNetworkMessage(new EndPullMessage());
+					if (EntityManager.getInstance().isOfflineMode()){
+						if(this.getOwner()!=null) this.getOwner().message(new EndPullMessage());
+					}
+					else netcomp.sendNetworkMessage(new EndPullMessage());
 				}
 				pastTime = 0l;
 			}
 
 			// Special Attack
 			if (isSpecAttackKeyDown && !wasSpecAttackKeyDown) {
-				netcomp.sendNetworkMessage(new SpecialAttackMessage());
+				if (EntityManager.getInstance().isOfflineMode()){
+					if(this.getOwner()!=null) this.getOwner().message(new SpecialAttackMessage());
+				}
+				else netcomp.sendNetworkMessage(new SpecialAttackMessage());
 			}
 
 			// Duck
 			if (isDownKeyDown && !wasDownKeyDown) {
-				netcomp.sendNetworkMessage(new BeginDuckMessage());
+				if (EntityManager.getInstance().isOfflineMode()){
+					if(this.getOwner()!=null) this.getOwner().message(new BeginDuckMessage());
+				}
+				else netcomp.sendNetworkMessage(new BeginDuckMessage());
 			}
 
 			if (!isDownKeyDown && wasDownKeyDown) {
-				netcomp.sendNetworkMessage(new EndDuckMessage());
+				if (EntityManager.getInstance().isOfflineMode()){
+					if(this.getOwner()!=null) this.getOwner().message(new EndDuckMessage());
+				}
+				else netcomp.sendNetworkMessage(new EndDuckMessage());
 			}
 		} else {
 			System.err.println("NetComponent nicht initialisiert");
@@ -203,12 +234,14 @@ public class PlayerInputComponent extends Component {
 	 */
 	@Override
 	public void onMessage(Message msg) {
-		// If on Server
-		if (NetSubSystem.getInstance().isServer()) {
-			NetComponent netcomp = (NetComponent) super.getOwner()
-					.getComponent(NetComponent.COMPONENT_TYPE);
-			if (netcomp != null) {
-				netcomp.sendNetworkMessage(msg);
+		if(!EntityManager.getInstance().isOfflineMode()){
+			// If on Server
+			if (NetSubSystem.getInstance().isServer()) {
+				NetComponent netcomp = (NetComponent) super.getOwner()
+						.getComponent(NetComponent.COMPONENT_TYPE);
+				if (netcomp != null) {
+					netcomp.sendNetworkMessage(msg);
+				}
 			}
 		}
 

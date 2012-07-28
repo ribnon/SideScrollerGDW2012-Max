@@ -25,10 +25,15 @@ public class EntityTemplate {
 		}
 		
 		for(String compName: componentParamsMap.keySet()){
-			if(!EntityManager.getInstance().isOfflineMode()) if(ComponentTemplateFactory.getInstance().testIsGhostOnly(compName) && NetSubSystem.getInstance().isServer()) continue;
+			if(EntityManager.getInstance().isOfflineMode()) 
+				if(compName.equals("Network")) continue;
+			if(!EntityManager.getInstance().isOfflineMode()) 
+				if(ComponentTemplateFactory.getInstance().testIsGhostOnly(compName) 
+						&& NetSubSystem.getInstance().isServer()) continue;
 			ComponentTemplate compTemplate = ComponentTemplateFactory.getInstance().createComponentTemplate(compName, componentParamsMap.get(compName));
 			if(compTemplate==null) continue;
-			if(!EntityManager.getInstance().isOfflineMode()) if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
+			if(!EntityManager.getInstance().isOfflineMode()) 
+				if(compTemplate.isThingOnly() && !NetSubSystem.getInstance().isServer()) continue;
 			this.componentTemplateMap.put(compName, compTemplate);
 		}
 	}

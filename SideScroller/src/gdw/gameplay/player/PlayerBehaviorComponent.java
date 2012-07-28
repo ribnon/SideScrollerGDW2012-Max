@@ -78,7 +78,10 @@ public class PlayerBehaviorComponent extends Component
 			if (deathTimer < 0.0f)
 			{
 				respawnAfterDead();
-				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(), new DeathMessage());
+				if (!EntityManager.getInstance().isOfflineMode()) {
+					NetSubSystem.getInstance().sendBusMessage(
+							getOwner().getID(), new DeathMessage());
+				}
 			}
 		}
 
@@ -192,7 +195,7 @@ public class PlayerBehaviorComponent extends Component
 		if (healthPercent > 100)
 			healthPercent = 100;
 		
-		if (sendMessage)
+		if (sendMessage && !EntityManager.getInstance().isOfflineMode())
 			NetSubSystem.getInstance().sendBusMessage(
 					getOwner().getID(),
 					new HealthModify(healthChange));
@@ -206,7 +209,7 @@ public class PlayerBehaviorComponent extends Component
 		hitActive = 0.0f;
 		healthChangeTimer = 0.0f;
 
-		if (sendNetworkMessage)
+		if (sendNetworkMessage && !EntityManager.getInstance().isOfflineMode())
 			NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
 					new ReSpawnMessage());
 	}
