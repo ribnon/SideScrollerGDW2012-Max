@@ -1,1 +1,1 @@
-map/Karte.tmx
+map/gym1.tmx
