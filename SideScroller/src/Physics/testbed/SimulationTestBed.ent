@@ -14,14 +14,14 @@ Scale=1
 pivotX=32
 pivotY=32
 Component FadeIn
-fadeTime=60.0
-startColor=0;255;0;0
+fadeTime=5.0
+startColor=0;255;0;255
 endColor=255;255;255;255
 
 Template TestBedEnemy
-#Component Simulation
-#mass=1
-#friction=0.5
+Component Simulation
+mass=1
+friction=0.5
 Component CircleCollisionDetection
 radius=16
 Component CollisionReaction
@@ -47,7 +47,7 @@ halfExtentX=10.0
 halfExtentY=100.0
 Component CollisionReaction
 impassableFromTop=1
-impassableFromSide=0
+impassableFromSide=1
 
 Template TestBedPlatform
 Component AABoxCollisionDetection
@@ -60,8 +60,8 @@ impassableFromSide=0
 
 Template TestBedDiag
 Component OOBoxCollisionDetection
-halfExtentX=20.0
-halfExtentY=5.0
+halfExtentX=50.0
+halfExtentY=10.0
 
 
 
