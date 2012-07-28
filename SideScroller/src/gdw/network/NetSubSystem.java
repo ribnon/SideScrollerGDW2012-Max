@@ -122,11 +122,12 @@ public class NetSubSystem
 		break;
 		
 		case NetMessageType.EntitySpawnMessageType:
-			GDWServerLogger.logMSG("bekomme SpawnMessage");
+			//GDWServerLogger.logMSG("bekomme SpawnMessage");
 			EntitySpawnNetMessage[] sqnms = EntitySpawnNetMessage.getFromByteBuffer(buf);
 			for(int i=0;i<sqnms.length;++i)
 			{
 				EntitySpawnNetMessage item = sqnms[i];
+				//GDWServerLogger.logMSG("ist ne "+item.templateName);
 				EntityTemplate enteT =  EntityTemplateManager.getInstance().getEntityTemplate(item.templateName);
 				enteT.createEntity(item.id,item.posX,item.posY,item.orientation);	
 			}		
@@ -165,7 +166,7 @@ public class NetSubSystem
 	{
 		if(!this.serverFlag)
 			return;
-		//GDWServerLogger.logMSG("Spawn id: "+id+"posx - Y: "+posX+" "+posY);
+		//GDWServerLogger.logMSG("Spawn id: "+id+" posx - Y: "+posX+" "+posY);
 		this.listOfSpawnMessages.add(new EntitySpawnNetMessage(template, id, posX, posY, orientation));
 	}
 	
@@ -222,7 +223,7 @@ public class NetSubSystem
 			//spawn
 			while(!this.listOfSpawnMessages.isEmpty())
 			{
-				
+				//GDWServerLogger.logMSG("schreibe spawn");
 				buf = this.ref.getMessageBuffer();
 				EntitySpawnNetMessage.fillInByteBuffer(this.listOfSpawnMessages, buf);
 				this.ref.sendMessage(buf, true);
@@ -230,6 +231,7 @@ public class NetSubSystem
 			//deadReck
 			while(!this.listOfDeadReckonigMessages.isEmpty())
 			{
+				GDWServerLogger.logMSG("send DeadReck");
 				buf = this.ref.getMessageBuffer();
 				DeadReckoningNetMessage.fillInByteBuffer(listOfDeadReckonigMessages, buf);
 				sendDeadReckAndAddRoundtip(buf, DeadReckoningNetMessage.ROUNDTIP_WRITE_POSITION);
@@ -237,6 +239,7 @@ public class NetSubSystem
 			//tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
+				GDWServerLogger.logMSG("send Bus Message");
 				buf = this.ref.getMessageBuffer();
 				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
 				this.ref.sendMessage(buf, true);
@@ -244,6 +247,7 @@ public class NetSubSystem
 			//deSpawn
 			while(!this.listOfDeSpawnMessages.isEmpty())
 			{
+				GDWServerLogger.logMSG("send Despawn");
 				buf = this.ref.getMessageBuffer();
 				EntityDeSpawnNetMessage.fillInByteBuffer(this.listOfDeSpawnMessages, buf);
 				this.ref.sendMessage(buf, true);
@@ -260,6 +264,7 @@ public class NetSubSystem
 			//nur tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
+				GDWServerLogger.logMSG("client sendet BusMessage");
 				buf = this.ref.getMessageBuffer();
 				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
 				this.ref.sendMessage(buf, true);

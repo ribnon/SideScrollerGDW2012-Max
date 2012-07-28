@@ -20,7 +20,7 @@ public class EnemyBehaviorComponentTemplate extends ComponentTemplate
 		
 		this.aggroRange = getFloatParam("aggroRange",5.0f);
 		
-		this.shootEntityTemplate = getStringParam("shootEntityTemplate");
+		this.shootEntityTemplate = getStringParam("shootEntityTemplate","");
 	}
 
 	@Override

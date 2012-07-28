@@ -1,5 +1,6 @@
 package gdw.gameplay.player;
 
+import gdw.control.PlayerInputComponent;
 import gdw.control.messageType.AttackMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
@@ -32,12 +33,15 @@ public class PlayerBehaviorComponent extends Component
 	private float healthChangeInterval;
 	private float healthChangeTimer;
 
+	private float startAngle;
+	private float hitAngle;
+	private float idleAngle;
+	private float currentAngle;
+
 	public static enum AttackType
 	{
 		Normal, Special
 	};
-
-	// input component flip wenn getDirectionIsRight dann angle flip
 
 	public final static int COMPONENT_TYPE = 14;
 
@@ -56,6 +60,10 @@ public class PlayerBehaviorComponent extends Component
 			hitActive = 1.0f;
 			healthChangeInterval = t.getHealthChangeInterval();
 			healthChangeTimer = t.getHealthChangeTimer();
+			startAngle = t.getStartAngle();
+			hitAngle = t.getHitAngle();
+			idleAngle = t.getIdleAngle();
+			currentAngle = idleAngle;
 		}
 
 		PlayerSubSystem.getInstance().addPlayerBehaviorComponent(this);
@@ -78,7 +86,8 @@ public class PlayerBehaviorComponent extends Component
 			if (deathTimer < 0.0f)
 			{
 				respawnAfterDead();
-				if (!EntityManager.getInstance().isOfflineMode()) {
+				if (!EntityManager.getInstance().isOfflineMode())
+				{
 					NetSubSystem.getInstance().sendBusMessage(
 							getOwner().getID(), new DeathMessage());
 				}
@@ -95,12 +104,19 @@ public class PlayerBehaviorComponent extends Component
 		if (hitActive < 1.0f)
 		{
 			hitActive += increment;
+			currentAngle = startAngle + (hitAngle - startAngle)*hitActive;
+		}
+		else
+		{
+			hitActive = 1.0f;
+			currentAngle = idleAngle;
 		}
 
-		else if (hitActive == 1.0f)
-			return;
-		else
-			hitActive = 1.0f;
+		PlayerInputComponent input = (PlayerInputComponent) getOwner()
+				.getComponent(PlayerInputComponent.COMPONENT_TYPE);
+		if (input != null && (input.getDirectionIsRight() && currentAngle < 0)
+				|| (!input.getDirectionIsRight() && currentAngle > 0))
+			currentAngle = -currentAngle;
 	}
 
 	public void onMessage(Message msg)
@@ -126,30 +142,36 @@ public class PlayerBehaviorComponent extends Component
 			handlePlayerWeapon(other);
 			handleEnemyDamageDealer(other);
 		}
-		//My events:
-		
-		//HealthModify
+		// My events:
+
+		// HealthModify
 		else if (msg instanceof HealthModify)
 		{
 			HealthModify hm = (HealthModify) msg;
 			healthChange(hm.healthModify, false);
 		}
-		//RespawnMessage
+		// RespawnMessage
 		else if (msg instanceof ReSpawnMessage)
 		{
 			revive(false);
 		}
-		//DeathMessage
+		// DeathMessage
 		else if (msg instanceof DeathMessage)
 		{
 			respawnAfterDead();
+		}
+		// AttackMessage
+		else if (msg instanceof AttackMessage)
+		{
+			hitActive = 0;
 		}
 	}
 
 	private void handleRainbow(Entity other)
 	{
 		// Rainbow (Dash (is best pony))
-		RainbowComponent rainbow = (RainbowComponent) other.getComponent(RainbowComponent.COMPONENT_TYPE);
+		RainbowComponent rainbow = (RainbowComponent) other
+				.getComponent(RainbowComponent.COMPONENT_TYPE);
 		if (rainbow != null)
 		{
 			healthChange(rainbow.getHealthIncrement(), true);
@@ -188,16 +210,15 @@ public class PlayerBehaviorComponent extends Component
 
 	private void healthChange(float healthChange, boolean sendMessage)
 	{
-		healthPercent += healthChange; 
+		healthPercent += healthChange;
 		healthChangeTimer = healthChangeInterval;
 		if (healthPercent < 0)
 			isDown = true;
 		if (healthPercent > 100)
 			healthPercent = 100;
-		
+
 		if (sendMessage && !EntityManager.getInstance().isOfflineMode())
-			NetSubSystem.getInstance().sendBusMessage(
-					getOwner().getID(),
+			NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
 					new HealthModify(healthChange));
 	}
 
@@ -223,17 +244,22 @@ public class PlayerBehaviorComponent extends Component
 				.getInstance().getAllPlayerBehaviorComponent();
 		for (PlayerBehaviorComponent player : allPlayer)
 		{
-			player.getOwner()
-					.setPosX(currentSpawn.getOwner().getPosX());
-			player.getOwner()
-					.setPosY(currentSpawn.getOwner().getPosY());
+			player.getOwner().setPosX(currentSpawn.getOwner().getPosX());
+			player.getOwner().setPosY(currentSpawn.getOwner().getPosY());
 			player.revive(false);
 		}
 	}
 
 	public void startAttack(AttackType type)
 	{
-		// TODO: attacks and the corresponding message
+		// TODO: special attacks
+		if (type == AttackType.Normal)
+		{
+			hitActive = 0;
+			if (!EntityManager.getInstance().isOfflineMode())
+				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
+						new AttackMessage());
+		}
 	}
 
 	@Override

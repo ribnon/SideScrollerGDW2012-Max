@@ -1,10 +1,13 @@
 package gdw;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import gdw.collisionDetection.CollisionDetectionComponentManager;
+import gdw.control.PlayerInputComponentManager;
 import gdw.entityCore.EntityManager;
+import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
 import gdw.graphics.SpriteManager;
 import gdw.network.NetSubSystem;
@@ -81,10 +84,17 @@ public class Client extends BasicGame {
 		if(loadLevel && !levelLoaded)
 		{
 			Level.getInstance().start();
+			try
+			{
+				EntityTemplateManager.getInstance().loadEntityTemplates("general.templates");
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 			levelLoaded = true;
 		}
 		if (connected) {
-			
+			PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(arg0.getInput());
 			NetSubSystem.getInstance().pollMessages();
 			// CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 			EntityManager.getInstance().tick((float) arg1);
@@ -104,6 +114,7 @@ public class Client extends BasicGame {
 			e.printStackTrace();
 		}
 		try {
+			app.setTargetFrameRate(60);
 			app.start();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block

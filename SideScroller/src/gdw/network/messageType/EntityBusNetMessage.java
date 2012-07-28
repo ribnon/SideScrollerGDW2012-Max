@@ -50,7 +50,7 @@ public class EntityBusNetMessage extends NetMessageType
 	public static void fillInByteBuffer(LinkedList<EntityBusNetMessage> list,ByteBuffer buf)
 	{
 		buf.put(NetMessageType.EntityBusMessageType);
-		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE);
+		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE-Byte.SIZE);
 		byte counter = 0;
 		while(!list.isEmpty())
 		{
@@ -68,10 +68,13 @@ public class EntityBusNetMessage extends NetMessageType
 					e.printStackTrace();
 				}
 				arr = baos.toByteArray();
-				buf.putInt(msg.entityID);
-				buf.put((byte)arr.length);
-				buf.put(arr);
+				helper.putInt(msg.entityID);
+				helper.put((byte)arr.length);
+				helper.put(arr);
 			}catch (IndexOutOfBoundsException e)
+			{
+				break;
+			}catch (BufferOverflowException e)
 			{
 				break;
 			}
