@@ -48,6 +48,11 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 	private int overlayStep1 = 0;
 	private int overlayStep2 = 0;
 
+	public SpriteSheet getImage()
+	{
+		return baseSpritesheet;
+	}
+	
 	public SpriteSheet getBaseSpritesheet()
 	{
 		return baseSpritesheet;

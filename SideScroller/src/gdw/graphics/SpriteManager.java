@@ -4,6 +4,8 @@ import gdw.entityCore.Level;
 
 import java.util.LinkedList;
 
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class SpriteManager {
@@ -34,24 +36,39 @@ public class SpriteManager {
 	
 	public void render()
 	{
-		//TiledMap map = Level.getInstance().getMap();
-		//if(map == null) System.out.println("Error: Map not loaded, nullpointer exception imminent :P");
-		//int lc = map.getLayerCount();
+		TiledMap map = Level.getInstance().getMap();
+		int lc = 0;
+		if(map != null) 
+		{
+			lc = map.getLayerCount();
+		}
+		
+		Graphics g = null;
+		if(sprites.size() == 0)
+			return;
+		try {
+			g = sprites.get(0).getImage().getGraphics();
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		for(int i=0;i<cameras.size();i++)
 		{
-			/*
+			
 			for(int j = 0; j < lc; ++j)
 			{
 				if(map.getLayerProperty(j, "invisible", "false").equals("true"))
 					continue;
 				map.render((int)(-cameras.get(i).getOwner().getPosX()+0.5f), (int)(-cameras.get(i).getOwner().getPosY()+0.5f), j);
 					
-			}*/
+			}
 			
 			float posX = cameras.get(i).getOwner().getPosX();
 			float posY = cameras.get(i).getOwner().getPosY();
 			
+			//Verschiedene Cameras mit unterschiedlich großen viewports zu haben ist eine doofe Idee !
+			g.setClip(i*cameras.get(i).getViewPortX(), i*cameras.get(i).getViewPortY(), cameras.get(i).getViewPortX(), cameras.get(i).getViewPortY());
 			for(int j=0;j<sprites.size();j++)
 			{
 				sprites.get(i).draw(posX,posY);

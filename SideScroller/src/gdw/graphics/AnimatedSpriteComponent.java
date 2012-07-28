@@ -47,6 +47,11 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	
 	private float animationSpeed;
 	
+	public SpriteSheet getImage()
+	{
+		return spriteSheet;
+	}
+	
 	public SpriteSheet getSpriteSheet()
 	{
 		return spriteSheet;

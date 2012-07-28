@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="93" height="155" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="level" tilewidth="16" tileheight="16">
+  <image source="tilesets/area02_level_tiles.png" trans="ff00ff" width="256" height="192"/>
+ </tileset>
+ <layer name="BackgroundLayer" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3DQQ0AAAwDoTNZ/1YmYx9IWDVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV9e0BASgWTDzhAAA=
+  </data>
+ </layer>
+ <layer name="MiddleLayer" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3aQQrCMBAF0J5Eb+AtvIhd2RsE8e4KuigKRZN2Ysx7MFAaSKcfZjfDAAAAAABlDrO6Vu6lRzKPJ/NYl0Hm0WQeT+bxZB5vV7sBAAAAgMZNhed8LxWekyctFNs5fviO9cj8IfqfX78n89jv9Zh3bTKPJe94Mo8n83gyBwAAAGhf7k7HedUu+pK7Y2A3oczSzkfJLkjODNmlKpMzC+an3BbzAwAAAAAAAAAAAAAAAAAAAAAAAAAAPTrda3zW/Hms2dQf29duAAAAAAAAAAAAAAAA4EdMjd/fotT4/a1KGxbvbu4ndMU84QAA
+  </data>
+ </layer>
+ <layer name="ForegroundLayer" width="93" height="155">
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+ <layer name="Collision" width="93" height="155">
+  <properties>
+   <property name="invisible" value="true"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2YiY7kMAhE0///06vRqKWM1wdHFeDEJUXd47YBv2DD7nUdHR0dcfURPJm+VzF5bETu9a6Zr1ks3rit+2Sxis4zaSyzsdm4dk6mmLFp9q7JLenZqCxGjOy9V7gzPWIyZ2snzq3Qce/IIENI7oe5XMi+qKLQvTaipryVuWSOhrX33wQWVWXeCtn7oHonj/83CtVHWWy8lfmPsu7nwzzexmEev/4wz1u7++PZm0VvztUfrZjP1nl6zWpC5Wy1PN+Bt3Ud4vyj4mptVBKKEYM3QlXiYeVkRWXsjX32qyt6n2/j24pVV1i97O5C7/3NLCVi8Dm852LwOcznejJzz79bUfUoqoZVYp7tI4pFFvNVPklzbZabqHPA+D+IDEk43r+v3ktvbPSbNk70XVONuTTvZwwkv0lj7L1/r6x1hVXPtHfJat7ot5Vm794rKXO2GHcm4r32fvMKzVzDDn1PamStl1H3ufb+a9cwc8aqVb2QrkP49syZ9RuIHgIpayyIuDU8tXNGnLN5f2P5flp7GWu/gGAenScItcwjfI3+lq67j+/OPMJXe94t61bj1ZXBXOuzYu/hUSTzrx+Lz2q9h0fRzK0+JTWZLWvfMIq7OvPv/Mx+D8k8eg+e91zlTmEyZLzDjLO1k6ycD/MYHebxurM8zGMUxZzVE1TpMTSSskQw/34ie19JniCFypP7p3febD0rz70+Pb2dZR8W5siYW5taefwyxGAu8WfZN4J5LwZpXKxzMIr5/rmat5pjzSf2PquozYXVXIktNHPrvKpCMWfs+yl53eoz+L6a247vziFSKOa7Cl0r0HVodrfuqmzmEnsj+7sqMn7Le7zX2t1471qPW+Y7adVzVpW0p6yo0b1YXVrmlhrOfHoxVZeHeaYq3N+IXPH4YsQljT1LXv+e9aP9e7lUYTvSqJ4w8nzk/zP5O1vscybdL/qctjWtktDxeO46FvMsse9+lM0n5bmmno/GVutQrJB22MwtvYy1F2LsxxqLxB5LWtuzmjcbi+Ct/X1l0xoH6lnFs8prRu7MYrP6jGKutacR86yOzpU31tb2jmLn+HX9ZWX1xzyT0WLe4/cxhN27/aNfjfLQy6hXC45+NavhKLuI2vAUzfaOYO75/Yla5ZuEibd/e5MkXDTMvTFkPNFC5WHFvY2UHZeUp9dHJe6ZsUh9o/rzCtwr8I5ifvc5isN6H+1wh19K38gYR8x783bgqJEmRjTz3VghpN0r+m75DP5+qiz7RNfQz2D8ibLuD3GXjua+hbl3vZd57255MnPP2sx3hvKT8Xj34FVE3/KEs4OMP6pXtObdbC4rp0dxIG1l3eOzWnIfH/1+jzXibkEpk3nP/338uv6PR5L3El+WOFHK5N36l4yj/FnWoWPIZj4aZ9V01hrt/Vatt2D3Udo1Gtsa+5WYs8Tmoq3n7J6rirR79DCw3ClPZH6XhHt0XXk68x+tcj6DefSTpSjmmn2yWWUz/8YgGfPYX/WOErbS36rn+TXwj4oJfe5X723kt5p6cbGY98ZncUhsrnK/okb7R9u28H2yWi5Rd8vbxao/h/lc0hrmtXu4/xWrz7rfWxZb1h5otweplrll/ZPrAyN+b32esWVw977P7Bz/xnD/tKyfxRZ95pEcI5hb4pTsA52b7bgmFotftHrMe34lTFd+GLWIeRdE3S2fwfeVjd1rZU+R97kmZ5i1Jlu71tCdxeyNrusw7wld8xG2W/tPk3dfnr6EGZfUfubD2oPXnsW3ZU30uWIwR9qTzO199/j05mpEnqMlrRXtnKh9zRgy6xxTkrglNiJkPQORiqpBFXPpRzsz196nVVQtHqlQZyFDlWN7qg7zeB3m8Xoj8+wa8Fbms9+iHqaqxVYhxyKYe9Zq3kFknlbLpbuQ9jW2evur0L8/mfl3fkadnGlH5hW4ebQbc6bNKO3MfNd835V5hG2WDvN4PYH5eer1ZhX1D1CV9Qc84QAA
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="93" height="155">
+  <object name="PlayerStart" type="PlayerStart" x="128" y="240" width="64" height="64">
+   <properties>
+    <property name="Template" value="StartSpawn"/>
+   </properties>
+  </object>
+  <object name="Platform1" type="MoveableObject" x="224" y="2000" width="96" height="16"/>
+  <object name="Platform2" type="MoveableObject" x="32" y="1808" width="96" height="16"/>
+  <object name="Platform4" type="MoveableObject" x="288" y="2320" width="96" height="16"/>
+  <object name="Platform3" type="MoveableObject" x="32" y="2224" width="96" height="16"/>
+  <object name="HotButton1" type="HotButton" x="944" y="272" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="1;0;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_push_paint.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door1"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFF0000"/>
+   </properties>
+  </object>
+  <object name="Door1" type="RotatableObject" x="1024" y="64" width="16" height="112">
+   <properties>
+    <property name="Door.isTrapDoor" value="false"/>
+    <property name="Entity.orientation" value="-1"/>
+    <property name="RotateBySwitch.activateRotation" value=""/>
+    <property name="RotateBySwitch.angularVelocity" value="0.005"/>
+    <property name="RotateBySwitch.deactivateRotation" value=""/>
+    <property name="StaticSprite.color" value="1;0;0"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.flipped" value="false"/>
+    <property name="StaticSprite.image" value="./data/image.png"/>
+    <property name="StaticSprite.pivotX" value="1"/>
+    <property name="StaticSprite.pivotY" value="0"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Template" value="Door;RotateBySwitch;StaticSprite"/>
+   </properties>
+  </object>
+  <object name="TrapDoor1" type="RotatableObject" x="800" y="304" width="80" height="16">
+   <properties>
+    <property name="Door.isTrapDoor" value="true"/>
+    <property name="Entity.orientation" value="1"/>
+    <property name="StaticSprite.color" value="0;1;0"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.flipped" value="false"/>
+    <property name="StaticSprite.image" value="./data/image.png"/>
+    <property name="StaticSprite.pivotX" value="0"/>
+    <property name="StaticSprite.pivotY" value="1"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Template" value="Door;StaticSprite"/>
+   </properties>
+  </object>
+  <object name="ColorBucket1" type="ColorBucket" x="384" y="352" width="32" height="224">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/bucket_ceiling_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycle" value=""/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="5;5"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.flipped" value="false"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="1;0;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/bucket_ceiling_paint_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.pivotX" value="0"/>
+    <property name="OverlayedAnimatedSprite.pivotY" value="0"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="OverlayedAnimatedSprite.tileHeight" value="224"/>
+    <property name="OverlayedAnimatedSprite.tileWidth" value="32"/>
+    <property name="Template" value="OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFF0000"/>
+   </properties>
+  </object>
+  <object name="Tomato1/Apple1" type="Enemy" x="144" y="512" width="64" height="64"/>
+  <object name="PaintPuddle1" type="HazardousLiquid" x="960" y="496" width="112" height="16">
+   <properties>
+    <property name="Template" value="EnemyDamageDealer"/>
+   </properties>
+  </object>
+  <object name="Bridge1" type="RotatableObject" x="384" y="688" width="16" height="176"/>
+  <object name="Rainbow1" type="Rainbow" x="768" y="800" width="64" height="96">
+   <properties>
+    <property name="AnimatedSprite.cycleLength" value="10"/>
+    <property name="AnimatedSprite.filter" value="1;1;1"/>
+    <property name="AnimatedSprite.flipped" value="false"/>
+    <property name="AnimatedSprite.layer" value=""/>
+    <property name="AnimatedSprite.pivotX" value="0"/>
+    <property name="AnimatedSprite.pivotY" value="0"/>
+    <property name="AnimatedSprite.scale" value="1"/>
+    <property name="AnimatedSprite.spritesheet" value="./data/assets/spritesheets/rainbow.png"/>
+    <property name="AnimatedSprite.tileHeight" value="96"/>
+    <property name="AnimatedSprite.tileWidth" value="64"/>
+    <property name="Rainbow.checkpointNumber" value="1"/>
+    <property name="Template" value="Rainbow;StartSpawn;AnimatedSprite"/>
+   </properties>
+  </object>
+  <object name="PaintPuddle2" type="HazardousLiquid" x="16" y="880" width="208" height="16"/>
+  <object name="PaintPuddle3" type="HazardousLiquid" x="384" y="912" width="192" height="16"/>
+  <object name="Door3" type="RotatableObject" x="1184" y="816" width="16" height="112"/>
+  <object name="Door5" type="RotatableObject" x="1344" y="672" width="16" height="112"/>
+  <object name="Door4" type="RotatableObject" x="1120" y="672" width="112" height="16"/>
+  <object name="Grape1" type="Enemy" x="608" y="768" width="96" height="96">
+   <properties>
+    <property name="StaticSprite.color" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./data/assets/spritesheets/singleImages/obstacle_grapes_plain.png"/>
+   </properties>
+  </object>
+  <object name="Tomato2/Apple2" type="Enemy" x="944" y="832" width="64" height="64"/>
+  <object name="TrapDoor2.1" type="RotatableObject" x="976" y="1008" width="80" height="16"/>
+  <object name="TrapDoor2.2" type="RotatableObject" x="1056" y="1008" width="80" height="16"/>
+  <object name="YellowPepper1" type="Enemy" x="960" y="1104" width="64" height="64"/>
+  <object name="YellowPepper2" type="Enemy" x="704" y="1344" width="64" height="64"/>
+  <object name="Tomato3" type="Enemy" x="1088" y="1520" width="64" height="64"/>
+  <object name="Tomato4" type="Enemy" x="1328" y="2032" width="64" height="64"/>
+  <object name="Door7" type="RotatableObject" x="496" y="992" width="16" height="112"/>
+  <object name="Door8" type="RotatableObject" x="496" y="1152" width="16" height="112"/>
+  <object name="Door6" type="RotatableObject" x="720" y="944" width="16" height="112"/>
+  <object name="DeadlySpikes" type="DeadlySpikes" x="208" y="2032" width="128" height="32"/>
+  <object name="DeadlySpikes" type="DeadlySpikes" x="16" y="1856" width="112" height="32"/>
+  <object name="PaintPuddle4" type="HazardousLiquid" x="16" y="2432" width="368" height="16"/>
+  <object name="Carrot1" type="Enemy" x="1152" y="2224" width="64" height="64"/>
+  <object name="LevelEnd" type="LevelEnd" x="1440" y="2336" width="48" height="112">
+   <properties>
+    <property name="Template" value="LevelGoal"/>
+   </properties>
+  </object>
+  <object name="Door9" type="RotatableObject" x="960" y="1984" width="16" height="112"/>
+  <object name="Door10" type="RotatableObject" x="608" y="2208" width="112" height="16"/>
+  <object name="Door11" type="RotatableObject" x="1280" y="2336" width="16" height="112"/>
+  <object name="Door2" type="RotatableObject" x="624" y="384" width="16" height="112">
+   <properties>
+    <property name="Door.isTrapDoor" value="false"/>
+    <property name="Entity.orientation" value="1"/>
+    <property name="StaticSprite.color" value="1;0;0"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.flipped" value="false"/>
+    <property name="StaticSprite.image" value="./data/image.png"/>
+    <property name="StaticSprite.pivotX" value="0"/>
+    <property name="StaticSprite.pivotY" value="0"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Template" value="Door;StaticSprite"/>
+   </properties>
+  </object>
+  <object name="sign_colorMix" type="StaticSprite" x="256" y="784" width="80" height="80">
+   <properties>
+    <property name="StaticSprite.color" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./data/assets/staticSprites/sign_colormix.png"/>
+   </properties>
+  </object>
+  <object name="sign_hopping" type="StaticSprite" x="384" y="224" width="80" height="80">
+   <properties>
+    <property name="StaticSprite.color" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./data/assets/staticSprites/sign_jump.png"/>
+   </properties>
+  </object>
+  <object name="fadingImage" type="StaticSprite" x="912" y="1424" width="320" height="160">
+   <properties>
+    <property name="StaticSprite.filter" value="0;0;0"/>
+    <property name="StaticSprite.image" value="./data/assets/staticSprites/background/cake_pie_test_image.png"/>
+    <property name="Template" value="StaticSprite;?FadeIn?"/>
+   </properties>
+  </object>
+  <object name="ColorBucket3" type="ColorBucket" x="1056" y="944" width="32" height="224">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/bucket_ceiling_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycle" value=""/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="5;5"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.flipped" value="false"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;1;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/bucket_ceiling_paint_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.pivotX" value="0"/>
+    <property name="OverlayedAnimatedSprite.pivotY" value="0"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="OverlayedAnimatedSprite.tileHeight" value="224"/>
+    <property name="OverlayedAnimatedSprite.tileWidth" value="32"/>
+    <property name="Template" value="OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFFFF00"/>
+   </properties>
+  </object>
+  <object name="ColorBucket5" type="ColorBucket" x="640" y="1952" width="32" height="224">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/bucket_ceiling_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycle" value=""/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="5;5"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.flipped" value="false"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="1;0;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/bucket_ceiling_paint_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.pivotX" value="0"/>
+    <property name="OverlayedAnimatedSprite.pivotY" value="0"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="OverlayedAnimatedSprite.tileHeight" value="224"/>
+    <property name="OverlayedAnimatedSprite.tileWidth" value="32"/>
+    <property name="Template" value="OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFF0000"/>
+   </properties>
+  </object>
+  <object name="ColorBucket2" type="ColorBucket" x="928" y="720" width="64" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/bucket_ground_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycle" value=""/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="4;4"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.flipped" value="false"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;0;1"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/bucket_ground_paint_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.pivotX" value="0"/>
+    <property name="OverlayedAnimatedSprite.pivotY" value="0"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="OverlayedAnimatedSprite.tileHeight" value="32"/>
+    <property name="OverlayedAnimatedSprite.tileWidth" value="64"/>
+    <property name="Template" value="OverlayedAnimatedSprite"/>
+    <property name="color" value="0x0000FF"/>
+   </properties>
+  </object>
+  <object name="ColorBucket4" type="ColorBucket" x="1200" y="1552" width="64" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/bucket_ground_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycle" value=""/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="4;4"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.flipped" value="false"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="1;0;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/bucket_ground_paint_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.pivotX" value="0"/>
+    <property name="OverlayedAnimatedSprite.pivotY" value="0"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="OverlayedAnimatedSprite.tileHeight" value="32"/>
+    <property name="OverlayedAnimatedSprite.tileWidth" value="64"/>
+    <property name="Template" value="OverlayedAnimatedSprite"/>
+    <property name="color" value="0x0000FF"/>
+   </properties>
+  </object>
+  <object name="ColorBucket6" type="ColorBucket" x="768" y="2416" width="64" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/bucket_ground_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycle" value=""/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="4;4"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.flipped" value="true"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;1;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/bucket_ground_paint_sheet.png"/>
+    <property name="OverlayedAnimatedSprite.pivotX" value="0"/>
+    <property name="OverlayedAnimatedSprite.pivotY" value="0"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="OverlayedAnimatedSprite.tileHeight" value="32"/>
+    <property name="OverlayedAnimatedSprite.tileWidth" value="64"/>
+    <property name="Template" value="OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFFFF00"/>
+   </properties>
+  </object>
+  <object name="HotButton2" type="HotButton" x="704" y="464" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;1;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_push_paint.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door2; TrapDoor1"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFFFF00"/>
+   </properties>
+  </object>
+  <object name="HotButton3" type="HotButton" x="352" y="832" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_step_off.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="1;0;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_step_on.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Bridge1"/>
+    <property name="Switch.type" value="Step"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFF0000"/>
+   </properties>
+  </object>
+  <object name="HotButton5" type="HotButton" x="1136" y="864" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_step_off.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;0;1"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_step_on.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door3;Door4;Door5"/>
+    <property name="Switch.type" value="Step"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0x0000FF"/>
+   </properties>
+  </object>
+  <object name="HotButton4" type="HotButton" x="1296" y="752" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_step_off.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;1;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_step_on.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door3;Door4;Door5"/>
+    <property name="Switch.type" value="Step"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFFFF00"/>
+   </properties>
+  </object>
+  <object name="HotButton6" type="HotButton" x="848" y="976" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_pull_off.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="1;0;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_pull_off.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="TrapDoor2.1;TrapDoor2.2"/>
+    <property name="Switch.type" value="Pull"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFF0000"/>
+   </properties>
+  </object>
+  <object name="HotButton8" type="HotButton" x="832" y="1168" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;0;1"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_push_paint.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door6"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0x0000FF"/>
+   </properties>
+  </object>
+  <object name="HotButton7" type="HotButton" x="512" y="1072" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_step_off.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;0;1"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_step_on.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door7;Door8"/>
+    <property name="Switch.type" value="Step"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0x0000FF"/>
+   </properties>
+  </object>
+  <object name="HotButton9" type="HotButton" x="512" y="1232" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_step_off.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;1;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_step_on.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door7;Door8"/>
+    <property name="Switch.type" value="Step"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFFFF00"/>
+   </properties>
+  </object>
+  <object name="HotButton10" type="HotButton" x="1440" y="2064" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_step_off.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_step_on.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door11"/>
+    <property name="Switch.type" value="Step"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFFFFFF"/>
+   </properties>
+  </object>
+  <object name="HotButton11" type="HotButton" x="992" y="2416" width="32" height="32">
+   <properties>
+    <property name="OverlayedAnimatedSprite.baseSpritesheet" value="./data/assets/spritesheets/singleImages/button_step_off.png"/>
+    <property name="OverlayedAnimatedSprite.color" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.cycleLength" value="1;1"/>
+    <property name="OverlayedAnimatedSprite.filter" value="1;1;1"/>
+    <property name="OverlayedAnimatedSprite.overlayColor1" value="0;1;0"/>
+    <property name="OverlayedAnimatedSprite.overlaySpritesheet1" value="./data/assets/spritesheets/singleImages/button_step_on.png"/>
+    <property name="OverlayedAnimatedSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door3;Door4;Door5"/>
+    <property name="Switch.type" value="Step"/>
+    <property name="Template" value="Switch;OverlayedAnimatedSprite"/>
+    <property name="color" value="0xFFFF00"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
