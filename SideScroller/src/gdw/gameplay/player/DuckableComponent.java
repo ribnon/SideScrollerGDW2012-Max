@@ -77,9 +77,9 @@ public class DuckableComponent extends Component {
 			} 
 			else if (tempComp instanceof OOBoxCollisionDetectionComponent) 
 			{
-				originalSizeX = ((AABoxCollisionDetectionComponent) tempComp)
+				originalSizeX = ((OOBoxCollisionDetectionComponent) tempComp)
 						.getHalfExtentX();
-				originalSizeY = ((AABoxCollisionDetectionComponent) tempComp)
+				originalSizeY = ((OOBoxCollisionDetectionComponent) tempComp)
 						.getHalfExtentY();
 				((OOBoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentX(duckedSizeX);
@@ -107,8 +107,7 @@ public class DuckableComponent extends Component {
 			this.ducked = ducked;
 			
 			CollisionDetectionComponent tempComp = (CollisionDetectionComponent) getOwner().getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
-			if (tempComp instanceof AABoxCollisionDetectionComponent
-					|| tempComp instanceof OOBoxCollisionDetectionComponent) 
+			if (tempComp instanceof AABoxCollisionDetectionComponent) 
 			{
 				((AABoxCollisionDetectionComponent) tempComp)
 						.setHalfExtentX(originalSizeX);
