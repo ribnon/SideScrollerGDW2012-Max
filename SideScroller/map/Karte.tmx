@@ -34,7 +34,7 @@
   </object>
   <object name="Platform1" type="MoveableObject" x="224" y="2000" width="96" height="16">
    <properties>
-    <property name="PathFollow.wayPoints" value="0;0 100;100"/>
+    <property name="PathFollow.wayPoints" value="x;y x;y"/>
     <property name="Template" value="Platform"/>
    </properties>
   </object>
@@ -81,8 +81,22 @@
     <property name="Template" value="DamageZone"/>
    </properties>
   </object>
-  <object name="Bridge1" type="RotatableObject" x="384" y="688" width="16" height="176"/>
-  <object name="HotButton3" type="HotButton" x="352" y="832" width="32" height="32"/>
+  <object name="Bridge1" type="RotatableObject" x="384" y="688" width="16" height="176">
+   <properties>
+    <property name="Template" value="BridgeDown"/>
+   </properties>
+  </object>
+  <object name="HotButton3" type="HotButton" x="352" y="832" width="32" height="32">
+   <properties>
+    <property name="StaicSprite.image" value="./assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="StaticStripe.color" value="1;1;1"/>
+    <property name="Switch.targetEntity" value="Bridge1"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
+   </properties>
+  </object>
   <object name="Rainbow1" type="Rainbow" x="768" y="800" width="64" height="96">
    <properties>
     <property name="Rainbow.checkPointNumber" value="1"/>
@@ -94,7 +108,11 @@
     <property name="Template" value="DamageZone"/>
    </properties>
   </object>
-  <object name="PaintPuddle3" type="HazardousLiquid" x="384" y="912" width="192" height="16"/>
+  <object name="PaintPuddle3" type="HazardousLiquid" x="384" y="912" width="192" height="16">
+   <properties>
+    <property name="Template" value="DamageZone"/>
+   </properties>
+  </object>
   <object name="ColorBucket3" type="ColorBucket" x="928" y="720" width="64" height="32">
    <properties>
     <property name="AnimatedSprite.filterBlue" value="1"/>
@@ -104,26 +122,96 @@
     <property name="Template" value="ColorBucket_Ground"/>
    </properties>
   </object>
-  <object name="Door3" type="RotatableObject" x="1184" y="816" width="16" height="112"/>
-  <object name="HotButton4" type="HotButton" x="1136" y="864" width="32" height="32"/>
-  <object name="Door5" type="RotatableObject" x="1344" y="672" width="16" height="112"/>
-  <object name="HotButton5" type="HotButton" x="1295" y="750" width="32" height="32"/>
-  <object name="Door4" type="RotatableObject" x="1120" y="672" width="112" height="16"/>
-  <object name="Grape1" type="Enemy" x="608" y="768" width="96" height="96"/>
+  <object name="Door3" type="RotatableObject" x="1184" y="816" width="16" height="112">
+   <properties>
+    <property name="Template" value="Door_RightUp"/>
+   </properties>
+  </object>
+  <object name="HotButton4" type="HotButton" x="1136" y="864" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.Color" value="1;1;1"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door4;Door5"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
+   </properties>
+  </object>
+  <object name="Door5" type="RotatableObject" x="1344" y="672" width="16" height="112">
+   <properties>
+    <property name="Template" value="Door_LeftUp"/>
+   </properties>
+  </object>
+  <object name="HotButton5" type="HotButton" x="1295" y="750" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.Color" value="1;1;1"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="./assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door3"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
+   </properties>
+  </object>
+  <object name="Door4" type="RotatableObject" x="1120" y="672" width="112" height="16">
+   <properties>
+    <property name="Template" value="Door_RightDown"/>
+   </properties>
+  </object>
+  <object name="Grape1" type="Enemy" x="608" y="768" width="96" height="96">
+   <properties>
+    <property name="Template" value="Grape"/>
+   </properties>
+  </object>
   <object name="Tomato2" type="Enemy" x="944" y="832" width="64" height="64"/>
-  <object name="TrapDoor2.1" type="RotatableObject" x="976" y="1008" width="80" height="16"/>
+  <object name="TrapDoor2.1" type="RotatableObject" x="976" y="1008" width="80" height="16">
+   <properties>
+    <property name="Template" value="TrapDoor_LeftDown"/>
+   </properties>
+  </object>
   <object name="TrapDoor2.2" type="RotatableObject" x="1056" y="1008" width="80" height="16"/>
-  <object name="ColorBucket4" type="ColorBucket" x="1040" y="944" width="32" height="224"/>
-  <object name="HotButton6" type="HotButton" x="832" y="976" width="32" height="32"/>
+  <object name="ColorBucket4" type="ColorBucket" x="1040" y="944" width="32" height="224">
+   <properties>
+    <property name="AnimatedSprite.filterBlue" value="1"/>
+    <property name="AnimatedSprite.filterGreen" value="1"/>
+    <property name="AnmatedSprite.filterRed" value="0"/>
+    <property name="ColorSorce.color" value="0;1;0"/>
+    <property name="Template" value="ColorBucket_Ceiling"/>
+   </properties>
+  </object>
+  <object name="HotButton6" type="HotButton" x="832" y="976" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.Color" value="1;1;1"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="TraptDoor2.1;TrapDoor2.2"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
+   </properties>
+  </object>
   <object name="YellowPepper1" type="Enemy" x="960" y="1104" width="64" height="64"/>
   <object name="YellowPepper2" type="Enemy" x="704" y="1344" width="64" height="64"/>
   <object name="Tomato3" type="Enemy" x="1088" y="1520" width="64" height="64"/>
   <object name="Tomato4" type="Enemy" x="1328" y="2032" width="64" height="64"/>
-  <object name="Door5" type="RotatableObject" x="496" y="992" width="16" height="112"/>
+  <object name="Door5" type="RotatableObject" x="496" y="992" width="16" height="112">
+   <properties>
+    <property name="Template" value="Door_LeftUp"/>
+   </properties>
+  </object>
   <object name="Door6" type="RotatableObject" x="496" y="1152" width="16" height="112"/>
-  <object name="Door4" type="RotatableObject" x="720" y="944" width="16" height="112"/>
-  <object name="HotButton8" type="HotButton" x="832" y="1168" width="32" height="32"/>
-  <object name="DeadlySpikes" type="DeadlySpikes" x="208" y="2032" width="128" height="32"/>
+  <object name="Door4" type="RotatableObject" x="720" y="944" width="16" height="112">
+   <properties>
+    <property name="Template" value="Door_LeftUp"/>
+   </properties>
+  </object>
+  <object name="DeadlySpikes" type="DeadlySpikes" x="208" y="2032" width="128" height="32">
+   <properties>
+    <property name="EnemyDamageDealer.healthDecrement" value="15"/>
+    <property name="Template" value="DamageZone"/>
+   </properties>
+  </object>
   <object name="DeadlySpikes" type="DeadlySpikes" x="16" y="1856" width="112" height="32">
    <properties>
     <property name="EnemyDamageDealer.healthDecrement" value="15"/>
@@ -131,8 +219,24 @@
    </properties>
   </object>
   <object name="PaintPuddle4" type="HazardousLiquid" x="16" y="2432" width="368" height="16"/>
-  <object name="ColorBucket6" type="ColorBucket" x="640" y="1952" width="32" height="224"/>
-  <object name="ColorBucket8" type="ColorBucket" x="768" y="2416" width="64" height="32"/>
+  <object name="ColorBucket6" type="ColorBucket" x="640" y="1952" width="32" height="224">
+   <properties>
+    <property name="AnimatedSprite.filterBlue" value="0"/>
+    <property name="AnimatedSprite.filterGreen" value="1"/>
+    <property name="AnimatedSprite.filterRed" value="1"/>
+    <property name="ColorSource.color" value="0;1;0"/>
+    <property name="Template" value="ColorBucket_Ceiling"/>
+   </properties>
+  </object>
+  <object name="ColorBucket8" type="ColorBucket" x="768" y="2416" width="64" height="32">
+   <properties>
+    <property name="AnimatedSprite.filterBlue" value="0"/>
+    <property name="AnimatedSprite.filterGreen" value="0"/>
+    <property name="AnimatedSprite.filterRed" value="1"/>
+    <property name="ColorSource.color" value="1,0;0"/>
+    <property name="Template" value="ColorBucket_Ground"/>
+   </properties>
+  </object>
   <object name="Carrot1" type="Enemy" x="1152" y="2224" width="64" height="64"/>
   <object name="ColorBucket7" type="ColorBucket" x="1408" y="2256" width="64" height="32"/>
   <object name="LevelEnd" type="LevelEnd" x="1440" y="2336" width="48" height="112">
@@ -141,13 +245,25 @@
    </properties>
   </object>
   <object name="Door/Bridge7" type="RotatableObject" x="960" y="1984" width="16" height="112"/>
-  <object name="Door8" type="RotatableObject" x="608" y="2208" width="112" height="16"/>
-  <object name="HotButton10" type="HotButton" x="992" y="2416" width="32" height="32"/>
-  <object name="Door9" type="RotatableObject" x="1280" y="2336" width="16" height="112"/>
-  <object name="HotButton11" type="HotButton" x="1440" y="2064" width="32" height="32"/>
-  <object name="HotButton7" type="HotButton" x="512" y="1072" width="32" height="32"/>
-  <object name="HotButton9" type="HotButton" x="512" y="1232" width="32" height="32"/>
-  <object name="ColorBucket5" type="ColorBucket" x="1200" y="1552" width="64" height="32"/>
+  <object name="Door8" type="RotatableObject" x="608" y="2208" width="112" height="16">
+   <properties>
+    <property name="Template" value="Door_RightDown"/>
+   </properties>
+  </object>
+  <object name="Door9" type="RotatableObject" x="1280" y="2336" width="16" height="112">
+   <properties>
+    <property name="Template" value="Door_RightUp"/>
+   </properties>
+  </object>
+  <object name="ColorBucket5" type="ColorBucket" x="1200" y="1552" width="64" height="32">
+   <properties>
+    <property name="AnimatedSprite.filterBlue" value="0"/>
+    <property name="AnimatedSprite.filterGreen" value="0"/>
+    <property name="AnimatedSprite.filterRed" value="1"/>
+    <property name="ColorSource.color" value="1;0;0"/>
+    <property name="Template" value="ColorBucket_Ground"/>
+   </properties>
+  </object>
   <object name="HotButton2" type="HotButton" x="704" y="464" width="32" height="32">
    <properties>
     <property name="StaticSprite.color" value="1;1;1"/>
@@ -176,6 +292,61 @@
     <property name="StaticSprite.color" value="1;1;1"/>
     <property name="StaticSprite.image" value="./assets/staticSprites/sign_jump.png"/>
     <property name="Template" value="StaticSprite"/>
+   </properties>
+  </object>
+  <object name="HotButton5" type="HotButton" x="832" y="1168" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.Color" value="1;1;1"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door4"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
+   </properties>
+  </object>
+  <object name="HotButton7" type="HotButton" x="512" y="1072" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.Color" value="1;1;1"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door6"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
+   </properties>
+  </object>
+  <object name="HotButton10" type="HotButton" x="992" y="2416" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.Color" value="1;1;1"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door/Bridge7;Door8"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
+   </properties>
+  </object>
+  <object name="HotButton9" type="HotButton" x="509" y="1228" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.Color" value="1;1;1"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door5"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
+   </properties>
+  </object>
+  <object name="HotButton17" type="HotButton" x="1440" y="2064" width="32" height="32">
+   <properties>
+    <property name="StaticSprite.Color" value="1;1;1"/>
+    <property name="StaticSprite.filter" value="1;1;1"/>
+    <property name="StaticSprite.image" value="/assets/spritesheets/singleImages/button_push.png"/>
+    <property name="StaticSprite.scale" value="1"/>
+    <property name="Switch.targetEntity" value="Door9"/>
+    <property name="Switch.type" value="Hit"/>
+    <property name="Template" value="HotButton"/>
    </properties>
   </object>
  </objectgroup>

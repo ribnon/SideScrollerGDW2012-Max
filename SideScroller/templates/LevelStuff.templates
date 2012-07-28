@@ -31,6 +31,39 @@ deactivateRotation=90
 Component StaticSprite
 image=./assets/staticSprites/background/background_door_1.png
 
+Template Door_RightUp
+Base Door
+Component PivotRotation
+pivotX=8
+pivotY=-56
+Component RotateBySwitch
+activateRotation=90
+deactivateRotation=-90
+Component StaticSprite
+image=./assets/staticSprites/background/background_door_1.png
+
+Template Door_LeftDown
+Base Door
+Component PivotRotation
+pivotX=8
+pivotY=56
+Component RotateBySwitch
+activateRotation=90
+deactivateRotation=-90
+Component StaticSprite
+image=./assets/staticSprites/background/background_door_1.png
+
+Template Door_RightDown
+Base Door
+Component PivotRotation
+pivotX=56
+pivotY=-8
+Component RotateBySwitch
+activateRotation=90
+deactivateRotation=-90
+Component StaticSprite
+image=./assets/staticSprites/background/background_door_1.png
+
 Template TrapDoor_LeftDown
 Base Door
 Component PivotRotation
@@ -41,6 +74,28 @@ activateRotation=-90
 deactivateRotation=90
 Component StaticSprite
 image=./assets/staticSprites/background/background_trapdoor_1.png
+
+Template TrapDoor_RightDown
+Base Door
+Component PivotRotation
+pivotX=40
+pivotY=8
+Component RotateBySwitch
+activateRotation=90
+deactivateRotation=-90
+Component StaticSprite
+image=./assets/staticSprites/background/background_trapdoor_1.png
+
+Template Bridge_Down
+Base Door
+Component PivotRotation
+pivotX=-8
+pivotY=88
+Component RotateBySwitch
+activateRotation=90
+deactivateRotation=-90
+Component StaticSprite
+image=./assets/staticSprites/background/background_bridge_1.png
 
 #Fuer die Puddles:
 Template DamageZone
@@ -90,7 +145,7 @@ friendlyDuration=60
 Template Tomato
 Base Enemy
 Component OverlayAnimatedSprite
-baseSpriteSheet=
+baseSpriteSheet=./assets/spritesheets/enemy_tomato.png
 baseTitleWidth=64
 baseTitleHeight=64
 overlaySpriteSheet1=
@@ -104,6 +159,58 @@ targetColor=1;0;0
 segmentCount=3
 
 #Andere aehnlich
+
+Template YellowPepper
+Base Enemy
+Component OverlayAnimatedSprite
+baseSpriteSheet=./assets/spritesheets/enemy_pepper.png
+baseTitleWidth=64
+baseTitleHeight=64
+overlaySpriteSheet1=
+#...
+overlaySpriteSheet2=
+#...
+cycleLength=4;4;4
+
+Component Colorable
+targetColor=0;1;0
+segmentCount=3
+
+
+Template Carrot
+Base Enemy
+Component OverlayAnimatedSprite
+baseSpriteSheet=./assets/spritesheets/enemy_carrot.png
+baseTitleWidth=64
+baseTitleHeight=64
+overlaySpriteSheet1=
+#...
+overlaySpriteSheet2=
+#...
+cycleLength=2;2
+
+Component Colorable
+targetColor=1;1;0
+segmentCount=3
+
+
+
+Template Grape
+Base Enemy
+Component OverlayAnimatedSprite
+baseSpriteSheet=./assets/spritesheets/obstacle_grapes_crumble_sprite.png
+baseTitleWidth=96
+
+baseTitleHeight=96
+overlaySpriteSheet1=
+#...
+overlaySpriteSheet2=
+#...
+cycleLength=1;1;1
+
+Component Colorable
+targetColor=1;0;1
+segmentCount=3
 
 
 Template Rainbow
