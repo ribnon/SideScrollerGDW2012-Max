@@ -222,6 +222,7 @@ public class NetSubSystem
 			//spawn
 			while(!this.listOfSpawnMessages.isEmpty())
 			{
+				
 				buf = this.ref.getMessageBuffer();
 				EntitySpawnNetMessage.fillInByteBuffer(this.listOfSpawnMessages, buf);
 				this.ref.sendMessage(buf, true);

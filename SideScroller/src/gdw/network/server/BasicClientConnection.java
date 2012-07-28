@@ -1,19 +1,28 @@
 package gdw.network.server;
 
+import gdw.network.GenericSocketThread;
+import gdw.network.IDiscoFlagAble;
 import gdw.network.NETCONSTANTS;
+import gdw.network.NetMessageWrapper;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class BasicClientConnection
+public abstract class BasicClientConnection implements IDiscoFlagAble
 {
 	private static final int messagesPerUpdate = 5;
 
-	private  DatagramChannel udpConnection;
+	private DatagramChannel udpConnection;
 
-	private  SocketChannel tcpConnection;
+	private SocketChannel tcpConnection;
+	
+	private	GenericSocketThread myThread;
 	
 	protected final int sharedSecret;
 
@@ -27,7 +36,7 @@ public abstract class BasicClientConnection
 
 	protected final BasicServer ref;
 
-	public BasicClientConnection(ConnectionInfo info, BasicServer ref)
+	public BasicClientConnection(ConnectionInfo info, BasicServer ref) 
 	{
 		this.ref = ref;
 		this.id = info.id;
@@ -38,19 +47,14 @@ public abstract class BasicClientConnection
 		this.tcpConnection = info.tcpConnection;
 		this.sharedSecret = info.sharedSecret;
 		
-		try
-		{
-			this.udpConnection.configureBlocking(false);
-			this.tcpConnection.configureBlocking(false);
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		this.myThread = new GenericSocketThread(udpConnection, tcpConnection,this);		
 		
 	}
 	
 	public boolean checkForDisconnect(long current)
 	{
+		return false;
+		/*
 		if ((this.lastHeartbeat + NETCONSTANTS.HEARTBEAT_REQUESTIME) < current)
 		{
 			// check if ping request is needed
@@ -68,7 +72,7 @@ public abstract class BasicClientConnection
 				sendPing(current);
 			}
 		}
-		return false;
+		return false;*/
 	}
 
 	public boolean isDisconnectFlaged()
@@ -124,67 +128,29 @@ public abstract class BasicClientConnection
 
 	public void sendMSG(ByteBuffer msg, boolean reliable)
 	{
-		msg.flip();
-		try
-		{
-			if (reliable)
-			{
-				while(msg.hasRemaining())
-				{
-					this.tcpConnection.write(msg);
-				}
-			} else
-			{
-				this.udpConnection.write(msg);
-			}
-		} catch (IOException e)
-		{
-			this.discoFlag = true;
-		}
+		
+		
+		int oldPos = msg.position();
+		short size =(short) (oldPos-1);
+		msg.position(0);
+		msg.putShort(size);
+		msg.position(oldPos);
+		
+		this.myThread.outMessages.add(new NetMessageWrapper(reliable, msg));
 	}
+		
 
 	public void pollInput()
 	{
-
-		int counter = 0;
-		try
+		while (!this.myThread.inMessages.isEmpty())
 		{
-
-			for (; counter < messagesPerUpdate; ++counter)
-			{
-				ByteBuffer buf = ByteBuffer
-						.allocate(NETCONSTANTS.PACKAGELENGTH);
-				if (tcpConnection.read(buf) > 0)
-				{
-					this.incomingMsg(buf, true);
-					continue;
-				}
-				if (udpConnection.read(buf) > 0)
-				{
-					this.incomingMsg(buf, false);
-					continue;
-				}
-				break;
-			}
-
-		} catch (IOException e)
-		{
-			//e.printStackTrace();
-			this.discoFlag = true;
-			return;
+			NetMessageWrapper wrap = this.myThread.inMessages.poll();
+			this.incomingMsg(wrap.msg,wrap.reliable);
 		}
-		if (counter > 0)
-		{
-			this.lastHeartbeat = System.currentTimeMillis();
-			this.pongRequest = -1L;
-		}
-		return;
-
 	}
 
 	private void incomingMsg(ByteBuffer buf, boolean wasReliable)
 	{
-		buf.position(0);
 		switch (buf.get())
 		{
 		case NETCONSTANTS.PING:
@@ -207,6 +173,7 @@ public abstract class BasicClientConnection
 		this.tcpConnection = info.tcpConnection;
 		this.udpConnection = info.udpConnection;
 		this.discoFlag = false;	
+		this.myThread = new GenericSocketThread(udpConnection, tcpConnection,this);
 	}
 	
 	protected abstract void incomingMessage(ByteBuffer buf, boolean wasReliable);
@@ -214,5 +181,12 @@ public abstract class BasicClientConnection
 	public int getId()
 	{
 		return id;
+	}
+	
+	@Override
+	public void discoFlag()
+	{
+		this.discoFlag = true;
+		
 	}
 }

@@ -88,6 +88,7 @@ public class Client extends BasicGame {
 			NetSubSystem.getInstance().pollMessages();
 			// CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
 			EntityManager.getInstance().tick((float) arg1);
+			NetSubSystem.getInstance().sendBufferedMessages();
 		}
 		
 

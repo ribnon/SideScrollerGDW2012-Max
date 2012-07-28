@@ -631,6 +631,7 @@ public abstract class BasicServer implements INetworkBridge
 	{
 		ByteBuffer buf = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 		buf.clear();
+		buf.putShort(NETCONSTANTS.MESSAGE);//placeholder
 		buf.put(NETCONSTANTS.MESSAGE);
 		return buf;
 	}

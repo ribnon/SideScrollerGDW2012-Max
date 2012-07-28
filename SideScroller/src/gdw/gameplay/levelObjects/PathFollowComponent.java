@@ -45,7 +45,7 @@ public class PathFollowComponent extends Component
 		super(template);
 		// Waypoints are in the format:
 		// x;y x;y x;y
-		String[] points = template.getStringParam("wayPoints", "").split(" ");
+		String[] points = template.getStringParam("wayPoints", "0;0").split(" ");
 		for (String tmpPoint : points)
 		{
 			String[] values = tmpPoint.split(";", 2);

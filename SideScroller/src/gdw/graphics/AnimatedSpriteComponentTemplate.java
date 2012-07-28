@@ -70,7 +70,7 @@ public class AnimatedSpriteComponentTemplate extends ComponentTemplate
 		super(params);
 		try
 		{
-			spriteSheet = new SpriteSheet(getStringParam("spriteSheet", getStringParam("path", "")), getIntegerParam("tileWidth", 64), getIntegerParam("tileHeight", 64));
+			spriteSheet = new SpriteSheet(getStringParam("spriteSheet", getStringParam("path", "./assets/spritesheets/error_sprite.png")), getIntegerParam("tileWidth", 64), getIntegerParam("tileHeight", 64));
 		} catch (SlickException e)
 		{
 			e.printStackTrace();
