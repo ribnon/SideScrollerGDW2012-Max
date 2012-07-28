@@ -11,7 +11,7 @@ filterBlue=1
 pivotX=0
 pivotY=0
 layer=1
-flipped=1
+flipped=0
 cycle=0
 step=0
 
@@ -58,11 +58,11 @@ viewPortY=480
 
 Component Network
 
-#Component Attachment
-#attachPointX=0
-#attachPointY=0
-#attachOrientation=0
-#autoAttachGroups=10
+Component Attachment
+attachPointX=0
+attachPointY=0
+attachOrientation=0
+autoAttachGroups=10
 
 Component OOBoxCollisionDetection
 halfExtentX=32

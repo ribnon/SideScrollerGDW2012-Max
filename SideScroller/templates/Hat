@@ -1,0 +1,15 @@
+Template Hat
+
+Component StaticSprite
+path=./assets/hat/teddy_bandana.png
+scale=1
+filterRed=1
+filterGreen=1
+filterBlue=1
+pivotX=0
+pivotY=0
+layer=2
+flipped=0
+
+Component Attachable
+groupID=1337

@@ -202,6 +202,15 @@ public abstract class CharacterSelectionMenu implements IMenuBase
 		charSelectPlayer2.addImage(img);
 	}
 
+	public Image getPlayer1Hat()
+	{
+		return charSelectPlayer1.getHat();
+	}
+	public Image getPlayer2Hat()
+	{
+		return charSelectPlayer2.getHat();
+	}
+
 	public void setServerImage(Image img)
 	{
 		serverSelecter.setImage(img);

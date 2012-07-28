@@ -275,9 +275,9 @@ public class PlayerBehaviorComponent extends Component
 		if (type == AttackType.Normal)
 		{
 			hitActive = 0;
-			if (!EntityManager.getInstance().isOfflineMode())
-				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
-						new AttackMessage());
+//			if (!EntityManager.getInstance().isOfflineMode())
+//				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
+//						new AttackMessage());
 		}
 	}
 
