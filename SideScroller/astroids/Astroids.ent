@@ -1,3 +1,11 @@
-Entity Player 350 300 0 
-Entity Player 350 300 0 
 Entity FixedCamera 400 300 0
+Entity Background 400 300 0
+Entity Player 350 300 0 as Player1
+Entity Metroid 200 200 0
+Entity Metroid 600 230 0
+Entity Metroid 500 220 0
+Entity Metroid 300 250 0
+Entity Metroid 400 150 0
+
+
+

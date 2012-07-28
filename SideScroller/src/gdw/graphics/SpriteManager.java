@@ -46,12 +46,12 @@ public class SpriteManager {
 		Graphics g = null;
 		if(sprites.size() == 0)
 			return;
-		try {
-			g = sprites.get(0).getImage().getGraphics();
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			g = sprites.get(0).getImage().getGraphics();
+//		} catch (SlickException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		for(int i=0;i<cameras.size();i++)
 		{
@@ -83,7 +83,7 @@ public class SpriteManager {
 		int i = 0;
 		for(; i < sprites.size(); ++i)
 		{
-			if(sprite.getLayer() >= sprites.get(i).getLayer())
+			if(sprite.getLayer() < sprites.get(i).getLayer())
 				break;
 				
 		}

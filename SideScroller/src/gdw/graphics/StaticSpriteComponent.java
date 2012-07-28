@@ -1,5 +1,6 @@
 package gdw.graphics;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -19,7 +20,7 @@ public class StaticSpriteComponent extends SpriteComponent
 	 */
 	
 	private Image image;
-
+	private boolean isBackground;
 	/**
 	 * 
 	 * @param template
@@ -35,6 +36,7 @@ public class StaticSpriteComponent extends SpriteComponent
 		setPivotY(t.getPivotY());
 		setLayer(t.getLayer());
 		setFlipped(t.isFlipped());
+		isBackground = t.isBackground;
 		
 		image = t.getImage();
 		

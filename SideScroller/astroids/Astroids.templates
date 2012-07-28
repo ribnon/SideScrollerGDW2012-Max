@@ -13,18 +13,35 @@ Component Simulation
 mass=0.5
 friction=0.8
 Component Engine
-power=15.0
-breakPower=5.0
-rotation=45
+power=50.0
+breakPower=0.001
+rotation=60
+Component Destroyable
+destroyPower=0
+destroyGroup=1
+
 
 Template FixedCamera
 Component Camera
 
-Template Astroid
+Template Metroid
 Component Simulation
-mass=0.9
-friction=0.85
-Component SphereCollisionDetection
-radius=30.0
-Component Static
+mass=0.5
+friction=0.4
+Component CircleCollisionDetection
+radius=32
+Component StaticSprite
+path=astroids/assets/meteorit1.png
+Component Destroyable
+life=5
+destroyPower=1
+destroyGroup=3
+Component RandomMovement
+forceX=10.0
+forceY=10.0
+
+Template Background
+Component StaticSprite
+path=astroids/assets/map.jpg
+layer=-1
 

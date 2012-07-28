@@ -1,14 +1,21 @@
 package gdw.astroids;
 
+import gdw.astroids.components.DestroyableComponent;
 import gdw.astroids.input.AstroidsInputComponentManager;
 import gdw.collisionDetection.CollisionDetectionComponentManager;
+import gdw.entityCore.Component;
+import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
+import gdw.entityCore.EntityReference;
+import gdw.entityCore.EntityTemplate;
 import gdw.entityCore.EntityTemplateManager;
+import gdw.entityCore.NamedEntityReference;
 import gdw.graphics.SpriteManager;
 import gdw.physics.SimulationComponentManager;
 
 import java.io.IOException;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -25,8 +32,12 @@ public class Astroids extends BasicGame {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		
+		
 		SpriteManager.getInstance().render();
 		CollisionDetectionComponentManager.getInstance().render(g);
+		
+		NamedEntityReference obj = new NamedEntityReference("Player1");
+		
 	}
 
 	@Override
@@ -53,6 +64,8 @@ public class Astroids extends BasicGame {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		
+		
+		EntityManager.getInstance().tick(delta/1000.f);
 		AstroidsInputComponentManager.getInstance().proceedInput(container.getInput());
 		SimulationComponentManager.getInstance().simulate(delta/1000.f);
 	}

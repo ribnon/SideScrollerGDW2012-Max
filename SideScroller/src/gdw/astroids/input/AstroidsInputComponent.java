@@ -59,8 +59,10 @@ public class AstroidsInputComponent extends Component {
 //			System.out.println(angle+"");
 			float cosAngle = (float)Math.cos(angle);
 			float sinAngle = (float)Math.sin(angle);
-//			System.out.println("move down");
-			simComp.addForce(-sinAngle*(engComp.getBreakPower()), cosAngle*(engComp.getBreakPower()));
+
+			
+			simComp.setVelocity(simComp.getVelocityX() - simComp.getVelocityX()*engComp.getBreakPower(),
+					simComp.getVelocityY() - simComp.getVelocityY()*engComp.getBreakPower());
 		}
 		if(input.isKeyDown(leftKey)) {
 //			System.out.println("move left");

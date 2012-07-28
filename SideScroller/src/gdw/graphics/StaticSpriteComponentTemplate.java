@@ -17,6 +17,7 @@ public class StaticSpriteComponentTemplate extends ComponentTemplate
 	private float pivotY;
 	private int layer;
 	private boolean flipped = false;
+	boolean isBackground = false;
 	
 	public float getScale() {
 		return scale;
@@ -59,6 +60,7 @@ public class StaticSpriteComponentTemplate extends ComponentTemplate
 		pivotY = getFloatParam("pivotY", 0.0f);
 		layer = getIntegerParam("layer", 1);
 		if(getIntegerParam("flipped", 0) == 1) flipped = true;
+		isBackground = getIntegerParam("isBackground", 0) == 1;
 		
 		try {
 			image = new Image(getStringParam("image", getStringParam("path", "./assets/error.png")));

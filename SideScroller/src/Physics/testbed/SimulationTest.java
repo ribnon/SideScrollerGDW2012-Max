@@ -1,10 +1,12 @@
 package Physics.testbed;
 
+import gdw.astroids.components.DestroyableComponent;
 import gdw.collisionDetection.AABoxCollisionDetectionComponent;
 import gdw.collisionDetection.CircleCollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.collisionDetection.OOBoxCollisionDetectionComponent;
+import gdw.entityCore.Component;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
@@ -232,6 +234,11 @@ public class SimulationTest extends BasicGame {
 	public static void drawEntity(Graphics g, Entity e) {
 		g.drawString(""+e.getID(), e.getPosX()-4, e.getPosY()-8);
 		CollisionDetectionComponent colComp = (CollisionDetectionComponent) e.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
+		Component cmp = e.getComponent(DestroyableComponent.COMPONENT_TYPE);
+		if(cmp!=null) {
+			DestroyableComponent dcmp = (DestroyableComponent) e.getComponent(DestroyableComponent.COMPONENT_TYPE);
+			g.drawString(dcmp.getLife()+"", e.getPosX(), e.getPosY());
+		}
 		if(colComp!=null) {
 			g.setColor(Color.magenta);
 			if(colComp instanceof AABoxCollisionDetectionComponent) {
