@@ -34,13 +34,28 @@
   </object>
   <object name="Platform1" type="MoveableObject" x="224" y="2000" width="96" height="16">
    <properties>
-    <property name="PathFollow.wayPoints" value="x;y x;y"/>
+    <property name="PathFollow.wayPoints" value="14;128 2;128"/>
     <property name="Template" value="Platform"/>
    </properties>
   </object>
-  <object name="Platform2" type="MoveableObject" x="32" y="1808" width="96" height="16"/>
-  <object name="Platform4" type="MoveableObject" x="288" y="2320" width="96" height="16"/>
-  <object name="Platform3" type="MoveableObject" x="32" y="2224" width="96" height="16"/>
+  <object name="Platform2" type="MoveableObject" x="32" y="1808" width="96" height="16">
+   <properties>
+    <property name="PathFollow.wayPoints" value="2;113 2;106"/>
+    <property name="Template" value="Platform"/>
+   </properties>
+  </object>
+  <object name="Platform4" type="MoveableObject" x="288" y="2320" width="96" height="16">
+   <properties>
+    <property name="PathFollow.wayPoints" value="18;146 18;136"/>
+    <property name="Template" value="Platform"/>
+   </properties>
+  </object>
+  <object name="Platform3" type="MoveableObject" x="32" y="2224" width="96" height="16">
+   <properties>
+    <property name="PathFollow.wayPoints" value="2;139 12;139"/>
+    <property name="Template" value="Platform"/>
+   </properties>
+  </object>
   <object name="HotButton1" type="HotButton" x="944" y="272" width="32" height="32">
    <properties>
     <property name="StaticSprite.color" value="1;0;0"/>
@@ -164,7 +179,11 @@
     <property name="Template" value="Grape"/>
    </properties>
   </object>
-  <object name="Tomato2" type="Enemy" x="944" y="832" width="64" height="64"/>
+  <object name="Tomato2" type="Enemy" x="944" y="832" width="64" height="64">
+   <properties>
+    <property name="Template" value="Tomato"/>
+   </properties>
+  </object>
   <object name="TrapDoor2.1" type="RotatableObject" x="976" y="1008" width="80" height="16">
    <properties>
     <property name="Template" value="TrapDoor_LeftDown"/>
@@ -191,10 +210,26 @@
     <property name="Template" value="HotButton"/>
    </properties>
   </object>
-  <object name="YellowPepper1" type="Enemy" x="960" y="1104" width="64" height="64"/>
-  <object name="YellowPepper2" type="Enemy" x="704" y="1344" width="64" height="64"/>
-  <object name="Tomato3" type="Enemy" x="1088" y="1520" width="64" height="64"/>
-  <object name="Tomato4" type="Enemy" x="1328" y="2032" width="64" height="64"/>
+  <object name="YellowPepper1" type="Enemy" x="960" y="1104" width="64" height="64">
+   <properties>
+    <property name="Template" value="Pepper"/>
+   </properties>
+  </object>
+  <object name="YellowPepper2" type="Enemy" x="704" y="1344" width="64" height="64">
+   <properties>
+    <property name="Template" value="Pepper"/>
+   </properties>
+  </object>
+  <object name="Tomato3" type="Enemy" x="1088" y="1520" width="64" height="64">
+   <properties>
+    <property name="Template" value="Tomato"/>
+   </properties>
+  </object>
+  <object name="Tomato4" type="Enemy" x="1328" y="2032" width="64" height="64">
+   <properties>
+    <property name="Template" value="Tomato"/>
+   </properties>
+  </object>
   <object name="Door5" type="RotatableObject" x="496" y="992" width="16" height="112">
    <properties>
     <property name="Template" value="Door_LeftUp"/>
@@ -237,7 +272,11 @@
     <property name="Template" value="ColorBucket_Ground"/>
    </properties>
   </object>
-  <object name="Carrot1" type="Enemy" x="1152" y="2224" width="64" height="64"/>
+  <object name="Carrot1" type="Enemy" x="1152" y="2224" width="64" height="64">
+   <properties>
+    <property name="Template" value="Carrot"/>
+   </properties>
+  </object>
   <object name="ColorBucket7" type="ColorBucket" x="1408" y="2256" width="64" height="32"/>
   <object name="LevelEnd" type="LevelEnd" x="1440" y="2336" width="48" height="112">
    <properties>
@@ -327,7 +366,7 @@
     <property name="Template" value="HotButton"/>
    </properties>
   </object>
-  <object name="HotButton9" type="HotButton" x="509" y="1228" width="32" height="32">
+  <object name="HotButton9" type="HotButton" x="512" y="1232" width="32" height="32">
    <properties>
     <property name="StaticSprite.Color" value="1;1;1"/>
     <property name="StaticSprite.filter" value="1;1;1"/>
