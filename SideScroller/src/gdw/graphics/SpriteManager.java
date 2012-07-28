@@ -71,7 +71,7 @@ public class SpriteManager {
 			g.setClip(i*cameras.get(i).getViewPortX(), i*cameras.get(i).getViewPortY(), cameras.get(i).getViewPortX(), cameras.get(i).getViewPortY());
 			for(int j=0;j<sprites.size();j++)
 			{
-				sprites.get(i).draw(posX,posY);
+				sprites.get(j).draw(posX,posY);
 			}
 		}
 			
