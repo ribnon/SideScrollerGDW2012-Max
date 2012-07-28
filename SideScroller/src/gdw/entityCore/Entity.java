@@ -99,4 +99,11 @@ public class Entity {
 			comp.tick(deltaTime);
 		}
 	}
+	public EntityReference getReference(){
+		return new StaticEntityReference(id);
+	}
+	public EntityReference registerNamed(String name){
+		NamedEntityReference.setEntityID(name, id);
+		return new NamedEntityReference(name);
+	}
 }
