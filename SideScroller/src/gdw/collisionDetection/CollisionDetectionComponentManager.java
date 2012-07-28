@@ -6,6 +6,10 @@ import gdw.gameplay.color.FadeInComponent;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Graphics;
+
+import Physics.testbed.SimulationTest;
+
 public class CollisionDetectionComponentManager
 {
 	private static CollisionDetectionComponentManager collisionDetectionComponentManager = null;
@@ -15,6 +19,26 @@ public class CollisionDetectionComponentManager
 	private ArrayList<CircleCollisionDetectionComponent> circleCollisionDetectionList;
 	
 	private CollisionQuadTree quadTree;
+	
+	public void render(Graphics g)
+	{
+		for(AABoxCollisionDetectionComponent aaBox : aaBoxCollisionDetectionList)
+		{
+			SimulationTest.drawEntity(g, aaBox.getOwner());
+		}
+		
+		for(OOBoxCollisionDetectionComponent ooBox : ooBoxCollisionDetectionList)
+		{
+			SimulationTest.drawEntity(g, ooBox.getOwner());
+		}
+		
+		for(CircleCollisionDetectionComponent cc: circleCollisionDetectionList)
+		{
+			SimulationTest.drawEntity(g, cc.getOwner());
+		}
+		
+	}
+	
 	
 	private CollisionDetectionComponentManager(boolean useQuadTree)
 	{

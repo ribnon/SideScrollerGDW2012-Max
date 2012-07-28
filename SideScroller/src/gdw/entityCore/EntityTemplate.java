@@ -66,6 +66,11 @@ public class EntityTemplate {
 		return createEntity(id, whereX, whereY, orientation);
 	}
 	
+	public String getName()
+	{
+		return this.name;
+	}
+	
 	//Wird vom Netzwerkcode auf dem Client aufgerufen, um Entities zu replizieren:
 	public Entity createEntity(int id, float whereX,float whereY, float orientation){
 		Entity ent = EntityManager.getInstance().createEntity(id, whereX, whereY, orientation, this);

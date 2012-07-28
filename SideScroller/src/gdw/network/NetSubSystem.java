@@ -199,6 +199,10 @@ public class NetSubSystem
 		for(NetComponent comp : this.listOfNetComponents)
 		{
 			comp.simulateGhost(deltaT);
+			if(!NetSubSystem.singelton.serverFlag)
+			{
+				comp.syncGhostWithEntity();				
+			}
 		}
 	}	
 	
