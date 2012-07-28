@@ -122,7 +122,7 @@ public class NetSubSystem
 		break;
 		
 		case NetMessageType.EntitySpawnMessageType:
-			GDWServerLogger.logMSG("bekomme SpawnMessage");
+			//GDWServerLogger.logMSG("bekomme SpawnMessage");
 			EntitySpawnNetMessage[] sqnms = EntitySpawnNetMessage.getFromByteBuffer(buf);
 			for(int i=0;i<sqnms.length;++i)
 			{
@@ -223,7 +223,7 @@ public class NetSubSystem
 			//spawn
 			while(!this.listOfSpawnMessages.isEmpty())
 			{
-				GDWServerLogger.logMSG("schreibe spawn");
+				//GDWServerLogger.logMSG("schreibe spawn");
 				buf = this.ref.getMessageBuffer();
 				EntitySpawnNetMessage.fillInByteBuffer(this.listOfSpawnMessages, buf);
 				this.ref.sendMessage(buf, true);

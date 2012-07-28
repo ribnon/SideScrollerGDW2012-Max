@@ -74,7 +74,7 @@ public class GenericSocketThread extends Thread
 	}
 
 	private void proccessSelctionKey(SelectionKey tcpKey, SelectionKey udpKey)
-			throws IOException
+			throws IOException, InterruptedException
 	{
 		ByteBuffer reader = ByteBuffer.allocate(NETCONSTANTS.PACKAGELENGTH);
 
@@ -115,10 +115,9 @@ public class GenericSocketThread extends Thread
 						this.tcpConnection.read(reader);
 						reader.flip();
 					}*/
-					/*reader.position(1);
+					//reader.position(1);
 					message.put(reader);
-					message.position(0);*/
-					//GDWServerLogger.logMSG(message.get()+" bekam messagcode");
+					message.position(0);
 					message.position(message.limit());
 					this.inMessages.add(new NetMessageWrapper(true, message));
 				}
@@ -196,8 +195,11 @@ public class GenericSocketThread extends Thread
 					}
 				}
 			}
-
+			Thread.yield();
+			sleep(20L);
 		}
+		
+		
 	}
 
 	@Override
@@ -227,7 +229,7 @@ public class GenericSocketThread extends Thread
 				proccessSelctionKey(tcpKey, udpKey);
 				//itTcp.remove();
 				//itUdp.remove();
-			} catch (IOException e)
+			} catch (IOException | InterruptedException e )
 			{
 				e.printStackTrace();
 				this.bridge.discoFlag();

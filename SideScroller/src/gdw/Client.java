@@ -114,6 +114,7 @@ public class Client extends BasicGame {
 			e.printStackTrace();
 		}
 		try {
+			app.setTargetFrameRate(60);
 			app.start();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
