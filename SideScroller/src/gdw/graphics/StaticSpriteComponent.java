@@ -47,14 +47,14 @@ public class StaticSpriteComponent extends SpriteComponent
 	{
 		SpriteManager.getInstance().removeSprite(this);
 		
-		try
-		{
-			image.destroy();
-		} catch (SlickException e)
-		{
-			e.printStackTrace();
-			System.out.println("Image konnte nicht zerstört werden!");
-		}
+//		try
+//		{
+//			image.destroy();
+//		} catch (SlickException e)
+//		{
+//			e.printStackTrace();
+//			System.out.println("Image konnte nicht zerstört werden!");
+//		}
 	}
 
 	/**

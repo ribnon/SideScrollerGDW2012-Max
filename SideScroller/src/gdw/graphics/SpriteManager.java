@@ -52,7 +52,7 @@ public class SpriteManager {
 //		} catch (SlickException e) {
 //			e.printStackTrace();
 //		}
-		
+		*/
 		for(int i=0;i<cameras.size();i++)
 		{
 			

@@ -33,9 +33,9 @@ pivotX=8
 pivotY=8
 scale=1
 Component Projectile
-startSpeed=1.0
-endSpeed=50.0
-acceleration=10.0
+startSpeed=100.0
+endSpeed=500.0
+acceleration=200.0
 localOffsetY=-20.0
 Component Simulation
 mass=0.1
