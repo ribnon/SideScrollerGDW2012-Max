@@ -35,8 +35,12 @@ public class SpriteManager {
 	public void render()
 	{
 		TiledMap map = Level.getInstance().getMap();
-		if(map == null) System.out.println("Error: Map not loaded, nullpointer exception imminent :P");
-		int lc = map.getLayerCount();
+		int lc = 0;
+		if(map != null) 
+		{
+			lc = map.getLayerCount();
+		}
+		
 		
 		for(int i=0;i<cameras.size();i++)
 		{
