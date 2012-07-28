@@ -20,7 +20,7 @@ public class ShooterComponent extends Component
 	
 	private int projectilesOwned;
 	
-	protected ShooterComponent(ComponentTemplate template)
+	public ShooterComponent(ComponentTemplate template)
 	{
 		super(template);
 		

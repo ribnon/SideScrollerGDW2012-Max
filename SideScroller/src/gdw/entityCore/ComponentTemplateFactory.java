@@ -25,22 +25,19 @@ import gdw.gameplay.player.PlayerWeaponComponentTemplate;
 import gdw.gameplay.progress.LevelGoalComponentTemplate;
 import gdw.gameplay.progress.RainbowComponentTemplate;
 import gdw.gameplay.progress.StartSpawnComponentTemplate;
+import gdw.gameplay.shooter.ProjectileComponentTemplate;
+import gdw.gameplay.shooter.ShooterComponentTemplate;
 import gdw.genericBehavior.AttachableComponentTemplate;
 import gdw.genericBehavior.AttachmentComponentTemplate;
 import gdw.genericBehavior.FollowComponentTemplate;
 import gdw.genericBehavior.PivotRotationComponentTemplate;
-import gdw.graphics.AnimatedSpriteComponent;
 import gdw.graphics.AnimatedSpriteComponentTemplate;
-import gdw.graphics.CameraComponent;
 import gdw.graphics.CameraComponentTemplate;
-import gdw.graphics.OverlayedAnimatedSpriteComponent;
 import gdw.graphics.OverlayedAnimatedSpriteComponentTemplate;
-import gdw.graphics.StaticSpriteComponent;
 import gdw.graphics.StaticSpriteComponentTemplate;
 import gdw.network.NetComponentTemplate;
 import gdw.physics.SimulationComponentTemplate;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
@@ -96,6 +93,8 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("Destroyable", DestroyableComponentTemplate.class);
 		componentTemplateClasses.put("RandomMovement", RandomMovementComponentTemplate.class);
 		componentTemplateClasses.put("RandomRotation", RandomRotationComponentTemplate.class);
+		componentTemplateClasses.put("Shooter", ShooterComponentTemplate.class);
+		componentTemplateClasses.put("Projectile", ProjectileComponentTemplate.class);
 	}
 
 	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<String, Class<? extends ComponentTemplate>>();

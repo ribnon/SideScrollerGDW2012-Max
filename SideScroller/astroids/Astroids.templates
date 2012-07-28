@@ -19,7 +19,26 @@ rotation=80
 Component Destroyable
 destroyPower=0
 destroyGroup=1
+Component Shooter
 
+Template BasicProjectile
+Component CircleCollisionDetection
+radius=4
+Component Destroyable
+destroyPower=1
+destroyGroup=2
+Component StaticSprite
+path=astroids/assets/spaceship.png
+pivotX=8
+pivotY=8
+scale=1
+Component Projectile
+startSpeed=1.0
+endSpeed=50.0
+acceleration=10.0
+localOffsetY=-20.0
+Component Simulation
+mass=0.1
 
 Template FixedCamera
 Component Camera

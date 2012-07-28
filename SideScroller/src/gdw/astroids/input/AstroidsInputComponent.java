@@ -1,14 +1,14 @@
 package gdw.astroids.input;
 
-import org.newdawn.slick.Input;
-
 import gdw.astroids.components.EngineComponent;
-import gdw.control.messageType.RunMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.Message;
+import gdw.gameplay.shooter.ShooterFiredMessage;
 import gdw.physics.SimulationComponent;
 import gdw.physics.SimulationComponentManager;
+
+import org.newdawn.slick.Input;
 
 public class AstroidsInputComponent extends Component {
 
@@ -85,7 +85,7 @@ public class AstroidsInputComponent extends Component {
 //			simComp.addForce(engComp.getPower()*(float)Math.cos(angle), -engComp.getPower()*(float)Math.sin(angle));
 		}
 		if(input.isKeyDown(shootKey)) {
-//			System.out.println("shoot");
+			getOwner().message(new ShooterFiredMessage());
 		}
 	}
 }

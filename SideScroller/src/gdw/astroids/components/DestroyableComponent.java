@@ -74,7 +74,7 @@ public class DestroyableComponent extends Component {
 				DestroyableComponent c1_destroy = (DestroyableComponent)c1.getComponent(COMPONENT_TYPE);
 				DestroyableComponent c2_destroy = (DestroyableComponent)c2.getComponent(COMPONENT_TYPE);
 				
-				if((c1_destroy.destroyGroup ^ c2_destroy.destroyGroup) != 0) {
+				if((c1_destroy.destroyGroup & c2_destroy.destroyGroup) != 0) {
 					c1_destroy.life -= c2_destroy.destroyPower;
 					if(c1_destroy.life <= 0) {
 						//destroy c1

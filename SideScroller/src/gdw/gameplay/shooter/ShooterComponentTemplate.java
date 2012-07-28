@@ -12,7 +12,7 @@ public class ShooterComponentTemplate extends ComponentTemplate
 	private float projectileFireFrequency;
 	private float projectilePoolCooldownTime;
 	
-	protected ShooterComponentTemplate(HashMap<String, String> params)
+	public ShooterComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		projectilePoolSize = getIntegerParam("projectilePoolSize", 1);

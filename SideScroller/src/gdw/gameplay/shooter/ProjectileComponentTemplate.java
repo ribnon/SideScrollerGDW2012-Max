@@ -15,7 +15,7 @@ public class ProjectileComponentTemplate extends ComponentTemplate
 	private float localOffsetAngular;
 	private float distance;
 	
-	protected ProjectileComponentTemplate(HashMap<String, String> params)
+	public ProjectileComponentTemplate(HashMap<String, String> params)
 	{
 		super(params);
 		startSpeed = getFloatParam("startSpeed", 120.0f);

@@ -28,6 +28,7 @@ public class Entity {
 	}
 	
 	public void markForDestroy(){
+		if(!EntityManager.getInstance().isOfflineMode())
 		if(NetSubSystem.getInstance().isServer()) NetSubSystem.getInstance().sendDeSpawn(id);
 		destroyFlag=true;
 	}

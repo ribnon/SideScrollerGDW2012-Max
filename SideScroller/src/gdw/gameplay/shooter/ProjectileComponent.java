@@ -23,7 +23,7 @@ public class ProjectileComponent extends Component
 	
 	private float[] startPos;
 	
-	protected ProjectileComponent(ComponentTemplate template)
+	public ProjectileComponent(ComponentTemplate template)
 	{
 		super(template);
 		
@@ -39,6 +39,8 @@ public class ProjectileComponent extends Component
 		direction = new double[] { 0.0f, -1.0f };
 		startPos = new float[] { 0.0f, 0.0f };
 		distance = distance * distance;
+		
+		currentSpeed = startSpeed;
 	}
 	
 	@Override
@@ -83,8 +85,6 @@ public class ProjectileComponent extends Component
 		float posX = getOwner().getPosX() + (float) direction[0] * currentSpeed * deltaTime;
 		float posY = getOwner().getPosY() + (float) direction[1] * currentSpeed * deltaTime;
 		getOwner().setPos(posX, posY);
-		
-		currentSpeed = startSpeed;
 		
 		float distX = getOwner().getPosX() - startPos[0];
 		float distY = getOwner().getPosY() - startPos[1];
