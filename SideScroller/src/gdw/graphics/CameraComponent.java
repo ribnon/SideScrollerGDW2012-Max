@@ -25,6 +25,8 @@ public class CameraComponent extends Component {
 		super(template);
 		CameraComponentTemplate t = (CameraComponentTemplate) template;
 		playerNumber = t.getPlayerNumber();
+		viewPortX = t.getViewPortX();
+		viewPortY = t.getViewPortY();
 		SpriteManager.getInstance().addCamera(this);
 	}
 
