@@ -2,6 +2,8 @@ package gdw.gameplay.shooter;
 
 import java.util.HashMap;
 
+import org.newdawn.slick.SlickException;
+
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 
@@ -24,7 +26,15 @@ public class ShooterComponentTemplate extends ComponentTemplate
 	@Override
 	public Component createComponent()
 	{
-		return new ShooterComponent(this);
+		try
+		{
+			return new ShooterComponent(this);
+		} catch (SlickException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public int getProjectilePoolSize()

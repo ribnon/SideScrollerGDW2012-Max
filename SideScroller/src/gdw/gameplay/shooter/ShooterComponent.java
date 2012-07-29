@@ -1,5 +1,8 @@
 package gdw.gameplay.shooter;
 
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.EntityTemplate;
@@ -22,7 +25,9 @@ public class ShooterComponent extends Component
 	
 	private Shooter projectileSet;
 	
-	public ShooterComponent(ComponentTemplate template)
+	private Sound shootSound;
+	
+	public ShooterComponent(ComponentTemplate template) throws SlickException
 	{
 		super(template);
 		
@@ -42,6 +47,8 @@ public class ShooterComponent extends Component
 		projectileSet.addProjectile("MultifireProjectileA");
 		projectileSet.addProjectile("MultifireProjectileB");
 		projectileSet.addProjectile("MultifireProjectileC");
+		
+		shootSound = new Sound("astroids/assets/shoot.wav");
 	}
 
 	public int getProjectilePoolSize()
@@ -81,6 +88,11 @@ public class ShooterComponent extends Component
 					String name = projectileSet.getProjectile(i);
 					EntityTemplate template = EntityTemplateManager.getInstance().getEntityTemplate(name);
 					template.createEntity(getOwner().getPosX(), getOwner().getPosY(), getOwner().getOrientation());
+					
+					template = EntityTemplateManager.getInstance().getEntityTemplate("ShootingAnimation");
+					template.createEntity(getOwner().getPosX(), getOwner().getPosY(), getOwner().getOrientation());
+					
+					shootSound.play();
 				}
 			}
 		}
@@ -92,9 +104,7 @@ public class ShooterComponent extends Component
 		
 		if (projectilesOwned < projectilePoolSize && timer - shootTimeStamp >= projectilePoolCooldownTime)
 		{
-			//projectilesOwned += projectileFireCount;
-			//if (projectilesOwned > projectilePoolSize)
-				projectilesOwned = projectilePoolSize;
+			projectilesOwned = projectilePoolSize;
 		}
 	}
 

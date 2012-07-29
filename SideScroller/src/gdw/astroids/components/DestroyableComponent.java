@@ -1,6 +1,5 @@
 package gdw.astroids.components;
 
-import gdw.astroids.input.AstroidsInputComponent;
 import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
@@ -11,8 +10,12 @@ import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Message;
 import gdw.gameplay.shooter.ProjectileComponent;
 
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+
 public class DestroyableComponent extends Component {
 
+	private Sound explosionSound;
 	private int life;
 	public int getLife() {
 		return life;
@@ -53,6 +56,15 @@ public class DestroyableComponent extends Component {
 		life = t.life;
 		destroyPower = t.destroyPower;
 		destroyGroup = t.destroyGroup;
+		
+		try
+		{
+			explosionSound = new Sound("astroids/assets/explosion.wav");
+		} catch (SlickException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static final int COMPONENT_TYPE = 1003;
@@ -103,11 +115,14 @@ public class DestroyableComponent extends Component {
 		if (getOwner().getComponent(AstroidsPlayerMarkerComponent.COMPONENT_TYPE) != null) {
 			template = EntityTemplateManager.getInstance().getEntityTemplate("PlayerExplosion");
 			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
+			explosionSound.play();
 		}
 		if (getOwner().getComponent(AstroidsAstroidMarkerComponent.COMPONENT_TYPE) != null) {
 			template = EntityTemplateManager.getInstance().getEntityTemplate("AstroidExplosion");
 			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
+			explosionSound.play();
 		}
+		
 	}
 
 }

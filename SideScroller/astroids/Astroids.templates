@@ -93,6 +93,7 @@ pivotX=32
 pivotY=32
 Component Destroyable
 life=50
+life=50
 destroyPower=1
 destroyGroup=3
 Component RandomMovement
@@ -107,6 +108,7 @@ Component Simulation
 mass=0.5
 friction=0.4
 Component CircleCollisionDetection
+radius=28
 radius=28
 Component StaticSprite
 path=astroids/assets/meteorit1.png
@@ -151,6 +153,10 @@ layer=2
 tileWidth=32
 tileHeight=37
 animationSpeed=15
+Component FadeIn
+startColor=255;255;255;255
+endColor=255;50;255;0
+fadeTime=0.5
 
 Template PlayerExplosion
 Component TimedSelfDestruction
@@ -164,3 +170,23 @@ scale=2
 tileWidth=32
 tileHeight=37
 animationSpeed=15
+
+Template ShootingAnimation
+Component TimedSelfDestruction
+lifeTime=0.1
+Component AnimatedSprite
+path=astroids/assets/shooting.png
+pivotX=49
+pivotY=114
+layer=2
+scale=3
+tileWidth=32
+tileHeight=32
+animationSpeed=70
+Component FadeIn
+startColor=255;255;255;255
+endColor=0;0;0;0
+fadeTime=0.1
+
+
+
