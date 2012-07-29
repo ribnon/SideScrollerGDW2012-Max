@@ -10,7 +10,16 @@ public class EntityTemplate {
 	private ArrayList<String> baseTemplates;
 	private HashMap<String,ComponentTemplate> componentTemplateMap=new HashMap<String,ComponentTemplate>();
 	private HashMap<String,HashMap<String,String>> componentParamsMap;
+	private String definingFile = "";
 	
+
+	public String getDefiningFile() {
+		return definingFile;
+	}
+
+	void setDefiningFile(String definingFile) {
+		this.definingFile = definingFile;
+	}
 
 	public EntityTemplate(String name, ArrayList<String> baseTemplates, HashMap<String, HashMap<String, String> > componentParamsMap){
 		this.name = name;
