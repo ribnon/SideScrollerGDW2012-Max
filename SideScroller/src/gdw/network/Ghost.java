@@ -5,7 +5,7 @@ import gdw.network.server.GDWServerLogger;
 
 public class Ghost
 {
-	private static final float MAX_THRESHOLD_INQUAD = 2.0f;
+	private static final float MAX_THRESHOLD_INQUAD = 5.0f;
 	private static final float INTERPOLATE_TIME = 0.5f;
 	
 	private float posX;
@@ -57,7 +57,7 @@ public class Ghost
 			this.posThingX += this.velocityThingX * deltaT;
 			this.posThingY += this.velocityThingY * deltaT;
 			
-			GDWServerLogger.logMSG("vorher: "+this.posX+" "+this.posY);
+			//GDWServerLogger.logMSG("vorher: "+this.posX+" "+this.posY);
 			
 			this.remaingSteps -= deltaT;
 			if(this.remaingSteps < 0.0f)
@@ -73,7 +73,7 @@ public class Ghost
 			this.velocityX = this.velocityX *(1.0f-lerpFactor) + this.velocityX * lerpFactor;
 			this.velocityY = this.velocityY *(1.0f-lerpFactor) + this.velocityY * lerpFactor;
 			
-			GDWServerLogger.logMSG("nachher :"+this.posX+" "+this.posY);
+			//GDWServerLogger.logMSG("nachher :"+this.posX+" "+this.posY);
 		}
 	}
 	

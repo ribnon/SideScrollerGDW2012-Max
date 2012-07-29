@@ -12,6 +12,7 @@ import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
 import gdw.gameplay.progress.GameplayProgressManager;
 import gdw.network.server.GDWServerLogger;
+import gdw.physics.SimulationComponent;
 import gdw.physics.SimulationComponentManager;
 
 public class ServerCoreLoop extends Thread
@@ -82,11 +83,13 @@ public class ServerCoreLoop extends Thread
 			
 			//teste
 			EntityManager entm = EntityManager.getInstance();
-			ArrayList<Entity> testbla = new ArrayList<Entity>();
-			testbla.add(entm.getEntity(118));
-			testbla.add(entm.getEntity(117));
-			testbla.add(entm.getEntity(116));
-			//Entity test1 =  EntityManager.getInstance().getEntity(118);
+	
+			Entity ent = entm.getEntity(13);
+			GDWServerLogger.logMSG("Player bei: "+ent.getPosX()+" "+ent.getPosY());
+			SimulationComponent simcomp = (SimulationComponent) ent.getComponent(SimulationComponent.COMPONENT_TYPE);
+			if(simcomp != null)
+				GDWServerLogger.logMSG("ist "+simcomp.isGrounded());
+
 			
 			SimulationComponentManager.getInstance().simulate(delta);
 			netSub.simulateGhosts(delta);

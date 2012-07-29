@@ -12,6 +12,7 @@ import gdw.control.messageType.SpecialAttackMessage;
 import gdw.control.messageType.StopMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
+import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.Message;
 import gdw.gameplay.levelObjects.SwitchUserComponent;
@@ -21,6 +22,7 @@ import gdw.gameplay.player.PlayerBehaviorComponent.AttackType;
 import gdw.graphics.SpriteComponent;
 import gdw.network.NetComponent;
 import gdw.network.NetSubSystem;
+import gdw.network.server.GDWServerLogger;
 import gdw.physics.SimulationComponent;
 
 import org.newdawn.slick.Input;
@@ -322,7 +324,7 @@ public class PlayerInputComponent extends Component
 
 		// Run behavior
 		if (msg instanceof RunMessage)
-		{
+		{			
 			RunMessage tmpmsg = (RunMessage) msg;
 			// Manipulates the SimulationComponent
 			simcomp = (SimulationComponent) super.getOwner().getComponent(
@@ -380,10 +382,15 @@ public class PlayerInputComponent extends Component
 		{
 			simcomp = (SimulationComponent) super.getOwner().getComponent(
 					SimulationComponent.COMPONENT_TYPE);
-			if (simcomp != null && simcomp.isGrounded())
+			if (simcomp != null)
 			{
-				simcomp.setVelocityY(jumpVelocity);
+				simcomp.setVelocityY(-jumpVelocity);
 			}
+			
+			/*if (simcomp != null && simcomp.isGrounded())
+			{
+				simcomp.setVelocityY(-jumpVelocity);
+			}*/
 			return;
 		}
 

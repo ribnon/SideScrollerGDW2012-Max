@@ -48,7 +48,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 	public static DeadReckoningNetMessage[] getFromByteBuffer(ByteBuffer buf)
 	{
 		int length = buf.get();
-		GDWServerLogger.logMSG("deadReck anzahl:"+length);
+		//GDWServerLogger.logMSG("deadReck anzahl:"+length);
 		DeadReckoningNetMessage [] arr = new DeadReckoningNetMessage[length];
 		float roundTip = buf.getFloat();
 		for(int i=0;i<length;++i)
@@ -121,7 +121,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 		while(!list.isEmpty())
 		{
 			DeadReckoningNetMessage msg = list.peek();
-			GDWServerLogger.logMSG("in byteBuffer wird geschrieben posX: "+msg.posX+" "+msg.posY);
+			//GDWServerLogger.logMSG("in byteBuffer wird geschrieben posX: "+msg.posX+" "+msg.posY);
 			try
 			{
 				helper.putInt(msg.entityID);
