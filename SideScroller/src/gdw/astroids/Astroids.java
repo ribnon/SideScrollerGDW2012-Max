@@ -2,6 +2,7 @@ package gdw.astroids;
 
 import gdw.astroids.components.DestroyableComponent;
 import gdw.astroids.input.AstroidsInputComponentManager;
+import gdw.astroids.sound.SoundPlayer;
 import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.entityCore.Component;
 import gdw.entityCore.Entity;
@@ -56,7 +57,7 @@ public class Astroids extends BasicGame {
 			e.printStackTrace();
 		}
 		
-		
+		SoundPlayer.getInstance();
 		SimulationComponentManager.getInstance().setGravity(0.0f);
 
 	}

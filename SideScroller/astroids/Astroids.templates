@@ -21,7 +21,7 @@ destroyGroup=1
 Component Shooter
 projectilePoolSize=15
 projectileFireCount=3
-projectilePoolCooldownTime=0.7
+projectilePoolCooldownTime=0.0
 projectileFireFrequency=6
 Component AstroidsPlayerMarker
 
@@ -175,7 +175,7 @@ tileHeight=37
 animationSpeed=15
 Component FadeIn
 startColor=255;255;255;255
-endColor=255;50;255;0
+endColor=255;255;255;0
 fadeTime=0.5
 
 Template PlayerExplosion

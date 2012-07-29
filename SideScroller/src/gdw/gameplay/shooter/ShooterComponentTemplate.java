@@ -26,15 +26,7 @@ public class ShooterComponentTemplate extends ComponentTemplate
 	@Override
 	public Component createComponent()
 	{
-		try
-		{
-			return new ShooterComponent(this);
-		} catch (SlickException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return new ShooterComponent(this);
 	}
 
 	public int getProjectilePoolSize()

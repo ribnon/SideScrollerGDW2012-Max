@@ -56,6 +56,18 @@ public class DestroyableComponent extends Component {
 		life = t.life;
 		destroyPower = t.destroyPower;
 		destroyGroup = t.destroyGroup;
+<<<<<<< HEAD
+		
+//		try
+//		{
+//			explosionSound = new Sound("astroids/assets/explosion.wav");
+//		} catch (SlickException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+=======
+>>>>>>> df70cb4501cae25738ea188a7e45a342a3259a72
 	}
 
 	public static final int COMPONENT_TYPE = 1003;
@@ -106,12 +118,20 @@ public class DestroyableComponent extends Component {
 		if (getOwner().getComponent(AstroidsPlayerMarkerComponent.COMPONENT_TYPE) != null) {
 			template = EntityTemplateManager.getInstance().getEntityTemplate("PlayerExplosion");
 			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
+<<<<<<< HEAD
+//			explosionSound.play();
+=======
 			SoundPlayer.getInstance().playSound(SoundPlayer.SOUND_EXPLOSION);
+>>>>>>> df70cb4501cae25738ea188a7e45a342a3259a72
 		}
 		if (getOwner().getComponent(AstroidsAstroidMarkerComponent.COMPONENT_TYPE) != null) {
 			template = EntityTemplateManager.getInstance().getEntityTemplate("AstroidExplosion");
 			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
+<<<<<<< HEAD
+//			explosionSound.play();
+=======
 			SoundPlayer.getInstance().playSound(SoundPlayer.SOUND_EXPLOSION);
+>>>>>>> df70cb4501cae25738ea188a7e45a342a3259a72
 		}
 		
 		if(getOwner().getComponent(DecayComponent.COMPONENT_TYPE) != null) {
