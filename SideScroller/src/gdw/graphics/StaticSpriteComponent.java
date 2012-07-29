@@ -89,13 +89,13 @@ public class StaticSpriteComponent extends SpriteComponent
 		image.setRotation(getOwner().getOrientation());
 		if (getFilter() != null)
 		{
-			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
-					getOwner().getPosY() - ((image.getHeight() / 2f)*getScale()), getScale(),
+			image.draw(camPosX + getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					camPosY + getOwner().getPosY() - ((image.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
 		} else
 		{
-			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
-					getOwner().getPosY() - ((image.getWidth() / 2f)*getScale()), getScale());
+			image.draw(camPosX + getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					camPosY + getOwner().getPosY() - ((image.getWidth() / 2f)*getScale()), getScale());
 		}
 	}
 }
