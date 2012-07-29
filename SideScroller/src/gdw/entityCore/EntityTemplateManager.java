@@ -47,7 +47,9 @@ public class EntityTemplateManager {
 				String templateNameStr=line.substring(9);
 				if(templateNameStr.length()==0) templateNameStr=null;
 				if(templateName!=null){
-					entityTemplates.put(templateName, new EntityTemplate(templateName, baseTemplates, componentParamsMap));
+					EntityTemplate et = new EntityTemplate(templateName, baseTemplates, componentParamsMap);
+					et.setDefiningFile(fileName);
+					entityTemplates.put(templateName,et);
 				}
 				templateName=templateNameStr;
 				baseTemplates=new ArrayList<String>();
@@ -95,7 +97,9 @@ public class EntityTemplateManager {
 			else continue;
 		}
 		if(templateName!=null){
-			entityTemplates.put(templateName, new EntityTemplate(templateName, baseTemplates, componentParamsMap));
+			EntityTemplate et = new EntityTemplate(templateName, baseTemplates, componentParamsMap);
+			et.setDefiningFile(fileName);
+			entityTemplates.put(templateName,et);
 		}
 	}
 	
@@ -172,7 +176,9 @@ public class EntityTemplateManager {
 					componentParamsMap.get("CircleCollisionDetection").put("radius",Float.toString((float)Math.sqrt(x*x+y*y)));
 				}
 				String templateName = mapTemplatesPrefix + map.getObjectName(og, go);
-				entityTemplates.put(templateName, new EntityTemplate(templateName, baseTemplateNames, componentParamsMap));
+				EntityTemplate et =  new EntityTemplate(templateName, baseTemplateNames, componentParamsMap);
+				et.setDefiningFile("LEVEL");
+				entityTemplates.put(templateName,et);
 			}
 		}
 	}
