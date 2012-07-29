@@ -122,7 +122,7 @@ public class DestroyableComponent extends Component {
 		if(getOwner().getComponent(DecayComponent.COMPONENT_TYPE) != null) {
 			DecayComponent dc = (DecayComponent)getOwner().getComponent(DecayComponent.COMPONENT_TYPE);
 			for(int p=0;p<dc.getDecayIn().length;++p) {
-				System.out.println("Spawn "+dc.getDecayIn()[p]);
+//				System.out.println("Spawn "+dc.getDecayIn()[p]);
 				template = EntityTemplateManager.getInstance().getEntityTemplate(dc.getDecayIn()[p]);
 				float toSpawn = (((float)Math.random()) * dc.getAveragePieces()[p]);
 				toSpawn = Math.max(dc.getSpawnRange()[p][0], Math.min(toSpawn, dc.getSpawnRange()[p][1]));

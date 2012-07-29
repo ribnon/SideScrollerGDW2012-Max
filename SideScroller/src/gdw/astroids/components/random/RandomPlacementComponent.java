@@ -8,13 +8,15 @@ import gdw.entityCore.Message;
 public class RandomPlacementComponent extends Component {
 
 	
-	private static final int COMPONENT_TYPE = 1005;
+	public static final int COMPONENT_TYPE = 1005;
 	
 	private int placementPosX;
 	private int placementPosY;
 	private int boxWidth;
 	private int boxHeight;
 	private boolean isLocal;
+	
+	private boolean ignoreRandom;
 	
 	public RandomPlacementComponent(ComponentTemplate template) {
 		super(template);
@@ -24,6 +26,7 @@ public class RandomPlacementComponent extends Component {
 		boxWidth = t.boxWidth;
 		boxHeight = t.boxHeight;
 		isLocal = t.isLocal;
+		setIgnoreRandom(false);
 	}
 
 	@Override
@@ -35,6 +38,8 @@ public class RandomPlacementComponent extends Component {
 	@Override
 	public void onMessage(Message msg) {
 		// TODO Auto-generated method stub
+		if(ignoreRandom)
+			return;
 		if(msg instanceof EntityConstructedMessage) {
 			float xOffset = (float)Math.random()*boxWidth;
 			if(isLocal) {
@@ -48,6 +53,14 @@ public class RandomPlacementComponent extends Component {
 				this.getOwner().setPosY(placementPosY+(float)Math.random()*boxHeight);
 			}
 		}
+	}
+
+	public boolean isIgnoreRandom() {
+		return ignoreRandom;
+	}
+
+	public void setIgnoreRandom(boolean ignoreRandom) {
+		this.ignoreRandom = ignoreRandom;
 	}
 
 }

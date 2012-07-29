@@ -1,11 +1,10 @@
 Entity FixedCamera 400 300 0
 Entity Background 400 300 0
-Entity Player 350 300 0 as Player1
-Entity MetroidPlacement 0 0 0
-Entity MetroidPlacement 0 0 0
-Entity MetroidPlacement 0 0 0
-Entity MetroidPlacement 0 0 0
-Entity MetroidPlacement 0 0 0
+Entity Player 400 300 0 as Player1
+Entity VerticalSpawner -15 0 0
+Entity VerticalSpawner 600 0 0
+Entity HorizontalSpawner 0 -15 0
+Entity HorizontalSpawner 0 800 0
 
 
 

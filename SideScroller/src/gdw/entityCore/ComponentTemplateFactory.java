@@ -8,6 +8,7 @@ import gdw.astroids.components.EngineComponentTemplate;
 import gdw.astroids.components.random.RandomMovementComponentTemplate;
 import gdw.astroids.components.random.RandomPlacementComponentTemplate;
 import gdw.astroids.components.random.RandomRotationComponentTemplate;
+import gdw.astroids.components.spawn.SpawnAreaComponentTemplate;
 import gdw.astroids.input.AstroidsInputComponentTemplate;
 import gdw.collisionDetection.AABoxCollisionDetectionComponentTemplate;
 import gdw.collisionDetection.CircleCollisionDetectionComponentTemplate;
@@ -105,6 +106,7 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("AstroidsAstroidMarker", AstroidsAstroidMarkerComponentTemplate.class);
 		componentTemplateClasses.put("AstroidsPlayerMarker", AstroidsPlayerMarkerComponentTemplate.class);
 		componentTemplateClasses.put("Decay", DecayComponentTemplate.class);
+		componentTemplateClasses.put("SpawnArea", SpawnAreaComponentTemplate.class);
 	}
 
 	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<String, Class<? extends ComponentTemplate>>();

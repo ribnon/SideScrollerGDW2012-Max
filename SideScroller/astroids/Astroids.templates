@@ -144,7 +144,7 @@ boxHeight=48
 Template MetroidSmall0
 Component Simulation
 mass=0.4
-friction=0.4
+friction=0.8
 Component CircleCollisionDetection
 radius=18
 Component StaticSprite
@@ -157,10 +157,10 @@ life=30
 destroyPower=2
 destroyGroup=3
 Component RandomMovement
-forceX=15.0
-forceY=15.0
+forceX=13.0
+forceY=13.0
 Component RandomRotation
-angularVelocity=30
+angularVelocity=90
 Component AstroidsAstroidMarker
 Component RandomPlacement
 isLocal=1
@@ -267,6 +267,27 @@ Component FadeIn
 startColor=255;255;255;255
 endColor=0;0;0;0
 fadeTime=0.1
+
+Template Spawner
+Component SpawnArea
+spawns=MetroidPlacement
+spawnTime=2.0
+
+
+Template VerticalSpawner
+Component SpawnArea
+areaX=15
+areaY=600
+spawns=MetroidPlacement
+spawnTime=2.0
+
+Template HorizontalSpawner
+Component SpawnArea
+areaX=800
+areaY=15
+spawns=MetroidPlacement
+spawnTime=2.0
+
 
 
 
