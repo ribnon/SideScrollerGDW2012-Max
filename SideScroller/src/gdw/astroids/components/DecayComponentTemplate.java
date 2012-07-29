@@ -1,5 +1,6 @@
 package gdw.astroids.components;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import gdw.entityCore.Component;
@@ -7,24 +8,45 @@ import gdw.entityCore.ComponentTemplate;
 
 public class DecayComponentTemplate extends ComponentTemplate {
 
-	String decayIn;
-	float averagePieces;
-	float[] spawnRange;
+	String[] decayIn;
+	float[] averagePieces;
+	float[][] spawnRange;
 	
 	public DecayComponentTemplate(HashMap<String, String> params) {
 		super(params);
-		decayIn = getStringParam("decayIn", "");
 		
-		String[] pieceValues = getStringParam("spawnValues", "0;1").split(";");
-		for(int i=0;i<pieceValues.length;++i) {
-			averagePieces+=Float.valueOf(pieceValues[i]);
+		String[] decayInTypes = getStringParam("decayIn", "").split(":");
+		decayIn = new String[decayInTypes.length];
+		for(int i=0;i<decayInTypes.length;++i) {
+			decayIn[i] = decayInTypes[i];
 		}
-		averagePieces/=pieceValues.length;
 		
-		pieceValues = getStringParam("spawnRange", "0;1").split(";");
-		spawnRange = new float[2];
-		spawnRange[0] = Float.valueOf(pieceValues[0]);
-		spawnRange[1] = Float.valueOf(pieceValues[1]);
+		String[] pieces =getStringParam("spawnValues", "").split(":");
+		averagePieces = new float[pieces.length];
+		for(int i=0;i<pieces.length;++i) {
+			String[] pieceValues = pieces[i].split(";");
+			System.out.println(Arrays.toString(pieceValues));
+			for(int j=0;j<pieceValues.length;++j) {
+				averagePieces[i]+=Float.valueOf(pieceValues[j]);
+			}
+			averagePieces[i]/=pieceValues.length;
+		}
+		
+		
+		pieces = getStringParam("spawnRange", "").split(":");
+		spawnRange = new float[pieces.length][2];
+		for(int i=0;i<pieces.length;++i) {
+			spawnRange[i] = new float[2];
+			if(pieces[i].equals("")) {
+				spawnRange[i][0] = 0;
+				spawnRange[i][1] = 1;
+			}
+			else {
+				String[] spawnParam = pieces[i].split(";");
+				spawnRange[i][0] = Float.valueOf(spawnParam[0]);
+				spawnRange[i][1] = Float.valueOf(spawnParam[1]);
+			}
+		}
 	}
 
 	@Override

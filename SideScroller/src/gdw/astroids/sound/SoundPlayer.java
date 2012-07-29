@@ -45,7 +45,9 @@ public class SoundPlayer
 	public void playSound(int i)
 	{
 		Sound sound = sounds.get(i);
-		
 //		if (sound != null) sound.play(Math.max(0.3f, (float)Math.random()-0.2f),1.0f);
+		if (sound != null) {
+//			sound.play();
+		}
 	}
 }

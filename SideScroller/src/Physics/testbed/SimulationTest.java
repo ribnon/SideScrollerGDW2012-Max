@@ -228,6 +228,12 @@ public class SimulationTest extends BasicGame {
 		}
 		
 		SimulationComponentManager.getInstance().setGravity(98.1f);
+		
+		
+		String[] splitr = "0;1::0;1".split(":");
+		for(int i=0;i<splitr.length;++i) {
+			System.out.println("i: "+splitr[i].equals(""));
+		}
 	}
 
 	//debug draw for entities

@@ -83,8 +83,8 @@ Component Camera
 
 Template Metroid
 Component Simulation
-mass=0.5
-friction=0.4
+mass=0.6
+friction=0.6
 Component CircleCollisionDetection
 radius=28
 Component StaticSprite
@@ -93,7 +93,7 @@ pivotX=32
 pivotY=32
 Component Destroyable
 life=50
-destroyPower=1
+destroyPower=4
 destroyGroup=3
 Component RandomMovement
 forceX=10.0
@@ -108,9 +108,68 @@ placementPosY=0
 boxWidth=48
 boxHeight=48
 Component Decay
-decayIn=Metroid
-spawnValues=0;2;4;3;5
-spawnRange=1;10
+decayIn=MetroidSmall0:MetroidSmall1
+spawnValues=0;2;4;3;5;20:0;2;4
+spawnRange=2;10:0;1
+
+Template MetroidSmall1
+Component Simulation
+mass=0.45
+friction=0.5
+Component CircleCollisionDetection
+radius=24
+Component StaticSprite
+path=astroids/assets/meteorit1.png
+pivotX=27.429
+pivotY=20.429
+scale=0.857
+Component Destroyable
+life=40
+destroyPower=3
+destroyGroup=3
+Component RandomMovement
+forceX=12.0
+forceY=12.0
+Component RandomRotation
+angularVelocity=25
+Component AstroidsAstroidMarker
+Component RandomPlacement
+isLocal=1
+placementPosX=0
+placementPosY=0
+boxWidth=48
+boxHeight=48
+
+
+Template MetroidSmall0
+Component Simulation
+mass=0.4
+friction=0.4
+Component CircleCollisionDetection
+radius=18
+Component StaticSprite
+path=astroids/assets/meteorit1.png
+pivotX=20.571
+pivotY=20.571
+scale=0.643
+Component Destroyable
+life=30
+destroyPower=2
+destroyGroup=3
+Component RandomMovement
+forceX=15.0
+forceY=15.0
+Component RandomRotation
+angularVelocity=30
+Component AstroidsAstroidMarker
+Component RandomPlacement
+isLocal=1
+placementPosX=0
+placementPosY=0
+boxWidth=48
+boxHeight=48
+
+
 
 Template MetroidPlacement
 Base Metroid
