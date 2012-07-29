@@ -37,7 +37,7 @@ public class MenuTest extends BasicGame
 
 	public MenuTest()
 	{
-		super("INSERT GAMENAME HERE!!");
+		super("Sidescroller");
 	}
 
 	@Override
