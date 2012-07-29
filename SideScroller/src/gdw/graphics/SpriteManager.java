@@ -61,7 +61,7 @@ public class SpriteManager {
 			float posY = -cc.getOwner().getPosY()+cc.getViewPortY()/2.0f;
 //			float posX = -cc.getOwner().getPosX();
 //			float posY = -cc.getOwner().getPosY();
-			System.out.println(posX + ", " + posY + "  " + cc.getOwner().getPosX() + ", " + cc.getOwner().getPosY() + "  " + cc.getViewPortX()/2.0f + ", " + cc.getViewPortY()/2.0f);
+//			System.out.println(posX + ", " + posY + "  " + cc.getOwner().getPosX() + ", " + cc.getOwner().getPosY() + "  " + cc.getViewPortX()/2.0f + ", " + cc.getViewPortY()/2.0f);
 			
 			for(int j = 0; j < lc; ++j)
 			{
