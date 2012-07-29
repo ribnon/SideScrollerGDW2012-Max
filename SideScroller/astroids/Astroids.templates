@@ -93,7 +93,6 @@ pivotX=32
 pivotY=32
 Component Destroyable
 life=50
-life=50
 destroyPower=1
 destroyGroup=3
 Component RandomMovement
@@ -104,19 +103,21 @@ angularVelocity=20
 Component AstroidsAstroidMarker
 Component RandomPlacement
 isLocal=1
-placementX=0
-placementX=0
-boxWidth=64
-boxHeight=64
+placementPosX=0
+placementPosY=0
+boxWidth=48
+boxHeight=48
 Component Decay
 decayIn=Metroid
+spawnValues=0;2;4;3;5
+spawnRange=1;10
 
 Template MetroidPlacement
 Base Metroid
 Component RandomPlacement
 isLocal=0
-placementX=0
-placementX=0
+placementPosX=0
+placementPosY=0
 boxWidth=800
 boxHeight=600
 

@@ -36,12 +36,15 @@ public class RandomPlacementComponent extends Component {
 	public void onMessage(Message msg) {
 		// TODO Auto-generated method stub
 		if(msg instanceof EntityConstructedMessage) {
+			float xOffset = (float)Math.random()*boxWidth;
 			if(isLocal) {
-				this.getOwner().setPosX(getOwner().getPosX()+placementPosX+((float)Math.random()-0.5f)*boxWidth);
-				this.getOwner().setPosY(getOwner().getPosX()+placementPosY+((float)Math.random()-0.5f)*boxHeight);
+				float spawnY = getOwner().getPosY()-boxHeight*0.5f;
+				float spawnX = getOwner().getPosX()-boxWidth*0.5f;
+				this.getOwner().setPosX(spawnX+placementPosX+xOffset);
+				this.getOwner().setPosY(spawnY+placementPosY+(float)Math.random()*boxHeight);
 			}
 			else {
-				this.getOwner().setPosX(placementPosX+(float)Math.random()*boxWidth);
+				this.getOwner().setPosX(placementPosX+xOffset);
 				this.getOwner().setPosY(placementPosY+(float)Math.random()*boxHeight);
 			}
 		}

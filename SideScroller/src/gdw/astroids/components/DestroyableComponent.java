@@ -11,12 +11,11 @@ import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Message;
 import gdw.gameplay.shooter.ProjectileComponent;
 
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
-
 public class DestroyableComponent extends Component {
 
 	private int life;
+	
+	private boolean wasDestroyed;
 	public int getLife() {
 		return life;
 	}
@@ -56,6 +55,8 @@ public class DestroyableComponent extends Component {
 		life = t.life;
 		destroyPower = t.destroyPower;
 		destroyGroup = t.destroyGroup;
+		
+		wasDestroyed = false;
 	}
 
 	public static final int COMPONENT_TYPE = 1003;
@@ -81,16 +82,20 @@ public class DestroyableComponent extends Component {
 				DestroyableComponent c1_destroy = (DestroyableComponent)c1.getComponent(COMPONENT_TYPE);
 				DestroyableComponent c2_destroy = (DestroyableComponent)c2.getComponent(COMPONENT_TYPE);
 				
-				if((c1_destroy.destroyGroup & c2_destroy.destroyGroup) != 0 && (c1_destroy.destroyGroup != c2_destroy.destroyGroup)) {
+				if((c1_destroy.destroyGroup & c2_destroy.destroyGroup) != 0 && (c1_destroy.destroyGroup != c2_destroy.destroyGroup)
+					&& (!c1_destroy.wasDestroyed || !c2_destroy.wasDestroyed)) {
 					c1_destroy.life -= c2_destroy.destroyPower;
-					if(c1_destroy.life <= 0) {
+					if(c1_destroy.life <= 0 && !c1_destroy.wasDestroyed) {
 						createDestruction();
 						c1.markForDestroy();
+						c1_destroy.wasDestroyed = true;
 					}
 					
 					c2_destroy.life -= c1_destroy.destroyPower;
-					if(c2_destroy.life <= 0) {
+					if(c2_destroy.life <= 0 && !c2_destroy.wasDestroyed) {
+						c2_destroy.createDestruction();
 						c2.markForDestroy();
+						c2_destroy.wasDestroyed = true;
 					}
 				}
 			}
@@ -117,7 +122,12 @@ public class DestroyableComponent extends Component {
 		if(getOwner().getComponent(DecayComponent.COMPONENT_TYPE) != null) {
 			DecayComponent dc = (DecayComponent)getOwner().getComponent(DecayComponent.COMPONENT_TYPE);
 			template = EntityTemplateManager.getInstance().getEntityTemplate(dc.getDecayIn());
-			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0);
+			float toSpawn = (((float)Math.random()) * dc.getAveragePieces());
+			toSpawn = Math.max(dc.getSpawnRange()[0], Math.min(toSpawn, dc.getSpawnRange()[1]));
+			System.out.println(""+toSpawn);
+			for(int i=0;i<(int)toSpawn;++i) {
+				template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0);
+			}
 		}
 	}
 

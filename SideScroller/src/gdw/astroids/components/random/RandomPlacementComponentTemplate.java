@@ -20,6 +20,7 @@ public class RandomPlacementComponentTemplate extends ComponentTemplate {
 		
 		placementPosX = getIntegerParam("placementPosX", 0);
 		placementPosY = getIntegerParam("placementPosY", 0);
+		System.out.println(placementPosY+"");
 		
 		boxWidth = getIntegerParam("boxWidth", 800);
 		boxHeight = getIntegerParam("boxHeight", 600);

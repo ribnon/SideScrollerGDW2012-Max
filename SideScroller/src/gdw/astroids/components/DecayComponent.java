@@ -7,7 +7,26 @@ import gdw.entityCore.Message;
 public class DecayComponent extends Component {
 
 	private String decayIn;
+	private float averagePieces;
+	private float[] spawnRange;
 	
+	
+	public float[] getSpawnRange() {
+		return spawnRange;
+	}
+
+	public void setSpawnRange(float[] spawnRange) {
+		this.spawnRange = spawnRange;
+	}
+
+	public float getAveragePieces() {
+		return averagePieces;
+	}
+
+	public void setAveragePieces(float averagePieces) {
+		this.averagePieces = averagePieces;
+	}
+
 	public String getDecayIn() {
 		return decayIn;
 	}
@@ -21,6 +40,11 @@ public class DecayComponent extends Component {
 		DecayComponentTemplate t = (DecayComponentTemplate)template;
 		
 		decayIn = t.decayIn;
+		averagePieces = t.averagePieces;
+		spawnRange = new float[] {
+				t.spawnRange[0],
+				t.spawnRange[1]
+		};
 	}
 	public static final int COMPONENT_TYPE = 1010;
 	@Override
