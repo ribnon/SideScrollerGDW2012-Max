@@ -81,7 +81,7 @@ public class PlayerBehaviorComponent extends Component
 		if (!EntityManager.getInstance().isOfflineMode())
 		{
 			//debug sry
-			
+			/*
 			if(NetSubSystem.getInstance().isServer())
 			{
 				Entity entitty = this.getOwner();
@@ -91,7 +91,7 @@ public class PlayerBehaviorComponent extends Component
 				GDWServerLogger.logMSG("Pedo an: "+entitty.getPosX()+" "+entitty.getPosY());
 				GDWServerLogger.logMSG("Düst mist: "+simcomp.getAccelerationX()+ " "+simcomp.getAccelerationY());
 			}	
-			
+			*/
 			//</debug
 					
 			// prüfen ob ich server bin
@@ -275,9 +275,9 @@ public class PlayerBehaviorComponent extends Component
 		if (type == AttackType.Normal)
 		{
 			hitActive = 0;
-			if (!EntityManager.getInstance().isOfflineMode())
-				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
-						new AttackMessage());
+//			if (!EntityManager.getInstance().isOfflineMode())
+//				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
+//						new AttackMessage());
 		}
 	}
 

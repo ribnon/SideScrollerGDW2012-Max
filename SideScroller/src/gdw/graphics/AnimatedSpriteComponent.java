@@ -100,6 +100,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		cycleLength = t.getCycleLength();
 		cycle = t.getCycle();
 		step = t.getStep();
+		setAnimationSpeed(t.getAnimationSpeed());
 		
 		SpriteManager.getInstance().addSprite(this);
 	}
@@ -142,7 +143,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 */
 	public void tick(float deltaTime)
 	{
-		stepTime+=deltaTime;
+		stepTime+=animationSpeed*deltaTime;
 		step = (int) stepTime;
 		stepTime=stepTime-step;
 		step %= cycleLength[cycle]; //loop back to frame 0 

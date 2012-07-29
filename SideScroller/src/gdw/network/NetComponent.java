@@ -51,6 +51,7 @@ public class NetComponent extends Component
 			this.sequenceID = msg.sequenceID;
 			//update ghost
 		
+		
 			this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY,msg.roundTipTime);
 		}
 	}

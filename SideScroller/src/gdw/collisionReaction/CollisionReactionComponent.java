@@ -21,7 +21,7 @@ public class CollisionReactionComponent extends Component
 	private boolean impassableFromTop;
 	private boolean impassableFromSide;
 	private static float VERTICAL_ANGLE_LIMIT = 0.2F;
-	private final float TOLERANCE = 0.001F;
+	private final float TOLERANCE = 0.1F;
 
 	protected CollisionReactionComponent(ComponentTemplate template)
 	{
