@@ -241,37 +241,37 @@ public class OverlayedAnimatedSpriteComponent extends SpriteComponent
 
 		if (getFilter() != null)
 		{
-			baseimg.draw(getOwner().getPosX()-(baseimg.getWidth() / 2),
-					getOwner().getPosY()-(baseimg.getHeight() / 2),
+			baseimg.draw(camPosX + getOwner().getPosX()-(baseimg.getWidth() / 2),
+					camPosY + getOwner().getPosY()-(baseimg.getHeight() / 2),
 					getScale(), getFilter());
 		} else
 		{
-			baseimg.draw(getOwner().getPosX() - (baseimg.getWidth() / 2),
-					getOwner().getPosY() - (baseimg.getHeight() / 2),
+			baseimg.draw(camPosX + getOwner().getPosX() - (baseimg.getWidth() / 2),
+					camPosY + getOwner().getPosY() - (baseimg.getHeight() / 2),
 					getScale());
 		}
 
 		if (overlayColor1 != null)
 		{
-			overlayimg1.draw(getOwner().getPosX() - (overlayimg1.getWidth() / 2),
-					getOwner().getPosY() - (overlayimg1.getHeight() / 2),
+			overlayimg1.draw(camPosX + getOwner().getPosX() - (overlayimg1.getWidth() / 2),
+					camPosY + getOwner().getPosY() - (overlayimg1.getHeight() / 2),
 					getScale(), overlayColor1);
 		} else
 		{
-			overlayimg1.draw(getOwner().getPosX() - (overlayimg1.getWidth() / 2),
-					getOwner().getPosY() - (overlayimg1.getHeight() / 2),
+			overlayimg1.draw(camPosX + getOwner().getPosX() - (overlayimg1.getWidth() / 2),
+					camPosY + getOwner().getPosY() - (overlayimg1.getHeight() / 2),
 					getScale());
 		}
 		
 		if (overlayColor2 != null)
 		{
-			overlayimg2.draw(getOwner().getPosX()- (overlayimg2.getWidth() / 2),
-					getOwner().getPosY() - (overlayimg2.getHeight() / 2),
+			overlayimg2.draw(camPosX + getOwner().getPosX()- (overlayimg2.getWidth() / 2),
+					camPosY + getOwner().getPosY() - (overlayimg2.getHeight() / 2),
 					getScale(), overlayColor2);
 		} else
 		{
-			overlayimg2.draw(getOwner().getPosX() - (overlayimg2.getWidth() / 2),
-					getOwner().getPosY() - (overlayimg2.getHeight() / 2),
+			overlayimg2.draw(camPosX + getOwner().getPosX() - (overlayimg2.getWidth() / 2),
+					camPosY + getOwner().getPosY() - (overlayimg2.getHeight() / 2),
 					getScale());
 		}
 

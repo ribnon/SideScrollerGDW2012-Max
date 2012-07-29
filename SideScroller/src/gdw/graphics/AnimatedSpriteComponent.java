@@ -118,12 +118,12 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		img.setCenterOfRotation(getPivotX(), getPivotY());
 		img.setRotation(getOwner().getOrientation());
 		if(getFilter() != null)
-			img.draw(getOwner().getPosX() - ((img.getWidth() / 2f)*getScale()),
-					getOwner().getPosY() - ((img.getHeight() / 2f)*getScale()), getScale(),
+			img.draw(camPosX + getOwner().getPosX() - ((img.getWidth() / 2f)*getScale()),
+					camPosY + getOwner().getPosY() - ((img.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
 		else
-			img.draw(getOwner().getPosX() - ((img.getWidth() / 2f)*getScale()),
-					getOwner().getPosY() - ((img.getHeight() / 2f)*getScale()), getScale(),
+			img.draw(camPosX + getOwner().getPosX() - ((img.getWidth() / 2f)*getScale()),
+					camPosY + getOwner().getPosY() - ((img.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
 	}
 	

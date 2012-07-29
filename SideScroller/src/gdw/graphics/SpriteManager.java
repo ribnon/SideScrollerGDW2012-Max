@@ -57,15 +57,18 @@ public class SpriteManager {
 		for(int i=0;i<cameras.size();i++)
 		{
 			CameraComponent cc = cameras.get(i);
-			float posX = cc.getOwner().getPosX()+cc.getViewPortX()/2.0f;
-			float posY = cc.getOwner().getPosY()+cc.getViewPortY()/2.0f;
+			float posX = -cc.getOwner().getPosX()+cc.getViewPortX()/2.0f;
+			float posY = -cc.getOwner().getPosY()+cc.getViewPortY()/2.0f;
+//			float posX = -cc.getOwner().getPosX();
+//			float posY = -cc.getOwner().getPosY();
+			System.out.println(posX + ", " + posY + "  " + cc.getOwner().getPosX() + ", " + cc.getOwner().getPosY() + "  " + cc.getViewPortX()/2.0f + ", " + cc.getViewPortY()/2.0f);
 			
 			for(int j = 0; j < lc; ++j)
 			{
 				
 				if(map.getLayerProperty(j, "invisible", "false").equals("true"))
 					continue;
-				map.render(-(int)(posX), -(int)(posY), j);
+				map.render((int)(posX), (int)(posY), j);
 					
 			}
 				
@@ -74,7 +77,7 @@ public class SpriteManager {
 			
 			for(int j=0;j<sprites.size();j++)
 			{
-				sprites.get(j).draw(-posX,-posY);
+				sprites.get(j).draw(posX,posY);
 			}
 		}
 	}

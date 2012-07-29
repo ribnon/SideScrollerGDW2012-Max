@@ -5,10 +5,6 @@ Component StartSpawn
 Template StaticSprite
 Component StaticSprite
 
-Template FixCamera
-Component Camera
-viewPortX=640
-viewPortY=480
 
 Template HotButton
 Component StaticSprite
@@ -109,7 +105,7 @@ healthDecrement=5
 
 Template ColorBucket
 Component AnimatedSprite
-animationSpeed=10
+animationSpeed=0.1
 cycle=0
 Component OOBoxCollisionDetection
 Component ColorSource
@@ -120,12 +116,16 @@ Base ColorBucket
 Component AnimatedSprite
 spriteSheet=./assets/spritesheets/bucket_ceiling.png
 cycleLenth=5
+tileWidth=32
+tileHeight=256
 
 Template ColorBucket_Ground
 Base ColorBucket
 Component AnimatedSprite
 spriteSheet=./assets/spritesheets/bucket_ground.png
 cycleLenth=4
+tileWidth=64
+tileHeight=32
 
 Template Enemy
 Component OverlayAnimatedSprite

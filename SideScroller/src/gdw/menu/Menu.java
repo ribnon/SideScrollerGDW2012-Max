@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.Level;
+import gdw.network.NetSubSystem;
 import gdw.network.SideScrollerServer;
 import gdw.network.client.BasicClient;
 import gdw.network.client.ServerInfo;
@@ -156,7 +157,6 @@ public abstract class Menu
 			@Override
 			public void start()
 			{
-				Level.getInstance().start();
 				onGameStart(this, false);
 			}
 		};
@@ -171,41 +171,19 @@ public abstract class Menu
 	}
 	private void createServer(LobbyMenu lobbyMenu)
 	{
-		//Das hier ist leider nicht moeglich -___-
-//		String playerName = lobbyMenu.getPlayerName();
-//		final CharacterSelectionMenu c = new CharacterSelectionMenu(false)
-//		{
-//			@Override
-//			public void start()
-//			{
-//			}
-//			
-//			@Override
-//			public void launchServer()
-//			{
-//			}
-//		};
-//
-//		addHatsToCharSelectionMenu(c);
-//		c.setPlayer1Name(playerName);
-//		c.setPlayer1Modifiable(true);
-//		c.setServerModifiable(true);
-//		c.setPlayer1Hat(0);
-//		c.setPlayer2Hat(-1);
-//		setScreen(c);
-//		
-//		EntityManager.getInstance().setOfflineMode(false);
-//		ServerThread thread = new ServerThread()
-//		{
-//			@Override
-//			protected void playerConnected(ConnectionInfo info)
-//			{
-//				c.playerConnected(info);
-//			}
-//		};
-//		thread.start();
-//		
-//		BasicClient.connectToServer(lobbyMenu.getLocalHost(), null);
+		String serverName = lobbyMenu.getPlayerName();
+		ServerRunningMenu m = new ServerRunningMenu();
+		
+		EntityManager.getInstance().setOfflineMode(false);
+		setScreen(m);
+		
+		try
+		{
+			SideScrollerServer sever = new SideScrollerServer(serverName);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void addHatsToCharSelectionMenu(CharacterSelectionMenu c)
