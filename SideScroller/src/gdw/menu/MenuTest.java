@@ -65,6 +65,7 @@ public class MenuTest extends BasicGame
 //				{
 //					e.printStackTrace();
 //				}
+				SimulationComponentManager.getInstance().setGravity(80);
 				Level.getInstance().start();
 				offline = offlineGame; 
 				Entity p1 = EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(0, 0, 0);
@@ -75,6 +76,9 @@ public class MenuTest extends BasicGame
 				StaticSpriteComponent hatSprite = (StaticSpriteComponent) hat.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
 				hatSprite.setImage(c.getPlayer1Hat());
 				ac.attachEntity(hat.getReference());
+				
+				Entity cam = EntityTemplateManager.getInstance().getEntityTemplate("Camera").createEntity(0, 0, 0);
+				ac.attachEntity(cam.getReference());
 			}
 		};
 		m.init(arg0);
