@@ -20,6 +20,7 @@ public class Entity {
 		this.template = template;
 	}
 	void destroy(){
+		
 		for(Component comp : components.values()){
 			comp.destroy();
 		}

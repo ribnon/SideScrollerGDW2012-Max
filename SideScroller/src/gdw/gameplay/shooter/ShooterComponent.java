@@ -48,7 +48,7 @@ public class ShooterComponent extends Component
 		projectileSet.addProjectile("MultifireProjectileB");
 		projectileSet.addProjectile("MultifireProjectileC");
 		
-		shootSound = new Sound("astroids/assets/shoot.wav");
+//		shootSound = new Sound("astroids/assets/shoot.wav");
 	}
 
 	public int getProjectilePoolSize()
@@ -92,7 +92,7 @@ public class ShooterComponent extends Component
 					template = EntityTemplateManager.getInstance().getEntityTemplate("ShootingAnimation");
 					template.createEntity(getOwner().getPosX(), getOwner().getPosY(), getOwner().getOrientation());
 					
-					shootSound.play();
+//					shootSound.play();
 				}
 			}
 		}

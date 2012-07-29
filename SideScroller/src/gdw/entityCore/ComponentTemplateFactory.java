@@ -2,9 +2,11 @@ package gdw.entityCore;
 
 import gdw.astroids.components.AstroidsAstroidMarkerComponentTemplate;
 import gdw.astroids.components.AstroidsPlayerMarkerComponentTemplate;
+import gdw.astroids.components.DecayComponentTemplate;
 import gdw.astroids.components.DestroyableComponentTemplate;
 import gdw.astroids.components.EngineComponentTemplate;
 import gdw.astroids.components.random.RandomMovementComponentTemplate;
+import gdw.astroids.components.random.RandomPlacementComponentTemplate;
 import gdw.astroids.components.random.RandomRotationComponentTemplate;
 import gdw.astroids.input.AstroidsInputComponentTemplate;
 import gdw.collisionDetection.AABoxCollisionDetectionComponentTemplate;
@@ -96,11 +98,13 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("Destroyable", DestroyableComponentTemplate.class);
 		componentTemplateClasses.put("RandomMovement", RandomMovementComponentTemplate.class);
 		componentTemplateClasses.put("RandomRotation", RandomRotationComponentTemplate.class);
+		componentTemplateClasses.put("RandomPlacement", RandomPlacementComponentTemplate.class);
 		componentTemplateClasses.put("Shooter", ShooterComponentTemplate.class);
 		componentTemplateClasses.put("Projectile", ProjectileComponentTemplate.class);
 		componentTemplateClasses.put("TimedSelfDestruction", TimedSelfDestructionComponentTemplate.class);
 		componentTemplateClasses.put("AstroidsAstroidMarker", AstroidsAstroidMarkerComponentTemplate.class);
 		componentTemplateClasses.put("AstroidsPlayerMarker", AstroidsPlayerMarkerComponentTemplate.class);
+		componentTemplateClasses.put("Decay", DecayComponentTemplate.class);
 	}
 
 	private HashMap<String, Class<? extends ComponentTemplate>> componentTemplateClasses = new HashMap<String, Class<? extends ComponentTemplate>>();

@@ -57,14 +57,14 @@ public class DestroyableComponent extends Component {
 		destroyPower = t.destroyPower;
 		destroyGroup = t.destroyGroup;
 		
-		try
-		{
-			explosionSound = new Sound("astroids/assets/explosion.wav");
-		} catch (SlickException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try
+//		{
+//			explosionSound = new Sound("astroids/assets/explosion.wav");
+//		} catch (SlickException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	public static final int COMPONENT_TYPE = 1003;
@@ -93,7 +93,7 @@ public class DestroyableComponent extends Component {
 				if((c1_destroy.destroyGroup & c2_destroy.destroyGroup) != 0 && (c1_destroy.destroyGroup != c2_destroy.destroyGroup)) {
 					c1_destroy.life -= c2_destroy.destroyPower;
 					if(c1_destroy.life <= 0) {
-						createDestructionAnimation();
+						createDestruction();
 						c1.markForDestroy();
 					}
 					
@@ -106,7 +106,7 @@ public class DestroyableComponent extends Component {
 		}
 	}
 	
-	public void createDestructionAnimation() {
+	public void createDestruction() {
 		EntityTemplate template = null;
 		if (getOwner().getComponent(ProjectileComponent.COMPONENT_TYPE) != null) {
 			template = EntityTemplateManager.getInstance().getEntityTemplate("Explosion");
@@ -115,14 +115,19 @@ public class DestroyableComponent extends Component {
 		if (getOwner().getComponent(AstroidsPlayerMarkerComponent.COMPONENT_TYPE) != null) {
 			template = EntityTemplateManager.getInstance().getEntityTemplate("PlayerExplosion");
 			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
-			explosionSound.play();
+//			explosionSound.play();
 		}
 		if (getOwner().getComponent(AstroidsAstroidMarkerComponent.COMPONENT_TYPE) != null) {
 			template = EntityTemplateManager.getInstance().getEntityTemplate("AstroidExplosion");
 			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0.0f);
-			explosionSound.play();
+//			explosionSound.play();
 		}
 		
+		if(getOwner().getComponent(DecayComponent.COMPONENT_TYPE) != null) {
+			DecayComponent dc = (DecayComponent)getOwner().getComponent(DecayComponent.COMPONENT_TYPE);
+			template = EntityTemplateManager.getInstance().getEntityTemplate(dc.getDecayIn());
+			template.createEntity(getOwner().getPosX(), getOwner().getPosY(), 0);
+		}
 	}
 
 }
