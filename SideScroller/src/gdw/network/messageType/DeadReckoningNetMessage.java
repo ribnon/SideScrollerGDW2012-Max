@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
 import gdw.network.NetMessageType;
+import gdw.network.server.GDWServerLogger;
 
 public class DeadReckoningNetMessage extends NetMessageType
 {
@@ -17,7 +18,7 @@ public class DeadReckoningNetMessage extends NetMessageType
 	public final float roundTipTime;
 	
 	//messagecode, highlevelcode
-	public final static int ROUNDTIP_WRITE_POSITION = Byte.SIZE+Byte.SIZE;
+	public final static int ROUNDTIP_WRITE_POSITION = Byte.SIZE+Byte.SIZE+Byte.SIZE;
 	
 
 	public DeadReckoningNetMessage(int id, int seqID, float posX, float posY, float veloX, float veloY, float roundTip)
@@ -40,11 +41,14 @@ public class DeadReckoningNetMessage extends NetMessageType
 		this.velocityX = buf.getFloat();
 		this.velocityY = buf.getFloat();
 		this.roundTipTime = roundTip;
+		
+		GDWServerLogger.logMSG("posx:"+this.posX+" posY: "+this.posY);
 	}
 	
 	public static DeadReckoningNetMessage[] getFromByteBuffer(ByteBuffer buf)
 	{
 		int length = buf.get();
+		//GDWServerLogger.logMSG("deadReck anzahl:"+length);
 		DeadReckoningNetMessage [] arr = new DeadReckoningNetMessage[length];
 		float roundTip = buf.getFloat();
 		for(int i=0;i<length;++i)
@@ -117,14 +121,15 @@ public class DeadReckoningNetMessage extends NetMessageType
 		while(!list.isEmpty())
 		{
 			DeadReckoningNetMessage msg = list.peek();
+			//GDWServerLogger.logMSG("in byteBuffer wird geschrieben posX: "+msg.posX+" "+msg.posY);
 			try
 			{
-				buf.putInt(msg.entityID);
-				buf.putInt(msg.sequenceID);
-				buf.putFloat(msg.posX);
-				buf.putFloat(msg.posY);
-				buf.putFloat(msg.velocityX);
-				buf.putFloat(msg.velocityY);
+				helper.putInt(msg.entityID);
+				helper.putInt(msg.sequenceID);
+				helper.putFloat(msg.posX);
+				helper.putFloat(msg.posY);
+				helper.putFloat(msg.velocityX);
+				helper.putFloat(msg.velocityY);
 			}catch(IndexOutOfBoundsException e)
 			{
 				break;

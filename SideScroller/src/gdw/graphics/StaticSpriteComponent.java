@@ -1,5 +1,7 @@
 package gdw.graphics;
 
+import java.awt.BufferCapabilities.FlipContents;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -28,6 +30,8 @@ public class StaticSpriteComponent extends SpriteComponent
 	{
 		super(template);
 		StaticSpriteComponentTemplate t = (StaticSpriteComponentTemplate) template;
+
+		image = t.getImage();
 		
 		setScale(t.getScale());
 		setFilter(t.getFilter());
@@ -35,8 +39,6 @@ public class StaticSpriteComponent extends SpriteComponent
 		setPivotY(t.getPivotY());
 		setLayer(t.getLayer());
 		setFlipped(t.isFlipped());
-		
-		image = t.getImage();
 		
 		SpriteManager.getInstance().addSprite(this);
 	}
@@ -69,10 +71,11 @@ public class StaticSpriteComponent extends SpriteComponent
 
 	public void setFlipped(boolean b)
 	{
-		if (!(getFlipped() == b))
+		if (getFlipped() != b)
 		{
-			image = image.getFlippedCopy(false, true);
+			image = image.getFlippedCopy(true, false);
 		}
+		super.setFlipped(b);
 	}
 
 	/**

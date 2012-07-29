@@ -74,11 +74,9 @@ public class SpriteManager {
 			
 			for(int j=0;j<sprites.size();j++)
 			{
-				sprites.get(j).draw(posX,posY);
+				sprites.get(j).draw(-posX,-posY);
 			}
 		}
-			
-			
 	}
 	
 	public void addSprite(SpriteComponent sprite)
@@ -86,7 +84,7 @@ public class SpriteManager {
 		int i = 0;
 		for(; i < sprites.size(); ++i)
 		{
-			if(sprite.getLayer() >= sprites.get(i).getLayer())
+			if(sprite.getLayer() < sprites.get(i).getLayer())
 				break;
 				
 		}

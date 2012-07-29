@@ -1,5 +1,6 @@
 Include ./templates/LevelRainbow
 Include ./templates/Player1
+Include ./templates/Hat
 Include ./templates/LevelGoal
 Include ./templates/Camera
 
@@ -7,8 +8,9 @@ Include ./templates/Camera
 Include ./templates/LevelStuff.templates
 
 
-
-
+Template Boden
+Component AABoxCollisionDetection
+Component CollisionReaction
 
 
 

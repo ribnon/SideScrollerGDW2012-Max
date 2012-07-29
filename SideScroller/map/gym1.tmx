@@ -18,13 +18,18 @@
    <property name="invisible" value="true"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NkYGBgpDKmFhg1b9Q8SsyjNG0OFf8SMpNQODBiUUepu2htHi3LK3LTzVBKL9TCAGYqAjRABgAA
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCkgHADV9EcVABgAA
   </data>
  </layer>
  <objectgroup name="objektebene" width="20" height="20">
-  <object name="spawn" type="PlayerStart" x="55" y="67" width="58" height="69">
+  <object name="spawn" type="PlayerStart" x="55" y="17" width="58" height="69">
    <properties>
     <property name="Template" value="PlayerStartSpawn"/>
+   </properties>
+  </object>
+  <object name="Bodentoll" type="Enemy" x="19" y="143" width="224" height="14">
+   <properties>
+    <property name="Template" value="Boden"/>
    </properties>
   </object>
  </objectgroup>

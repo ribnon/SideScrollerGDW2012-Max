@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-
 import gdw.collisionDetection.CollisionDetectionMessage;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
@@ -20,6 +19,7 @@ import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityReference;
 import gdw.entityCore.Message;
 import gdw.entityCore.StaticEntityReference;
+import gdw.graphics.SpriteComponent;
 
 public class AttachmentComponent extends Component
 {
@@ -49,11 +49,15 @@ public class AttachmentComponent extends Component
 	public AttachmentComponent(ComponentTemplate template)
 	{
 		super(template);
-		
-		attachPointX = ((AttachmentComponentTemplate) template).getAttachPointX();
-		attachPointY = ((AttachmentComponentTemplate) template).getAttachPointY();
-		attachOrientation = ((AttachmentComponentTemplate) template).getAttachOrientation();
-		autoAttachGroups = ((AttachmentComponentTemplate) template).getAutoAttachGroups();
+
+		attachPointX = ((AttachmentComponentTemplate) template)
+				.getAttachPointX();
+		attachPointY = ((AttachmentComponentTemplate) template)
+				.getAttachPointY();
+		attachOrientation = ((AttachmentComponentTemplate) template)
+				.getAttachOrientation();
+		autoAttachGroups = ((AttachmentComponentTemplate) template)
+				.getAutoAttachGroups();
 	}
 
 	/**
@@ -70,7 +74,9 @@ public class AttachmentComponent extends Component
 		{
 			Entity currentEntity = EntityManager.getInstance().getEntity(
 					entry.getValue().getID());
-			((AttachableComponent) currentEntity.getComponent(AttachableComponent.COMPONENT_TYPE)).setAttachedToEntityID(-1);
+			((AttachableComponent) currentEntity
+					.getComponent(AttachableComponent.COMPONENT_TYPE))
+					.setAttachedToEntityID(-1);
 		}
 	}
 
@@ -129,7 +135,8 @@ public class AttachmentComponent extends Component
 			return;
 
 		((AttachableComponent) EntityManager.getInstance().getEntity(e.getID())
-				.getComponent(AttachableComponent.COMPONENT_TYPE)).setAttachedToEntityID(-1);
+				.getComponent(AttachableComponent.COMPONENT_TYPE))
+				.setAttachedToEntityID(-1);
 		attachedEntityID.remove(groupID);
 	}
 
@@ -183,6 +190,12 @@ public class AttachmentComponent extends Component
 	public void tick(float deltaTime)
 	{
 		Entity thisEntity = getOwner();
+		SpriteComponent sprite = (SpriteComponent) thisEntity
+				.getComponent(SpriteComponent.COMPONENT_TYPE);
+		boolean isFlipped = false;
+		if (sprite != null)
+			isFlipped = sprite.getFlipped();
+
 		// Iterate through all elements in the map with attached entity
 		for (Entry<Integer, EntityReference> entry : attachedEntityID
 				.entrySet())
@@ -194,6 +207,11 @@ public class AttachmentComponent extends Component
 			currentEntity.setPosY(thisEntity.getPosY() + attachPointY);
 			currentEntity.setOrientation(thisEntity.getOrientation()
 					+ attachOrientation);
+
+			SpriteComponent currentEntitySprite = (SpriteComponent) currentEntity
+					.getComponent(SpriteComponent.COMPONENT_TYPE);
+			if (currentEntitySprite != null)
+				currentEntitySprite.setFlipped(isFlipped);
 		}
 	}
 

@@ -5,6 +5,10 @@ Component StartSpawn
 Template StaticSprite
 Component StaticSprite
 
+Template FixCamera
+Component Camera
+viewPortX=640
+viewPortY=480
 
 Template HotButton
 Component StaticSprite

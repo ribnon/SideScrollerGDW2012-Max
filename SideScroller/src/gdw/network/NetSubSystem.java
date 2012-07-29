@@ -109,7 +109,8 @@ public class NetSubSystem
 			for(int i=0;i< dmsg.length;++i)
 			{
 				Entity ente = ref.getEntity(dmsg[i].entityID);
-				((NetComponent)ente.getComponent(NetComponent.COMPONENT_TYPE)).deadReckoningMessageReceive(dmsg[i]);
+				if(ente != null)
+					((NetComponent)ente.getComponent(NetComponent.COMPONENT_TYPE)).deadReckoningMessageReceive(dmsg[i]);
 			}			
 		break;
 		
