@@ -8,8 +8,9 @@ Include ./templates/Camera
 Include ./templates/LevelStuff.templates
 
 
-
-
+Template Boden
+Component AABoxCollisionDetection
+Component CollisionReaction
 
 
 

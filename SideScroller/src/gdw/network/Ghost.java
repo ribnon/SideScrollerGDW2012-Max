@@ -5,8 +5,8 @@ import gdw.network.server.GDWServerLogger;
 
 public class Ghost
 {
-	private static final float MAX_THRESHOLD_INQUAD = 5.0f;
-	private static final float INTERPOLATE_TIME = 0.5f;
+	private static final float MAX_THRESHOLD_INQUAD = 7.0f;
+	private static final float INTERPOLATE_TIME = 3.0f;
 	
 	private float posX;
 	private float posY;
@@ -23,7 +23,7 @@ public class Ghost
 	
 	public final boolean gotThing;
 	
-	private float remaingSteps;
+	private float elabsedTime;
 	
 	public Ghost()
 	{
@@ -41,7 +41,7 @@ public class Ghost
 		this.velocityThingX = 0.0f;
 		this.velocityThingY = 0.0f;
 		
-		this.remaingSteps = 0.0f;
+		this.elabsedTime = 0.0f;
 		
 	}
 	
@@ -51,7 +51,7 @@ public class Ghost
 		this.posX += deltaT * velocityX;
 		this.posY += deltaT * velocityY;
 		
-		if(this.remaingSteps > 0.0f)
+		if(this.elabsedTime < INTERPOLATE_TIME)
 		{
 			//simulate thingdata
 			this.posThingX += this.velocityThingX * deltaT;
@@ -59,12 +59,10 @@ public class Ghost
 			
 			//GDWServerLogger.logMSG("vorher: "+this.posX+" "+this.posY);
 			
-			this.remaingSteps -= deltaT;
-			if(this.remaingSteps < 0.0f)
-			{
-				this.remaingSteps = 0.0f;
-			}
-			float lerpFactor = (INTERPOLATE_TIME - this.remaingSteps)/ INTERPOLATE_TIME;
+			this.elabsedTime += deltaT;
+			
+			float lerpFactor = this.elabsedTime / INTERPOLATE_TIME;
+			lerpFactor = Math.max(0f, Math.min(lerpFactor, 1f));
 			
 			//interpolate...
 			this.posX = this.posX * (1.0f -lerpFactor) + this.posThingX * lerpFactor;
@@ -112,7 +110,7 @@ public class Ghost
 		this.posThingX += velocityX * roundTip;
 		this.posThingY += velocityY * roundTip;
 		
-		this.remaingSteps = INTERPOLATE_TIME;
+		this.elabsedTime = 0.0f;
 	}
 	
 	public void initialise(float x, float y)

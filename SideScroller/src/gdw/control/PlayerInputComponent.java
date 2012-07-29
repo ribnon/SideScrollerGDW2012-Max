@@ -382,15 +382,12 @@ public class PlayerInputComponent extends Component
 		{
 			simcomp = (SimulationComponent) super.getOwner().getComponent(
 					SimulationComponent.COMPONENT_TYPE);
-			if (simcomp != null)
+		
+			
+			if (simcomp != null && simcomp.isGrounded())
 			{
 				simcomp.setVelocityY(-jumpVelocity);
 			}
-			
-			/*if (simcomp != null && simcomp.isGrounded())
-			{
-				simcomp.setVelocityY(-jumpVelocity);
-			}*/
 			return;
 		}
 

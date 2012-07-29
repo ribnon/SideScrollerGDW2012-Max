@@ -22,9 +22,9 @@ LeftKey=LEFT
 RightKey=RIGHT
 AttackKey=SPACE
 SpecialAttackKey=LSHIFT
-JumpVelocity=50
+JumpVelocity=200
 RunVelocity=50
-IsUnflippedRight=1
+IsUnflippedRight=0
 
 Component Simulation
 friction=0.1
