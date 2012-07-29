@@ -27,7 +27,7 @@ RunVelocity=5
 IsUnflippedRight=1
 
 Component Simulation
-friction=5
+friction=0.5
 mass=50
 externalForceX=0
 externalForceY=0
@@ -58,15 +58,15 @@ viewPortY=480
 
 Component Network
 
-Component Attachment
-attachPointX=0
-attachPointY=0
-attachOrientation=0
-autoAttachGroups=10
+#Component Attachment
+#attachPointX=0
+#attachPointY=0
+#attachOrientation=0
+#autoAttachGroups=10
 
-Component OOBoxCollisionDetectionComponent
-halfExtentX=64
-halfExtendY=64
+Component OOBoxCollisionDetection
+halfExtentX=32
+halfExtendY=32
 
 Component SwitchUser
 HitTrigger=0

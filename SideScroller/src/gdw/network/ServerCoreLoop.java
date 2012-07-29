@@ -2,10 +2,14 @@ package gdw.network;
 
 import java.io.IOException;
 
+import javax.swing.ProgressMonitor;
 
+
+import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplateManager;
 import gdw.entityCore.Level;
+import gdw.gameplay.progress.GameplayProgressManager;
 import gdw.network.server.GDWServerLogger;
 import gdw.physics.SimulationComponentManager;
 
@@ -38,15 +42,19 @@ public class ServerCoreLoop extends Thread
 				//init
 			
 				Level.getInstance().start();
-				EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
+				//EntityTemplateManager entTempMan = EntityTemplateManager.getInstance();
+				SimulationComponentManager.getInstance().setGravity(98.1f);
 				
 				
 					GDWServerLogger.logMSG("init system");
 					//entTempMan.loadEntityTemplates("general.templates");
-					EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(200f, 200f, 0f);
+					Entity spawn =  GameplayProgressManager.getInstance().getCurrentSpawnComponent().getOwner();
+					GDWServerLogger.logMSG("Spieler sollte an X: "+spawn.getPosX()+" Y: "+spawn.getPosY());
+					EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(spawn.getPosX(), spawn.getPosY()-5, 0f);
 					//entTempMan.getEntityTemplate("LevelGoal").createEntity(200f, 200f, 0f);
 				 
 				this.ref.startComplete();
+				oldVal = System.currentTimeMillis();
 			}else
 			{
 			try
@@ -59,16 +67,23 @@ public class ServerCoreLoop extends Thread
 			
 			long curVal = System.currentTimeMillis();
 			float delta = curVal -  oldVal;
+			delta /= 1000f;
+			delta = Math.min(delta, 0.06f);
+			
+			NetSubSystem netSub = NetSubSystem.getInstance();
 			
 			//updates laufen lassen
-			NetSubSystem.getInstance().pollMessages();
+			netSub.pollMessages();
 		
 			
 			SimulationComponentManager.getInstance().simulate(delta);
+			netSub.simulateGhosts(delta);
 			EntityManager.getInstance().tick(delta);
 		
-			NetSubSystem.getInstance().checkDeadReck();
-			NetSubSystem.getInstance().sendBufferedMessages();
+			netSub.checkDeadReck();
+			netSub.sendBufferedMessages();
+			
+			EntityManager.getInstance().cleanUpEntities();
 			
 			}
 				

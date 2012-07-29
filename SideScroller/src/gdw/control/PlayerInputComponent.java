@@ -5,6 +5,7 @@ import gdw.control.messageType.BeginDuckMessage;
 import gdw.control.messageType.BeginPullMessage;
 import gdw.control.messageType.EndDuckMessage;
 import gdw.control.messageType.EndPullMessage;
+import gdw.control.messageType.InputMessage;
 import gdw.control.messageType.JumpMessage;
 import gdw.control.messageType.RunMessage;
 import gdw.control.messageType.SpecialAttackMessage;
@@ -24,8 +25,8 @@ import gdw.physics.SimulationComponent;
 
 import org.newdawn.slick.Input;
 
-
-public class PlayerInputComponent extends Component {
+public class PlayerInputComponent extends Component
+{
 	private int playerID;
 
 	// KeyValues
@@ -60,12 +61,13 @@ public class PlayerInputComponent extends Component {
 	public PlayerInputComponent(ComponentTemplate template, int downKey,
 			int jumpKey, int leftKey, int rightKey, int attackKey,
 			int specattackKey, float jumpVelocity, float runVelocity,
-			long waitingTime, boolean isUnflippedRight) {
+			long waitingTime, boolean isUnflippedRight, int playerNumber)
+	{
 
 		super(template);
 
-		this.setPlayerID(NetSubSystem.getInstance().getPlayerID());
-
+		playerID=playerNumber;
+		
 		wasDownKeyDown = false;
 		wasJumpKeyDown = false;
 		wasLeftKeyDown = false;
@@ -89,11 +91,11 @@ public class PlayerInputComponent extends Component {
 		this.waitingTime = waitingTime;
 		this.pastTime = 0l;
 
-		PlayerInputComponentManager.getInstance().registerPlayerInputComponent(
-				this);
+		PlayerInputComponentManager.getInstance().registerPlayerInputComponent(this);
 	}
 
-	public void processingInput(Input input) {
+	public void processingInput(Input input)
+	{
 		boolean isDownKeyDown = input.isKeyDown(downKey);
 		boolean isJumpKeyDown = input.isKeyDown(jumpKey);
 		boolean isRightKeyDown = input.isKeyDown(rightKey);
@@ -105,101 +107,153 @@ public class PlayerInputComponent extends Component {
 
 		long deltaTime = 0l;
 
-		if (pastTime != 0l) {
+		if (pastTime != 0l)
+		{
 			deltaTime = pastTime - currentTime;
 		}
 
 		NetComponent netcomp = (NetComponent) getOwner().getComponent(
 				NetComponent.COMPONENT_TYPE);
 
-		if (netcomp != null) {
-			// Run
-			if (isRightKeyDown && !wasRightKeyDown) {
-				if (EntityManager.getInstance().isOfflineMode()){
-					if(this.getOwner()!=null) this.getOwner().message(new RunMessage(true));
-				}
-				else netcomp.sendNetworkMessage(new RunMessage(true));
-			}
-
-			if (isLeftKeyDown && !wasLeftKeyDown) {
-				if (EntityManager.getInstance().isOfflineMode()){
-					if(this.getOwner()!=null) this.getOwner().message(new RunMessage(false));
-				}
-				else netcomp.sendNetworkMessage(new RunMessage(false));
-			}
-
-			if ((!isRightKeyDown && wasRightKeyDown)
-					|| (!isLeftKeyDown && wasLeftKeyDown)) {
-				if (EntityManager.getInstance().isOfflineMode()){
-					if(this.getOwner()!=null) this.getOwner().message(new StopMessage());
-				}
-				else netcomp.sendNetworkMessage(new StopMessage());
-			}
-
-			// Jump
-			if (isJumpKeyDown && !wasJumpKeyDown) {
-				if (EntityManager.getInstance().isOfflineMode()){
-					if(this.getOwner()!=null) this.getOwner().message(new JumpMessage());
-				}
-				else netcomp.sendNetworkMessage(new JumpMessage());
-			}
-
-			// Attack
-			if (isAttackKeyDown && !wasAttackKeyDown) {
-				if (pastTime == 0l) {
-					pastTime = currentTime;
-				}
-			}
-
-			if (isAttackKeyDown && wasAttackKeyDown) {
-				if ((pastTime != 0l) && (deltaTime >= waitingTime)) {
-					if (EntityManager.getInstance().isOfflineMode()){
-						if(this.getOwner()!=null) this.getOwner().message(new BeginPullMessage());
-					}
-					else netcomp.sendNetworkMessage(new BeginPullMessage());
-				}
-			}
-
-			if (!isAttackKeyDown && wasAttackKeyDown) {
-				if (deltaTime < waitingTime) {
-					if (EntityManager.getInstance().isOfflineMode()){
-						if(this.getOwner()!=null) this.getOwner().message(new AttackMessage());
-					}
-					else netcomp.sendNetworkMessage(new AttackMessage());
-				} else {
-					if (EntityManager.getInstance().isOfflineMode()){
-						if(this.getOwner()!=null) this.getOwner().message(new EndPullMessage());
-					}
-					else netcomp.sendNetworkMessage(new EndPullMessage());
-				}
-				pastTime = 0l;
-			}
-
-			// Special Attack
-			if (isSpecAttackKeyDown && !wasSpecAttackKeyDown) {
-				if (EntityManager.getInstance().isOfflineMode()){
-					if(this.getOwner()!=null) this.getOwner().message(new SpecialAttackMessage());
-				}
-				else netcomp.sendNetworkMessage(new SpecialAttackMessage());
-			}
-
-			// Duck
-			if (isDownKeyDown && !wasDownKeyDown) {
-				if (EntityManager.getInstance().isOfflineMode()){
-					if(this.getOwner()!=null) this.getOwner().message(new BeginDuckMessage());
-				}
-				else netcomp.sendNetworkMessage(new BeginDuckMessage());
-			}
-
-			if (!isDownKeyDown && wasDownKeyDown) {
-				if (EntityManager.getInstance().isOfflineMode()){
-					if(this.getOwner()!=null) this.getOwner().message(new EndDuckMessage());
-				}
-				else netcomp.sendNetworkMessage(new EndDuckMessage());
-			}
-		} else {
-			System.err.println("NetComponent nicht initialisiert");
+		// Run
+		if (isRightKeyDown && !wasRightKeyDown)
+		{
+			if (EntityManager.getInstance().isOfflineMode())
+			{
+				if (this.getOwner() != null)
+					this.getOwner().message(new RunMessage(true));
+			} else if (netcomp != null)
+				netcomp.sendNetworkMessage(new RunMessage(true));
+			else
+				System.err.println("NetComponent nicht intialisiert");
 		}
+
+		if (isLeftKeyDown && !wasLeftKeyDown)
+		{
+			if (EntityManager.getInstance().isOfflineMode())
+			{
+				if (this.getOwner() != null)
+					this.getOwner().message(new RunMessage(false));
+			} else if (netcomp != null)
+				netcomp.sendNetworkMessage(new RunMessage(false));
+			else
+				System.err.println("NetComponent nicht intialisiert");
+		}
+
+		if ((!isRightKeyDown && wasRightKeyDown)
+				|| (!isLeftKeyDown && wasLeftKeyDown))
+		{
+			if (EntityManager.getInstance().isOfflineMode())
+			{
+				if (this.getOwner() != null)
+					this.getOwner().message(new StopMessage());
+			} else if (netcomp != null)
+				netcomp.sendNetworkMessage(new StopMessage());
+			else
+				System.err.println("NetComponent nicht intialisiert");
+		}
+
+		// Jump
+		if (isJumpKeyDown && !wasJumpKeyDown)
+		{
+			if (EntityManager.getInstance().isOfflineMode())
+			{
+				if (this.getOwner() != null)
+					this.getOwner().message(new JumpMessage());
+			} else if (netcomp != null)
+				netcomp.sendNetworkMessage(new JumpMessage());
+			else
+				System.err.println("NetComponent nicht intialisiert");
+		}
+
+		// Attack
+		if (isAttackKeyDown && !wasAttackKeyDown)
+		{
+			if (pastTime == 0l)
+			{
+				pastTime = currentTime;
+			}
+		}
+
+		if (isAttackKeyDown && wasAttackKeyDown)
+		{
+			if ((pastTime != 0l) && (deltaTime >= waitingTime))
+			{
+				if (EntityManager.getInstance().isOfflineMode())
+				{
+					if (this.getOwner() != null)
+						this.getOwner().message(new BeginPullMessage());
+				} else if (netcomp != null)
+					netcomp.sendNetworkMessage(new BeginPullMessage());
+				else
+					System.err.println("NetComponent nicht intialisiert");
+			}
+		}
+
+		if (!isAttackKeyDown && wasAttackKeyDown)
+		{
+			if (deltaTime < waitingTime)
+			{
+				if (EntityManager.getInstance().isOfflineMode())
+				{
+					if (this.getOwner() != null)
+						this.getOwner().message(new AttackMessage());
+				} else if (netcomp != null)
+					netcomp.sendNetworkMessage(new AttackMessage());
+				else
+					System.err.println("NetComponent nicht intialisiert");
+			} else
+			{
+				if (EntityManager.getInstance().isOfflineMode())
+				{
+					if (this.getOwner() != null)
+						this.getOwner().message(new EndPullMessage());
+				} else if (netcomp != null)
+					netcomp.sendNetworkMessage(new EndPullMessage());
+				else
+					System.err.println("NetComponent nicht intialisiert");
+			}
+			pastTime = 0l;
+		}
+
+		// Special Attack
+		if (isSpecAttackKeyDown && !wasSpecAttackKeyDown)
+		{
+			if (EntityManager.getInstance().isOfflineMode())
+			{
+				if (this.getOwner() != null)
+					this.getOwner().message(new SpecialAttackMessage());
+			} else if (netcomp != null)
+				netcomp.sendNetworkMessage(new SpecialAttackMessage());
+			else
+				System.err.println("NetComponent nicht intialisiert");
+		}
+
+		// Duck
+		if (isDownKeyDown && !wasDownKeyDown)
+		{
+			if (EntityManager.getInstance().isOfflineMode())
+			{
+				if (this.getOwner() != null)
+					this.getOwner().message(new BeginDuckMessage());
+			} else if (netcomp != null)
+				netcomp.sendNetworkMessage(new BeginDuckMessage());
+			else
+				System.err.println("NetComponent nicht intialisiert");
+		}
+
+		if (!isDownKeyDown && wasDownKeyDown)
+		{
+			if (EntityManager.getInstance().isOfflineMode())
+			{
+				if (this.getOwner() != null)
+					this.getOwner().message(new EndDuckMessage());
+			} else if (netcomp != null)
+				netcomp.sendNetworkMessage(new EndDuckMessage());
+			else
+				System.err.println("NetComponent nicht intialisiert");
+		}
+		
 
 		wasDownKeyDown = isDownKeyDown;
 		wasJumpKeyDown = isJumpKeyDown;
@@ -209,23 +263,28 @@ public class PlayerInputComponent extends Component {
 		wasSpecAttackKeyDown = isSpecAttackKeyDown;
 	}
 
-	public boolean getUnflippedRight() {
+	public boolean getUnflippedRight()
+	{
 		return isUnflippedRight;
 	}
 
-	public void setUnflippedRight(boolean isUnflippedRight) {
+	public void setUnflippedRight(boolean isUnflippedRight)
+	{
 		this.isUnflippedRight = isUnflippedRight;
 	}
 
-	public boolean getDirectionIsRight() {
+	public boolean getDirectionIsRight()
+	{
 		return directionIsRight;
 	}
 
-	public int getPlayerID() {
+	public int getPlayerID()
+	{
 		return playerID;
 	}
 
-	public void setPlayerID(int id) {
+	public void setPlayerID(int id)
+	{
 		playerID = id;
 	}
 
@@ -233,13 +292,22 @@ public class PlayerInputComponent extends Component {
 	 * Reacts on MovementMessages with Behaviour
 	 */
 	@Override
-	public void onMessage(Message msg) {
-		if(!EntityManager.getInstance().isOfflineMode()){
+	public void onMessage(Message msg)
+	{
+		if(!(msg instanceof InputMessage))
+		{
+			return;
+		}
+		
+		if (!EntityManager.getInstance().isOfflineMode())
+		{
 			// If on Server
-			if (NetSubSystem.getInstance().isServer()) {
+			if (NetSubSystem.getInstance().isServer())
+			{
 				NetComponent netcomp = (NetComponent) super.getOwner()
 						.getComponent(NetComponent.COMPONENT_TYPE);
-				if (netcomp != null) {
+				if (netcomp != null)
+				{
 					netcomp.sendNetworkMessage(msg);
 				}
 			}
@@ -253,16 +321,20 @@ public class PlayerInputComponent extends Component {
 		SwitchUserComponent swusrcomp = null;
 
 		// Run behavior
-		if (msg instanceof RunMessage) {
+		if (msg instanceof RunMessage)
+		{
 			RunMessage tmpmsg = (RunMessage) msg;
 			// Manipulates the SimulationComponent
 			simcomp = (SimulationComponent) super.getOwner().getComponent(
 					SimulationComponent.COMPONENT_TYPE);
-			if (simcomp != null) {
-				if (!tmpmsg.isForwardDirection()) {
+			if (simcomp != null)
+			{
+				if (!tmpmsg.isForwardDirection())
+				{
 					simcomp.setVelocityX(-runVelocity);
 					directionIsRight = false;
-				} else {
+				} else
+				{
 					simcomp.setVelocityX(runVelocity);
 					directionIsRight = true;
 				}
@@ -271,14 +343,17 @@ public class PlayerInputComponent extends Component {
 			// Manipulates the SpriteComponent
 			spritecomp = (SpriteComponent) super.getOwner().getComponent(
 					SpriteComponent.COMPONENT_TYPE);
-			if (spritecomp != null) {
-				if (!tmpmsg.isForwardDirection()) {
+			if (spritecomp != null)
+			{
+				if (!tmpmsg.isForwardDirection())
+				{
 					if (isUnflippedRight)
 						spritecomp.setFlipped(true);
 					else
 						spritecomp.setFlipped(false);
 					directionIsRight = false;
-				} else {
+				} else
+				{
 					if (isUnflippedRight)
 						spritecomp.setFlipped(false);
 					else
@@ -289,78 +364,94 @@ public class PlayerInputComponent extends Component {
 			return;
 		}
 
-		if (msg instanceof StopMessage) {
+		if (msg instanceof StopMessage)
+		{
 			simcomp = (SimulationComponent) super.getOwner().getComponent(
 					SimulationComponent.COMPONENT_TYPE);
-			if (simcomp != null) {
+			if (simcomp != null)
+			{
 				simcomp.setVelocityX(0.0f);
 			}
 			return;
 		}
 
 		// Jump behavior
-		if (msg instanceof JumpMessage) {
+		if (msg instanceof JumpMessage)
+		{
 			simcomp = (SimulationComponent) super.getOwner().getComponent(
 					SimulationComponent.COMPONENT_TYPE);
-			if (simcomp != null && simcomp.isGrounded()) {
+			if (simcomp != null && simcomp.isGrounded())
+			{
 				simcomp.setVelocityY(jumpVelocity);
 			}
 			return;
 		}
 
 		// Duck behavior
-		if (msg instanceof BeginDuckMessage) {
+		if (msg instanceof BeginDuckMessage)
+		{
 			duckcomp = (DuckableComponent) super.getOwner().getComponent(
 					DuckableComponent.COMPONENT_TYPE);
-			if (duckcomp != null) {
+			if (duckcomp != null)
+			{
 				duckcomp.setDucked(true);
 			}
 			return;
 		}
 
-		if (msg instanceof EndDuckMessage) {
+		if (msg instanceof EndDuckMessage)
+		{
 			duckcomp = (DuckableComponent) super.getOwner().getComponent(
 					DuckableComponent.COMPONENT_TYPE);
-			if (duckcomp != null) {
+			if (duckcomp != null)
+			{
 				duckcomp.setDucked(false);
 			}
 			return;
 		}
 
 		// Attack behavior
-		if (msg instanceof AttackMessage) {
+		if (msg instanceof AttackMessage)
+		{
 			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
 					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
-			if (plbehcomp != null) {
+			if (plbehcomp != null)
+			{
 				plbehcomp.startAttack(AttackType.Normal);
 			}
 			return;
 		}
 
 		// Special attack behavior
-		if (msg instanceof SpecialAttackMessage) {
+		if (msg instanceof SpecialAttackMessage)
+		{
 			plbehcomp = (PlayerBehaviorComponent) super.getOwner()
 					.getComponent(PlayerBehaviorComponent.COMPONENT_TYPE);
-			if (plbehcomp != null) {
+			if (plbehcomp != null)
+			{
 				plbehcomp.startAttack(AttackType.Special);
 			}
 			return;
 		}
 
 		// Pull behavior
-		if (msg instanceof BeginPullMessage) {
+		if (msg instanceof BeginPullMessage)
+		{
 			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
 					SwitchUserComponent.COMPONENT_TYPE);
-			if (swusrcomp != null) {
+			if (swusrcomp != null)
+			{
 				swusrcomp.setpullActive(true);
 			}
 			return;
 		}
 
-		if (msg instanceof EndPullMessage) {
+		if (msg instanceof EndPullMessage)
+		{
 			swusrcomp = (SwitchUserComponent) super.getOwner().getComponent(
 					SwitchUserComponent.COMPONENT_TYPE);
-			if (swusrcomp != null) {
+			if (swusrcomp != null)
+			{
 				swusrcomp.setpullActive(true);
 			}
 			return;
@@ -368,12 +459,14 @@ public class PlayerInputComponent extends Component {
 	}
 
 	@Override
-	public int getComponentTypeID() {
+	public int getComponentTypeID()
+	{
 		return COMPONENT_TYPE;
 	}
 
 	@Override
-	public void destroy() {
+	public void destroy()
+	{
 		PlayerInputComponentManager.getInstance()
 				.deregisterPlayerInputComponent(this);
 	}

@@ -5,6 +5,7 @@ import gdw.collisionDetection.CircleCollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponent;
 import gdw.collisionDetection.CollisionDetectionComponentManager;
 import gdw.collisionDetection.OOBoxCollisionDetectionComponent;
+import gdw.entityCore.Component;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
@@ -237,7 +238,7 @@ public class SimulationTest extends BasicGame {
 	}
 
 	//debug draw for entities
-	public void drawEntity(Graphics g, Entity e) {
+	public static void drawEntity(Graphics g, Entity e) {
 		g.drawString(""+e.getID(), e.getPosX()-4, e.getPosY()-8);
 		CollisionDetectionComponent colComp = (CollisionDetectionComponent) e.getComponent(CollisionDetectionComponent.COMPONENT_TYPE);
 		if(colComp!=null) {
@@ -290,11 +291,13 @@ public class SimulationTest extends BasicGame {
 		if(simComp!=null) {
 			simComp.draw(g);
 		}
-		StaticSpriteComponent sprComp = (StaticSpriteComponent) e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
-		if(sprComp!=null) {
-			sprComp.draw(0,0);
+		Component cmp = e.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
+		if(cmp!=null && cmp instanceof StaticSpriteComponent) {
+			StaticSpriteComponent sprComp = (StaticSpriteComponent)cmp;
+			if(sprComp!=null) {
+				sprComp.draw(0,0);
+			}
 		}
-		
 		
 	}
 	

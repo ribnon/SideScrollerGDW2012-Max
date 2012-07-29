@@ -62,6 +62,7 @@ public class NetComponent extends Component
 		{
 			Entity owner = this.getOwner();
 			this.ghost.initialise(owner.getPosX(), owner.getPosY());
+			NetSubSystem.getInstance().addNetComponentToList(this);
 		}	
 	}
 
@@ -69,6 +70,11 @@ public class NetComponent extends Component
 	{
 		//tunnel
 		NetSubSystem.getInstance().sendBusMessage(this.getOwner().getID(),msg);
+	}
+	
+	public void syncGhostWithEntity()
+	{
+		this.ghost.setDataToEntity(getOwner());
 	}
 
 	

@@ -30,7 +30,7 @@ public class EntityBusNetMessage extends NetMessageType
 		for(int i =0;i<result.length;++i)
 		{
 			int entityID = buf.getInt();
-			byte [] arr = new byte[buf.get()];
+			byte [] arr = new byte[buf.getShort()];
 			buf.get(arr);
 			ObjectInputStream inStream = null;
 			try 
@@ -50,7 +50,7 @@ public class EntityBusNetMessage extends NetMessageType
 	public static void fillInByteBuffer(LinkedList<EntityBusNetMessage> list,ByteBuffer buf)
 	{
 		buf.put(NetMessageType.EntityBusMessageType);
-		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE-Byte.SIZE);
+		ByteBuffer helper = ByteBuffer.allocate(buf.remaining()-Byte.SIZE-Short.SIZE);
 		byte counter = 0;
 		while(!list.isEmpty())
 		{
@@ -69,7 +69,7 @@ public class EntityBusNetMessage extends NetMessageType
 				}
 				arr = baos.toByteArray();
 				helper.putInt(msg.entityID);
-				helper.put((byte)arr.length);
+				helper.putShort((short)arr.length);
 				helper.put(arr);
 			}catch (IndexOutOfBoundsException e)
 			{

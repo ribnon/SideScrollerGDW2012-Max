@@ -66,7 +66,6 @@ public class ComponentTemplateFactory {
 		componentTemplateClasses.put("Attachment", AttachmentComponentTemplate.class);
 		componentTemplateClasses.put("Attachable", AttachableComponentTemplate.class);
 		componentTemplateClasses.put("Network", NetComponentTemplate.class);
-		//TODO: Auskommentierung entfernen, wenn Komponenten geschrieben sind.
 		componentTemplateClasses.put("PlayerWeapon", PlayerWeaponComponentTemplate.class);
 		componentTemplateClasses.put("Duckable", DuckableComponentTemplate.class);
 		componentTemplateClasses.put("PlayerBehavior", PlayerBehaviorComponentTemplate.class);

@@ -119,5 +119,11 @@ public class Ghost
 		return result;
 	}
 	
+	public void setDataToEntity(Entity ent)
+	{
+		ent.setPosX(this.posX);
+		ent.setPosY(this.posY);
+	}
+	
 	
 }

@@ -44,15 +44,6 @@ public class StaticSpriteComponent extends SpriteComponent
 	protected void destroy()
 	{
 		SpriteManager.getInstance().removeSprite(this);
-		
-		try
-		{
-			image.destroy();
-		} catch (SlickException e)
-		{
-			e.printStackTrace();
-			System.out.println("Image konnte nicht zerstört werden!");
-		}
 	}
 
 	/**
@@ -95,13 +86,13 @@ public class StaticSpriteComponent extends SpriteComponent
 		image.setRotation(getOwner().getOrientation());
 		if (getFilter() != null)
 		{
-			image.draw(getOwner().getPosX()- camPosX - ((image.getWidth() / 2f)*getScale()),
-					getOwner().getPosY()- camPosY - ((image.getHeight() / 2f)*getScale()), getScale(),
+			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					getOwner().getPosY() - ((image.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
 		} else
 		{
-			image.draw(getOwner().getPosX()- camPosX - ((image.getWidth() / 2f)*getScale()),
-					getOwner().getPosY()- camPosY - ((image.getWidth() / 2f)*getScale()), getScale());
+			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					getOwner().getPosY() - ((image.getWidth() / 2f)*getScale()), getScale());
 		}
 	}
 }
