@@ -37,7 +37,7 @@ public class MenuTest extends BasicGame
 
 	public MenuTest()
 	{
-		super("Hardcoded Menu! 20% cooler in 10 seconds flat!");
+		super("INSERT GAMENAME HERE!!");
 	}
 
 	@Override
@@ -58,27 +58,33 @@ public class MenuTest extends BasicGame
 			protected void onGameStart(CharacterSelectionMenu c, boolean offlineGame)
 			{
 				gameStarted = true;
-//				try
-//				{
-//					EntityTemplateManager.getInstance().loadEntityTemplates("general.templates");
-//				} catch (IOException e)
-//				{
-//					e.printStackTrace();
-//				}
-				SimulationComponentManager.getInstance().setGravity(80);
 				Level.getInstance().start();
+				SimulationComponentManager.getInstance().setGravity(90);
 				offline = offlineGame; 
-				Entity p1 = EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(0, 0, 0);
-				Entity spawn = GameplayProgressManager.getInstance().getCurrentSpawnComponent().getOwner();
-				p1.setPos(spawn.getPosX(), spawn.getPosY());
-				AttachmentComponent ac = (AttachmentComponent) p1.getComponent(AttachmentComponent.COMPONENT_TYPE);
-				Entity hat = EntityTemplateManager.getInstance().getEntityTemplate("Hat").createEntity(0, 0, 0);
-				StaticSpriteComponent hatSprite = (StaticSpriteComponent) hat.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
-				hatSprite.setImage(c.getPlayer1Hat());
-				ac.attachEntity(hat.getReference());
-				
-				Entity cam = EntityTemplateManager.getInstance().getEntityTemplate("Camera").createEntity(0, 0, 0);
-				ac.attachEntity(cam.getReference());
+				if (offline)
+				{
+					Entity p1 = EntityTemplateManager.getInstance().getEntityTemplate("Player1").createEntity(0, 0, 0);
+					Entity spawn = GameplayProgressManager.getInstance().getCurrentSpawnComponent().getOwner();
+					p1.setPos(spawn.getPosX(), spawn.getPosY());
+					AttachmentComponent ac = (AttachmentComponent) p1.getComponent(AttachmentComponent.COMPONENT_TYPE);
+					Entity hat = EntityTemplateManager.getInstance().getEntityTemplate("Hat").createEntity(0, 0, 0);
+					StaticSpriteComponent hatSprite = (StaticSpriteComponent) hat.getComponent(StaticSpriteComponent.COMPONENT_TYPE);
+					hatSprite.setImage(c.getPlayer1Hat());
+					ac.attachEntity(hat.getReference());
+					
+					Entity cam = EntityTemplateManager.getInstance().getEntityTemplate("Camera").createEntity(0, 0, 0);
+					ac.attachEntity(cam.getReference());
+				}
+				else
+				{
+					try
+					{
+						EntityTemplateManager.getInstance().loadEntityTemplates("general.templates");
+					} catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+				}
 			}
 		};
 		m.init(arg0);
@@ -92,14 +98,29 @@ public class MenuTest extends BasicGame
 		
 		if (gameStarted)
 		{
-//			PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(null)
-//			SimulationComponentManager.getInstance().simulate(arg1);
-			EntityManager.getInstance().tick((float) arg1/1000f);
-			SimulationComponentManager.getInstance().simulate((float) arg1/1000f);
-			CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
-			PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(arg0.getInput());
-			if (!offline)
+			if (offline)
+			{
+	//			PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(null)
+	//			SimulationComponentManager.getInstance().simulate(arg1);
+				EntityManager.getInstance().tick((float) arg1/1000f);
+				SimulationComponentManager.getInstance().simulate((float) arg1/1000f);
+				CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
+				PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(arg0.getInput());
+			}
+			else
+			{
+				float delta = arg1/1000f;
+				//System.out.println(delta);
+				
+				PlayerInputComponentManager.getInstance().sendInputToPlayerInputComponents(arg0.getInput());
+				NetSubSystem.getInstance().pollMessages();
+				// CollisionDetectionComponentManager.getInstance().detectCollisionsAndNotifyEntities();
+				NetSubSystem.getInstance().simulateGhosts(delta);
+				EntityManager.getInstance().tick(delta);
 				NetSubSystem.getInstance().sendBufferedMessages();
+				
+				EntityManager.getInstance().cleanUpEntities();
+			}
 		}
 		else
 			m.update(arg0, arg1);

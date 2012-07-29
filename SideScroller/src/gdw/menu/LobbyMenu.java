@@ -17,7 +17,7 @@ public abstract class LobbyMenu implements IMenuBase,
 {
 	private static final String TITLE = "TEST";
 	private static final int MAX_PLAYERNAME = 32;
-	private String playerName = "Player";
+	private String playerName = "Player or Server name";
 	private ArrayList<ServerInfo> serverList = new ArrayList<ServerInfo>();
 	private boolean isNameFieldActive = false;
 	private int currentActiveServerIndex = 0;
@@ -201,7 +201,10 @@ public abstract class LobbyMenu implements IMenuBase,
 							lineHeight);
 				}
 				ServerInfo info = serverList.get(i + currentIndexOnTopOfList);
-				graphics.drawString(info.address + "\t" + info.infoMsg, 0.01f
+				String spaces = new String(); //Used to simulate a \t
+				for (int j = 0; j < 17 - info.address.toString().length(); j++)
+					spaces += " ";
+				graphics.drawString(info.address + spaces + info.infoMsg, 0.01f
 						* width + textPadding, currentDrawY + textPadding);
 			}
 			bottomListEntry = i;
@@ -327,6 +330,8 @@ public abstract class LobbyMenu implements IMenuBase,
 	@Override
 	public void connectionEstablished(BasicClient clientRef)
 	{
+		System.out.println("Connection to " + clientRef.id);
+		NetSubSystem.initalise(clientRef.id, false, clientRef);
 	}
 
 	@Override
