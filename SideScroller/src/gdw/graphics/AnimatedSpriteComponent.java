@@ -43,9 +43,6 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 */
 	private int step;
 	
-	private float pivotX;
-	private float pivotY;
-	
 	private float stepTime=0;
 	
 	private float animationSpeed;
@@ -104,11 +101,6 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		cycle = t.getCycle();
 		step = t.getStep();
 		setAnimationSpeed(t.getAnimationSpeed());
-		
-		pivotX = t.getPivotX();
-		pivotY = t.getPivotY();
-		
-		animationSpeed = t.getAnimationSpeed();
 		
 		SpriteManager.getInstance().addSprite(this);
 	}

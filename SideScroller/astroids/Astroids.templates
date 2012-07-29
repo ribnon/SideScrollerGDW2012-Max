@@ -271,7 +271,6 @@ fadeTime=0.1
 Template Spawner
 Component SpawnArea
 spawns=MetroidPlacement
-spawnTime=2.0
 
 
 Template VerticalSpawner
@@ -279,14 +278,14 @@ Component SpawnArea
 areaX=15
 areaY=600
 spawns=MetroidPlacement
-spawnTime=2.0
+spawnTime=20.0
 
 Template HorizontalSpawner
 Component SpawnArea
 areaX=800
 areaY=15
 spawns=MetroidPlacement
-spawnTime=2.0
+spawnTime=20.0
 
 
 

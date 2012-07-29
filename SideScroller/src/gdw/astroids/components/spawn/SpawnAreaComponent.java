@@ -1,5 +1,7 @@
 package gdw.astroids.components.spawn;
 
+import java.security.acl.LastOwnerException;
+
 import gdw.astroids.components.random.RandomPlacementComponent;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
@@ -33,7 +35,7 @@ public class SpawnAreaComponent extends Component {
 		leftSpawnTime = new float[t.spawnTime.length];
 		for(int i=0;i<t.spawns.length;++i) {
 			spawnTime[i] = t.spawnTime[i];
-			leftSpawnTime[i] = spawnTime[i];
+			leftSpawnTime[i] = 0.0f;
 		}
 	}
 	
@@ -44,6 +46,7 @@ public class SpawnAreaComponent extends Component {
 		for(int i=0;i<spawns.length;++i) {
 			leftSpawnTime[i] -= deltaTime;
 			if(leftSpawnTime[i] < 0) {
+				leftSpawnTime[i] = spawnTime[i];
 				EntityTemplate template = EntityTemplateManager.getInstance().getEntityTemplate(spawns[i]);
 				float rX = (float)Math.random() * areaX;
 				float rY = (float)Math.random() * areaY;

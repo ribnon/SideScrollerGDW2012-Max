@@ -66,17 +66,6 @@ public class CollisionDetectionComponentManager
 		else quadTree = null;
 	}
 	
-	public void render(Graphics g) {
-		for(AABoxCollisionDetectionComponent aa : aaBoxCollisionDetectionList ) {
-			SimulationTest.drawEntity(g,aa.getOwner());
-		}
-		for(CircleCollisionDetectionComponent aa : circleCollisionDetectionList ) {
-			SimulationTest.drawEntity(g,aa.getOwner());
-		}
-		for(OOBoxCollisionDetectionComponent aa : ooBoxCollisionDetectionList ) {
-			SimulationTest.drawEntity(g,aa.getOwner());
-		}
-	}
 	
 	/////////////////////////////////////////////////////////////////
 	// Methods for public use
