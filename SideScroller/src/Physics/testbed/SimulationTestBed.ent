@@ -18,6 +18,12 @@ fadeTime=5.0
 startColor=0;255;0;255
 endColor=255;255;255;255
 
+Template TestBedTile
+Component AABoxCollisionDetection
+halfExtentX=7
+halfExtentY=7
+Component CollisionReaction
+
 Template TestBedEnemy
 Component Simulation
 mass=1

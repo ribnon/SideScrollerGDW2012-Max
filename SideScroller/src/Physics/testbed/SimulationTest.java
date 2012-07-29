@@ -210,8 +210,16 @@ public class SimulationTest extends BasicGame {
 			entityTemplate = EntityTemplateManager.getInstance().getEntityTemplate("TestBedEnemy");
 			entity2 = entityTemplate.createEntity(200, 250, 0);
 			
-			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedGround");
-			ground = entityTemplate.createEntity(300, 300, 0);
+//			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedGround");
+//			ground = entityTemplate.createEntity(300, 300, 0);
+			
+			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedTile");
+			ground = entityTemplate.createEntity(100, 240, 0);
+			entityTemplate.createEntity(107, 240, 0);
+			entityTemplate.createEntity(114, 240, 0);
+			entityTemplate.createEntity( 93, 240, 0);
+			entityTemplate.createEntity( 86, 240, 0);
+			
 			
 			entityTemplate = entityTemplateManager.getEntityTemplate("TestBedWall");
 			wall = entityTemplate.createEntity(300, 300, 0);
