@@ -5,6 +5,8 @@ Component StartSpawn
 Template StaticSprite
 Component StaticSprite
 
+Template FixCamera
+Component Camera
 
 Template HotButton
 Component StaticSprite
