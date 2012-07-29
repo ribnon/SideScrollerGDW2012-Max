@@ -1,5 +1,6 @@
 package gdw.menu;
 
+import gdw.network.NetSubSystem;
 import gdw.network.client.BasicClient;
 import gdw.network.client.IBasicClientListener;
 import gdw.network.client.ServerInfo;
@@ -16,7 +17,7 @@ public abstract class LobbyMenu implements IMenuBase,
 {
 	private static final String TITLE = "TEST";
 	private static final int MAX_PLAYERNAME = 32;
-	private String playerName = "Player";
+	private String playerName = "Player or Server name";
 	private ArrayList<ServerInfo> serverList = new ArrayList<ServerInfo>();
 	private boolean isNameFieldActive = false;
 	private int currentActiveServerIndex = 0;
@@ -55,14 +56,18 @@ public abstract class LobbyMenu implements IMenuBase,
 
 	public void updateServerInfo(ServerInfo info)
 	{
+		boolean modified = false;
 		for (int i = 0; i < serverList.size(); i++)
 		{
-			if (serverList.get(i).address.equals(info))
+			if (serverList.get(i).address.equals(info.address))
 			{
 				serverList.set(i, info);
+				modified = true;
 				break;
 			}
 		}
+		if (!modified)
+			serverList.add(info);
 	}
 
 	public InetAddress getSelectedServer()
@@ -79,6 +84,13 @@ public abstract class LobbyMenu implements IMenuBase,
 			BasicClient.refreshServerList();
 			timeRemainingToUpdate = SERVER_UPDATE_RATE_IN_MS;
 		}
+	}
+	
+	public ServerInfo getLocalHost()
+	{
+		serverList.clear();
+		BasicClient.refreshServerList();
+		return serverList.get(0);
 	}
 
 	public void draw(GameContainer container, Graphics graphics)
@@ -189,7 +201,10 @@ public abstract class LobbyMenu implements IMenuBase,
 							lineHeight);
 				}
 				ServerInfo info = serverList.get(i + currentIndexOnTopOfList);
-				graphics.drawString(info.address + "\t" + info.infoMsg, 0.01f
+				String spaces = new String(); //Used to simulate a \t
+				for (int j = 0; j < 17 - info.address.toString().length(); j++)
+					spaces += " ";
+				graphics.drawString(info.address + spaces + info.infoMsg, 0.01f
 						* width + textPadding, currentDrawY + textPadding);
 			}
 			bottomListEntry = i;
@@ -315,11 +330,14 @@ public abstract class LobbyMenu implements IMenuBase,
 	@Override
 	public void connectionEstablished(BasicClient clientRef)
 	{
+		System.out.println("Connection to " + clientRef.id);
+		NetSubSystem.initalise(clientRef.id, false, clientRef);
 	}
 
 	@Override
-	public void incomingMessage(ByteBuffer msg, boolean wasReliable)
-	{
+	public void incomingMessage(ByteBuffer msg, boolean wasReliable) {
+		NetSubSystem.getInstance().processMessage(msg);
+
 	}
 
 	public abstract void onJoinServerClicked(ServerInfo info);

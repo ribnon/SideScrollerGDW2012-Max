@@ -29,8 +29,7 @@ public class Entity {
 	}
 	
 	public void markForDestroy(){
-		if(!EntityManager.getInstance().isOfflineMode())
-		if(NetSubSystem.getInstance().isServer()) NetSubSystem.getInstance().sendDeSpawn(id);
+		if(!EntityManager.getInstance().isOfflineMode()) if(NetSubSystem.getInstance().isServer()) NetSubSystem.getInstance().sendDeSpawn(id);
 		destroyFlag=true;
 	}
 	public boolean getDestroyFlag(){
@@ -89,7 +88,6 @@ public class Entity {
 		}
 	}
 	public void message(Message msg){
-//		System.out.println("Send message");
 		for(Component comp: components.values()){
 			comp.onMessage(msg);
 		}
@@ -101,5 +99,12 @@ public class Entity {
 		for(Component comp: components.values()){
 			comp.tick(deltaTime);
 		}
+	}
+	public EntityReference getReference(){
+		return new StaticEntityReference(id);
+	}
+	public EntityReference registerNamed(String name){
+		NamedEntityReference.setEntityID(name, id);
+		return new NamedEntityReference(name);
 	}
 }

@@ -126,6 +126,11 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		img.setCenterOfRotation(getPivotX(), getPivotY());
 		img.setRotation(getOwner().getOrientation());
 		if(getFilter() != null)
+<<<<<<< HEAD
+			img.draw(getOwner().getPosX()-pivotX, getOwner().getPosY()-pivotY, getScale(), getFilter());
+		else
+			img.draw(getOwner().getPosX()-pivotX, getOwner().getPosY()-pivotY, getScale());
+=======
 			img.draw(camPosX + getOwner().getPosX() - ((img.getWidth() / 2f)*getScale()),
 					camPosY + getOwner().getPosY() - ((img.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
@@ -133,6 +138,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 			img.draw(camPosX + getOwner().getPosX() - ((img.getWidth() / 2f)*getScale()),
 					camPosY + getOwner().getPosY() - ((img.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
+>>>>>>> develop
 	}
 	
 	public int getCycle() {
@@ -151,7 +157,11 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 */
 	public void tick(float deltaTime)
 	{
+<<<<<<< HEAD
+		stepTime+=deltaTime*animationSpeed;
+=======
 		stepTime+=animationSpeed*deltaTime;
+>>>>>>> develop
 		step = (int) stepTime;
 		stepTime=stepTime-step;
 		step %= cycleLength[cycle]; //loop back to frame 0 
@@ -173,6 +183,17 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	protected void destroy()
 	{
 		SpriteManager.getInstance().removeSprite(this);
+<<<<<<< HEAD
+		
+//		try {
+//			spriteSheet.destroy();
+//		} catch (SlickException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("destroying spritesheet failed :-(");
+//		}
+=======
+>>>>>>> develop
 	}
 
 }

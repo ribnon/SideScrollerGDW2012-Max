@@ -14,6 +14,8 @@ import gdw.gameplay.player.messageType.HealthModify;
 import gdw.gameplay.progress.GameplayProgressManager;
 import gdw.gameplay.progress.RainbowComponent;
 import gdw.network.NetSubSystem;
+import gdw.network.server.GDWServerLogger;
+import gdw.physics.SimulationComponent;
 
 import java.util.LinkedList;
 
@@ -76,9 +78,26 @@ public class PlayerBehaviorComponent extends Component
 
 	public void tick(float deltaTime)
 	{
-		// prüfen ob ich server bin
-		if (!NetSubSystem.getInstance().isServer())
-			return;
+		if (!EntityManager.getInstance().isOfflineMode())
+		{
+			//debug sry
+			/*
+			if(NetSubSystem.getInstance().isServer())
+			{
+				Entity entitty = this.getOwner();
+				SimulationComponent simcomp = (SimulationComponent) entitty.getComponent(SimulationComponent.COMPONENT_TYPE);
+				
+				
+				GDWServerLogger.logMSG("Pedo an: "+entitty.getPosX()+" "+entitty.getPosY());
+				GDWServerLogger.logMSG("Düst mist: "+simcomp.getAccelerationX()+ " "+simcomp.getAccelerationY());
+			}	
+			*/
+			//</debug
+					
+			// prüfen ob ich server bin
+			if (!NetSubSystem.getInstance().isServer())
+				return;
+		}
 
 		if (isDown)
 		{
@@ -172,7 +191,7 @@ public class PlayerBehaviorComponent extends Component
 		// Rainbow (Dash (is best pony))
 		RainbowComponent rainbow = (RainbowComponent) other
 				.getComponent(RainbowComponent.COMPONENT_TYPE);
-		if (rainbow != null)
+		if ((rainbow != null)&&(this.healthChangeTimer < 0f))
 		{
 			healthChange(rainbow.getHealthIncrement(), true);
 		}
@@ -256,9 +275,9 @@ public class PlayerBehaviorComponent extends Component
 		if (type == AttackType.Normal)
 		{
 			hitActive = 0;
-			if (!EntityManager.getInstance().isOfflineMode())
-				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
-						new AttackMessage());
+//			if (!EntityManager.getInstance().isOfflineMode())
+//				NetSubSystem.getInstance().sendBusMessage(getOwner().getID(),
+//						new AttackMessage());
 		}
 	}
 

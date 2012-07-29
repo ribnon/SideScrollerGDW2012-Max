@@ -1,6 +1,7 @@
 package gdw.graphics;
 
-import org.lwjgl.opengl.GL11;
+import java.awt.BufferCapabilities.FlipContents;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -29,6 +30,8 @@ public class StaticSpriteComponent extends SpriteComponent
 	{
 		super(template);
 		StaticSpriteComponentTemplate t = (StaticSpriteComponentTemplate) template;
+
+		image = t.getImage();
 		
 		setScale(t.getScale());
 		setFilter(t.getFilter());
@@ -38,23 +41,12 @@ public class StaticSpriteComponent extends SpriteComponent
 		setFlipped(t.isFlipped());
 		isBackground = t.isBackground;
 		
-		image = t.getImage();
-		
 		SpriteManager.getInstance().addSprite(this);
 	}
 
 	protected void destroy()
 	{
 		SpriteManager.getInstance().removeSprite(this);
-		
-//		try
-//		{
-//			image.destroy();
-//		} catch (SlickException e)
-//		{
-//			e.printStackTrace();
-//			System.out.println("Image konnte nicht zerstört werden!");
-//		}
 	}
 
 	/**
@@ -80,10 +72,11 @@ public class StaticSpriteComponent extends SpriteComponent
 
 	public void setFlipped(boolean b)
 	{
-		if (!(getFlipped() == b))
+		if (getFlipped() != b)
 		{
-			image = image.getFlippedCopy(false, true);
+			image = image.getFlippedCopy(true, false);
 		}
+		super.setFlipped(b);
 	}
 
 	/**
@@ -98,13 +91,13 @@ public class StaticSpriteComponent extends SpriteComponent
 		image.setRotation(getOwner().getOrientation());
 		if (getFilter() != null)
 		{
-			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
-					getOwner().getPosY()- ((image.getHeight() / 2f)*getScale()), getScale(),
+			image.draw(camPosX + getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					camPosY + getOwner().getPosY() - ((image.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
 		} else
 		{
-			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
-					getOwner().getPosY() - ((image.getWidth() / 2f)*getScale()), getScale());
+			image.draw(camPosX + getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					camPosY + getOwner().getPosY() - ((image.getWidth() / 2f)*getScale()), getScale());
 		}
 	}
 }

@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import gdw.Client;
 import gdw.entityCore.Entity;
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.EntityTemplate;
@@ -108,7 +109,8 @@ public class NetSubSystem
 			for(int i=0;i< dmsg.length;++i)
 			{
 				Entity ente = ref.getEntity(dmsg[i].entityID);
-				((NetComponent)ente.getComponent(NetComponent.COMPONENT_TYPE)).deadReckoningMessageReceive(dmsg[i]);
+				if(ente != null)
+					((NetComponent)ente.getComponent(NetComponent.COMPONENT_TYPE)).deadReckoningMessageReceive(dmsg[i]);
 			}			
 		break;
 		
@@ -178,7 +180,8 @@ public class NetSubSystem
 	}
 	
 	public void sendBusMessage(int entityID, Message msg)
-	{		
+	{	
+		GDWServerLogger.logMSG("Bus Nachricht soll geschickt werden: "+msg.getClass().getName()+" von id: "+entityID);
 		this.listOfBusMessages.add(new EntityBusNetMessage(entityID, msg));
 	}
 	
@@ -197,6 +200,10 @@ public class NetSubSystem
 		for(NetComponent comp : this.listOfNetComponents)
 		{
 			comp.simulateGhost(deltaT);
+			if(!NetSubSystem.singelton.serverFlag)
+			{
+				comp.syncGhostWithEntity();				
+			}
 		}
 	}	
 	
@@ -209,7 +216,15 @@ public class NetSubSystem
 			BasicClientConnection client = clients.poll();
 			ByteBuffer sendBuf = buf.duplicate();
 			sendBuf.position(writePositon);
-			sendBuf.putFloat(this.roundTripMap.get(client.getId()));
+			float roundTip;
+			if(this.roundTripMap.containsKey(client.getId()))
+			{
+				roundTip = this.roundTripMap.get(client.getId());
+			}else
+			{
+				roundTip = 0.0f;
+			}
+			sendBuf.putFloat(roundTip);
 			sendBuf.position(oldPostion);
 			client.sendMSG(sendBuf, false);
 		}
@@ -239,7 +254,7 @@ public class NetSubSystem
 			//tunnel
 			while(!this.listOfBusMessages.isEmpty())
 			{
-				GDWServerLogger.logMSG("send Bus Message");
+				//GDWServerLogger.logMSG("send Bus Message");
 				buf = this.ref.getMessageBuffer();
 				EntityBusNetMessage.fillInByteBuffer(this.listOfBusMessages, buf);
 				this.ref.sendMessage(buf, true);
@@ -291,10 +306,9 @@ public class NetSubSystem
 		}
 		else
 		{
-			LinkedList<DeadReckoningNetMessage> list = new LinkedList<DeadReckoningNetMessage>();
 			for(NetComponent comp : this.listOfNetComponents)
 			{
-				comp.addDeadReckoningNetMessageToList(list);
+				comp.addDeadReckoningNetMessageToList(this.listOfDeadReckonigMessages);
 			}
 		}
 	}

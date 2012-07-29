@@ -11,7 +11,7 @@ filterBlue=1
 pivotX=0
 pivotY=0
 layer=1
-flipped=1
+flipped=0
 cycle=0
 step=0
 
@@ -22,13 +22,13 @@ LeftKey=LEFT
 RightKey=RIGHT
 AttackKey=SPACE
 SpecialAttackKey=LSHIFT
-JumpVelocity=5
-RunVelocity=5
-IsUnflippedRight=1
+JumpVelocity=200
+RunVelocity=50
+IsUnflippedRight=0
 
 Component Simulation
-friction=5
-mass=50
+friction=0.1
+mass=1
 externalForceX=0
 externalForceY=0
 velocityX=0
@@ -52,9 +52,9 @@ hitAction=0
 healthChangeInterval=0
 healthChangeTimer=0
 
-Component Camera
-viewPortX=640
-viewPortY=480
+#Component Camera
+#viewPortX=640
+#viewPortY=480
 
 Component Network
 
@@ -64,9 +64,11 @@ attachPointY=0
 attachOrientation=0
 autoAttachGroups=10
 
-Component OOBoxCollisionDetectionComponent
-halfExtentX=64
-halfExtendY=64
+Component AABoxCollisionDetection
+halfExtentX=24
+halfExtentY=32
+
+Component CollisionReaction
 
 Component SwitchUser
 HitTrigger=0

@@ -1,8 +1,14 @@
 package gdw.menu;
 
+import java.io.IOException;
+
 import gdw.entityCore.EntityManager;
 import gdw.entityCore.Level;
+import gdw.network.NetSubSystem;
+import gdw.network.SideScrollerServer;
+import gdw.network.client.BasicClient;
 import gdw.network.client.ServerInfo;
+import gdw.network.server.ConnectionInfo;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -105,7 +111,7 @@ public abstract class Menu
 			public void onJoinServerClicked(ServerInfo info)
 			{
 				// TODO Auto-generated method stub
-				
+				connectToServer(this, info);
 			}
 			@Override
 			public void onCreateNewServerClicked()
@@ -133,12 +139,7 @@ public abstract class Menu
 			@Override
 			public void start()
 			{
-				Level.getInstance().start();
-				onGameStart(isOffline());
-			}
-			@Override
-			public void launchServer()
-			{
+				onGameStart(this, true);
 			}
 		};
 
@@ -147,30 +148,42 @@ public abstract class Menu
 		c.setPlayer2Hat(0);
 		setScreen(c);
 	}
-	private void createServer(LobbyMenu lobbyMenu)
+	private void connectToServer(LobbyMenu lobbyMenu, ServerInfo info)
 	{
-		EntityManager.getInstance().setOfflineMode(false);
 		String playerName = lobbyMenu.getPlayerName();
-		CharacterSelectionMenu c = new CharacterSelectionMenu(false)
+		EntityManager.getInstance().setOfflineMode(false);
+		CharacterSelectionMenu c = new CharacterSelectionMenu(true)
 		{
 			@Override
 			public void start()
 			{
-			}
-			
-			@Override
-			public void launchServer()
-			{
+				onGameStart(this, false);
 			}
 		};
 
 		addHatsToCharSelectionMenu(c);
-		c.setPlayer1Name(playerName);
-		c.setPlayer1Modifiable(true);
-		c.setServerModifiable(true);
 		c.setPlayer1Hat(0);
-		c.setPlayer2Hat(-1);
+		c.setPlayer2Hat(0);
 		setScreen(c);
+		
+		
+		BasicClient.connectToServer(info, null);
+	}
+	private void createServer(LobbyMenu lobbyMenu)
+	{
+		String serverName = lobbyMenu.getPlayerName();
+		ServerRunningMenu m = new ServerRunningMenu();
+		
+		EntityManager.getInstance().setOfflineMode(false);
+		setScreen(m);
+		
+		try
+		{
+			SideScrollerServer sever = new SideScrollerServer(serverName);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void addHatsToCharSelectionMenu(CharacterSelectionMenu c)
@@ -189,5 +202,5 @@ public abstract class Menu
 		}
 	}
 	
-	protected abstract void onGameStart(boolean offline);
+	protected abstract void onGameStart(CharacterSelectionMenu c, boolean offline);
 }

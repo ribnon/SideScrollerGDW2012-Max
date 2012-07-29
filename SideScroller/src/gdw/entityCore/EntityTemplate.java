@@ -38,6 +38,14 @@ public class EntityTemplate {
 		}
 	}
 
+	public String getName(){
+		return name;
+	}
+	
+	public ComponentTemplate getComponentTemplate(String compName){
+		return componentTemplateMap.get(compName);
+	}
+	
 	private void mergeInBaseParams(HashMap<String,HashMap<String,String>> baseCompParamsMap){
 		for(String baseCompName: baseCompParamsMap.keySet()){
 			if(!componentParamsMap.containsKey(baseCompName)){
@@ -61,6 +69,7 @@ public class EntityTemplate {
 		if(!EntityManager.getInstance().isOfflineMode()) NetSubSystem.getInstance().sendSpawn(name,id,whereX,whereY,orientation);
 		return createEntity(id, whereX, whereY, orientation);
 	}
+
 	
 	//Wird vom Netzwerkcode auf dem Client aufgerufen, um Entities zu replizieren:
 	public Entity createEntity(int id, float whereX,float whereY, float orientation){

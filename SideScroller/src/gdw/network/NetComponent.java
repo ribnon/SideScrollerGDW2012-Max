@@ -51,6 +51,7 @@ public class NetComponent extends Component
 			this.sequenceID = msg.sequenceID;
 			//update ghost
 		
+		
 			this.ghost.correct(msg.posX, msg.posY, msg.velocityX, msg.velocityY,msg.roundTipTime);
 		}
 	}
@@ -62,6 +63,7 @@ public class NetComponent extends Component
 		{
 			Entity owner = this.getOwner();
 			this.ghost.initialise(owner.getPosX(), owner.getPosY());
+			NetSubSystem.getInstance().addNetComponentToList(this);
 		}	
 	}
 
@@ -69,6 +71,11 @@ public class NetComponent extends Component
 	{
 		//tunnel
 		NetSubSystem.getInstance().sendBusMessage(this.getOwner().getID(),msg);
+	}
+	
+	public void syncGhostWithEntity()
+	{
+		this.ghost.setDataToEntity(getOwner());
 	}
 
 	

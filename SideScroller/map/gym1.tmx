@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="area02_level_tiles" tilewidth="16" tileheight="16">
+  <image source="tilesets/area02_level_tiles.png" trans="ff00ff" width="256" height="192"/>
+ </tileset>
+ <layer name="bg" width="20" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAwtlYGAIHcWjeBSP4lE8iknEAMPpH9NABgAA
+  </data>
+ </layer>
+ <layer name="Kachelebene 2" width="20" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGAWjYHgCJix4OAIuAvKEwgFdPyHzSHUPLczD5idiManhNQpwAwBfatZSQAYAAA==
+  </data>
+ </layer>
+ <layer name="Collision" width="20" height="20">
+  <properties>
+   <property name="invisible" value="true"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCkgHADV9EcVABgAA
+  </data>
+ </layer>
+ <objectgroup name="objektebene" width="20" height="20">
+  <object name="spawn" type="PlayerStart" x="55" y="17" width="58" height="69">
+   <properties>
+    <property name="Template" value="PlayerStartSpawn"/>
+   </properties>
+  </object>
+  <object name="Bodentoll" type="Enemy" x="19" y="143" width="224" height="14">
+   <properties>
+    <property name="Template" value="Boden"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

@@ -167,4 +167,9 @@ public abstract class Selecter
 	}
 	
 	public abstract void notifyPeerOfHatChange(int newHatID);
+
+	public Image getHat()
+	{
+		return hatImages.get(currentHatID);
+	}
 }

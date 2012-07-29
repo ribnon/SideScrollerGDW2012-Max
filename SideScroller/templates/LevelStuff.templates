@@ -62,7 +62,7 @@ Component RotateBySwitch
 activateRotation=90
 deactivateRotation=-90
 Component StaticSprite
-image=./assets/staticSprites/background/background_door_1.png
+image=./assets/staticSprites/background/background_door_2.png
 
 Template TrapDoor_LeftDown
 Base Door
@@ -105,7 +105,7 @@ healthDecrement=5
 
 Template ColorBucket
 Component AnimatedSprite
-animationSpeed=10
+animationSpeed=0.1
 cycle=0
 Component OOBoxCollisionDetection
 Component ColorSource
@@ -116,12 +116,16 @@ Base ColorBucket
 Component AnimatedSprite
 spriteSheet=./assets/spritesheets/bucket_ceiling.png
 cycleLenth=5
+tileWidth=32
+tileHeight=256
 
 Template ColorBucket_Ground
 Base ColorBucket
 Component AnimatedSprite
 spriteSheet=./assets/spritesheets/bucket_ground.png
 cycleLenth=4
+tileWidth=64
+tileHeight=32
 
 Template Enemy
 Component OverlayAnimatedSprite
@@ -202,7 +206,7 @@ segmentCount=3
 
 Template Rainbow
 Component AnimatedSprite
-animationSpeed=10
+animationSpeed=0.1
 spriteSheet=./assets/spritesheets/rainbow_2.png
 cycle=0
 cycleLenth=10
@@ -213,22 +217,22 @@ Component Rainbow
 Template Platform
 Component StaticSprite
 image=./assets/staticSprites/background/background_platform_1.png
-Component Simulation
-friction=0.5
-mass=0.5
 Component OOBoxCollisionDetection
 Component CollisionReaction
 impassableFromTop=1
 impassableFromSide=1
 Component PathFollow
-speed=2
+speed=0.1
 
 
 Template LevelEnd
-Component AnimatedSprite
-animationSpeed=10
+Component OverlayAnimatedSprite
+animationSpeed=1
 spriteSheet=./assets/staticSprites/environment_cloudfinish_rear.png
-cycle=0
-cycleLenth=10
+baseTitleWidth=96
+baseTitleHeight=160
+overlaySpriteSheet1=./assets/staticSprites/environment_cloudfinish_back.png
+overlaySpriteSheet2=./assets/staticSprites/environment_cloudfinish_rear.png
+cycleLength=1
 Component OOBoxCollisionDetection
 Component LevelGoal

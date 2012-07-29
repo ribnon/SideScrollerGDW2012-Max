@@ -1,5 +1,11 @@
 package gdw.graphics;
 
+<<<<<<< HEAD
+import org.lwjgl.opengl.GL11;
+=======
+import java.awt.BufferCapabilities.FlipContents;
+
+>>>>>>> develop
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -19,7 +25,7 @@ public class StaticSpriteComponent extends SpriteComponent
 	 */
 	
 	private Image image;
-
+	private boolean isBackground;
 	/**
 	 * 
 	 * @param template
@@ -28,6 +34,8 @@ public class StaticSpriteComponent extends SpriteComponent
 	{
 		super(template);
 		StaticSpriteComponentTemplate t = (StaticSpriteComponentTemplate) template;
+
+		image = t.getImage();
 		
 		setScale(t.getScale());
 		setFilter(t.getFilter());
@@ -35,8 +43,7 @@ public class StaticSpriteComponent extends SpriteComponent
 		setPivotY(t.getPivotY());
 		setLayer(t.getLayer());
 		setFlipped(t.isFlipped());
-		
-		image = t.getImage().copy();
+		isBackground = t.isBackground;
 		
 		SpriteManager.getInstance().addSprite(this);
 	}
@@ -44,15 +51,18 @@ public class StaticSpriteComponent extends SpriteComponent
 	protected void destroy()
 	{
 		SpriteManager.getInstance().removeSprite(this);
+<<<<<<< HEAD
 		
-		try
-		{
-			image.destroy();
-		} catch (SlickException e)
-		{
-			e.printStackTrace();
-			System.out.println("Image konnte nicht zerstört werden!");
-		}
+//		try
+//		{
+//			image.destroy();
+//		} catch (SlickException e)
+//		{
+//			e.printStackTrace();
+//			System.out.println("Image konnte nicht zerstört werden!");
+//		}
+=======
+>>>>>>> develop
 	}
 
 	/**
@@ -78,10 +88,11 @@ public class StaticSpriteComponent extends SpriteComponent
 
 	public void setFlipped(boolean b)
 	{
-		if (!(getFlipped() == b))
+		if (getFlipped() != b)
 		{
-			image = image.getFlippedCopy(false, true);
+			image = image.getFlippedCopy(true, false);
 		}
+		super.setFlipped(b);
 	}
 
 	/**
@@ -92,13 +103,11 @@ public class StaticSpriteComponent extends SpriteComponent
 	{
 		
 		image.setCenterOfRotation(getPivotX(), getPivotY());
-<<<<<<< HEAD
-//		image.setRotation((float)(getOwner().getOrientation() * (180f / Math.PI)));
-=======
->>>>>>> develop
+		image.setRotation(getOwner().getOrientation());
 		image.setRotation(getOwner().getOrientation());
 		if (getFilter() != null)
 		{
+<<<<<<< HEAD
 			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
 					getOwner().getPosY()- ((image.getHeight() / 2f)*getScale()), getScale(),
 					getFilter());
@@ -106,6 +115,15 @@ public class StaticSpriteComponent extends SpriteComponent
 		{
 			image.draw(getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
 					getOwner().getPosY() - ((image.getWidth() / 2f)*getScale()), getScale());
+=======
+			image.draw(camPosX + getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					camPosY + getOwner().getPosY() - ((image.getHeight() / 2f)*getScale()), getScale(),
+					getFilter());
+		} else
+		{
+			image.draw(camPosX + getOwner().getPosX() - ((image.getWidth() / 2f)*getScale()),
+					camPosY + getOwner().getPosY() - ((image.getWidth() / 2f)*getScale()), getScale());
+>>>>>>> develop
 		}
 	}
 }
