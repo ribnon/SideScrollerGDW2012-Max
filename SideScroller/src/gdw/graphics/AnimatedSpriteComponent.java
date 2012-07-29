@@ -43,6 +43,9 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 */
 	private int step;
 	
+	private float pivotX;
+	private float pivotY;
+	
 	private float stepTime=0;
 	
 	private float animationSpeed;
@@ -100,7 +103,11 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		cycleLength = t.getCycleLength();
 		cycle = t.getCycle();
 		step = t.getStep();
-		setAnimationSpeed(t.getAnimationSpeed());
+		
+		pivotX = t.getPivotX();
+		pivotY = t.getPivotY();
+		
+		animationSpeed = t.getAnimationSpeed();
 		
 		SpriteManager.getInstance().addSprite(this);
 	}
@@ -118,13 +125,9 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 		img.setCenterOfRotation(getPivotX(), getPivotY());
 		img.setRotation(getOwner().getOrientation());
 		if(getFilter() != null)
-			img.draw(camPosX + getOwner().getPosX() - ((img.getWidth() / 2f)*getScale()),
-					camPosY + getOwner().getPosY() - ((img.getHeight() / 2f)*getScale()), getScale(),
-					getFilter());
+			img.draw(getOwner().getPosX()-pivotX, getOwner().getPosY()-pivotY, getScale(), getFilter());
 		else
-			img.draw(camPosX + getOwner().getPosX() - ((img.getWidth() / 2f)*getScale()),
-					camPosY + getOwner().getPosY() - ((img.getHeight() / 2f)*getScale()), getScale(),
-					getFilter());
+			img.draw(getOwner().getPosX()-pivotX, getOwner().getPosY()-pivotY, getScale());
 	}
 	
 	public int getCycle() {
@@ -143,7 +146,7 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	 */
 	public void tick(float deltaTime)
 	{
-		stepTime+=animationSpeed*deltaTime;
+		stepTime+=deltaTime*animationSpeed;
 		step = (int) stepTime;
 		stepTime=stepTime-step;
 		step %= cycleLength[cycle]; //loop back to frame 0 
@@ -165,6 +168,14 @@ public class AnimatedSpriteComponent extends SpriteComponent {
 	protected void destroy()
 	{
 		SpriteManager.getInstance().removeSprite(this);
+		
+//		try {
+//			spriteSheet.destroy();
+//		} catch (SlickException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("destroying spritesheet failed :-(");
+//		}
 	}
 
 }
