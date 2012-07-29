@@ -3,6 +3,7 @@ package gdw.gameplay.shooter;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
+import gdw.astroids.sound.SoundPlayer;
 import gdw.entityCore.Component;
 import gdw.entityCore.ComponentTemplate;
 import gdw.entityCore.EntityTemplate;
@@ -25,9 +26,7 @@ public class ShooterComponent extends Component
 	
 	private Shooter projectileSet;
 	
-	private Sound shootSound;
-	
-	public ShooterComponent(ComponentTemplate template) throws SlickException
+	public ShooterComponent(ComponentTemplate template)
 	{
 		super(template);
 		
@@ -47,8 +46,6 @@ public class ShooterComponent extends Component
 		projectileSet.addProjectile("MultifireProjectileA");
 		projectileSet.addProjectile("MultifireProjectileB");
 		projectileSet.addProjectile("MultifireProjectileC");
-		
-		shootSound = new Sound("astroids/assets/shoot.wav");
 	}
 
 	public int getProjectilePoolSize()
@@ -92,7 +89,7 @@ public class ShooterComponent extends Component
 					template = EntityTemplateManager.getInstance().getEntityTemplate("ShootingAnimation");
 					template.createEntity(getOwner().getPosX(), getOwner().getPosY(), getOwner().getOrientation());
 					
-					shootSound.play();
+					SoundPlayer.getInstance().playSound(SoundPlayer.SOUND_SHOOT);
 				}
 			}
 		}
